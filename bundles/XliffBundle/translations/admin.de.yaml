@@ -9,7 +9,7 @@ xliff_export_objects: "Nur Felder innerhalb eines Localized Field Container werd
   ver\xE4ndert. Nur die Felder, die \xFCbersetzt werden sollen, werden \xFCberschrieben."
 xliff_export_notice: "Hier kannst du deine ausgew\xE4hlten Dokumente und Objekte,
   f\xFCr externe \xDCbersetzungen, exportieren."
-xliff_import_notice: "W\xE4hle eine \xFCbersetzte XLIFF Datei, welche vorher von Pimcore
+xliff_import_notice: "W\xE4hle eine \xFCbersetzte XLIFF Datei, welche vorher von OpenDXP
   exportiert und dann von einem Lokalisierungsdienstleister (LSP) oder einer CAT Anwendung
   \xFCbersetzt wurde, aus. Bitte beachte, dass der Import die Elemente, die f\xFCr
   den Import ausgew\xE4hlt wurden, \xFCberschreibt (siehe auch Export)."

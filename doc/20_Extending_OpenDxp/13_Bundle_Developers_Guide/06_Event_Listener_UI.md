@@ -50,7 +50,7 @@ Starting point for javascript development is the javascript event listener.
 
 A listener can look as follows: 
 ```javascript
-document.addEventListener(opendxp.events.pimcoreReady, (e) => {
+document.addEventListener(opendxp.events.opendxpReady, (e) => {
     //print out the parameters of the event
     console.log(e.detail)
 });
@@ -170,7 +170,7 @@ opendxp.bundle.glossary.startup = Class.create({
     }
 });
 
-const pimcoreBundleGlossary = new opendxp.bundle.glossary.startup();
+const opendxpBundleGlossary = new opendxp.bundle.glossary.startup();
 ```
 
 
@@ -203,11 +203,11 @@ opendxp.bundle.glossary.startup = Class.create({
         if (user.isAllowed("glossary")) {
             // make sure the function and the action name are the same
             opendxp.helpers.keyBindingMapping.glossary = function() {
-                pimcoreBundleGlossary.editGlossary();
+                opendxpBundleGlossary.editGlossary();
             }
         }
     }
 });
 
-const pimcoreBundleGlossary = new opendxp.bundle.glossary.startup();
+const opendxpBundleGlossary = new opendxp.bundle.glossary.startup();
 ```

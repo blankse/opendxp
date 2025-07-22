@@ -32,7 +32,7 @@ UI design (web documents by a template and structured data with an intuitive gra
 how to persist the data efficiently and optimized for fast access.
 
 ### Agnostic and Universal Framework for your Data
-Due to the framework approach, Pimcore is very flexible and adapts perfectly to your needs. Built on top of 
+Due to the framework approach, OpenDXP is very flexible and adapts perfectly to your needs. Built on top of 
 the well-known Symfony Framework you have a solid and modern foundation for your project. 
 
 ### Extensible and huge Symfony Community
@@ -41,7 +41,7 @@ Bundles to extend your Projects with reusable components.
 
 ### Your Digital World consolidated in one Platform
 No more API, import/export and synchronization hell between MDM/PIM, E-Commerce, DAM, and your Web-CMS. 
-All is working seamlessly together, natively ... this is what Pimcore is built for. 
+All is working seamlessly together, natively ... this is what OpenDXP is built for. 
 
 ### Modern and Intuitive UI
 We love good-looking user interfaces, designed to be efficient for daily use and optimized for a great

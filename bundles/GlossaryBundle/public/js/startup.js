@@ -50,12 +50,12 @@ opendxp.bundle.glossary.startup = Class.create({
         const user = opendxp.globalmanager.get('user');
         if (user.isAllowed("glossary")) {
             opendxp.helpers.keyBindingMapping.glossary = function() {
-                pimcoreBundleGlossary.editGlossary();
+                opendxpBundleGlossary.editGlossary();
             }
         }
     }
 })
 
-const pimcoreBundleGlossary = new opendxp.bundle.glossary.startup();
+const opendxpBundleGlossary = new opendxp.bundle.glossary.startup();
 
 

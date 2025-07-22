@@ -10,10 +10,10 @@ OpenDXP's configuration can be found in several places:
 ## Symfony Configuration
 
 Many aspects of OpenDXP can be configured through the [Symfony Config](https://symfony.com/doc/current/bundles/configuration.html)
-tree defined under the `pimcore` and `opendxp_admin` extension. These values can be changed through config files in `config` (e.g. `config/config.yaml)`).
+tree defined under the `opendxp` and `opendxp_admin` extension. These values can be changed through config files in `config` (e.g. `config/config.yaml)`).
 
 OpenDXP additionally includes a set of standard configuration files which, in contrast to a standard Symfony project, are
-not located in `config/`, but in the [OpenDxpCoreBundle](https://github.com/open-dxp/opendxp/tree/11.x/bundles/CoreBundle/config/pimcore).
+not located in `config/`, but in the [OpenDxpCoreBundle](https://github.com/open-dxp/opendxp/tree/11.x/bundles/CoreBundle/config/opendxp).
 This allows us to ship and update default configurations without affecting project code in `config/`. See
 [Auto loading config and routing definitions](../20_Extending_OpenDxp/13_Bundle_Developers_Guide/03_Auto_Loading_Config_And_Routing_Definitions.md)
 for details how this works.

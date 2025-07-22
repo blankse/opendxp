@@ -10,10 +10,10 @@ opendxp.registerNS('opendxp.bundle.search');
 
 opendxp.bundle.search = Class.create({
     initialize: function () {
-        document.addEventListener(opendxp.events.pimcoreReady, this.pimcoreReady.bind(this));
+        document.addEventListener(opendxp.events.opendxpReady, this.opendxpReady.bind(this));
     },
 
-    pimcoreReady: function () {
+    opendxpReady: function () {
         this.searchRegistry = opendxp.globalmanager.get('searchImplementationRegistry');
         this.searchRegistry.registerImplementation(new your.custom.search.implementation());
     }

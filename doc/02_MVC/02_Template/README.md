@@ -129,7 +129,7 @@ detailed description of every helper:
 * `opendxp_cache` (deprecated)
 
 **Tags:**
-* `pimcorecache`
+* `opendxpcache`
 
 #### Block elements
 
@@ -137,10 +137,10 @@ As Twig does not provide a `while` control structure which is needed to iterate 
 editable, we introduced a function called `opendxp_iterate_block` to allow walking through every block element:
 
 ```twig
-{% pimcoreblock "contentblock" %}
+{% opendxpblock "contentblock" %}
     <h2>{{ opendxp_input("subline") }}</h2>
     {{ opendxp_wysiwyg("content") }}
-{% endpimcoreblock %}
+{% endopendxpblock %}
 ```
 
 ### Tests

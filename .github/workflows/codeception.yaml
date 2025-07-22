@@ -95,7 +95,7 @@ jobs:
                     sleep 1
                   done
 
-            - name: "Setup Pimcore environment"
+            - name: "Setup OpenDXP environment"
               env:
                   OPENDXP_STORAGE: "${{ matrix.storage }}"
               run: |

@@ -11,7 +11,7 @@ chown -R YOURUSER:YOURGROUP var public/var
 
 You can get further generic information about Symfony file permissions here: [Symfony file permissions](https://symfony.com/doc/current/setup/file_permissions.html).
 
-To be able to execute cli tools (pimcore or symfony console for instance), you need to give execute permissions to the cli tools. Here it add execute permissions to the user and group:
+To be able to execute cli tools (opendxp or symfony console for instance), you need to give execute permissions to the cli tools. Here it add execute permissions to the user and group:
 ```bash
 chmod ug+x bin/*
 ```

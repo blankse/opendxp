@@ -5,10 +5,10 @@ opendxp.bundle.customreports.startup = Class.create({
     initialize: function () {
         document.addEventListener(opendxp.events.preRegisterKeyBindings, this.registerKeyBinding.bind(this));
         document.addEventListener(opendxp.events.preMenuBuild, this.preMenuBuild.bind(this));
-        document.addEventListener(opendxp.events.pimcoreReady, this.pimcoreReady.bind(this));
+        document.addEventListener(opendxp.events.opendxpReady, this.opendxpReady.bind(this));
     },
 
-    pimcoreReady: function () {
+    opendxpReady: function () {
         this.registerCustomReportsPanel();
     },
 

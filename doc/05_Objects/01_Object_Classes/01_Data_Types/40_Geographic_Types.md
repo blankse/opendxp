@@ -28,7 +28,7 @@ $object->save();
 
 ![GeoBounds Field](../../../img/classes-datatypes-geo2.jpg)
 
-Geobounds represent a geographic area defined by a north eastern point and a south western point. In the pimcore GUI the 
+Geobounds represent a geographic area defined by a north eastern point and a south western point. In the OpenDXP GUI the 
 input widget as shown above is available. In the database there are 4 columns with coordinates to hold the data of 
 geobounds. Programmatically both points are `OpenDxp\Model\DataObject\Data\GeoCoordinates` and they are wrapped by the 
 `OpenDxp\Model\DataObject\Data\GeoCoordinates` Object. The following code snippet shows how to set Geobounds:

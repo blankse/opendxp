@@ -255,7 +255,7 @@ batch_edit_field: "Hromadn\xE1 \xFAprava po\u013Ea"
 published: "Publikovan\xE9"
 all: "v\u0161etko"
 items_per_page: "Po\u010Det polo\u017Eiek na str\xE1nke"
-reload_opendxp_changes: "Mus\xEDte obnovi\u0165 Pimcore, aby sa uplatnili zmeny. Chcete
+reload_opendxp_changes: "Mus\xEDte obnovi\u0165 OpenDXP, aby sa uplatnili zmeny. Chcete
   tak urobi\u0165 teraz?"
 info: Info
 or: alebo
@@ -597,7 +597,7 @@ web2print_bookmarks: "Z\xE1lo\u017Eky"
 close_tab: "Zatvori\u0165 tab"
 web2print_only_published: "Toto je mo\u017En\xE9 len s publikovan\xFDmi dokumentami."
 web2print_documents_changed: "Dokumenty boli od posledn\xE9ho generovania zmenen\xE9."
-about_opendxp: O Pimcore
+about_opendxp: O OpenDXP
 phone: "Telef\xF3n"
 workflow_additional_info: "Dodato\u010Dn\xE9 inform\xE1cie"
 workflow_perform_action: "Previes\u0165 akciu"
@@ -803,7 +803,7 @@ scheduled_block_really_delete_all: "Naozaj chcete zmaza\u0165 v\u0161etky napl\x
 renew_2fa_secret: "Obnovi\u0165 dvojf\xE1zov\xE9 heslo"
 two_factor_authentication: "Dvojf\xE1zov\xE9 overovanie."
 2fa_alert_text: "Naskenujte pros\xEDm QR k\xF3d do svojho Google autentiz\xE1toru."
-2fa_alert_submit: "Obnovi\u0165 Pimcore a zada\u0165 k\xF3d"
+2fa_alert_submit: "Obnovi\u0165 OpenDXP a zada\u0165 k\xF3d"
 setup_two_factor: "Nastavit dvojf\xE1zov\xE9 overovanie"
 2fa_setup_message: "Na Va\u0161om \xFA\u010Dte je vy\u017Eadovan\xE9 dvojf\xE1zov\xE9
   overovanie! Nastavte ho pros\xEDm vo svojom profile, v opa\u010Dnom pr\xEDpade sa

@@ -74,7 +74,7 @@ activates all required bundles and any specified bundles, provided they are part
 
 ```bash
 ./vendor/bin/opendxp-install --admin-username=admin --admin-password=admin \
---mysql-username=username --mysql-password=password --mysql-database=pimcore \
+--mysql-username=username --mysql-password=password --mysql-database=opendxp \
 --mysql-host-socket=127.0.0.1 --mysql-port=3306 \
 --install-bundles=OpenDxpApplicationLoggerBundle,OpenDxpCustomReportsBundle \
 --no-interaction

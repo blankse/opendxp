@@ -8,7 +8,7 @@ xliff_export_objects: Uitsluitend velden in een Localized Fields container worde
   de velden in de doeltaal worden overschreven.
 xliff_export_notice: Hier kan je de documenten en objecten selecteren die je wenst
   de exporteren voor externe vertaling.
-xliff_import_notice: "Selecteer een vertaalde XLIFF die voorheen door Pimcore ge\xEBxporteerd
+xliff_import_notice: "Selecteer een vertaalde XLIFF die voorheen door OpenDXP ge\xEBxporteerd
   en vertaald werd door een localization service provider (LSP) of door een CAT toepassing.
   \ Opgelet, deze import zal de elementen overschrijven die geselecteerd werden bij
   de import (lees: ook export)"

@@ -1,4 +1,4 @@
-# Pimcore
+# OpenDXP
 opendxp_glossary:
     blocked_tags: [
         'a', 'script', 'style', 'code', 'pre', 'textarea', 'acronym',

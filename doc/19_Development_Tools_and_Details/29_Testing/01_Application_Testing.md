@@ -235,7 +235,7 @@ tests which make changes to the database you'll probably want to run them on a d
 set. The example below just passes the DB connection as env variable:
 
 ```
-$ OPENDXP_TEST_DB_DSN="mysql://username:password@localhost/pimcore" vendor/bin/simple-phpunit
+$ OPENDXP_TEST_DB_DSN="mysql://username:password@localhost/opendxp" vendor/bin/simple-phpunit
 PHPUnit 7.4.5 by Sebastian Bergmann and contributors.
 
 Testing default
@@ -477,16 +477,16 @@ As in the PHPUnit setup, the test setup expects the database connection as env v
 by configuring the DB DSN before running codeception:
 
 ```
-$ OPENDXP_TEST_DB_DSN="mysql://username:password@localhost/pimcore" vendor/bin/codecept run -c tests/codeception.dist.yml
+$ OPENDXP_TEST_DB_DSN="mysql://username:password@localhost/opendxp" vendor/bin/codecept run -c tests/codeception.dist.yml
 
 Codeception PHP Testing Framework v2.3.8
 Powered by PHPUnit 7.4.5 by Sebastian Bergmann and contributors.
 
-  [DB] Initializing DB pimcore5_test
-  [DB] Dropping DB pimcore5_test
-  [DB] Creating DB pimcore5_test
-  [DB] Successfully connected to DB pimcore5_test
-  [DB] Initialized the test DB pimcore5_test
+  [DB] Initializing DB opendxp_test
+  [DB] Dropping DB opendxp_test
+  [DB] Creating DB opendxp_test
+  [DB] Successfully connected to DB opendxp_test
+  [DB] Initialized the test DB opendxp_test
   [INIT] Purging class directory var/classes
 
 Tests.functional Tests (1) --------------------------------------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 /**
  * @private
  */
-document.addEventListener(opendxp.events.pimcoreReady, (e) => {
+document.addEventListener(opendxp.events.opendxpReady, (e) => {
     const user = opendxp.globalmanager.get("user");
     if(user.isAllowed("reports")){
 

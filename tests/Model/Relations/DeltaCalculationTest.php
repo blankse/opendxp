@@ -60,8 +60,8 @@ class DeltaCalculationTest extends ModelTestCase
 
     protected function setUpTestClasses(): void
     {
-        $this->tester->setupPimcoreClass_RelationTest();
-        $this->tester->setupPimcoreClass_MultipleAssignments();
+        $this->tester->setupOpenDxpClass_RelationTest();
+        $this->tester->setupOpenDxpClass_MultipleAssignments();
     }
 
     public function testDeltaManyToMany(): void

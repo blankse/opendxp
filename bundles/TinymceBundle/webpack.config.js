@@ -10,8 +10,8 @@ const standardConfigs = [
     {
         bundleFolderName: "TinymceBundle",
         name: "tinymce",
-        bundleName: "pimcoretinymce",
-        configName: "pimcoreTinymce",
+        bundleName: "opendxptinymce",
+        configName: "opendxpTinymce",
         copyFiles: [
             {
                 from: "node_modules/tinymce/skins",

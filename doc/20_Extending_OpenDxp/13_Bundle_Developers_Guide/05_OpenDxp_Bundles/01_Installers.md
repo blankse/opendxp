@@ -15,7 +15,7 @@ interface can be found in [InstallerInterface](https://github.com/open-dxp/opend
 is implemented in [AbstractInstaller](https://github.com/open-dxp/opendxp/blob/1.x/lib/Extension/Bundle/Installer/AbstractInstaller.php)
 which you can use as starting point.
 
-A pimcore bundle is expected to return an installer instance in `getInstaller()`. This method can also return `null` if you
+A OpenDXP bundle is expected to return an installer instance in `getInstaller()`. This method can also return `null` if you
 don't need any installation functionality. In this case, actions which would be handled by an installer will not be triggered 
 by the command `opendxp:bundle:install`.
 

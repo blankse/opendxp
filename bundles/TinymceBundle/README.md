@@ -1,4 +1,4 @@
-# Pimcore TinyMCE
+# OpenDXP TinyMCE
 
 
 ## General
@@ -137,9 +137,9 @@ class AppAdminBundle extends AbstractOpenDxpBundle
 ###### Registering global configuration via events
 
 You can also add the file which should be loaded in editmode through an event listener to avoid having to implement a
-`PimcoreBundle` just for the sake of adding a file. Given you already have an `App` bundle and put the JS config from above
+`OpenDxpBundle` just for the sake of adding a file. Given you already have an `App` bundle and put the JS config from above
 to `public/js/editmode.js` you can create an event listener to add the path to the list of loaded
-files in editmode (please see [Events](docs/Development_Documentation/Extending_Pimcore/Event_API_and_Event_Manager.html) for details on how
+files in editmode (please see [Events](docs/Development_Documentation/Extending_OpenDxp/Event_API_and_Event_Manager.html) for details on how
 to implement and register event listeners):
 
 ```php
@@ -171,9 +171,9 @@ class EditmodeListener implements EventSubscriberInterface
 
 ### Loading additional TinyMCE plugins that are not shipped with this bundle
 
-You can load additional plugins that are not shipped by default with Pimcore's TinyMCE bundle.
+You can load additional plugins that are not shipped by default with OpenDXP's TinyMCE bundle.
 
-The following example adds the plugin `charmap` (Note: Included since Pimcore 11.4):
+The following example adds the plugin `charmap`:
 
 1) [Download](https://www.tiny.cloud/get-tiny/) a TinyMCE dist package matching the version the bundle is currently shipped with.
 2) Extract the desired plugin from the TinyMCE dist package and place it in your app's or bundle's resource folder, 

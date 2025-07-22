@@ -372,7 +372,7 @@ class NavigationExtension extends AbstractExtension
 
 ## Caching / High-Performance Navigation
 
-The navigation tree / container (`\OpenDxp\Navigation\Container`) is automatically cached by pimcore and improves 
+The navigation tree / container (`\OpenDxp\Navigation\Container`) is automatically cached by OpenDXP and improves 
 significantly the performance of the navigation.
 To benefit from the cache it's absolutely necessary to don't use `OpenDxp\Model\Document` objects directly in the 
 navigation templates / partial scripts, because this would result in loading all the documents again in the navigation and

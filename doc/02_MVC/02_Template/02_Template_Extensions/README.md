@@ -26,7 +26,7 @@ All Twig extension functions are described below in detail, the following tables
 
 | Extension                                                               | Description                                                                       |
 |-------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| `pimcorecache`                                                          | Simple in-template caching functionality                                          |
+| `opendxpcache`                                                          | Simple in-template caching functionality                                          |
 | `opendxp_cache()` (deprecated)                                          | Simple in-template caching functionality (deprecated legacy version)              |
 | `opendxp_device()`                                                      | Helps implementing adaptive designs                                               |
 | `opendxp_glossary`                                                      | Twig Filter: Apply filter on content to pass it to Glossary engine                |
@@ -104,13 +104,13 @@ You can also create your own custom Twig Extension to make certain functionaliti
 Here you can find an example how to [create](https://symfony.com/doc/current/templating/twig_extension.html)
 your own Twig Extension.
 
-### `pimcorecache`
+### `opendxpcache`
 
 This is an implementation of an in-template cache. You can use this to cache some parts directly in the template,
 independent of the other global definable caching functionality. This can be useful for templates which need a lot
 of calculation or require a huge amount of objects (like navigations, ...).
 
-`{% pimcorecache "cache_key" tags([...]) ttl(int) force(bool) %}`
+`{% opendxpcache "cache_key" tags([...]) ttl(int) force(bool) %}`
 
 
 | Name        | Type             | Description                                                                                                                                                                                                                              |
@@ -123,22 +123,22 @@ of calculation or require a huge amount of objects (like navigations, ...).
 ##### Examples
 
 ```twig
-{% pimcorecache "test_cache_key" ttl(60) %}
+{% opendxpcache "test_cache_key" ttl(60) %}
     <h1>This is some cached microtime</h1>
     {{ 'now'|date('U') }}
-{% endpimcorecache %}
+{% endopendxpcache %}
 ```
 
 ```twig
 {# example with all options #}
-{% pimcorecache "test_cache_key" ttl(60) tags(['custom_tag']) force(true) %}
+{% opendxpcache "test_cache_key" ttl(60) tags(['custom_tag']) force(true) %}
     <h1>This is some cached microtime</h1>
     {{ 'now'|date('U') }}
-{% endpimcorecache %}
+{% endopendxpcache %}
 ```
     
 ### `opendxp_cache` (deprecated)
-This is a deprecated alternative approach to the `pimcorecache` extension. Use `pimcorecache` instead.
+This is a deprecated alternative approach to the `opendxpcache` extension. Use `opendxpcache` instead.
 
 `opendxp_cache( name, lifetime, force)`
 

@@ -32,7 +32,7 @@ services:
     OpenDxp\Bundle\CoreBundle\EventListener\DumpTranslationEntriesListener: ~
 
     #
-    # PIMCORE OBJECTS/PARAMS LOGIC
+    # OPENDXP OBJECTS/PARAMS LOGIC
     #
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\ElementListener:

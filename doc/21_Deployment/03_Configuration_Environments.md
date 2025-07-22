@@ -31,7 +31,7 @@ This feature is currently supported by the following configurations:
 - Custom views
 - DataObject Custom Layouts
 
-The data of configurations are loaded from the container and if there is no data pimcore try to load it from `settings-store`
+The data of configurations are loaded from the container and if there is no data OpenDXP try to load it from `settings-store`
 
 You can change the read/write target individually for each type by using symfony configuration.
 The following options are available: 

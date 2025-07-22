@@ -14,7 +14,7 @@ The items in the loop as well as their order can be defined by the editor with t
 | `limit`     | integer   | Max. amount of iterations.                                                                                                                                                                                           |
 | `reload`    | bool      | Reload editmode on add, move or remove (default=false)                                                                                                                                                               |
 | `default`   | integer   | If block is empty, this specifies the iterations at startup.                                                                                                                                                         |
-| `manual`    | bool      | Forces the manual mode, which enables a complete custom HTML implementation for blocks, for example using `<table>` elements <br/> <b>Deprecated</b> Will be removed in OpenDXP 12 use `pimcoremanualblock` instead. |
+| `manual`    | bool      | Forces the manual mode, which enables a complete custom HTML implementation for blocks, for example using `<table>` elements <br/> <b>Deprecated</b> Will be removed in OpenDXP 12 use `opendxpmanualblock` instead. |
 | `class`     | string    | A CSS class that is added to the surrounding container of this element in editmode                                                                                                                                   |
 
 ## Methods
@@ -36,10 +36,10 @@ The items in the loop as well as their order can be defined by the editor with t
 
 ## Basic Usage
 ```twig
-{% pimcoreblock "contentblock" %}
+{% opendxpblock "contentblock" %}
     <h2>{{ opendxp_input("subline") }}</h2>
     {{ opendxp_wysiwyg("content") }}
-{% endpimcoreblock %}
+{% endopendxpblock %}
 ```
 
 ```twig
@@ -61,14 +61,14 @@ And in the frontend of the application:
 ### Example for `getCurrent()`
 
 ```twig
-{% pimcoreblock "contentblock" reload(true) %}
+{% opendxpblock "contentblock" reload(true) %}
     {% if _block.current > 0 %}
         Insert this line only after the first iteration<br />
         <br />
     {% endif %}
 
     <h2>{{ opendxp_input("subline") }}</h2>
-{% endpimcoreblock %}
+{% endopendxpblock %}
 ```
 
 ```twig
@@ -95,7 +95,7 @@ And in the frontend of the application:
 The manual block offers you the possibility to deal with block the way you like, this is for example useful with tables: 
 
 ```twig
-{% pimcoremanualblock "contentblock" limit(6) %}
+{% opendxpmanualblock "contentblock" limit(6) %}
     <table>
      <tr>
      {% blockiterate %}
@@ -109,7 +109,7 @@ The manual block offers you the possibility to deal with block the way you like,
      {% endblockiterate %}
      </tr>
 </table>
-{% endpimcoremanualblock %}
+{% endopendxpmanualblock %}
 ```
 
 ```twig
@@ -138,7 +138,7 @@ The manual block offers you the possibility to deal with block the way you like,
 If you want to wrap buttons in a div or change the Position.
 
 ```twig
-{% pimcoremanualblock "gridblock" %}
+{% opendxpmanualblock "gridblock" %}
     <table>
         <tr>
         {% blockiterate %}
@@ -155,7 +155,7 @@ If you want to wrap buttons in a div or change the Position.
         {% endblockiterate %}
         </tr>
     </table>
-{% endpimcoremanualblock %}
+{% endopendxpmanualblock %}
 ```
 
 ```twig
@@ -185,7 +185,7 @@ If you want to wrap buttons in a div or change the Position.
 ### Using Manual Mode with additional css class for element in editmode
 
 ```twig
-{% pimcoremanualblock "gridblock" %}
+{% opendxpmanualblock "gridblock" %}
 <div>
     {% blockiterate %}
         {% do _block.blockStart(true, false, "my-additional-class") %}
@@ -193,7 +193,7 @@ If you want to wrap buttons in a div or change the Position.
         {% do _block.blockEnd() %}
     {% endblockiterate %}
 </div>
-{% endpimcoremanualblock %}
+{% endopendxpmanualblock %}
 ```
 
 ```twig

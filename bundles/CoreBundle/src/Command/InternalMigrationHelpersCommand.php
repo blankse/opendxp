@@ -48,7 +48,7 @@ class InternalMigrationHelpersCommand extends AbstractCommand
                 'is-installed',
                 null,
                 InputOption::VALUE_NONE,
-                'Checks whether Pimcore is already installed or not'
+                'Checks whether OpenDXP is already installed or not'
             );
     }
 

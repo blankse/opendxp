@@ -21,7 +21,7 @@ body:
               - There's no existing ticket for the same issue.
     - type: input
       attributes:
-          label: Pimcore version
+          label: OpenDXP version
       validations:
           required: true
     - type: textarea

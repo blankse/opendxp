@@ -48,7 +48,7 @@ class FieldcollectionTest extends ModelTestCase
 
     protected function setUpTestClasses(): void
     {
-        $this->tester->setupPimcoreClass_RelationTest();
+        $this->tester->setupOpenDxpClass_RelationTest();
         $this->tester->setupFieldcollection_Unittestfieldcollection();
     }
 

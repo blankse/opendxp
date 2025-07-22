@@ -45,7 +45,7 @@ You can find an example of how to create an extension for your bundles in [Loadi
 
 ### Auto-Loading Config and Routing Definitions
 
-Bundles can provide config and routing definitions in `Resources/config/pimcore` which will be automatically loaded with the bundle. See [Auto loading config and routing definitions](./03_Auto_Loading_Config_And_Routing_Definitions.md) for more information.
+Bundles can provide config and routing definitions in `config/opendxp` which will be automatically loaded with the bundle. See [Auto loading config and routing definitions](./03_Auto_Loading_Config_And_Routing_Definitions.md) for more information.
 
 
 ### i18n / Translations

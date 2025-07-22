@@ -1,6 +1,6 @@
 # Custom Admin Login Entry Point
 
-OpenDXP `/admin` login entry point can be restricted/changed by using pimcore configuration.
+OpenDXP `/admin` login entry point can be restricted/changed by using OpenDXP configuration.
 
 Add custom admin identifier in your `config/config.yaml`:
 ```yaml

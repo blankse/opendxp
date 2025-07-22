@@ -52,7 +52,7 @@ clear_thumbnails: Rensa miniatyrer
 recipients: Mottagare
 newsletter_send_error: "Kan inte skicka nyhetsbrevet, kontakta administrat\xF6ren."
 newsletter_sent_message: "Nyhetsbrevet skickas nu till alla mottagare, detta sker
-  i bakggrunden (Pimcore admin beh\xF6ver inte vara uppe under tiden) och kan ta upp
+  i bakggrunden (OpenDXP admin beh\xF6ver inte vara uppe under tiden) och kan ta upp
   till en timme beroende p\xE5 antalet mottagare."
 do_you_really_want_to_send_the_newsletter_to_all_recipients: "\xC4r du s\xE4ker p\xE5
   att du vill skicka nyhetsbrevet till alla mottagare?"
@@ -147,7 +147,7 @@ php_cli_binary_and_or_ffmpeg_binary_setting_is_missing: "PHP-CLI bin\xE4r eller 
   \xE4r inte tillg\xE4nglig, se till att b\xE5da \xE4r installerade och konfigurerade
   under systeminst\xE4llningar!"
 video_thumbnails: "Tumnaglar f\xF6r filmer"
-do_you_really_want_to_close_opendxp: "Vill du verklingen st\xE4nga Pimcore?"
+do_you_really_want_to_close_opendxp: "Vill du verklingen st\xE4nga OpenDXP?"
 drop_element_here: "Sl\xE4pp elementet h\xE4r"
 select_specific_area_of_image: "V\xE4lj specifikt omr\xE5de av bilden"
 paste_recursive_updating_references: Klistra in rekursivt, uppdatera referenser
@@ -246,7 +246,7 @@ batch_edit_field: "Redigera batchf\xE4lt"
 published: Publicerad
 all: alla
 items_per_page: Poster per sida
-reload_opendxp_changes: "Du m\xE5ste ladda om Pimcore f\xF6r att \xE4ndringarna ska
+reload_opendxp_changes: "Du m\xE5ste ladda om OpenDXP f\xF6r att \xE4ndringarna ska
   tr\xE4da i kraft. Vill du starta om nu?"
 info: Info
 or: eller
@@ -586,7 +586,7 @@ web2print_bookmarks: "Bokm\xE4rken"
 close_tab: "St\xE4ng flik"
 web2print_only_published: Only possible with published documents.
 web2print_documents_changed: Documents changed since last pdf generation.
-about_opendxp: OM PIMCORE-PLATTFORMEN
+about_opendxp: OM OPENDXP-PLATTFORMEN
 phone: Telefon
 workflow_additional_info: Mer information
 workflow_perform_action: Perform Action
@@ -790,9 +790,9 @@ renew_2fa_secret: Renew Two Factor Secret
 two_factor_authentication: "Tv\xE5faktorsautentisiering"
 2fa_alert_text: Please scan the QR-Code and add it to your Google Authenticator. <br>If
   you don't have the Google Authenticator app installed on your mobile phone, please
-  download it from the App Store/Play Store.<br><br> You will need to reload Pimcore
+  download it from the App Store/Play Store.<br><br> You will need to reload OpenDXP
   and enter the code shown within the App afterwards!
-2fa_alert_submit: Ladda om Pimcore & fyll i koden
+2fa_alert_submit: Ladda om OpenDXP & fyll i koden
 setup_two_factor: "St\xE4ll in tv\xE5faktorsautentisiering"
 2fa_setup_message: Two Factor Authentication is required for your account! You have
   to set it up in your profile settings, otherwise you will not be able to sign in

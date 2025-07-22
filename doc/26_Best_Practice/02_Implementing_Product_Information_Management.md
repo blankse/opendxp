@@ -360,7 +360,7 @@ opendxp:
                   - marking
 ```
 
-As you can see in the preceding snippet, to initialize a workflow you must add the `workflows` keyword under the `pimcore` keyword. Then, you must add a unique ID for the workflow, which is `product_workflow` in our example.
+As you can see in the preceding snippet, to initialize a workflow you must add the `workflows` keyword under the `opendxp` keyword. Then, you must add a unique ID for the workflow, which is `product_workflow` in our example.
 At the lower level, you can define some parameters, which are provided here:
 
 1. **label**: The workflow title.

@@ -43,9 +43,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
 final class Application extends \Symfony\Bundle\FrameworkBundle\Console\Application
 {
     /**
-     * Constructor.
-     *
-     *
      * @internal param string $name The name of the application
      * @internal param string $version The version of the application
      *
@@ -55,7 +52,7 @@ final class Application extends \Symfony\Bundle\FrameworkBundle\Console\Applicat
     {
         parent::__construct($kernel);
 
-        $this->setName('Pimcore');
+        $this->setName('OpenDXP');
         $this->setVersion(Version::getVersion());
 
         // we set locale to EN.UTF8 to not getting into UTF-8 issues, eg. when dealing with umlauts & escapeshellarg()

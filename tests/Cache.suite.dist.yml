@@ -1,5 +1,5 @@
 actor: CacheTester
 modules:
     enabled:
-        - \OpenDxp\Tests\Support\Helper\Pimcore:
+        - \OpenDxp\Tests\Support\Helper\OpenDxp:
             connect_db: true
