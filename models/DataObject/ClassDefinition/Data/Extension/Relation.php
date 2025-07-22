@@ -1,0 +1,156 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\DataObject\ClassDefinition\Data\Extension;
+
+use OpenDxp;
+use OpenDxp\Loader\ImplementationLoader\Exception\UnsupportedException;
+use OpenDxp\Model\Asset;
+use OpenDxp\Model\DataObject\AbstractObject;
+use OpenDxp\Model\Document;
+use OpenDxp\Model\Document\Page;
+use OpenDxp\Model\Document\Snippet;
+use OpenDxp\Model\Factory;
+use OpenDxp\Resolver\ClassResolver;
+
+trait Relation
+{
+    /**
+     * @internal
+     */
+    protected function getPhpDocClassString(bool $asArray = false): string
+    {
+        $types = [];
+        $factory = OpenDxp::getContainer()->get('opendxp.model.factory');
+
+        // add documents
+        if ($this->getDocumentsAllowed()) {
+            if ($documentTypes = $this->getDocumentTypes()) {
+                $resolver = OpenDxp::getContainer()->get('opendxp.class.resolver.document');
+                foreach ($documentTypes as $item) {
+                    if ($className = $this->resolveClassName($factory, $resolver, $item['documentTypes'])) {
+                        if (str_starts_with($className, '\\') === false) {
+                            $className = '\\' . $className;
+                        }
+                        $types[] = $className;
+                    }
+                }
+            } else {
+                $types[] = '\\' . Page::class;
+                $types[] = '\\' . Snippet::class;
+                $types[] = '\\' . Document::class;
+            }
+        }
+
+        // add assets
+        if ($this->getAssetsAllowed()) {
+            if ($assetTypes = $this->getAssetTypes()) {
+                $resolver = OpenDxp::getContainer()->get('opendxp.class.resolver.asset');
+                foreach ($assetTypes as $item) {
+                    if ($className = $this->resolveClassName($factory, $resolver, $item['assetTypes'])) {
+                        if (str_starts_with($className, '\\') === false) {
+                            $className = '\\' . $className;
+                        }
+                        $types[] = $className;
+                    }
+                }
+            } else {
+                $types[] = '\\' . Asset::class;
+            }
+        }
+
+        // add objects
+        if ($this->getObjectsAllowed()) {
+            if ($classes = $this->getClasses()) {
+                $classMap = $factory->getClassMap();
+                foreach ($classes as $item) {
+                    /**
+                     * Don´t use the factory method getClassNameFor here, because it will actually load the requested class and this could
+                     * lead to problems during classes-rebuild command.
+                     */
+                    $className = sprintf('OpenDxp\Model\DataObject\%s', ucfirst($item['classes']));
+                    $className = $classMap[$className] ?? $className;
+
+                    if (str_starts_with($className, '\\') === false) {
+                        $className = '\\' . $className;
+                    }
+
+                    $types[] = $className;
+                }
+            } else {
+                $types[] = '\\' . AbstractObject::class;
+            }
+        }
+
+        if ($asArray) {
+            $types = array_map(static fn (string $type): string => $type . '[]', $types);
+        }
+
+        return implode('|', $types);
+    }
+
+    /**
+     * @return array<array{classes: string}>
+     */
+    public function getClasses(): array
+    {
+        return $this->classes ?: [];
+    }
+
+    /**
+     * @return array<array{assetTypes: string}>
+     */
+    public function getAssetTypes(): array
+    {
+        return [];
+    }
+
+    /**
+     * @return array<array{documentTypes: string}>
+     */
+    public function getDocumentTypes(): array
+    {
+        return [];
+    }
+
+    public function getDocumentsAllowed(): bool
+    {
+        return false;
+    }
+
+    public function getAssetsAllowed(): bool
+    {
+        return false;
+    }
+
+    public function getObjectsAllowed(): bool
+    {
+        return false;
+    }
+
+    private function resolveClassName(Factory $factory, ClassResolver $resolver, string $type): ?string
+    {
+        if ($className = $resolver->resolve($type)) {
+            try {
+                return $factory->getClassNameFor($className);
+            } catch (UnsupportedException) {
+                return null;
+            }
+        }
+
+        return null;
+    }
+}

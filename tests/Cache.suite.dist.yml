@@ -1,0 +1,5 @@
+actor: CacheTester
+modules:
+    enabled:
+        - \OpenDxp\Tests\Support\Helper\Pimcore:
+            connect_db: true

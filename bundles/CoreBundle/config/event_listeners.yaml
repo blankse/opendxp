@@ -1,0 +1,132 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # REQUEST + ROUTING
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\RoutingListener:
+        calls:
+            - [ setLogger, [ '@logger' ] ]
+        tags:
+            - { name: monolog.logger, channel: redirect }
+
+    OpenDxp\Bundle\CoreBundle\EventListener\OpenDxpContextListener:
+        calls:
+            - [setLogger, ['@logger']]
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\DocumentFallbackListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\OpenDxpHeaderListener: ~
+
+    #
+    # TRANSLATIONS/LOCALE
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\LocaleListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\TranslationDebugListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\DumpTranslationEntriesListener: ~
+
+    #
+    # PIMCORE OBJECTS/PARAMS LOGIC
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\ElementListener:
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: init }
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\GlobalTemplateVariablesListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\HardlinkCanonicalListener:
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #
+    # STATE HANDLING/INITIALIZING
+    #
+
+    # handles block state (current block, current index) for sub-requests
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\BlockStateListener:
+        calls:
+            - [setLogger, ['@logger']]
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\DocumentRendererListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\StaticPageGeneratorListener: ~
+
+    #
+    # CONTROLLER HANDLING
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\ContentTemplateListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\EventedControllerListener: ~
+
+    #
+    # VARIOUS MODEL SPECIFIC LISTENERS
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\WorkflowManagementListener:
+        public: true # can be disabled
+
+    OpenDxp\Bundle\CoreBundle\EventListener\ElementTagsListener: ~
+
+    #
+    # EXCEPTION HANDLING
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\ResponseExceptionListener:
+        calls:
+            - [setLogger, ['@logger']]
+
+
+    #
+    # RESPONSE TRANSFORMING
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\ResponseHeaderListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\EditmodeListener:
+        calls:
+            - [setLogger, ['@logger']]
+
+    OpenDxp\Bundle\CoreBundle\EventListener\ResponseStackListener:
+        arguments:
+            $responseStack: '@OpenDxp\Http\ResponseStack'
+
+
+    #
+    # FRONTEND LISTENERS
+    #
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\InternalWysiwygHtmlAttributeFilterListener: ~
+
+    OpenDxp\Cache\FullPage\SessionStatus:
+        arguments:
+            $symfonyMetadataStorageKey: '%session.metadata.storage_key%'
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\FullPageCacheListener:
+        public: true
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 120 }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse, priority: -120 }
+            - { name: kernel.event_listener, event: kernel.response, method: stopPropagationCheck, priority: 100 }
+
+    OpenDxp\Bundle\CoreBundle\EventListener\MaintenancePageListener:
+        calls:
+            - [loadTemplateFromResource, ['@@OpenDxpCoreBundle/public/misc/maintenance.html']]
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Frontend\OutputTimestampListener: ~
+
+    OpenDxp\Bundle\CoreBundle\EventListener\WebDebugToolbarListener:
+        arguments:
+            $excludeRoutes: '%opendxp.web_profiler.toolbar.excluded_routes%'
+            $debugToolbarListener: '@?web_profiler.debug_toolbar'
+
+    OpenDxp\Bundle\CoreBundle\EventListener\MessengerClearRuntimeCacheListener: ~

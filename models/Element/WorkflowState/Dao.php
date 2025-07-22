@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\Element\WorkflowState;
+
+use OpenDxp\Db\Helper;
+use OpenDxp\Model;
+
+/**
+ * @internal
+ *
+ * @property \OpenDxp\Model\Element\WorkflowState $model
+ */
+class Dao extends Model\Dao\AbstractDao
+{
+    /**
+     *
+     * @throws Model\Exception\NotFoundException
+     */
+    public function getByPrimary(int $cid, string $ctype, string $workflow): void
+    {
+        $data = $this->db->fetchAssociative('SELECT * FROM element_workflow_state WHERE cid = ? AND ctype = ? AND workflow = ?', [$cid, $ctype, $workflow]);
+
+        if (!$data) {
+            throw new Model\Exception\NotFoundException('WorkflowStatus item for workflow ' . $workflow . ' with cid ' . $cid . ' and ctype ' . $ctype . ' not found');
+        }
+        $this->assignVariablesToModel($data);
+    }
+
+    /**
+     * Save object to database
+     *
+     *
+     * @todo: not all save methods return a boolean, why this one?
+     */
+    public function save(): bool
+    {
+        $dataAttributes = $this->model->getObjectVars();
+
+        $data = [];
+        foreach ($dataAttributes as $key => $value) {
+            if (in_array($key, $this->getValidTableColumns('element_workflow_state'))) {
+                $data[$key] = $value;
+            }
+        }
+
+        Helper::upsert($this->db, 'element_workflow_state', $data, $this->getPrimaryKey('element_workflow_state'));
+
+        return true;
+    }
+
+    /**
+     * Deletes object from database
+     */
+    public function delete(): void
+    {
+        $this->db->delete('element_workflow_state', [
+            'cid' => $this->model->getCid(),
+            'ctype' => $this->model->getCtype(),
+        ]);
+    }
+}

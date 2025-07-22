@@ -1,0 +1,50 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # INSTALLER
+    #
+    OpenDxp\Bundle\XliffBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpXliffBundle')"
+
+    # auto-register all controllers as services
+    OpenDxp\Bundle\XliffBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    OpenDxp\Bundle\XliffBundle\ExportDataExtractorService\ExportDataExtractorServiceInterface:
+        class:  OpenDxp\Bundle\XliffBundle\ExportDataExtractorService\ExportDataExtractorService
+
+    OpenDxp\Bundle\XliffBundle\ExportService\ExportServiceInterface:
+        class:  OpenDxp\Bundle\XliffBundle\ExportService\ExportService
+
+    OpenDxp\Bundle\XliffBundle\ExportDataExtractorService\DataExtractor\DataObjectDataExtractor:
+        tags: [{name: opendxp.translation.data-extractor, type: object}]
+
+    OpenDxp\Bundle\XliffBundle\ExportDataExtractorService\DataExtractor\DocumentDataExtractor:
+        tags: [{name: opendxp.translation.data-extractor, type: document}]
+
+    OpenDxp\Bundle\XliffBundle\ExportService\Exporter\ExporterInterface:
+        class: OpenDxp\Bundle\XliffBundle\ExportService\Exporter\Xliff12Exporter
+
+    OpenDxp\Bundle\XliffBundle\ImporterService\ImporterServiceInterface:
+        class: OpenDxp\Bundle\XliffBundle\ImporterService\ImporterService
+
+    OpenDxp\Bundle\XliffBundle\ImporterService\Importer\DataObjectImporter:
+        tags: [{name: opendxp.translation.importer, type: object}]
+
+    OpenDxp\Bundle\XliffBundle\ImporterService\Importer\DocumentImporter:
+        tags: [{name: opendxp.translation.importer, type: document}]
+
+    OpenDxp\Bundle\XliffBundle\ImportDataExtractor\ImportDataExtractorInterface:
+        class: OpenDxp\Bundle\XliffBundle\ImportDataExtractor\Xliff12DataExtractor
+
+    OpenDxp\Bundle\XliffBundle\ImportDataExtractor\TranslationItemResolver\TranslationItemResolverInterface:
+        class: OpenDxp\Bundle\XliffBundle\ImportDataExtractor\TranslationItemResolver\TranslationItemResolver
+
+    OpenDxp\Bundle\XliffBundle\Escaper\Xliff12Escaper: ~

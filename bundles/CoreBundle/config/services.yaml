@@ -1,0 +1,188 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # SECURITY
+    #
+
+    # Only use with Symfony ver 5.3 or higher
+    # Decorate the symfony encoder factory with our own. Encoders operating on opendxp admin users and opendxp objects using
+    # the password field definition need access to the user instance while encoding the password. Our factory allows delegating
+    # encoder building to sub-factories which are able to build and cache an encoder per user object.
+    #
+    # See UserAwareEncoderFactory which is used from the admin bundle and from CMS demo profile.
+    #
+    # The second argument (factory mapping) is read from config (opendxp.security.password_hasher_factories) and set by the extension.
+    opendxp.security.password_hasher_factory:
+        class: OpenDxp\Security\Hasher\PasswordHasherFactory
+        decorates: security.password_hasher_factory
+        arguments: ['@.inner', '@?']
+
+    #
+    # INFRASTRUCTURE
+    #
+
+    # creates needed opendxp directories
+    OpenDxp\HttpKernel\CacheWarmer\MkdirCacheWarmer:
+        tags:
+            - { name: kernel.cache_warmer }
+
+    OpenDxp\HttpKernel\CacheWarmer\OpenDxpCoreCacheWarmer:
+        tags:
+            - { name: kernel.cache_warmer }
+
+    OpenDxp\Cache\Symfony\CacheClearer:
+        public: true
+
+    OpenDxp\Helper\LongRunningHelper:
+        public: true
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: opendxp }
+
+    #
+    # CONFIG
+    #
+    OpenDxp\Config:
+        public: true
+
+    OpenDxp\Config\ReportConfigWriter: ~
+
+    #
+    # CONTROLLERS
+    #
+
+    # auto-register all controllers as services
+    OpenDxp\Bundle\CoreBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    OpenDxp\Controller\Config\ControllerDataProvider:
+        public : true
+        arguments:
+            $serviceControllers: '%opendxp.service_controllers%'
+
+    #
+    # HTTP/REST clients
+    #
+
+    OpenDxp\Http\ClientFactory:
+        # keep this public until static method was removed
+        public: true
+
+    opendxp.http_client:
+        alias: GuzzleHttp\Client
+        public: true
+
+    GuzzleHttp\Client:
+        public: true
+        class: \GuzzleHttp\Client
+        factory: ['@OpenDxp\Http\ClientFactory', createClient]
+
+    # DataObject Consent Service
+    OpenDxp\DataObject\Consent\Service:
+        public: true
+
+    OpenDxp\Model\DataObject\ClassDefinition\ClassDefinitionManager:
+        public: true
+
+    OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\CountryOptionsProvider:
+        public: true
+
+    OpenDxp\Mail\Plugins\RedirectingPlugin: ~
+
+    # Decorates Symfony Mailer
+    OpenDxp\Mail\Mailer:
+        decorates: mailer
+        arguments:
+            - '@OpenDxp\Mail\Mailer.inner'
+            - '@OpenDxp\Mail\Plugins\RedirectingPlugin'
+        public: true
+
+    OpenDxp\Translation\TranslationEntriesDumper: ~
+
+    OpenDxp\Model\DataObject\QuantityValue\UnitConversionService:
+        public: true
+    OpenDxp\Model\DataObject\QuantityValue\Service: ~
+
+    OpenDxp\Model\DataObject\QuantityValue\QuantityValueConverterInterface:
+        public: true
+        class: OpenDxp\Model\DataObject\QuantityValue\DefaultConverter
+
+    OpenDxp\Bundle\CoreBundle\Request\ParamResolver\DataObjectParamResolver:
+        tags:
+            - { name: controller.argument_value_resolver, priority: 101}
+
+    Symfony\Component\Lock\PersistingStoreInterface:
+        class: Symfony\Component\Lock\Store\DoctrineDbalStore
+        arguments:
+            - '@doctrine.dbal.default_connection'
+
+    Symfony\Component\Lock\LockFactory:
+        public: true
+        class: Symfony\Component\Lock\LockFactory
+        arguments:
+            - '@Symfony\Component\Lock\PersistingStoreInterface'
+
+    OpenDxp\Model\Paginator\EventSubscriber\PaginateListingSubscriber: ~
+
+    OpenDxp\Tool\Storage:
+        public: true
+        arguments:
+            $locator: !tagged_locator { tag: flysystem.storage }
+
+    OpenDxp\Image\Adapter\Imagick:
+        shared: false
+        public: true
+
+    OpenDxp\Helper\SymfonyExpression\ExpressionServiceInterface:
+        public: true
+        class: OpenDxp\Helper\SymfonyExpression\ExpressionService
+
+    OpenDxp\Image\Adapter\GD:
+        shared: false
+        public: true
+
+    OpenDxp\Model\Version\Adapter\VersionStorageAdapterInterface:
+        public: true
+        alias: OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter
+
+    OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter: ~
+    #
+    # SECURITY
+    #
+
+    # standard user provider returning admin users wrapped in a OpenDxp\Security\User\User proxy object.
+    # using this user provider allows implementations to authenticate against opendxp users on every desired firewall
+    OpenDxp\Security\User\UserProvider:
+        public: true
+
+    OpenDxp\Security\User\TokenStorageUserResolver:
+        public: true
+        arguments:
+            - '@security.token_storage'
+
+    OpenDxp\Security\User\UserLoader: ~
+
+    # user-checker checking opendxp users for validity
+    OpenDxp\Security\User\UserChecker: ~
+
+    #
+    # System Settings Services
+    #
+    OpenDxp\SystemSettingsConfig:
+        public: true
+
+
+    #
+    # Notification Services
+    #
+
+    OpenDxp\Model\Notification\Service\NotificationService:
+        public: true
+
+    OpenDxp\Model\Notification\Service\UserService: ~

@@ -1,0 +1,76 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Bundle\SeoBundle\EventListener;
+
+use OpenDxp\Bundle\CoreBundle\EventListener\Traits\OpenDxpContextAwareTrait;
+use OpenDxp\Bundle\SeoBundle\OpenDxpSeoBundle;
+use OpenDxp\Bundle\SeoBundle\Redirect\RedirectHandler;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\KernelEvents;
+
+class RoutingListener implements EventSubscriberInterface
+{
+    use OpenDxpContextAwareTrait;
+
+    public function __construct(protected RedirectHandler $redirectHandler)
+    {
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            // run with high priority as we need to set the site early
+            KernelEvents::REQUEST => ['onKernelRequest', 256],
+
+            // run with high priority before handling real errors
+            KernelEvents::EXCEPTION => ['onKernelException', 64],
+        ];
+    }
+
+    public function onKernelRequest(RequestEvent $event): void
+    {
+        if (!OpenDxpSeoBundle::isInstalled()) {
+            return;
+        }
+
+        $request = $event->getRequest();
+        $response = $this->redirectHandler->checkForRedirect($request, true);
+        if ($response) {
+            $event->setResponse($response);
+        }
+    }
+
+    public function onKernelException(ExceptionEvent $event): void
+    {
+        if (!OpenDxpSeoBundle::isInstalled()) {
+            return;
+        }
+
+        // in case routing didn't find a matching route, check for redirects without override
+        $exception = $event->getThrowable();
+        if ($exception instanceof NotFoundHttpException) {
+            $response = $this->redirectHandler->checkForRedirect($event->getRequest(), false);
+            if ($response) {
+                $event->setResponse($response);
+            }
+        }
+    }
+}

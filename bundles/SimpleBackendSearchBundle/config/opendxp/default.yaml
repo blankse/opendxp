@@ -1,0 +1,6 @@
+framework:
+    messenger:
+        transports:
+            opendxp_search_backend_message: "doctrine://default?queue_name=opendxp_search_backend_message"
+        routing:
+            OpenDxp\Bundle\SimpleBackendSearchBundle\Message\SearchBackendMessage: opendxp_search_backend_message

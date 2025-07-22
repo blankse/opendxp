@@ -1,0 +1,86 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    # block
+    OpenDxp\DataObject\BlockDataMarshaller\Consent:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_consent, key: 'block_consent' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\Date:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_date, key: 'block_date' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_datetime, key: 'block_datetime' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\EncryptedField:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_encryptedField, key: 'block_encryptedField' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\ExternalImage:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_externalImage,key: 'block_externalImage' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\Geopoint:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_geopoint, key: 'block_geopoint' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\Geobounds:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_geobounds, key: 'block_geobounds' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\Geopolygon:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_geopolygon, key: 'block_geopolygon' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_geopolyline, key: 'block_geopolyline' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\Localizedfields:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_localizedfields, key: 'block_localizedfields' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\RgbaColor:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_rgbaColor, key: 'block_rgbaColor' }
+
+    OpenDxp\DataObject\BlockDataMarshaller\StructuredTable:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_block_structuredTable, key: 'block_structuredTable' }
+
+    # classification store
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\BooleanSelect:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_booleanSelect, key: 'classificationstore_booleanSelect' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\EncryptedField:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_encryptedField, key: 'classificationstore_encryptedField' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\Multiselect:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_multiselect, key: 'classificationstore_multiselect' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_countrymultiselect, key: 'classificationstore_countrymultiselect' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_languagesmultiselect, key: 'classificationstore_languagemultiselect' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\RgbaColor:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_rgbaColor, key: 'classificationstore_rgbaColor' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\Table:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_table, key: 'classificationstore_table' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\QuantityValue:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_quantityValue, key: 'classificationstore_quantityValue' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_inputQuantityValue, key: 'classificationstore_inputQuantityValue' }
+
+    OpenDxp\DataObject\ClassificationstoreDataMarshaller\QuantityValueRange:
+        tags:
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_quantityValueRange, key: 'classificationstore_quantityValueRange' }
+            - { name: opendxp.dataobject.fielddefinition.marshaller, id: fielddefinition_marshaller_classificationstore_inputQuantityValueRange, key: 'classificationstore_inputQuantityValueRange' }
+
+    # service
+    OpenDxp\Element\MarshallerService:
+        arguments: [!tagged_locator { tag: 'opendxp.dataobject.fielddefinition.marshaller', index_by: 'key' }]

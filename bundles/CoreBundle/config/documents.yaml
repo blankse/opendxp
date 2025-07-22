@@ -1,0 +1,65 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # DOCUMENT TAG HANDLING (EDITABLES)
+    #
+
+    OpenDxp\Document\Editable\Block\BlockStateStack:
+        public: true
+
+    OpenDxp\Document\Editable\EditableHandler:
+        public: true
+        arguments:
+            $templating: '@opendxp.templating.engine.delegating'
+            $responseStack: '@OpenDxp\Http\ResponseStack'
+            $httpKernelRuntime: '@twig.runtime.httpkernel'
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: opendxp }
+
+    OpenDxp\Document\Editable\EditmodeEditableDefinitionCollector: ~
+
+    #
+    # AREABRICKS
+    #
+
+    # scoped container containing only the registered area bricks
+    # will be configured in areabrick pass
+    opendxp.document.areabrick.brick_locator:
+        class: Symfony\Component\DependencyInjection\ServiceLocator
+        tags: ['container.service_locator']
+
+    OpenDxp\Extension\Document\Areabrick\AreabrickManager:
+        arguments:
+            $container: '@opendxp.document.areabrick.brick_locator'
+
+    OpenDxp\Extension\Document\Areabrick\AreabrickManagerInterface:
+        alias: OpenDxp\Extension\Document\Areabrick\AreabrickManager
+        public: true
+
+    #
+    # DOCUMENT RELATED SERVICES
+    #
+
+    # TODO inject user?
+    OpenDxp\Model\Document\Service:
+        public: true
+
+    Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface: '@fragment.renderer.inline'
+
+    OpenDxp\Document\Renderer\DocumentRendererInterface:
+        class: OpenDxp\Document\Renderer\DocumentRenderer
+        public: true
+
+    OpenDxp\Document\Editable\EditableUsageResolver:
+        public: true
+
+    OpenDxp\Document\StaticPageGenerator:
+        public: true
+        arguments:
+            - '@OpenDxp\Document\Renderer\DocumentRendererInterface'
+            - '@Symfony\Component\Lock\LockFactory'

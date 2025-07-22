@@ -1,0 +1,6 @@
+actor: TwigTester
+modules:
+    enabled:
+        - \OpenDxp\Tests\Support\Helper\Pimcore:
+              connect_db: true
+        - \OpenDxp\Tests\Support\Helper\Unit

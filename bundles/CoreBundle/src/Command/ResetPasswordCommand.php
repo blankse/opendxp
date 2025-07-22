@@ -1,0 +1,105 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Bundle\CoreBundle\Command;
+
+use Exception;
+use OpenDxp\Console\AbstractCommand;
+use OpenDxp\Model\User;
+use OpenDxp\Tool\Authentication;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Question\Question;
+
+/**
+ * @internal
+ */
+#[AsCommand(
+    name:'opendxp:user:reset-password',
+    description: 'Reset a user\'s password',
+    aliases: ['reset-password']
+)]
+class ResetPasswordCommand extends AbstractCommand
+{
+    protected function configure(): void
+    {
+        $this
+            ->addArgument(
+                'user',
+                InputArgument::REQUIRED,
+                'Username or ID of user'
+            )
+            ->addOption(
+                'password',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                'Plaintext password - if not set, script will prompt for the new password (recommended)'
+            );
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $userArgument = $input->getArgument('user');
+
+        if (is_numeric($userArgument)) {
+            $user = User::getById((int) $userArgument);
+        } else {
+            $user = User::getByName($userArgument);
+        }
+
+        if (!$user) {
+            $this->writeError('User with name/ID ' . $userArgument . ' could not be found. Exiting');
+            exit;
+        }
+
+        if ($input->getOption('password')) {
+            $plainPassword = $input->getOption('password');
+        } else {
+            $plainPassword = $this->askForPassword($input, $output);
+        }
+
+        $password = Authentication::getPasswordHash($user->getName(), $plainPassword);
+        $user->setPassword($password);
+        $user->save();
+
+        $this->output->writeln('Password for user ' . $user->getName() . ' reset successfully.');
+
+        return 0;
+    }
+
+    protected function askForPassword(InputInterface $input, OutputInterface $output): mixed
+    {
+        /** @var QuestionHelper $helper */
+        $helper = $this->getHelper('question');
+
+        $question = new Question('Please enter the new password: ');
+        $question->setValidator(function ($value) {
+            if (empty(trim($value))) {
+                throw new Exception('The password cannot be empty');
+            }
+
+            return $value;
+        });
+
+        $question->setHidden(true);
+
+        return $helper->ask($input, $output, $question);
+    }
+}

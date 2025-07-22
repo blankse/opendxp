@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # Maintenance
+    #
+    # Configure all maintenance tasks
+
+    OpenDxp\Bundle\SeoBundle\Maintenance\RedirectCleanupTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: redirectcleanup }
+
+    OpenDxp\Bundle\SeoBundle\Maintenance\LogErrorCleanupTask:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+        tags:
+            - { name: opendxp.maintenance.task, type: httperrorlog }

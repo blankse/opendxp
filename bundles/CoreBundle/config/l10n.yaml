@@ -1,0 +1,27 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # TRANSLATOR
+    #
+
+    OpenDxp\Translation\Translator:
+        decorates: translator
+        arguments:
+            - '@OpenDxp\Translation\Translator.inner'
+        calls:
+            - [setKernel, ['@kernel']]
+
+    #
+    # LOCALE
+    #
+
+    OpenDxp\Localization\LocaleServiceInterface:
+        public: true
+        class: OpenDxp\Localization\LocaleService
+
+    # formatting service for dates, times and numbers
+    OpenDxp\Localization\IntlFormatter:
+        public: true

@@ -1,0 +1,34 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # INSTALLER
+    #
+    OpenDxp\Bundle\GlossaryBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpGlossaryBundle')"
+
+    #
+    # CONTROLLERS
+    #
+
+    # auto-register all controllers as services
+    OpenDxp\Bundle\GlossaryBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+
+
+    # TEMPLATING
+
+    OpenDxp\Bundle\GlossaryBundle\Tool\Processor:
+        arguments:
+            $blockedTags: '%opendxp_glossary.blocked_tags%'
+
+
+    # TWIG TEMPLATING
+    OpenDxp\Bundle\GlossaryBundle\Twig\Extension\GlossaryExtension: ~

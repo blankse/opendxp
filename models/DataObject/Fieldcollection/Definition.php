@@ -1,0 +1,313 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\DataObject\Fieldcollection;
+
+use Exception;
+use OpenDxp;
+use OpenDxp\Cache\RuntimeCache;
+use OpenDxp\DataObject\ClassBuilder\FieldDefinitionDocBlockBuilderInterface;
+use OpenDxp\DataObject\ClassBuilder\PHPFieldCollectionClassDumperInterface;
+use OpenDxp\Event\FieldcollectionDefinitionEvents;
+use OpenDxp\Event\Model\DataObject\FieldcollectionDefinitionEvent;
+use OpenDxp\Event\Traits\RecursionBlockingEventDispatchHelperTrait;
+use OpenDxp\Model;
+use OpenDxp\Model\DataObject;
+use OpenDxp\Model\DataObject\ClassDefinition\Data;
+use OpenDxp\Model\DataObject\ClassDefinition\Data\FieldDefinitionEnrichmentInterface;
+use Symfony\Component\Filesystem\Filesystem;
+
+/**
+ * @method \OpenDxp\Model\DataObject\Fieldcollection\Definition\Dao getDao()
+ * @method string getTableName(DataObject\ClassDefinition $class)
+ * @method void createUpdateTable(DataObject\ClassDefinition $class)
+ * @method string getLocalizedTableName(DataObject\ClassDefinition $class)
+ */
+class Definition extends Model\AbstractModel
+{
+    use DataObject\Traits\FieldcollectionObjectbrickDefinitionTrait;
+    use DataObject\Traits\LocateFileTrait;
+    use Model\DataObject\ClassDefinition\Helper\VarExport;
+    use RecursionBlockingEventDispatchHelperTrait;
+
+    /**
+     * @var string[]
+     */
+    protected const FORBIDDEN_NAMES = [
+        'abstract', 'abstractdata', 'class', 'concrete', 'dao', 'data', 'default', 'folder', 'interface', 'items',
+        'list', 'object', 'permissions', 'resource',
+    ];
+
+    protected function doEnrichFieldDefinition(Data $fieldDefinition, array $context = []): Data
+    {
+        if ($fieldDefinition instanceof FieldDefinitionEnrichmentInterface) {
+            $context['containerType'] = 'fieldcollection';
+            $context['containerKey'] = $this->getKey();
+            $fieldDefinition = $fieldDefinition->enrichFieldDefinition($context);
+        }
+
+        return $fieldDefinition;
+    }
+
+    /**
+     * @internal
+     */
+    protected function extractDataDefinitions(DataObject\ClassDefinition\Data|DataObject\ClassDefinition\Layout $def): void
+    {
+        if ($def instanceof DataObject\ClassDefinition\Layout) {
+            if ($def->hasChildren()) {
+                foreach ($def->getChildren() as $child) {
+                    $this->extractDataDefinitions($child);
+                }
+            }
+        }
+
+        if ($def instanceof DataObject\ClassDefinition\Data) {
+            $existing = $this->getFieldDefinition($def->getName());
+            if ($existing && method_exists($existing, 'addReferencedField')) {
+                // this is especially for localized fields which get aggregated here into one field definition
+                // in the case that there are more than one localized fields in the class definition
+                // see also opendxp.object.edit.addToDataFields();
+                $existing->addReferencedField($def);
+            } else {
+                $this->addFieldDefinition($def->getName(), $def);
+            }
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getByKey(string $key): ?Definition
+    {
+        $fc = null;
+        $cacheKey = 'fieldcollection_' . $key;
+
+        try {
+            $fc = RuntimeCache::get($cacheKey);
+            if (!$fc instanceof Definition) {
+                throw new Exception('FieldCollection in registry is not valid');
+            }
+        } catch (Exception $e) {
+            $def = new Definition();
+            $def->setKey($key);
+            $fieldFile = $def->getDefinitionFile();
+
+            if (is_file($fieldFile)) {
+                $fc = include $fieldFile;
+                RuntimeCache::set($cacheKey, $fc);
+            }
+        }
+
+        if ($fc instanceof Definition) {
+            return $fc;
+        }
+
+        return null;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function save(bool $saveDefinitionFile = true): void
+    {
+        if (!$this->getKey()) {
+            throw new Exception('A field-collection needs a key to be saved!');
+        }
+
+        if ($this->isForbiddenName()) {
+            throw new Exception(sprintf('Invalid key for field-collection: %s', $this->getKey()));
+        }
+
+        if ($this->getParentClass() && !preg_match('/^[a-zA-Z_\x7f-\xff\\\][a-zA-Z0-9_\x7f-\xff\\\]*$/', $this->getParentClass())) {
+            throw new Exception(sprintf('Invalid parentClass value for class definition: %s',
+                $this->getParentClass()));
+        }
+
+        $isUpdate = file_exists($this->getDefinitionFile());
+
+        if (!$isUpdate) {
+            $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::PRE_ADD);
+        } else {
+            $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::PRE_UPDATE);
+        }
+
+        $fieldDefinitions = $this->getFieldDefinitions();
+        foreach ($fieldDefinitions as $fd) {
+            if ($fd->isForbiddenName()) {
+                throw new Exception(sprintf('Forbidden name used for field definition: %s', $fd->getName()));
+            }
+
+            if ($fd instanceof DataObject\ClassDefinition\Data\DataContainerAwareInterface) {
+                $fd->preSave($this);
+            }
+        }
+
+        $this->generateClassFiles($saveDefinitionFile);
+
+        // update classes
+        $classList = new DataObject\ClassDefinition\Listing();
+        $classes = $classList->load();
+        foreach ($classes as $class) {
+            foreach ($class->getFieldDefinitions() as $fieldDef) {
+                if ($fieldDef instanceof DataObject\ClassDefinition\Data\Fieldcollections) {
+                    if (in_array($this->getKey(), $fieldDef->getAllowedTypes())) {
+                        $this->getDao()->createUpdateTable($class);
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!$isUpdate) {
+            $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::POST_ADD);
+        } else {
+            $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::POST_UPDATE);
+        }
+    }
+
+    /**
+     * @throws Exception
+     * @throws DataObject\Exception\DefinitionWriteException
+     *
+     * @internal
+     */
+    protected function generateClassFiles(bool $generateDefinitionFile = true): void
+    {
+        if ($generateDefinitionFile && !$this->isWritable()) {
+            throw new DataObject\Exception\DefinitionWriteException();
+        }
+
+        $definitionFile = $this->getDefinitionFile();
+
+        if ($generateDefinitionFile) {
+            /** @var self $clone */
+            $clone = DataObject\Service::cloneDefinition($this);
+            $clone->setDao(null);
+            unset($clone->fieldDefinitions);
+            DataObject\ClassDefinition::cleanupForExport($clone->layoutDefinitions);
+
+            $exportedClass = var_export($clone, true);
+
+            $data = '<?php';
+            $data .= "\n\n";
+            $data .=  $this->getInfoDocBlock();
+            $data .= "\n\n";
+
+            $data .= 'return ' . $exportedClass . ";\n";
+
+            $filesystem = new Filesystem();
+            $filesystem->dumpFile($definitionFile, $data);
+        }
+
+        OpenDxp::getContainer()->get(PHPFieldCollectionClassDumperInterface::class)->dumpPHPClass($this);
+
+        $fieldDefinitions = $this->getFieldDefinitions();
+        foreach ($fieldDefinitions as $fd) {
+            if ($fd instanceof DataObject\ClassDefinition\Data\DataContainerAwareInterface) {
+                $fd->postSave($this);
+            }
+        }
+    }
+
+    /**
+     * @throws DataObject\Exception\DefinitionWriteException
+     */
+    public function delete(): void
+    {
+        if (!$this->isWritable() && file_exists($this->getDefinitionFile())) {
+            throw new DataObject\Exception\DefinitionWriteException();
+        }
+
+        $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::PRE_DELETE);
+
+        @unlink($this->getDefinitionFile());
+        @unlink($this->getPhpClassFile());
+
+        // update classes
+        $classList = new DataObject\ClassDefinition\Listing();
+        $classes = $classList->load();
+        foreach ($classes as $class) {
+            foreach ($class->getFieldDefinitions() as $fieldDef) {
+                if ($fieldDef instanceof DataObject\ClassDefinition\Data\Fieldcollections) {
+                    if (in_array($this->getKey(), $fieldDef->getAllowedTypes())) {
+                        $this->getDao()->delete($class);
+
+                        break;
+                    }
+                }
+            }
+        }
+
+        $this->dispatchEvent(new FieldcollectionDefinitionEvent($this), FieldcollectionDefinitionEvents::POST_DELETE);
+    }
+
+    /**
+     * @internal
+     */
+    public function isWritable(): bool
+    {
+        return (bool) ($_SERVER['OPENDXP_CLASS_DEFINITION_WRITABLE'] ?? !str_starts_with($this->getDefinitionFile(), OPENDXP_CUSTOM_CONFIGURATION_DIRECTORY));
+    }
+
+    /**
+     * @internal
+     */
+    public function getDefinitionFile(string $key = null): string
+    {
+        return $this->locateDefinitionFile($key ?? $this->getKey(), 'fieldcollections/%s.php');
+    }
+
+    /**
+     * @internal
+     */
+    public function getPhpClassFile(): string
+    {
+        return $this->locateFile(ucfirst($this->getKey()), 'DataObject/Fieldcollection/Data/%s.php');
+    }
+
+    /**
+     * @internal
+     */
+    protected function getInfoDocBlock(): string
+    {
+        $cd = '/**' . "\n";
+        $cd .= " * Fields Summary:\n";
+
+        $fieldDefinitionDocBlockBuilder = OpenDxp::getContainer()->get(FieldDefinitionDocBlockBuilderInterface::class);
+        foreach ($this->getFieldDefinitions() as $fieldDefinition) {
+            $cd .= ' * ' . str_replace("\n", "\n * ", trim($fieldDefinitionDocBlockBuilder->buildFieldDefinitionDocBlock($fieldDefinition))) . "\n";
+        }
+
+        $cd .= ' */';
+
+        return $cd;
+    }
+
+    public function isForbiddenName(): bool
+    {
+        $key = $this->getKey();
+        if ($key === null || $key === '') {
+            return true;
+        }
+        if (!preg_match('/^[a-zA-Z]\w*$/', $key)) {
+            return true;
+        }
+
+        return in_array(strtolower($key), self::FORBIDDEN_NAMES);
+    }
+}

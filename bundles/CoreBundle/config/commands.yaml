@@ -1,0 +1,58 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # COMMANDS
+    #
+
+    # auto-register all commands as services
+    OpenDxp\Bundle\CoreBundle\Command\:
+        resource: '../src/Command'
+        exclude: '../src/Command/Bundle/Helper'
+        tags: ['console.command']
+
+    OpenDxp\Bundle\CoreBundle\Command\Bundle\Helper\PostStateChange:
+        arguments:
+            - '@OpenDxp\Cache\Symfony\CacheClearer'
+            - '@OpenDxp\Tool\AssetsInstaller'
+            - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+
+    OpenDxp\Bundle\CoreBundle\Command\OptimizeImageThumbnailsCommand:
+        arguments:
+            - '@OpenDxp\Image\Optimizer'
+        tags:
+            - { name: console.command, command: 'opendxp:thumbnails:optimize-images' }
+
+    OpenDxp\Bundle\CoreBundle\Command\MaintenanceCommand:
+        arguments:
+            - '@OpenDxp\Maintenance\Executor'
+            - '@logger'
+        tags:
+            - { name: console.command, command: 'opendxp:maintenance' }
+            - { name: console.command, command: 'maintenance' }
+
+    OpenDxp\Bundle\CoreBundle\Command\Bundle\InstallCommand:
+        arguments:
+            - '@OpenDxp\Extension\Bundle\OpenDxpBundleManager'
+            - '@OpenDxp\Bundle\CoreBundle\Command\Bundle\Helper\PostStateChange'
+        tags:
+            - { name: console.command, command: 'opendxp:bundle:install' }
+
+    OpenDxp\Bundle\CoreBundle\Command\Bundle\UninstallCommand:
+        arguments:
+            - '@OpenDxp\Extension\Bundle\OpenDxpBundleManager'
+            - '@OpenDxp\Bundle\CoreBundle\Command\Bundle\Helper\PostStateChange'
+        tags:
+            - { name: console.command, command: 'opendxp:bundle:uninstall' }
+
+    OpenDxp\Bundle\CoreBundle\Command\ClassesRebuildCommand:
+        calls:
+            - [setClassDefinitionManager, ['@OpenDxp\Model\DataObject\ClassDefinition\ClassDefinitionManager']]
+        tags:
+            - { name: console.command, command: 'opendxp:deployment:classes-rebuild' }
+
+    OpenDxp\Bundle\CoreBundle\Command\Migrate\StorageCommand:
+        arguments:
+            $locator: !tagged_locator { tag: flysystem.storage }

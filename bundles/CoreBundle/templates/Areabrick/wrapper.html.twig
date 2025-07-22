@@ -1,0 +1,55 @@
+{# @var brick \OpenDxp\Extension\Document\Areabrick\AreabrickInterface #}
+{# @var info \OpenDxp\Model\Document\Editable\Area\Info #}
+{# @var templating \Symfony\Component\Templating\EngineInterface #}
+
+{# @var editmode bool #}
+
+{# @var viewTemplate string #}
+{# @var viewParameters array #}
+{# @var editableDialog \OpenDxp\Extension\Document\Areabrick\EditableDialogBoxConfiguration #}
+
+{% if editmode and isAreaBlock %}
+    <div class="opendxp_area_entry opendxp_block_entry" {{ editmodeOuterAttributes|raw }} {{ editmodeGenericAttributes|raw }}>
+        <div class="opendxp_area_buttons" {{ editmodeGenericAttributes|raw }}>
+            <div class="opendxp_area_buttons_inner">
+                <div class="opendxp_block_plus_up" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_plus" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_minus" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_up" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_down" {{ editmodeGenericAttributes|raw }}></div>
+
+                <div class="opendxp_block_type" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_options" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_visibility" {{ editmodeGenericAttributes|raw }}></div>
+
+                {% if editableDialog %}
+                    <div class="opendxp_block_dialog" {{ editmodeGenericAttributes|raw }} {{ editableDialogAttributes|raw }}></div>
+                {% endif %}
+
+                <div class="opendxp_block_label" {{ editmodeGenericAttributes|raw }}></div>
+                <div class="opendxp_block_clear" {{ editmodeGenericAttributes|raw }}></div>
+            </div>
+        </div>
+        {% if editableDialog %}
+            <template id="dialogBoxConfig-{{ editableDialog.id }}">{{ editableDialog|json_encode() }}</template>
+            {{ dialogHtml|raw }}
+        {% endif %}
+{% endif %}
+
+        {% block areabrickWrapper %}
+            {% block areabrickOpenTag %}
+                {{ brick.htmlTagOpen(info) | raw }}
+            {% endblock %}
+
+                {% block areabrickFrontend %}
+                    {{ templating.render(viewTemplate, viewParameters) | raw }}
+                {% endblock %}
+
+            {% block areabrickCloseTag %}
+                {{ brick.htmlTagClose(info) | raw }}
+            {% endblock %}
+        {% endblock %}
+
+{% if editmode and isAreaBlock %}
+    </div>
+{% endif %}

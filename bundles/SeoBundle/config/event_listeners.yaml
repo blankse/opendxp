@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Bundle\SeoBundle\EventListener\ResponseExceptionListener: ~
+    OpenDxp\Bundle\SeoBundle\EventListener\UrlSlugUpdateListener: ~
+    OpenDxp\Bundle\SeoBundle\EventListener\DocumentListener: ~
+    # Sitemap listener delegating work to configured generators
+    OpenDxp\Bundle\SeoBundle\EventListener\SitemapGeneratorListener: ~
+    OpenDxp\Bundle\SeoBundle\EventListener\RoutingListener: ~

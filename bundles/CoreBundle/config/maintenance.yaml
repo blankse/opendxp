@@ -1,0 +1,106 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Maintenance\Executor:
+        arguments:
+            - 'maintenance.pid'
+            - '@logger'
+            - '@messenger.bus.opendxp-core'
+
+    OpenDxp\Maintenance\Tasks\ScheduledTasksTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: scheduledtasks, messengerMessageClass: '\OpenDxp\Messenger\ScheduledTaskMessage' }
+
+    OpenDxp\Maintenance\Tasks\LogCleanupTask:
+        tags:
+            - { name: opendxp.maintenance.task, type: cleanuplogfiles }
+
+    OpenDxp\Maintenance\Tasks\DataObject\DataObjectTaskHelper:
+        arguments:
+            - '@logger'
+            - '@doctrine.dbal.default_connection'
+
+    OpenDxp\Maintenance\Tasks\DataObject\CleanupBrickTablesTaskHelper:
+        arguments:
+            - '@logger'
+            - '@OpenDxp\Maintenance\Tasks\DataObject\DataObjectTaskHelper'
+            - '@doctrine.dbal.default_connection'
+
+
+    OpenDxp\Maintenance\Tasks\CleanupBrickTablesTask:
+        arguments:
+            - '@OpenDxp\Maintenance\Tasks\DataObject\CleanupBrickTablesTaskHelper'
+        tags:
+            - { name: opendxp.maintenance.task, type: cleanupBrickTables }
+
+    OpenDxp\Maintenance\Tasks\CleanupClassificationstoreTablesTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: cleanupClassificationstoreTables }
+
+    OpenDxp\Maintenance\Tasks\DataObject\CleanupFieldcollectionTablesTaskHelper:
+        arguments:
+            - '@logger'
+            - '@OpenDxp\Maintenance\Tasks\DataObject\DataObjectTaskHelper'
+            - '@doctrine.dbal.default_connection'
+
+    OpenDxp\Maintenance\Tasks\CleanupFieldcollectionTablesTask:
+        arguments:
+            - '@OpenDxp\Maintenance\Tasks\DataObject\CleanupFieldcollectionTablesTaskHelper'
+        tags:
+            - { name: opendxp.maintenance.task, type: cleanupFieldcollectionTables }
+
+    OpenDxp\Maintenance\Tasks\VersionsCleanupTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: versioncleanup }
+
+    OpenDxp\Maintenance\Tasks\VersionsCleanupStackTraceDbTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: VersionsCleanupStackTraceDb }
+
+    OpenDxp\Maintenance\Tasks\DbCleanupBrokenViewsTask:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: cleanupbrokenviews }
+
+    OpenDxp\Maintenance\Tasks\TmpStoreCleanupTask:
+        arguments:
+            - '@doctrine.dbal.default_connection'
+        tags:
+            - { name: opendxp.maintenance.task, type: tmpstorecleanup }
+
+
+    OpenDxp\Maintenance\Tasks\HousekeepingTask:
+        arguments:
+            - '%opendxp.maintenance.housekeeping.cleanup_tmp_files_atime_older_than%'
+            - '%opendxp.maintenance.housekeeping.cleanup_profiler_files_atime_older_than%'
+        tags:
+            - { name: opendxp.maintenance.task, type: housekeeping }
+
+    OpenDxp\Maintenance\Tasks\LowQualityImagePreviewTask:
+        arguments:
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: low_quality_image_preview }
+
+    OpenDxp\Maintenance\Tasks\PruningCacheItemsTask:
+        tags:
+            - { name: opendxp.maintenance.task, type: pruning_cache_items }
+
+    OpenDxp\Maintenance\Tasks\StaticPagesGenerationTask:
+        arguments:
+            - '@OpenDxp\Document\StaticPageGenerator'
+            - '@logger'
+        tags:
+            - { name: opendxp.maintenance.task, type: documents_static_page_generate }

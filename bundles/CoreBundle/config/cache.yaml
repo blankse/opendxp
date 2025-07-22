@@ -1,0 +1,62 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # RUNTIME CACHE
+    #
+
+    opendxp.cache.adapter.null:
+        class: Symfony\Component\Cache\Adapter\NullAdapter
+
+    opendxp.cache.adapter.null_tag_aware:
+        public: true
+        class: Symfony\Component\Cache\Adapter\TagAwareAdapter
+        arguments: ['@opendxp.cache.adapter.null', null]
+
+    opendxp.cache.adapter.doctrine_dbal:
+        class: Symfony\Component\Cache\Adapter\DoctrineDbalAdapter
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - ''
+            - 31536000  # 1 year
+
+    opendxp.cache.adapter.doctrine_dbal_tag_aware:
+        class: Symfony\Component\Cache\Adapter\TagAwareAdapter
+        arguments: [ '@opendxp.cache.adapter.doctrine_dbal', null ]
+
+    opendxp.cache.adapter.redis_tag_aware: '@cache.adapter.redis_tag_aware'
+
+    opendxp.cache.pool.app:
+        class: Symfony\Component\Cache\Adapter\ProxyAdapter
+        arguments:
+            - '@opendxp.cache.pool'
+            - 'app'
+
+    #
+    # OPENDXP CACHE
+    #
+
+    # the actual core handler which is used from OpenDxp\Cache
+    # the opendxp.cache.core.pool service is defined by config
+    # and set in OpenDxpExtension
+
+    OpenDxp\Cache\Core\CoreCacheHandler:
+        public: true
+        arguments:
+            - '@opendxp.cache.pool'
+            - '@OpenDxp\Cache\Core\WriteLock'
+            - '@event_dispatcher'
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: cache }
+
+    # write lock handles locking between processes
+    OpenDxp\Cache\Core\WriteLock:
+        arguments: ['@opendxp.cache.pool']
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: cache }

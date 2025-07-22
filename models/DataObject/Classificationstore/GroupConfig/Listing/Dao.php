@@ -1,0 +1,65 @@
+<?php
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\DataObject\Classificationstore\GroupConfig\Listing;
+
+use Exception;
+use OpenDxp\Model;
+use OpenDxp\Model\DataObject;
+
+/**
+ * @internal
+ *
+ * @property \OpenDxp\Model\DataObject\Classificationstore\GroupConfig\Listing $model
+ */
+class Dao extends Model\Listing\Dao\AbstractDao
+{
+    /**
+     * Loads a list of Classificationstore group configs for the specified parameters, returns an array of config elements
+     *
+     */
+    public function load(): array
+    {
+        $sql = 'SELECT * FROM ' . DataObject\Classificationstore\GroupConfig\Dao::TABLE_NAME_GROUPS . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit();
+        $configsData = $this->db->fetchAllAssociative($sql, $this->model->getConditionVariables());
+
+        $configList = [];
+        foreach ($configsData as $configData) {
+            $groupConfig = new DataObject\Classificationstore\GroupConfig();
+            $groupConfig->setValues($configData);
+            $configList[] = $groupConfig;
+        }
+
+        $this->model->setList($configList);
+
+        return $configList;
+    }
+
+    public function getDataArray(): array
+    {
+        $configsData = $this->db->fetchAllAssociative('SELECT * FROM ' . DataObject\Classificationstore\GroupConfig\Dao::TABLE_NAME_GROUPS . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables());
+
+        return $configsData;
+    }
+
+    public function getTotalCount(): int
+    {
+        try {
+            return (int) $this->db->fetchOne('SELECT COUNT(*) FROM ' . DataObject\Classificationstore\GroupConfig\Dao::TABLE_NAME_GROUPS . ' '. $this->getCondition(), $this->model->getConditionVariables());
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # redirect handler used to handle redirects before/after routing
+    OpenDxp\Bundle\SeoBundle\Redirect\RedirectHandler: ~
+
+    #
+    # REDIRECTS Export
+    #
+
+    OpenDxp\Bundle\SeoBundle\Redirect\Csv: ~

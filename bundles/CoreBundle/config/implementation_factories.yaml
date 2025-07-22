@@ -1,0 +1,45 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # IMPLEMENTATION FACTORIES
+    #
+    # Class maps and prefixes will be set from the extension as they are loaded from config
+    #
+
+    # document editable loader
+    OpenDxp\Model\Document\Editable\Loader\EditableLoader:
+        public: true
+
+    # object data loader
+    opendxp.implementation_loader.object.data:
+        class: OpenDxp\Model\DataObject\ClassDefinition\Loader\DataLoader
+        public: true
+
+    # asset metadata data loader
+    opendxp.implementation_loader.asset.metadata.data:
+        class: OpenDxp\Model\Asset\Metadata\Loader\DataLoader
+        public: true
+
+    # object layout loader
+    opendxp.implementation_loader.object.layout:
+        class: OpenDxp\Model\DataObject\ClassDefinition\Loader\LayoutLoader
+        public: true
+
+    # model factory
+    OpenDxp\Model\FactoryInterface: '@OpenDxp\Model\Factory'
+
+    OpenDxp\Model\Factory:
+        calls:
+            - [addLoader, ['@OpenDxp\Model\Factory\FallbackBuilder']]
+
+    # public alias which is used throughout code base
+    # TODO replace with FQCN reference in wherever this is used
+    opendxp.model.factory:
+        alias: OpenDxp\Model\Factory
+        public: true
+
+    # fallback model builder for opendxp model factory
+    OpenDxp\Model\Factory\FallbackBuilder: ~

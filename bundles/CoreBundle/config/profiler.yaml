@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # DEVELOPMENT/PROFILER
+    #
+
+    OpenDxp\Bundle\CoreBundle\DataCollector\OpenDxpDataCollector:
+        tags:
+            -
+                name:     data_collector
+                template: '@OpenDxpCore/Profiler/data_collector.html.twig'
+                id:       'opendxp'
+                priority: 500

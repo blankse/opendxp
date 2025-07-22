@@ -1,0 +1,135 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Maintenance\Tasks;
+
+use Exception;
+use OpenDxp\Maintenance\TaskInterface;
+use OpenDxp\Model\Asset;
+use OpenDxp\Model\DataObject;
+use OpenDxp\Model\Document;
+use OpenDxp\Model\Element\Recyclebin;
+use OpenDxp\Model\Schedule\Task\Listing;
+use OpenDxp\Model\User;
+use OpenDxp\Model\Version;
+use Psr\Log\LoggerInterface;
+
+/**
+ * @internal
+ */
+class ScheduledTasksTask implements TaskInterface
+{
+    private LoggerInterface $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
+    public function execute(): void
+    {
+        $list = new Listing();
+        $list->setCondition('active = 1 AND date < ?', time());
+        $tasks = $list->load();
+
+        foreach ($tasks as $task) {
+            $taskUser = User::getById($task->getUserId());
+
+            try {
+                if ($task->getCtype() === 'document') {
+                    $document = Document::getById($task->getCid());
+                    if ($document instanceof Document) {
+                        if ($task->getAction() === 'publish-version' && $task->getVersion() && $document->isAllowed('publish', $taskUser) && $document->isAllowed('versions', $taskUser)) {
+                            if ($version = Version::getById($task->getVersion())) {
+                                $document = $version->getData();
+                                if ($document instanceof Document) {
+                                    $document->setPublished(true);
+                                    $document->save();
+                                } else {
+                                    $this->logger->error('Schedule\\Task\\Executor: Could not restore document from version data.');
+                                }
+                            } else {
+                                $this->logger->error('Schedule\\Task\\Executor: Version [ '.$task->getVersion().' ] does not exist.');
+                            }
+                        } elseif ($task->getAction() === 'publish' && $document->isAllowed('publish', $taskUser)) {
+                            $document->setPublished(true);
+                            $document->save();
+                        } elseif ($task->getAction() === 'unpublish' && $document->isAllowed('unpublish', $taskUser)) {
+                            $document->setPublished(false);
+                            $document->save();
+                        } elseif ($task->getAction() === 'delete' && $document->isAllowed('delete', $taskUser)) {
+                            Recyclebin\Item::create($document);
+                            $document->delete();
+                        }
+                    }
+                } elseif ($task->getCtype() === 'asset') {
+                    $asset = Asset::getById($task->getCid());
+
+                    if ($asset instanceof Asset) {
+                        if ($task->getAction() === 'publish-version' && $task->getVersion() && $asset->isAllowed('publish', $taskUser) && $asset->isAllowed('versions', $taskUser)) {
+                            if ($version = Version::getById($task->getVersion())) {
+                                $asset = $version->getData();
+                                if ($asset instanceof Asset) {
+                                    $asset->save();
+                                } else {
+                                    $this->logger->error('Schedule\\Task\\Executor: Could not restore asset from version data.');
+                                }
+                            } else {
+                                $this->logger->error('Schedule\\Task\\Executor: Version [ '.$task->getVersion().' ] does not exist.');
+                            }
+                        } elseif ($task->getAction() === 'delete' && $asset->isAllowed('delete', $taskUser)) {
+                            Recyclebin\Item::create($asset);
+                            $asset->delete();
+                        }
+                    }
+                } elseif ($task->getCtype() === 'object') {
+                    $object = DataObject::getById($task->getCid());
+
+                    if ($object instanceof DataObject\Concrete) {
+                        if ($task->getAction() === 'publish-version' && $task->getVersion() && $object->isAllowed('publish', $taskUser) && $object->isAllowed('versions', $taskUser)) {
+                            if ($version = Version::getById($task->getVersion())) {
+                                $object = $version->getData();
+                                if ($object instanceof DataObject\Concrete) {
+                                    $object->setPublished(true);
+                                    $object->save();
+                                } else {
+                                    $this->logger->error('Schedule\\Task\\Executor: Could not restore object from version data.');
+                                }
+                            } else {
+                                $this->logger->error('Schedule\\Task\\Executor: Version [ '.$task->getVersion().' ] does not exist.');
+                            }
+                        } elseif ($task->getAction() === 'publish' && $object->isAllowed('publish', $taskUser)) {
+                            $object->setPublished(true);
+                            $object->save();
+                        } elseif ($task->getAction() === 'unpublish' && $object->isAllowed('unpublish', $taskUser)) {
+                            $object->setPublished(false);
+                            $object->save();
+                        } elseif ($task->getAction() === 'delete' && $object->isAllowed('delete', $taskUser)) {
+                            Recyclebin\Item::create($object);
+                            $object->delete();
+                        }
+                    }
+                }
+
+                $task->setActive(false);
+                $task->save();
+            } catch (Exception $e) {
+                $this->logger->error('There was a problem with the scheduled task ID: '.$task->getId());
+                $this->logger->error((string) $e);
+            }
+        }
+    }
+}

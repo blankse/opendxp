@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: true
+        public: false
+
+    #
+    # SERIALIZER
+    #
+    # We use an isolated serializer instance for OpenDXP objects to make sure it doesn't break when the global
+    # serializer is used and configured in client applications. For example, we don't want to use most of the normalizers
+    # which are preconfigured as we basically only need json_encode with error handling and reference loop detection.
+    #
+    # This allows to use the power and flexibility of the serializer component in both admin and website contexts
+    # without influencing each other.
+    #
+
+    OpenDxp\Serializer\Serializer:
+        public: true
+        arguments: ['@?', '@?']
+
+    opendxp.serializer: '@OpenDxp\Serializer\Serializer'
+
+    opendxp.serializer.encoder.json:
+        class: Symfony\Component\Serializer\Encoder\JsonEncoder
+        tags:
+            -  { name: opendxp.serializer.encoder }
+
+    opendxp.serializer.normalizer.reference_loop:
+        class: OpenDxp\Serializer\Normalizer\ReferenceLoopNormalizer
+        tags:
+            -  { name: opendxp.serializer.normalizer }

@@ -1,0 +1,56 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # CONTROLLERS
+    # (auto-register all controllers as services)
+    #
+
+    OpenDxp\Bundle\SimpleBackendSearchBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+
+    #
+    # Commands
+    # (auto-register all commands as services)
+    #
+
+    OpenDxp\Bundle\SimpleBackendSearchBundle\Command\:
+        resource: '../src/Command'
+        tags: ['console.command']
+
+
+    #
+    # INSTALLER
+    #
+
+    OpenDxp\Bundle\SimpleBackendSearchBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpSimpleBackendSearchBundle')"
+
+    #
+    # EventListener
+    #
+    OpenDxp\Bundle\SimpleBackendSearchBundle\EventListener\SearchBackendListener: ~
+
+    #
+    # Message Handler
+    #
+
+    OpenDxp\Bundle\SimpleBackendSearchBundle\MessageHandler\SearchBackendHandler:
+        tags:
+            - { name: messenger.message_handler }
+
+
+    #
+    # Maintenance Tasks
+    #
+
+    OpenDxp\Bundle\SimpleBackendSearchBundle\Task\Maintenance\FullTextIndexOptimizeTask:
+        tags:
+            - { name: opendxp.maintenance.task, type: optimize_fulltext_indexes }

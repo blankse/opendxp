@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Migrations\FilteredMigrationsRepository:
+        public: true
+
+    OpenDxp\Migrations\FilteredTableMetadataStorage:
+        public: true
+
+    Doctrine\Migrations\DependencyFactory:
+        alias: doctrine.migrations.dependency_factory
+
+    OpenDxp\Migrations\DirectoryAwareVersionComparator:
+        arguments:
+            $config: '@doctrine.migrations.configuration'

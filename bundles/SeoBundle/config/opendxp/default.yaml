@@ -1,0 +1,23 @@
+opendxp_seo:
+    sitemaps:
+        generators:
+            opendxp_documents:
+                enabled: true
+                priority: 100
+                generator_id: OpenDxp\Bundle\SeoBundle\Sitemap\Document\DocumentTreeGenerator
+
+    redirects:
+        status_codes:
+            300: Multiple Choices
+            301: Moved Permanently
+            302: Found
+            303: See Other
+            307: Temporary Redirect
+        auto_create_redirects: false
+
+presta_sitemap:
+    # do not add properties by default
+    defaults:
+        lastmod: ~
+        priority: ~
+        changefreq: ~

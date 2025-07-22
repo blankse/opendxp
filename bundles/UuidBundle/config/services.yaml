@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # INSTALLER
+    #
+
+    OpenDxp\Bundle\UuidBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpUuidBundle')"
+
+    #
+    # EVENT LISTENER
+    #
+
+    OpenDxp\Bundle\UuidBundle\EventListener\UUIDListener: ~

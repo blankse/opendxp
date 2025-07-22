@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        public: true
+
+    # aliases enabling autowiring for type hints to our own implementations
+    OpenDxp\Kernel: '@kernel'
+
+    Symfony\Bridge\Twig\Extension\WebLinkExtension: '@twig.extension.weblink'
+    Doctrine\Persistence\ConnectionRegistry: '@doctrine'
+    Symfony\Contracts\Translation\TranslatorInterface: '@OpenDxp\Translation\Translator'
+    GuzzleHttp\ClientInterface: '@opendxp.http_client'
+    Symfony\Component\HttpKernel\EventListener\SessionListener: '@session_listener'
+
+    OpenDxp\Document\Renderer\DocumentRenderer:
+        alias: OpenDxp\Document\Renderer\DocumentRendererInterface
+        deprecated:
+            message: 'The "%alias_id%" alias is deprecated, use "OpenDxp\Document\Renderer\DocumentRendererInterface" instead.'
+            package: open-dxp/opendxp
+            version: 11.2
+
+    OpenDxp\Localization\LocaleService:
+        alias: OpenDxp\Localization\LocaleServiceInterface
+        deprecated:
+            message: 'The "%alias_id%" alias is deprecated, use "OpenDxp\Localization\LocaleServiceInterface" instead.'
+            package: open-dxp/opendxp
+            version: 11.2
+
+    opendxp.locale:
+        alias: OpenDxp\Localization\LocaleServiceInterface
+        deprecated:
+            message: 'The "%alias_id%" alias is deprecated, use "OpenDxp\Localization\LocaleServiceInterface" instead.'
+            package: open-dxp/opendxp
+            version: 11.2

@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Bundle\InstallBundle\Command\:
+        resource: '../src/Command'
+        public: true
+        tags: ['console.command']
+
+    OpenDxp\Composer\PackageInfo: ~
+
+    OpenDxp\Bundle\InstallBundle\Installer: ~

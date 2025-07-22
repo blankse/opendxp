@@ -1,0 +1,40 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # OPENDXP BUNDLES
+    #
+
+    OpenDxp\Extension\Bundle\OpenDxpBundleLocator:
+        arguments:
+            $paths: '%opendxp.extensions.bundles.search_paths%'
+            $handleComposer: '%opendxp.extensions.bundles.handle_composer%'
+
+    OpenDxp\Extension\Bundle\OpenDxpBundleManager:
+        public: true
+
+
+    #
+    # MISC EXTENSION RELATED SERVICES
+    #
+
+    OpenDxp\HttpKernel\BundleLocator\BundleLocatorInterface: '@OpenDxp\HttpKernel\BundleLocator\BundleLocator'
+
+    OpenDxp\HttpKernel\BundleLocator\BundleLocator: ~
+
+    OpenDxp\HttpKernel\WebPathResolver: ~
+
+    OpenDxp\Composer\PackageInfo: ~
+
+    OpenDxp\Config\BundleConfigLocator: ~
+
+    OpenDxp\Bundle\CoreBundle\Command\Bundle\Helper\PostStateChange: ~
+
+    OpenDxp\Tool\AssetsInstaller:
+        public: true
+
+    OpenDxp\Tool\MaintenanceModeHelperInterface:
+        class: OpenDxp\Tool\MaintenanceModeHelper
+        public: true

@@ -1,0 +1,7 @@
+services:
+    OpenDxp\Image\Optimizer:
+        public: true
+
+    OpenDxp\Image\Optimizer\SpatieImageOptimizer:
+        tags:
+            - { name: opendxp.image.optimizer }

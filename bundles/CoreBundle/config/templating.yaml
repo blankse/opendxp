@@ -1,0 +1,47 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # RENDERERS
+
+    OpenDxp\Templating\Renderer\ActionRenderer:
+        arguments:
+            $httpKernelRuntime: '@twig.runtime.httpkernel'
+
+    OpenDxp\Templating\Renderer\IncludeRenderer: ~
+
+    OpenDxp\Templating\Renderer\EditableRenderer:
+        public: true
+        arguments:
+            $editableLoader: '@OpenDxp\Model\Document\Editable\Loader\EditableLoader'
+        calls:
+            - [setLogger, ['@logger']]
+
+    # NAVIGATION
+
+    # renderer locator collecting all registered renderers
+    opendxp.templating.navigation.renderer_locator:
+        class: Symfony\Component\DependencyInjection\ServiceLocator
+        tags: ['container.service_locator']
+        arguments: [[]]
+
+    OpenDxp\Navigation\Builder: ~
+
+    OpenDxp\Navigation\Renderer\Menu:
+        arguments:
+            $templatingEngine: '@opendxp.templating.engine.delegating'
+        tags:
+            - { name: opendxp.navigation.renderer, alias: menu }
+
+    OpenDxp\Navigation\Renderer\Breadcrumbs:
+        arguments:
+            $templatingEngine: '@opendxp.templating.engine.delegating'
+        tags:
+            - { name: opendxp.navigation.renderer, alias: breadcrumbs }
+
+    Symfony\Component\Templating\EngineInterface: '@opendxp.templating.engine.delegating'
+
+    opendxp.templating.engine.delegating:
+        public: true
+        class: OpenDxp\Templating\TwigDefaultDelegatingEngine

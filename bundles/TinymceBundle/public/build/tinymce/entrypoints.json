@@ -1,0 +1,11 @@
+{
+  "entrypoints": {
+    "tinymce": {
+      "js": [
+        "/bundles/opendxptinymce/build/tinymce/runtime.js",
+        "/bundles/opendxptinymce/build/tinymce/548.js",
+        "/bundles/opendxptinymce/build/tinymce/tinymce.js"
+      ]
+    }
+  }
+}

@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # SECURITY
+    #
+
+    # the password hasher factory builds a dedicated hasher per user
+    # as we need the user instance to hash passwords.
+    # we don't specifiy this as fully qualified class name as there can be multiple factories (one for each user type)
+    opendxp.security.user_password_hasher_factory:
+        class: OpenDxp\Security\Hasher\Factory\UserAwarePasswordHasherFactory
+        arguments:
+            - OpenDxp\Security\Hasher\OpenDxpUserPasswordHasher
+
+# OpenDxp
+opendxp:
+    security:
+        factory_type: password_hasher
+        password_hasher_factories:
+            OpenDxp\Security\User\User: opendxp.security.user_password_hasher_factory

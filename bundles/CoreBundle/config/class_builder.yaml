@@ -1,0 +1,55 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\DataObject\ClassBuilder\ClassBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\ClassBuilder
+
+    OpenDxp\DataObject\ClassBuilder\FieldCollectionClassBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\FieldCollectionClassBuilder
+
+    OpenDxp\DataObject\ClassBuilder\FieldDefinitionBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\FieldDefinitionBuilder
+
+    OpenDxp\DataObject\ClassBuilder\FieldDefinitionDocBlockBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\FieldDefinitionDocBlockBuilder
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\FieldDefinitionPropertiesBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\FieldDefinitionPropertiesBuilder
+
+    OpenDxp\DataObject\ClassBuilder\ListingClassBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\ListingClassBuilder
+
+    OpenDxp\DataObject\ClassBuilder\ListingClassFieldDefinitionBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\ListingClassFieldDefinitionBuilder
+
+    OpenDxp\DataObject\ClassBuilder\ObjectBrickClassBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\ObjectBrickClassBuilder
+
+    OpenDxp\DataObject\ClassBuilder\ObjectBrickContainerClassBuilderInterface:
+        class: OpenDxp\DataObject\ClassBuilder\ObjectBrickContainerClassBuilder
+
+    OpenDxp\DataObject\ClassBuilder\PHPClassDumperInterface:
+        class: OpenDxp\DataObject\ClassBuilder\PHPClassDumper
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\PHPFieldCollectionClassDumperInterface:
+        class: OpenDxp\DataObject\ClassBuilder\PHPFieldCollectionClassDumper
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\PHPObjectBrickClassDumperInterface:
+        class: OpenDxp\DataObject\ClassBuilder\PHPObjectBrickClassDumper
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\PHPObjectBrickContainerClassDumperInterface:
+        class: OpenDxp\DataObject\ClassBuilder\PHPObjectBrickContainerClassDumper
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\PHPSelectOptionsEnumDumperInterface:
+        class: 'OpenDxp\DataObject\ClassBuilder\PHPSelectOptionsEnumDumper'
+        public: true
+
+    OpenDxp\DataObject\ClassBuilder\SelectOptionsEnumBuilderInterface:
+        class: 'OpenDxp\DataObject\ClassBuilder\SelectOptionsEnumBuilder'

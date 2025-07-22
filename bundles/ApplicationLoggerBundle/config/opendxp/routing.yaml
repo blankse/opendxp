@@ -1,0 +1,6 @@
+_opendxp_application_logger:
+    resource: "@OpenDxpApplicationLoggerBundle/src/Controller/"
+    type: annotation
+    prefix: /admin/bundle/applicationlogger
+    options:
+        expose: true

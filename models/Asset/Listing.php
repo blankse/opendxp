@@ -1,0 +1,88 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\Asset;
+
+use OpenDxp\Model;
+use OpenDxp\Model\Paginator\PaginateListingInterface;
+
+/**
+ * @method Model\Asset[] load()
+ * @method Model\Asset|false current()
+ * @method int getTotalCount()
+ * @method int getCount()
+ * @method int[] loadIdList()
+ * @method \OpenDxp\Model\Asset\Listing\Dao getDao()
+ * @method onCreateQueryBuilder(?callable $callback)
+ */
+class Listing extends Model\Listing\AbstractListing implements PaginateListingInterface
+{
+    /**
+     * @return Model\Asset[]
+     */
+    public function getAssets(): array
+    {
+        return $this->getData();
+    }
+
+    /**
+     * @param Model\Asset[] $assets
+     *
+     * @return $this
+     */
+    public function setAssets(array $assets): static
+    {
+        return $this->setData($assets);
+    }
+
+    /**
+     *
+     * @return Model\Asset[]
+     */
+    public function getItems(int $offset, int $itemCountPerPage): array
+    {
+        $this->setOffset($offset);
+        $this->setLimit($itemCountPerPage);
+
+        return $this->load();
+    }
+
+    /**
+     * @internal
+     *
+     * @return $this
+     */
+    public function filterAccessibleByUser(Model\User $user, Model\Asset $asset): static
+    {
+        if (!$user->isAdmin()) {
+            $userIds = $user->getRoles();
+            $currentUserId = $user->getId();
+            $userIds[] = $currentUserId;
+
+            $inheritedPermission = $asset->getDao()->isInheritingPermission('list', $userIds);
+
+            $anyAllowedRowOrChildren = 'EXISTS(SELECT list FROM users_workspaces_asset uwa WHERE userId IN (' . implode(',', $userIds) . ') AND list=1 AND LOCATE(CONCAT(`path`,filename),cpath)=1 AND
+            NOT EXISTS(SELECT list FROM users_workspaces_asset WHERE userId =' . $currentUserId . '  AND list=0 AND cpath = uwa.cpath))';
+            $isDisallowedCurrentRow = 'EXISTS(SELECT list FROM users_workspaces_asset WHERE userId IN (' . implode(',', $userIds) . ')  AND cid = id AND list=0)';
+
+            $condition = 'IF(' . $anyAllowedRowOrChildren . ',1,IF(' . $inheritedPermission . ', ' . $isDisallowedCurrentRow . ' = 0, 0)) = 1';
+
+            $this->addConditionParam($condition);
+        }
+
+        return $this;
+    }
+}

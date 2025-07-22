@@ -1,0 +1,89 @@
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        # automatically injects dependencies in your services
+        autowire: true
+        # automatically registers your services as commands, event subscribers, etc.
+        autoconfigure: true
+        # this means you cannot fetch services directly from the container via $container->get()
+        # if you need to do this, you can override this setting on individual services
+        public: false
+
+    _instanceof:
+        # all services implementing the GenericExecutionEngineMessageInterface
+        # will be registered on the bus
+        OpenDxp\Bundle\GenericExecutionEngineBundle\Messenger\Messages\GenericExecutionEngineMessageInterface:
+            tags:
+                - { name: messenger.message_handler, bus: generic.execution.engine.bus }
+
+    # ---------------------
+    # INSTALLER
+    # ---------------------
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpGenericExecutionEngineBundle')"
+
+
+    # ---------------------
+    # Job Execution Engine
+    # ---------------------
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Agent\JobExecutionAgentInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Agent\JobExecutionAgent
+        arguments:
+            $environment: '%kernel.environment%'
+            $executionEngineBus: '@generic.execution.engine.bus'
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Repository\JobRunRepositoryInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Repository\JobRunRepository
+        arguments:
+            $openDxpEntityManager: "@doctrine.orm.opendxp_entity_manager"
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Repository\JobRunErrorLogRepositoryInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Repository\JobRunErrorLogRepository
+        arguments:
+            $openDxpEntityManager: "@doctrine.orm.opendxp_entity_manager"
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Grid\JobRunGridInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Grid\JobRunGrid
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\CurrentMessage\CurrentMessageProviderInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\CurrentMessage\CurrentMessageProvider
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\EventSubscriber\JobExecutionSubscriber: ~
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\EventSubscriber\JobRunStatusChangeSubscriber:
+        tags:
+            -
+                name: 'doctrine.event_listener'
+                event: 'preUpdate'
+                priority: 500
+                connection: 'default'
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Extractor\JobRunExtractorInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Extractor\JobRunExtractor
+
+    # ---------------------
+    # Security Services
+    # ---------------------
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Security\PermissionServiceInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Security\PermissionService
+
+    # ---------------------
+    # Configuration
+    # ---------------------
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Configuration\ExecutionContextInterface:
+        class: OpenDxp\Bundle\GenericExecutionEngineBundle\Configuration\ExecutionContext
+
+
+    # ---------------------
+    # Middleware
+    # ---------------------
+
+    OpenDxp\Messenger\Middleware\CollectGarbageMiddleware:
+        tags:
+            - { name: "messenger.middleware" }
+
+    OpenDxp\Bundle\GenericExecutionEngineBundle\Messenger\Middleware\StepConditionMiddleware:
+        tags:
+            - { name: "messenger.middleware" }

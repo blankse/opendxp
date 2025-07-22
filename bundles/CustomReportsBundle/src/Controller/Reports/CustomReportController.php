@@ -1,0 +1,489 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Bundle\CustomReportsBundle\Controller\Reports;
+
+use Exception;
+use OpenDxp\Bundle\CustomReportsBundle\Tool;
+use OpenDxp\Controller\Traits\JsonHelperTrait;
+use OpenDxp\Controller\UserAwareController;
+use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
+use OpenDxp\Model\Element\Service;
+use OpenDxp\Model\Exception\ConfigWriteException;
+use stdClass;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\InvalidArgumentException;
+
+/**
+ * @Route("/custom-report")
+ *
+ * @internal
+ */
+class CustomReportController extends UserAwareController
+{
+    use JsonHelperTrait;
+
+    /**
+     * @Route("/tree", name="opendxp_bundle_customreports_customreport_tree", methods={"GET", "POST"})
+     */
+    public function treeAction(): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+        $reports = Tool\Config::getReportsList();
+
+        return $this->jsonResponse($reports);
+    }
+
+    /**
+     * @Route("/portlet-report-list", name="opendxp_bundle_customreports_customreport_portletreportlist", methods={"GET", "POST"})
+     */
+    public function portletReportListAction(): JsonResponse
+    {
+        $this->checkPermission('reports');
+        $reports = Tool\Config::getReportsList($this->getOpenDxpUser());
+
+        return $this->jsonResponse(['data' => $reports]);
+    }
+
+    /**
+     * @Route("/add", name="opendxp_bundle_customreports_customreport_add", methods={"POST"})
+     */
+    public function addAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+
+        $success = false;
+
+        $reportName = $request->request->getString('name');
+        $this->isValidConfigName($reportName);
+
+        $report = Tool\Config::getByName($reportName);
+
+        if (!$report) {
+            $report = new Tool\Config();
+            if (!$report->isWriteable()) {
+                throw new ConfigWriteException();
+            }
+
+            $report->setName($reportName);
+            $report->save();
+
+            $success = true;
+        }
+
+        return $this->jsonResponse(['success' => $success, 'id' => $report->getName()]);
+    }
+
+    /**
+     * @Route("/delete", name="opendxp_bundle_customreports_customreport_delete", methods={"DELETE"})
+     */
+    public function deleteAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+
+        $report = Tool\Config::getByName($request->request->getString('name'));
+        if (!$report) {
+            throw $this->createNotFoundException();
+        }
+        if (!$report->isWriteable()) {
+            throw new ConfigWriteException();
+        }
+
+        $report->delete();
+
+        return $this->jsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/clone", name="opendxp_bundle_customreports_customreport_clone", methods={"POST"})
+     */
+    public function cloneAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+
+        $newName = $request->request->getString('newName');
+        $this->isValidConfigName($newName);
+        $report = Tool\Config::getByName($newName);
+        if ($report) {
+            throw new Exception('report already exists');
+        }
+
+        $report = Tool\Config::getByName($request->request->getString('name'));
+        if (!$report) {
+            throw $this->createNotFoundException();
+        }
+        $reportData = $this->encodeJson($report);
+        $reportData = $this->decodeJson($reportData);
+
+        unset($reportData['name']);
+        $reportData['name'] = $newName;
+
+        foreach ($reportData as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+            if (method_exists($report, $setter)) {
+                $report->$setter($value);
+            }
+        }
+
+        $report->save();
+
+        return $this->jsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/get", name="opendxp_bundle_customreports_customreport_get", methods={"GET"})
+     */
+    public function getAction(Request $request): JsonResponse
+    {
+        $this->checkPermissionsHasOneOf(['reports_config', 'reports']);
+
+        $report = Tool\Config::getByName($request->query->getString('name'));
+        if (!$report) {
+            throw $this->createNotFoundException();
+        }
+        $data = $report->getObjectVars();
+        $data['writeable'] = $report->isWriteable();
+
+        return $this->jsonResponse($data);
+    }
+
+    /**
+     * @Route("/update", name="opendxp_bundle_customreports_customreport_update", methods={"PUT"})
+     */
+    public function updateAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+        $reportName = $request->request->getString('name');
+        $this->isValidConfigName($reportName);
+        $report = Tool\Config::getByName($reportName);
+        if (!$report) {
+            throw $this->createNotFoundException();
+        }
+        if (!$report->isWriteable()) {
+            throw new ConfigWriteException();
+        }
+
+        $data = $this->decodeJson($request->request->getString('configuration'));
+
+        if (!is_array($data['yAxis'])) {
+            $data['yAxis'] = strlen($data['yAxis'] ?? '') ? [$data['yAxis']] : [];
+        }
+
+        foreach ($data as $key => $value) {
+            $setter = 'set' . ucfirst($key);
+            if (method_exists($report, $setter)) {
+                $report->$setter($value);
+            }
+        }
+
+        $report->save();
+
+        return $this->jsonResponse(['success' => true]);
+    }
+
+    /**
+     * @Route("/column-config", name="opendxp_bundle_customreports_customreport_columnconfig", methods={"POST"})
+     */
+    public function columnConfigAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports_config');
+
+        $report = Tool\Config::getByName($request->request->getString('name'));
+        if (!$report) {
+            throw $this->createNotFoundException();
+        }
+        $columnConfiguration = $report->getColumnConfiguration();
+
+        $configuration = json_decode($request->request->getString('configuration'));
+        $configuration = $configuration[0] ?? null;
+
+        $success = false;
+        $errorMessage = null;
+
+        $result = [];
+
+        try {
+            $adapter = Tool\Config::getAdapter($configuration);
+            $columns = $adapter->getColumns($configuration);
+
+            foreach ($columnConfiguration as $item) {
+                $name = $item['name'];
+                if (in_array($name, $columns)) {
+                    $result[] = $name;
+                    array_splice($columns, array_search($name, $columns), 1);
+                }
+            }
+            foreach ($columns as $remainingColumn) {
+                $result[] = $remainingColumn;
+            }
+
+            $success = true;
+        } catch (Exception $e) {
+            $errorMessage = $e->getMessage();
+        }
+
+        return $this->jsonResponse([
+            'success' => $success,
+            'columns' => $result,
+            'errorMessage' => $errorMessage,
+        ]);
+    }
+
+    /**
+     * @Route("/get-report-config", name="opendxp_bundle_customreports_customreport_getreportconfig", methods={"GET"})
+     */
+    public function getReportConfigAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports');
+
+        $reports = [];
+
+        $list = new Tool\Config\Listing();
+        $items = $list->getDao()->loadForGivenUser($this->getOpenDxpUser());
+
+        foreach ($items as $report) {
+            if ($report->getDataSourceConfig() !== null) {
+                $reports[] = [
+                    'name' => htmlspecialchars($report->getName()),
+                    'niceName' => htmlspecialchars($report->getNiceName()),
+                    'iconClass' => htmlspecialchars($report->getIconClass()),
+                    'group' => htmlspecialchars($report->getGroup()),
+                    'groupIconClass' => htmlspecialchars($report->getGroupIconClass()),
+                    'menuShortcut' => $report->getMenuShortcut(),
+                    'reportClass' => htmlspecialchars($report->getReportClass()),
+                ];
+            }
+        }
+
+        return $this->jsonResponse([
+            'success' => true,
+            'reports' => $reports,
+        ]);
+    }
+
+    /**
+     * @Route("/data", name="opendxp_bundle_customreports_customreport_data", methods={"POST"})
+     */
+    public function dataAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports');
+        if (!class_exists(\OpenDxp\Bundle\AdminBundle\Helper\QueryParams::class)) {
+            throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
+        }
+        $offset = $request->request->getInt('start', 0);
+        $limit = $request->request->getInt('limit', 40);
+        $config = Tool\Config::getByName($request->request->getString('name'));
+        if (!$config) {
+            throw $this->createNotFoundException();
+        }
+        $configuration = $config->getDataSourceConfig();
+        $adapter = Tool\Config::getAdapter($configuration, $config);
+        $sortFilters = $this->getSortAndFilters($request, $configuration);
+        $result = $adapter->getData($sortFilters['filters'], $sortFilters['sort'], $sortFilters['dir'], $offset, $limit, null, $sortFilters['drillDownFilters']);
+
+        return $this->jsonResponse([
+            'success' => true,
+            'data' => $result['data'],
+            'total' => $result['total'],
+        ]);
+    }
+
+    /**
+     * @Route("/drill-down-options", name="opendxp_bundle_customreports_customreport_drilldownoptions", methods={"POST"})
+     */
+    public function drillDownOptionsAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports');
+
+        $field = $request->request->getString('field');
+        $filters = ($request->request->getString('filter') ? json_decode($request->request->getString('filter'), true) : null);
+        $drillDownFilters = $request->request->all('drillDownFilters');
+
+        $config = Tool\Config::getByName($request->request->getString('name'));
+        if (!$config) {
+            throw $this->createNotFoundException();
+        }
+        $configuration = $config->getDataSourceConfig();
+
+        $adapter = Tool\Config::getAdapter($configuration, $config);
+        $result = $adapter->getAvailableOptions($filters ?? [], $field, $drillDownFilters);
+
+        return $this->jsonResponse([
+            'success' => true,
+            'data' => $result['data'],
+        ]);
+    }
+
+    /**
+     * @Route("/chart", name="opendxp_bundle_customreports_customreport_chart", methods={"POST"})
+     */
+    public function chartAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports');
+        $config = Tool\Config::getByName($request->request->getString('name'));
+        if (!$config) {
+            throw $this->createNotFoundException();
+        }
+        $configuration = $config->getDataSourceConfig();
+        $adapter = Tool\Config::getAdapter($configuration, $config);
+        $sortFilters = $this->getSortAndFilters($request, $configuration);
+        $result = $adapter->getData($sortFilters['filters'], $sortFilters['sort'], $sortFilters['dir'], null, null, null, $sortFilters['drillDownFilters']);
+
+        return $this->jsonResponse([
+            'success' => true,
+            'data' => $result['data'],
+            'total' => $result['total'],
+        ]);
+    }
+
+    protected function getTemporaryFileFromFileName(string $exportFileName): string
+    {
+        $exportFileName = basename($exportFileName);
+        if (!str_ends_with($exportFileName, '.csv')) {
+            throw new InvalidArgumentException($exportFileName . ' is not a valid csv file.');
+        }
+
+        return OPENDXP_SYSTEM_TEMP_DIRECTORY . '/' . $exportFileName;
+    }
+
+    /**
+     * @Route("/create-csv", name="opendxp_bundle_customreports_customreport_createcsv", methods={"GET"})
+     */
+    public function createCsvAction(Request $request): JsonResponse
+    {
+        $this->checkPermission('reports');
+
+        set_time_limit(300);
+
+        $sort = $request->query->getString('sort');
+        $dir = $request->query->getString('dir');
+        $filters = $request->query->has('filter') ? json_decode(urldecode($request->query->getString('filter')), true) : null;
+        $drillDownFilters = $request->query->getString('drillDownFilters');
+        if ($drillDownFilters) {
+            $drillDownFilters = json_decode($drillDownFilters, true);
+        }
+        $includeHeaders = $request->query->getBoolean('headers');
+
+        $config = Tool\Config::getByName($request->query->getString('name'));
+        if (!$config) {
+            throw $this->createNotFoundException();
+        }
+
+        $columns = $config->getColumnConfiguration();
+        $fields = [];
+        foreach ($columns as $column) {
+            if ($column['export']) {
+                $fields[] = $column['name'];
+            }
+        }
+
+        $configuration = $config->getDataSourceConfig();
+
+        $adapter = Tool\Config::getAdapter($configuration, $config);
+
+        $offset = $request->query->getInt('offset');
+        $limit = 5000;
+        $result = $adapter->getData($filters, $sort, $dir, $offset * $limit, $limit, $fields, $drillDownFilters);
+        ++$offset;
+
+        if (!($exportFile = $request->query->getString('exportFile'))) {
+            $exportFile = OPENDXP_SYSTEM_TEMP_DIRECTORY . '/report-export-' . uniqid() . '.csv';
+            @unlink($exportFile);
+        } else {
+            $exportFile = $this->getTemporaryFileFromFileName($exportFile);
+        }
+
+        $fp = fopen($exportFile, 'a');
+
+        if ($includeHeaders) {
+            fputcsv($fp, $fields, ';');
+        }
+
+        foreach ($result['data'] as $row) {
+            $row = Service::escapeCsvRecord($row);
+            fputcsv($fp, array_values($row), ';');
+        }
+
+        fclose($fp);
+
+        $progress = $result['total'] ? ($offset * $limit) / $result['total'] : 1;
+        $progress = $progress > 1 ? 1 : $progress;
+
+        return new JsonResponse([
+            'exportFile' => basename($exportFile),
+            'offset' => $offset,
+            'progress' => $progress,
+            'finished' => empty($result['data']) || count($result['data']) < $limit,
+        ]);
+    }
+
+    /**
+     * @Route("/download-csv", name="opendxp_bundle_customreports_customreport_downloadcsv", methods={"GET"})
+     */
+    public function downloadCsvAction(Request $request): BinaryFileResponse
+    {
+        $this->checkPermission('reports');
+        if ($exportFile = $request->query->getString('exportFile')) {
+            $exportFile = $this->getTemporaryFileFromFileName($exportFile);
+            $response = new BinaryFileResponse($exportFile);
+            $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, 'export.csv');
+            $response->deleteFileAfterSend(true);
+
+            return $response;
+        }
+
+        throw new FileNotFoundException("File \"$exportFile\" not found!");
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function isValidConfigName(string $configName): void
+    {
+        if (!preg_match('/^[a-zA-Z0-9_\-]+$/', $configName)) {
+            throw new Exception('The customer report name is invalid');
+        }
+    }
+
+    // gets the sort, direction, filters, drilldownfilters from grid or initial config
+    private function getSortAndFilters(Request $request, stdClass $configuration): array
+    {
+        $sortingSettings = null;
+        $sort = null;
+        $dir = null;
+        if (class_exists('\OpenDxp\Bundle\AdminBundle\Helper\QueryParams')) {
+            $sortingSettings = \OpenDxp\Bundle\AdminBundle\Helper\QueryParams::extractSortingSettings(array_merge($request->request->all(), $request->query->all()));
+        }
+        if (is_array($sortingSettings) && $sortingSettings['orderKey']) {
+            $sort = $sortingSettings['orderKey'];
+            $dir = $sortingSettings['order'];
+        }
+        $filters = ($request->request->has('filter') ? json_decode($request->request->getString('filter'), true) : null);
+        $drillDownFilters = $request->request->all('drillDownFilters');
+        if ($sort === null && $dir === null && property_exists($configuration, 'orderby') && $configuration->orderby !== '' && $configuration->orderbydir !== '') {
+            $sort = $configuration->orderby;
+            $dir = $configuration->orderbydir;
+        }
+
+        return ['sort' => $sort, 'dir' => $dir, 'filters' => $filters, 'drillDownFilters' => $drillDownFilters];
+    }
+}

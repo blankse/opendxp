@@ -1,0 +1,6 @@
+_opendxp_reports:
+    resource: "@OpenDxpCustomReportsBundle/src/Controller/"
+    type: annotation
+    prefix: /admin/bundle/customreports
+    options:
+        expose: true

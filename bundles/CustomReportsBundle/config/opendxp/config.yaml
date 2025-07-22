@@ -1,0 +1,4 @@
+opendxp_custom_reports:
+    adapters:
+        sql: opendxp.custom_report.adapter.factory.sql
+

@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Class resolver for all types
+    OpenDxp\Resolver\ClassResolver: ~
+
+    opendxp.class.resolver.document:
+        public: true
+        class: OpenDxp\Resolver\ClassResolver
+        arguments:
+            $map: '%opendxp.documents.classes.map%'
+
+    opendxp.class.resolver.asset:
+        public: true
+        class: OpenDxp\Resolver\ClassResolver
+        arguments:
+            $map: '%opendxp.assets.classes.map%'

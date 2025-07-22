@@ -1,0 +1,111 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * OpenDXP
+ *
+ * This source file is licensed under the GNU General Public License version 3 (GPLv3).
+ *
+ * Full copyright and license information is available in
+ * LICENSE.md which is distributed with this source code.
+ *
+ * @copyright  Copyright (c) Pimcore GmbH (https://pimcore.com)
+ * @copyright  Modification Copyright (c) OpenDXP (https://www.opendxp.ch)
+ * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
+ */
+
+namespace OpenDxp\Model\DataObject\Classificationstore;
+
+use OpenDxp\Model;
+use OpenDxp\Model\Exception\NotFoundException;
+
+/**
+ * @method \OpenDxp\Model\DataObject\Classificationstore\CollectionGroupRelation\Dao getDao()
+ * @method void save()
+ * @method void delete()
+ */
+final class CollectionGroupRelation extends Model\AbstractModel
+{
+    protected int $colId;
+
+    protected int $groupId;
+
+    /**
+     * The key
+     */
+    protected string $name;
+
+    /**
+     * The key description.
+     */
+    protected string $description = '';
+
+    protected int $sorter;
+
+    public static function create(): self
+    {
+        return new self();
+    }
+
+    public static function getByGroupAndColId(int $groupId = null, int $colId = null): ?self
+    {
+        try {
+            $config = new self();
+            $config->getDao()->getById((int)$colId, (int)$groupId);
+
+            return $config;
+        } catch (NotFoundException) {
+            return null;
+        }
+    }
+
+    public function getGroupId(): int
+    {
+        return $this->groupId;
+    }
+
+    public function setGroupId(int $groupId): void
+    {
+        $this->groupId = $groupId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getColId(): int
+    {
+        return $this->colId;
+    }
+
+    public function setColId(int $colId): void
+    {
+        $this->colId = $colId;
+    }
+
+    public function getSorter(): int
+    {
+        return $this->sorter;
+    }
+
+    public function setSorter(int $sorter): void
+    {
+        $this->sorter = $sorter;
+    }
+}

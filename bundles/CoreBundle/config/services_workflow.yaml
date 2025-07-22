@@ -1,0 +1,74 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Workflow\Manager:
+        public: true
+
+    OpenDxp\Workflow\Place\StatusInfo:
+        public: true
+
+    OpenDxp\Workflow\Notification\NotificationEmailService:
+        public: true
+
+    OpenDxp\Workflow\Notification\OpenDxpNotificationService: ~
+
+    workflow.marking_store.state_table:
+        class: OpenDxp\Workflow\MarkingStore\StateTableMarkingStore
+        abstract: true
+
+    workflow.marking_store.multiple_state:
+        class: Symfony\Component\Workflow\MarkingStore\MethodMarkingStore
+        abstract: true
+
+    workflow.marking_store.single_state:
+        class: Symfony\Component\Workflow\MarkingStore\MethodMarkingStore
+        abstract: true
+
+    workflow.marking_store.data_object_splitted_state:
+        class: OpenDxp\Workflow\MarkingStore\DataObjectSplittedStateMarkingStore
+        abstract: true
+
+    workflow.marking_store.data_object_multiple_state:
+        class: OpenDxp\Workflow\MarkingStore\DataObjectMultipleStateMarkingStore
+        abstract: true
+
+    workflow.support_strategy.expression:
+        class: OpenDxp\Workflow\SupportStrategy\ExpressionSupportStrategy
+        arguments:
+            - '@OpenDxp\Workflow\ExpressionService'
+        abstract: true
+
+    workflow.support_strategy.authorization_checker:
+        class: Symfony\Component\Security\Core\Authorization\AuthorizationChecker
+        arguments:
+            $tokenStorage: '@security.token_storage'
+            $accessDecisionManager: '@security.access.decision_manager'
+            $exceptionOnNoToken: false
+
+    OpenDxp\Workflow\ExpressionService:
+        class: OpenDxp\Workflow\ExpressionService
+        arguments:
+            - '@workflow.security.expression_language'
+            - '@security.token_storage'
+            - '@workflow.support_strategy.authorization_checker'
+            - '@security.authentication.trust_resolver'
+            - '@security.role_hierarchy'
+            - '@validator'
+        public: true
+
+    OpenDxp\Workflow\EventSubscriber\NotificationSubscriber: ~
+
+    OpenDxp\Workflow\EventSubscriber\NotesSubscriber: ~
+
+    OpenDxp\Workflow\EventSubscriber\ChangePublishedStateSubscriber: ~
+    opendxp.workflow.place-options-provider:
+        class: OpenDxp\Workflow\Place\OptionsProvider
+        public: true
+
+    OpenDxp\Workflow\Dumper\GraphvizDumper:
+        public: true
+
+    OpenDxp\Workflow\Dumper\StateMachineGraphvizDumper:
+        public: true

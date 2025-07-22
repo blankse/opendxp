@@ -1,0 +1,20 @@
+<?php
+declare(strict_types=1);
+
+// constants generated in lib/Bootstrap.php
+define('OPENDXP_COMPOSER_PATH', '');
+define('OPENDXP_COMPOSER_FILE_PATH', '');
+define('OPENDXP_PATH', '');
+define('OPENDXP_WEB_ROOT', '');
+define('OPENDXP_PRIVATE_VAR', '');
+define('OPENDXP_CLASS_DIRECTORY', '');
+define('OPENDXP_CLASS_DEFINITION_DIRECTORY', '');
+define('OPENDXP_CUSTOM_CONFIGURATION_DIRECTORY', '');
+define('OPENDXP_CUSTOM_CONFIGURATION_CLASS_DEFINITION_DIRECTORY', '');
+define('OPENDXP_CONFIGURATION_DIRECTORY', '');
+define('OPENDXP_LOG_DIRECTORY', '');
+define('OPENDXP_CACHE_DIRECTORY', '');
+define('OPENDXP_SYSTEM_TEMP_DIRECTORY', '');
+define('OPENDXP_PROJECT_ROOT', '');
+define('OPENDXP_SYMFONY_CACHE_DIRECTORY', '');
+define('OPENDXP_KERNEL_CLASS', '');

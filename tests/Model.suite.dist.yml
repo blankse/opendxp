@@ -1,0 +1,7 @@
+actor: ModelTester
+modules:
+    enabled:
+        - \OpenDxp\Tests\Support\Helper\Pimcore:
+            connect_db: true
+        - \OpenDxp\Tests\Support\Helper\ClassManager
+        - \OpenDxp\Tests\Support\Helper\Model

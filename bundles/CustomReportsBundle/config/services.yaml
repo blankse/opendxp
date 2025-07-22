@@ -1,0 +1,25 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Bundle\CustomReportsBundle\Installer:
+        public: true
+        arguments:
+            $bundle: "@=service('kernel').getBundle('OpenDxpCustomReportsBundle')"
+
+    OpenDxp\Bundle\CustomReportsBundle\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+
+    opendxp.custom_report.adapter.factory.sql:
+        class: OpenDxp\Bundle\CustomReportsBundle\Tool\Adapter\DefaultCustomReportAdapterFactory
+        arguments:
+            - 'OpenDxp\Bundle\CustomReportsBundle\Tool\Adapter\Sql'
+
+    opendxp.custom_report.adapter.factories:
+        class: Symfony\Component\DependencyInjection\ServiceLocator
+        public: true
+        tags: [ 'container.service_locator' ]

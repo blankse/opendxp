@@ -1,0 +1,12 @@
+doctrine:
+    orm:
+        entity_managers:
+            opendxp:
+                connection: default
+                mappings:
+                    OpenDxpGenericExecutionEngineBundle:
+                        type: attribute
+                        is_bundle: true
+                        dir: "src/Entity"
+                        prefix: OpenDxp\Bundle\GenericExecutionEngineBundle\Entity
+                        alias: OpenDxpGenericExecutionEngineBundle

@@ -1,0 +1,41 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # Generic URL generator accepting a path
+    OpenDxp\Bundle\SeoBundle\Sitemap\UrlGeneratorInterface: '@OpenDxp\Bundle\SeoBundle\Sitemap\UrlGenerator'
+    OpenDxp\Bundle\SeoBundle\Sitemap\UrlGenerator: ~
+
+    # Filters
+    OpenDxp\Bundle\SeoBundle\Sitemap\Element\Filter\PublishedFilter: ~
+    OpenDxp\Bundle\SeoBundle\Sitemap\Element\Filter\PropertiesFilter: ~
+
+    # Processors
+    OpenDxp\Bundle\SeoBundle\Sitemap\Element\Processor\ModificationDateProcessor: ~
+    OpenDxp\Bundle\SeoBundle\Sitemap\Element\Processor\PropertiesProcessor: ~
+
+    #
+    # DOCUMENTS
+    #
+    # Services valid for documents
+
+    # Default filters for DocumentTreeGenerator
+    OpenDxp\Bundle\SeoBundle\Sitemap\Document\Filter\DocumentTypeFilter: ~
+    OpenDxp\Bundle\SeoBundle\Sitemap\Document\Filter\SiteRootFilter: ~
+
+    # Default document URL generator
+    OpenDxp\Bundle\SeoBundle\Sitemap\Document\DocumentUrlGeneratorInterface: '@OpenDxp\Bundle\SeoBundle\Sitemap\Document\DocumentUrlGenerator'
+    OpenDxp\Bundle\SeoBundle\Sitemap\Document\DocumentUrlGenerator: ~
+
+    # Default document tree generator
+    OpenDxp\Bundle\SeoBundle\Sitemap\Document\DocumentTreeGenerator:
+        arguments:
+            $filters:
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Element\Filter\PublishedFilter'
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Element\Filter\PropertiesFilter'
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Document\Filter\DocumentTypeFilter'
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Document\Filter\SiteRootFilter'
+            $processors:
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Element\Processor\ModificationDateProcessor'
+                - '@OpenDxp\Bundle\SeoBundle\Sitemap\Element\Processor\PropertiesProcessor'

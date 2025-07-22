@@ -1,0 +1,47 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    OpenDxp\Http\RequestHelper: ~
+
+    OpenDxp\Http\ResponseHelper: ~
+
+    OpenDxp\Http\RequestMatcherFactory:
+        public: false
+
+    OpenDxp\Http\Context\OpenDxpContextGuesser:
+        public: false
+
+    OpenDxp\Http\ResponseStack:
+        public: false
+
+    OpenDxp\Http\Response\CodeInjector:
+        public: false
+
+    #
+    # REQUEST RESOLVERS
+    #
+    # Read/write/normalize defined request attributes (e.g. document)
+    #
+
+    OpenDxp\Http\Request\Resolver\OpenDxpContextResolver: ~
+
+    OpenDxp\Http\Request\Resolver\StaticPageResolver: ~
+
+    OpenDxp\Http\Request\Resolver\OutputTimestampResolver: ~
+
+    OpenDxp\Http\Request\Resolver\SiteResolver: ~
+
+    OpenDxp\Http\Request\Resolver\EditmodeResolver:
+        calls:
+            - [setLogger, ['@logger']]
+        tags:
+            - { name: monolog.logger, channel: init }
+
+    OpenDxp\Http\Request\Resolver\DocumentResolver: ~
+
+    OpenDxp\Http\Request\Resolver\TemplateResolver: ~
+
+    OpenDxp\Http\Request\Resolver\ResponseHeaderResolver: ~

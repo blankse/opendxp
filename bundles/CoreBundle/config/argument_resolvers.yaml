@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        tags:
+            - { name: controller.argument_value_resolver }
+
+    OpenDxp\Controller\ArgumentValueResolver\DocumentValueResolver: ~
+
+    OpenDxp\Controller\ArgumentValueResolver\EditmodeValueResolver: ~
+
+    OpenDxp\Controller\ArgumentValueResolver\WebsiteConfigValueResolver: ~

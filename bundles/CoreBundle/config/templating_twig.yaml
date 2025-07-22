@@ -1,0 +1,81 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OpenDxp\Twig\Extension\HelpersExtension: ~
+
+    OpenDxp\Twig\Extension\DocumentEditableExtension: ~
+
+    OpenDxp\Twig\Extension\SubrequestExtension:
+        lazy: true
+
+    OpenDxp\Twig\Extension\OpenDxpObjectExtension: ~
+
+    OpenDxp\Twig\Extension\OpenDxpToolExtension: ~
+
+    OpenDxp\Twig\Extension\NavigationExtension: ~
+
+    OpenDxp\Twig\Extension\HeaderExtension: ~
+
+    OpenDxp\Twig\Extension\AssetCompressExtension: ~
+
+    OpenDxp\Twig\Extension\WebsiteConfigExtension: ~
+
+    OpenDxp\Twig\Extension\DumpExtension: ~
+
+    OpenDxp\Twig\Extension\CacheExtension: ~
+    OpenDxp\Twig\Extension\CacheTagExtension: ~
+
+    OpenDxp\Twig\Extension\Templating\OpenDxpUrl:
+        arguments:
+            $generator: '@router'
+
+    OpenDxp\Twig\Extension\Templating\HeadLink: ~
+
+    OpenDxp\Twig\Extension\Templating\HeadMeta: ~
+
+    OpenDxp\Twig\Extension\Templating\HeadScript: ~
+
+    OpenDxp\Twig\Extension\Templating\HeadStyle: ~
+
+    OpenDxp\Twig\Extension\Templating\HeadTitle: ~
+
+    OpenDxp\Twig\Extension\Templating\Inc: ~
+
+    OpenDxp\Twig\Extension\Templating\InlineScript: ~
+
+    OpenDxp\Twig\Extension\Templating\Navigation:
+        lazy: true
+        arguments:
+            $rendererLocator: '@opendxp.templating.navigation.renderer_locator'
+
+    OpenDxp\Twig\Extension\Templating\Placeholder: ~
+
+    OpenDxp\Twig\Extension\Templating\Placeholder\AbstractExtension: ~
+
+    OpenDxp\Twig\Extension\Templating\Placeholder\ContainerService: ~
+
+    OpenDxp\Twig\Extension\Templating\Placeholder\Container: ~
+
+    OpenDxp\Twig\Extension\Templating\Placeholder\CacheBusterAware: ~
+
+    OpenDxp\Twig\Extension\AssetHelperExtensions: ~
+
+    OpenDxp\Twig\Extension\DataObjectHelperExtensions: ~
+
+    OpenDxp\Twig\Extension\DocumentHelperExtensions: ~
+
+    OpenDxp\Twig\Extension\ImageThumbnailExtension: ~
+
+    OpenDxp\Twig\Sandbox\SecurityPolicy:
+        arguments:
+            $allowedTags: '%opendxp.templating.twig.sandbox_security_policy.tags%'
+            $allowedFilters: '%opendxp.templating.twig.sandbox_security_policy.filters%'
+            $allowedFunctions: '%opendxp.templating.twig.sandbox_security_policy.functions%'
+
+    Twig\Extension\SandboxExtension:
+        arguments:
+            $policy: '@OpenDxp\Twig\Sandbox\SecurityPolicy'
+
+    OpenDxp\Twig\Extension\AdminExtension: ~

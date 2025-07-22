@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    #
+    # Event Listeners
+    #
+    OpenDxp\Bundle\StaticRoutesBundle\EventListener\IndexSettingsListener:
+        tags:
+            - { name: kernel.event_listener, event: opendxp.admin.indexAction.settings, method: indexSettings }
