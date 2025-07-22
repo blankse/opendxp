@@ -23,7 +23,7 @@ use OpenDxp\Model;
  *
  * @property\OpenDxp\Bundle\CustomReportsBundle\Tool\Config\Listing $model
  */
-class Dao extends\OpenDxp\Bundle\CustomReportsBundle\Tool\Config\Dao
+class Dao extends \OpenDxp\Bundle\CustomReportsBundle\Tool\Config\Dao
 {
     /**
      * @return Config[]
