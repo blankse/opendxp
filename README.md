@@ -2,6 +2,7 @@
 Open Source Data & Digital Experience Platform
 
 ***
+
 ## Disclaimer
 
 > The open future of Pimcore CE. A community-driven fork based on Pimcore Community Edition (GPLv3), created to keep Open Source open  
