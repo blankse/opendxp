@@ -33,7 +33,7 @@ use OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler\SerializerPass;
 use OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler\ServiceControllersPass;
 use OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler\TranslationSanitizerPass;
 use OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler\WorkflowPass;
-use OpenDxp\Bundle\CoreBundle\DependencyInjection\OpenDpxCoreExtension;
+use OpenDxp\Bundle\CoreBundle\DependencyInjection\OpenDxpCoreExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -46,7 +46,7 @@ class OpenDxpCoreBundle extends Bundle
     public function getContainerExtension(): ExtensionInterface
     {
         if (null === $this->extension) {
-            $this->extension = new OpenDpxCoreExtension();
+            $this->extension = new OpenDxpCoreExtension();
         }
 
         return $this->extension;

@@ -28,16 +28,6 @@ parameters:
 		-
 			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"
 			count: 1
-			path: bundles/CoreBundle/src/Migrations/Version20201007000000.php
-
-		-
-			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"
-			count: 1
-			path: bundles/CoreBundle/src/Migrations/Version20230424084415.php
-
-		-
-			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"
-			count: 1
 			path: bundles/CustomReportsBundle/src/DependencyInjection/Configuration.php
 
 		-
@@ -209,11 +199,6 @@ parameters:
 			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"
 			count: 1
 			path: bundles/UuidBundle/src/Installer.php
-
-		-
-			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"
-			count: 1
-			path: bundles/UuidBundle/src/Migrations/Version20230203160742.php
 
 		-
 			message: "#^File is missing a \"declare\\(strict_types\\=1\\)\" declaration\\.$#"

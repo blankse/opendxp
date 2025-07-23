@@ -63,7 +63,7 @@ class Bootstrap
         $_ENV['SHELL_VERBOSITY'] = 0;
         $_SERVER['SHELL_VERBOSITY'] = 0;
 
-        /** @var OpenDxp::Kernel $kernel */
+        /** @var Kernel $kernel */
         $kernel = self::kernel();
 
         if (is_readable($workingDirectory)) {

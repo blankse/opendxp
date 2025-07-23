@@ -38,7 +38,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\ConfigurableExtension;
 /**
  * @internal
  */
-final class OpenDpxCoreExtension extends ConfigurableExtension implements PrependExtensionInterface
+final class OpenDxpCoreExtension extends ConfigurableExtension implements PrependExtensionInterface
 {
     public function getAlias(): string
     {
