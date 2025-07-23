@@ -5,10 +5,10 @@ Open Source Data & Digital Experience Platform
 
 ## Disclaimer
 
-> The open future of Pimcore CE. A community-driven fork based on Pimcore Community Edition (GPLv3), created to keep Open Source open  
-> Original credits: [Pimcore GmbH](https://pimcore.com)
+> The open future of Pimcore CE. A community-driven fork based on Pimcore Community Edition (GPLv3), created to keep Open Source open!  
+> Original credits: [Pimcore GmbH](https://www.pimcore.com)
 
-OpenDXP is an independent, community-maintained fork of Pimcore.
+OpenDXP is an independent, community-maintained fork of Pimcore.  
 It is not affiliated with or endorsed by Pimcore GmbH.
 
 ***
@@ -68,7 +68,15 @@ Support of a minor version of OpenDXP packages ends with the release of the next
 ## Copyright and License 
 Copyright: OpenDXP
 
-This project is a fork of [Pimcore 11.x Community Edition](https://www.pimcore.org),
+This project is a fork of [Pimcore 11.5.6 Community Edition](https://github.com/pimcore/pimcore/tree/4bd5ad4cbdec70c399ccbb7e69b91f95c809454c),
 which is © Pimcore GmbH and licensed under the GPLv3.
 
 For licensing details please visit [LICENSE.md](LICENSE.md)
+
+***
+
+## Contact
+For inquiries, suggestions, or contributions, feel free to reach us at contact@opendxp.ch.
+
+## About
+OpenDXP is a community-driven project maintained and developed by [DACHCOM.DIGITAL](https://www.dachcom.com/de-ch), based in Rheineck, Switzerland.
