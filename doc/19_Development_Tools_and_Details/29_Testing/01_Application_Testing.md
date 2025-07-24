@@ -338,7 +338,7 @@ require_once OPENDXP_PROJECT_ROOT . '/vendor/autoload.php';
 \OpenDxp\Bootstrap::bootstrap();
 \OpenDxp\Bootstrap::kernel();
 
-// add the core pimcore test library to the autoloader - this could also be done in composer.json's autoload-dev section
+// add the core opendxp test library to the autoloader - this could also be done in composer.json's autoload-dev section
 // but is done here for demonstration purpose
 require_once OPENDXP_PROJECT_ROOT . '/vendor/open-dxp/opendxp/tests/Support/Util/Autoloader.php';
 

@@ -47,7 +47,7 @@ template will be used for auto-rendering when the controller does not return a r
 To make OpenDXP's functions available in Twig templates, OpenDXP implements a set of extensions. 
 
 You can take a look at the [implementations](https://github.com/open-dxp/opendxp/tree/11.x/lib/Twig)
-for further details. Note that all of OpenDXP's Twig extensions are prefixed with `pimcore` to avoid naming collisions.
+for further details. Note that all of OpenDXP's Twig extensions are prefixed with `opendxp` to avoid naming collisions.
 
 ### OpenDXP Editables
 
