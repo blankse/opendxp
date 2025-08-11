@@ -78,8 +78,6 @@ final class AreabrickPass implements CompilerPassInterface
                 $areabrickManager->addMethodCall('registerService', [$brickId, $id]);
             }
 
-            // handle bricks implementing ContainerAwareInterface
-            $this->handleContainerAwareDefinition($definition, $reflector);
             $this->handleEditableRendererCall($definition, $reflector);
         }
 
@@ -141,8 +139,6 @@ final class AreabrickPass implements CompilerPassInterface
                     $bundleArea['serviceId'],
                 ]);
 
-                // handle bricks implementing ContainerAwareInterface
-                $this->handleContainerAwareDefinition($definition, $reflector);
                 $this->handleEditableRendererCall($definition, $reflector);
             }
         }
@@ -154,16 +150,6 @@ final class AreabrickPass implements CompilerPassInterface
     {
         if ($reflector->hasMethod('setEditableRenderer')) {
             $definition->addMethodCall('setEditableRenderer', [new Reference(EditableRenderer::class)]);
-        }
-    }
-
-    /**
-     * Adds setContainer() call to bricks implementing ContainerAwareInterface
-     */
-    private function handleContainerAwareDefinition(Definition $definition, ReflectionClass $reflector): void
-    {
-        if ($reflector->implementsInterface(ContainerAwareInterface::class)) {
-            $definition->addMethodCall('setContainer', [new Reference('service_container')]);
         }
     }
 

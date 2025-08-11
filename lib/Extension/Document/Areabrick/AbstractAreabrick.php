@@ -21,13 +21,9 @@ use OpenDxp\Model\Document\Editable;
 use OpenDxp\Model\Document\Editable\Area\Info;
 use OpenDxp\Model\Document\PageSnippet;
 use OpenDxp\Templating\Renderer\EditableRenderer;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
-abstract class AbstractAreabrick implements AreabrickInterface, TemplateAreabrickInterface, ContainerAwareInterface
+abstract class AbstractAreabrick implements AreabrickInterface, TemplateAreabrickInterface
 {
-    use ContainerAwareTrait;
-
     protected EditableRenderer $editableRenderer;
 
     /**

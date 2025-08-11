@@ -387,8 +387,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
      *
      * @return string[]
      */
-    public function warmUp(string $cacheDir): array
+    public function warmUp(string $cacheDir, ?string $buildDir = null): array
     {
-        return $this->translator->warmUp($cacheDir);
+        return $this->translator->warmUp($cacheDir, $buildDir);
     }
 }
