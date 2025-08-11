@@ -22,17 +22,13 @@ use OpenDxp\Controller\UserAwareController;
 use OpenDxp\Model\Exception\ConfigWriteException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class SettingsController extends UserAwareController
 {
     use JsonHelperTrait;
 
-    /**
-     * @Route("/staticroutes", name="opendxp_bundle_staticroutes_settings_staticroutes", methods={"POST"})
-     *
-     *
-     */
+    #[Route('/staticroutes', name: 'opendxp_bundle_staticroutes_settings_staticroutes', methods: ['POST'])]
     public function staticroutesAction(Request $request): JsonResponse
     {
         if ($request->request->has('data')) {
