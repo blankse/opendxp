@@ -46,7 +46,7 @@ class OpenDxpDateTest extends TestCase
             'twig' => <<<TWIG
             {{ opendxp_date("myDate", {
                 "format": "d.m.Y",
-                "outputFormat": "%A, %B %e, %Y %I:%M"
+                "outputIsoFormat": "dddd, MMMM D, YYYY h:mm"
             }) }}
             TWIG,
         ]));
