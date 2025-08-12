@@ -17,11 +17,13 @@ declare(strict_types=1);
 namespace OpenDxp\Model\Element;
 
 use __PHP_Incomplete_Class;
+use DatePeriod;
 use DeepCopy\DeepCopy;
 use DeepCopy\Filter\Doctrine\DoctrineCollectionFilter;
 use DeepCopy\Filter\SetNullFilter;
 use DeepCopy\Matcher\PropertyNameMatcher;
 use DeepCopy\Matcher\PropertyTypeMatcher;
+use DeepCopy\TypeMatcher\TypeMatcher;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Query\QueryBuilder as DoctrineQueryBuilder;
 use Exception;
@@ -40,6 +42,7 @@ use OpenDxp\Model\DataObject\ObjectAwareFieldInterface;
 use OpenDxp\Model\Dependency;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Element;
+use OpenDxp\Model\Element\DeepCopy\CarbonPeriodFilter;
 use OpenDxp\Model\Element\DeepCopy\MarshalMatcher;
 use OpenDxp\Model\Element\DeepCopy\OpenDxpClassDefinitionMatcher;
 use OpenDxp\Model\Element\DeepCopy\OpenDxpClassDefinitionReplaceFilter;
@@ -705,7 +708,7 @@ class Service extends Model\AbstractModel
             return $data;
         }
         if (is_object($data)) {
-            if ($data instanceof UnitEnum) {
+            if ($data instanceof UnitEnum || $data instanceof DatePeriod) {
                 return $data;
             }
 
@@ -1382,6 +1385,8 @@ class Service extends Model\AbstractModel
             $copier->addFilter(new SetNullFilter(), new PropertyTypeMatcher('Psr\Container\ContainerInterface'));
             $copier->addFilter(new SetNullFilter(), new PropertyTypeMatcher('OpenDxp\Model\DataObject\ClassDefinition'));
         }
+
+        $copier->prependTypeFilter(new CarbonPeriodFilter(), new TypeMatcher(CarbonPeriodFilter::TYPE));
 
         $event = new GenericEvent(null, [
             'copier' => $copier,

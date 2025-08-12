@@ -21,6 +21,7 @@ use DateInterval;
 use DeepCopy\TypeMatcher\TypeMatcher;
 use OpenDxp\Event\CoreCacheEvents;
 use OpenDxp\Model\Document\Hardlink\Wrapper\WrapperInterface;
+use OpenDxp\Model\Element\DeepCopy\CarbonPeriodFilter;
 use OpenDxp\Model\Element\ElementDumpStateInterface;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Element\Service;
@@ -481,6 +482,8 @@ class CoreCacheHandler implements LoggerAwareInterface
             ];
             $copier = Service::getDeepCopyInstance($data, $context);
             $copier->addFilter(new SetDumpStateFilter(false), new \DeepCopy\Matcher\PropertyMatcher(ElementDumpStateInterface::class, ElementDumpStateInterface::DUMP_STATE_PROPERTY_NAME));
+
+            $copier->prependTypeFilter(new CarbonPeriodFilter(), new TypeMatcher(CarbonPeriodFilter::TYPE));
 
             $copier->addTypeFilter(
                 new \DeepCopy\TypeFilter\ReplaceFilter(
