@@ -39,8 +39,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Controller\ControllerReference;
 use Symfony\Component\HttpKernel\Fragment\FragmentRendererInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Error\SyntaxError;
 
 /**
  * @internal
@@ -51,7 +54,7 @@ class EditableHandler implements LoggerAwareInterface
 
     protected AreabrickManagerInterface $brickManager;
 
-    protected EngineInterface $templating;
+    protected Environment $templating;
 
     protected BundleLocatorInterface $bundleLocator;
 
@@ -80,7 +83,7 @@ class EditableHandler implements LoggerAwareInterface
 
     public function __construct(
         AreabrickManagerInterface $brickManager,
-        EngineInterface $templating,
+        Environment $templating,
         BundleLocatorInterface $bundleLocator,
         WebPathResolver $webPathResolver,
         RequestHelper $requestHelper,
@@ -162,6 +165,11 @@ class EditableHandler implements LoggerAwareInterface
         return $areas;
     }
 
+    /**
+     * @throws SyntaxError
+     * @throws RuntimeError
+     * @throws LoaderError
+     */
     public function renderAreaFrontend(Info $info, array $templateParams = []): string
     {
         $brick = $this->brickManager->getBrick($info->getId());
@@ -182,7 +190,7 @@ class EditableHandler implements LoggerAwareInterface
 
         // check if view template exists and throw error before open tag is rendered
         $viewTemplate = $this->resolveBrickTemplate($brick);
-        if (!$this->templating->exists($viewTemplate)) {
+        if (!$this->templating->getLoader()->exists($viewTemplate)) {
             $e = new ConfigurationException(sprintf(
                 'The view template "%s" for areabrick "%s" does not exist',
                 $viewTemplate,
@@ -208,7 +216,6 @@ class EditableHandler implements LoggerAwareInterface
         $html = $this->templating->render('@OpenDxpCore/Areabrick/wrapper.html.twig', array_merge([
             'brick' => $brick,
             'info' => $info,
-            'templating' => $this->templating,
             'editmode' => $editmode,
             'viewTemplate' => $viewTemplate,
             'viewParameters' => $params,
@@ -297,7 +304,7 @@ class EditableHandler implements LoggerAwareInterface
                 $brick->getTemplateSuffix()
             );
 
-            if ($this->templating->exists($templateReference)) {
+            if ($this->templating->getLoader()->exists($templateReference)) {
                 return $templateReference;
             }
         }

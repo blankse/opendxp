@@ -30,7 +30,9 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Header\Headers;
 use Symfony\Component\Mime\Header\MailboxListHeader;
 use Symfony\Component\Mime\Part\AbstractPart;
+use Twig\Environment;
 use Twig\Extension\EscaperExtension;
+use Twig\Extension\SandboxExtension;
 use Twig\Sandbox\SecurityError;
 
 class Mail extends Email
@@ -596,13 +598,12 @@ class Mail extends Email
 
     private function renderParams(string $string, string $context): string
     {
-        $templatingEngine = OpenDxp::getContainer()->get('opendxp.templating.engine.delegating');
+        /** @var Environment $twig */
+        $twig = OpenDxp::getContainer()->get('opendxp.templating');
+        $twig->getExtension(SandboxExtension::class)->enableSandbox();
         $defaultStrategy = null;
-        $twig = null;
 
         try {
-            $twig = $templatingEngine->getTwigEnvironment(true);
-
             // If rendering an email subject, disable Twig's auto-escaping temporarily
             if ($context === 'subject') {
                 $escaper = $twig->getExtension(EscaperExtension::class);
@@ -624,7 +625,7 @@ class Mail extends Email
                 $twig->getExtension(EscaperExtension::class)->setDefaultStrategy($defaultStrategy);
             }
 
-            $templatingEngine->disableSandboxExtensionFromTwigEnvironment();
+            $twig->getExtension(SandboxExtension::class)->disableSandbox();
         }
     }
 

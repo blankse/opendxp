@@ -20,6 +20,8 @@ use OpenDxp;
 use OpenDxp\Logger;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject\Concrete;
+use Twig\Environment;
+use Twig\Extension\SandboxExtension;
 use Twig\Sandbox\SecurityError;
 
 class Text extends Model\DataObject\ClassDefinition\Layout implements Model\DataObject\ClassDefinition\Data\LayoutDefinitionEnrichmentInterface
@@ -119,10 +121,11 @@ class Text extends Model\DataObject\ClassDefinition\Layout implements Model\Data
             $this->html = $result;
         }
 
-        $templatingEngine = OpenDxp::getContainer()->get('opendxp.templating.engine.delegating');
+        /** @var Environment $twig */
+        $twig = OpenDxp::getContainer()->get('opendxp.templating');
+        $twig->getExtension(SandboxExtension::class)->enableSandbox();
 
         try {
-            $twig = $templatingEngine->getTwigEnvironment(true);
             $template = $twig->createTemplate($this->html);
             $this->html = $template->render(array_merge($context,
                 [
@@ -136,7 +139,7 @@ class Text extends Model\DataObject\ClassDefinition\Layout implements Model\Data
                 Please check your twig sandbox security policy or contact the administrator.',
                 substr($e->getMessage(), 0, strpos($e->getMessage(), ' in "__string')));
         } finally {
-            $templatingEngine->disableSandboxExtensionFromTwigEnvironment();
+            $twig->getExtension(SandboxExtension::class)->disableSandbox();
         }
 
         return $this;

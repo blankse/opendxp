@@ -19,22 +19,22 @@ namespace OpenDxp\Tests\Twig;
 
 use Carbon\Carbon;
 use OpenDxp;
-use OpenDxp\Templating\TwigDefaultDelegatingEngine;
 use OpenDxp\Tests\Support\Test\TestCase;
+use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
 class OpenDxpDateTest extends TestCase
 {
-    private TwigDefaultDelegatingEngine $engine;
+    private Environment $twig;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var TwigDefaultDelegatingEngine $templatingEngine */
-        $templatingEngine = OpenDxp::getContainer()->get('opendxp.templating.engine.delegating');
+        /** @var Environment $twig */
+        $twig = OpenDxp::getContainer()->get('opendxp.templating');
 
-        $this->engine = $templatingEngine;
+        $this->twig = $twig;
     }
 
     public function testOpenDxpDateOutputFormat(): void
@@ -42,7 +42,7 @@ class OpenDxpDateTest extends TestCase
         $backupLocale = setlocale(LC_TIME, '0');
         setlocale(LC_TIME, 'en_US.UTF-8');
 
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
             {{ opendxp_date("myDate", {
                 "format": "d.m.Y",
@@ -57,7 +57,7 @@ class OpenDxpDateTest extends TestCase
         ;
         $snippet->setEditable($date);
 
-        $result = $this->engine->render(
+        $result = $this->twig->render(
             'twig',
             [
                 'document' => $snippet,
@@ -74,7 +74,7 @@ class OpenDxpDateTest extends TestCase
         $backupCarbonLocale = Carbon::getLocale();
         Carbon::setLocale('de_DE.utf8');
 
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
             {{ opendxp_date("myDate", {
                 "format": "d.m.Y",
@@ -89,7 +89,7 @@ class OpenDxpDateTest extends TestCase
         ;
         $snippet->setEditable($date);
 
-        $result = $this->engine->render(
+        $result = $this->twig->render(
             'twig',
             [
                 'document' => $snippet,

@@ -13,7 +13,6 @@ services:
     OpenDxp\Document\Editable\EditableHandler:
         public: true
         arguments:
-            $templating: '@opendxp.templating.engine.delegating'
             $responseStack: '@OpenDxp\Http\ResponseStack'
             $httpKernelRuntime: '@twig.runtime.httpkernel'
         calls:

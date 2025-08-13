@@ -18,27 +18,27 @@ declare(strict_types=1);
 namespace OpenDxp\Tests\Twig;
 
 use OpenDxp;
-use OpenDxp\Templating\TwigDefaultDelegatingEngine;
 use OpenDxp\Tests\Support\Test\TestCase;
+use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 
 class OpenDxpPlaceholderTest extends TestCase
 {
-    private TwigDefaultDelegatingEngine $engine;
+    private Environment $twig;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        /** @var TwigDefaultDelegatingEngine $templatingEngine */
-        $templatingEngine = OpenDxp::getContainer()->get('opendxp.templating.engine.delegating');
+        /** @var Environment $twig */
+        $twig = OpenDxp::getContainer()->get('opendxp.templating');
 
-        $this->engine = $templatingEngine;
+        $this->twig = $twig;
     }
 
     public function testBasic(): void
     {
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
                 {% do opendxp_placeholder('foo').set("Some text for later") %}
                 <h3>First copy:</h3>
@@ -55,7 +55,7 @@ class OpenDxpPlaceholderTest extends TestCase
             TWIG,
         ]));
 
-        $result = $this->engine->render('twig');
+        $result = $this->twig->render('twig');
 
         $this->assertStringContainsString(<<<TEXT
                 <h3>First copy:</h3>
@@ -76,7 +76,7 @@ class OpenDxpPlaceholderTest extends TestCase
 
     public function testAggregateContent(): void
     {
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
             {% do opendxp_placeholder('foo').setPrefix("<ul>\n<li>")
                 .setSeparator("</li>\n<li>")
@@ -98,7 +98,7 @@ class OpenDxpPlaceholderTest extends TestCase
             TWIG,
         ]));
 
-        $result = $this->engine->render(
+        $result = $this->twig->render(
             'twig',
             [
                 'data' => [
@@ -140,7 +140,7 @@ class OpenDxpPlaceholderTest extends TestCase
 
     public function testCaptureContent(): void
     {
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
             {% do opendxp_placeholder('foo').captureStart() %}
             {% for datum in data %}
@@ -164,7 +164,7 @@ class OpenDxpPlaceholderTest extends TestCase
             TWIG,
         ]));
 
-        $result = $this->engine->render(
+        $result = $this->twig->render(
             'twig',
             [
                 'data' => [
@@ -223,7 +223,7 @@ class OpenDxpPlaceholderTest extends TestCase
 
     public function testIssue16973(): void
     {
-        $this->engine->getTwigEnvironment()->setLoader(new ArrayLoader([
+        $this->twig->setLoader(new ArrayLoader([
             'twig' => <<<TWIG
             <!DOCTYPE html>
             <html lang="en">
@@ -267,7 +267,7 @@ class OpenDxpPlaceholderTest extends TestCase
             </html>
             TWIG,
         ]));
-        $result = $this->engine->render('twig');
+        $result = $this->twig->render('twig');
 
         $this->assertStringContainsString(<<<TEXT
             <!DOCTYPE html>

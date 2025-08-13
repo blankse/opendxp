@@ -23,22 +23,22 @@ use OpenDxp\Model\User;
 use OpenDxp\Tool;
 use OpenDxp\Workflow\EventSubscriber\NotificationSubscriber;
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Workflow\Workflow;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
 
 class NotificationEmailService extends AbstractNotificationService
 {
     const MAIL_PATH_LANGUAGE_PLACEHOLDER = '%_locale%';
 
-    private EngineInterface $template;
+    private Environment $template;
 
     private RouterInterface $router;
 
     protected TranslatorInterface $translator;
 
-    public function __construct(EngineInterface $template, RouterInterface $router, TranslatorInterface $translator)
+    public function __construct(Environment $template, RouterInterface $router, TranslatorInterface $translator)
     {
         $this->template = $template;
         $this->translator = $translator;
