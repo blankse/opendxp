@@ -53,7 +53,7 @@ class XliffTranslationController extends UserAwareController
         $translationItems = new TranslationItemCollection();
 
         foreach ($data as $el) {
-            $element = Element\Service::getElementById($el['type'], $el['id']);
+            $element = Element\Service::getElementById($el['type'], (int) $el['id']);
             $translationItems->addOpenDxpElement($element);
         }
 

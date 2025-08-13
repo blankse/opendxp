@@ -501,12 +501,12 @@ class Video extends Data implements
             $video->setDescription($value['description'] ?? null);
 
             if ($value['poster'] ?? null) {
-                $video->setPoster(Model\Element\Service::getElementById($value['poster']['type'], $value['poster']['id']));
+                $video->setPoster(Model\Element\Service::getElementById($value['poster']['type'], (int) $value['poster']['id']));
             }
 
             if ($value['data'] ?? null) {
                 if (is_array($value['data'])) {
-                    $video->setData(Model\Element\Service::getElementById($value['data']['type'], $value['data']['id']));
+                    $video->setData(Model\Element\Service::getElementById($value['data']['type'], (int) $value['data']['id']));
                 } else {
                     $video->setData($value['data']);
                 }

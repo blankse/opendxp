@@ -81,7 +81,7 @@ class GenerateStaticPagesCommand extends AbstractCommand
             $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %message%');
 
             foreach ($ids as $id) {
-                $page = Document\Page::getById($id);
+                $page = Document\Page::getById((int) $id);
                 if ($page->getStaticGeneratorEnabled()) {
                     $progressBar->setMessage(sprintf('Generate for document "%s"', $page->getFullPath()));
 

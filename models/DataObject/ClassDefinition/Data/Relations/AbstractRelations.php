@@ -376,7 +376,7 @@ abstract class AbstractRelations extends Data implements
                 $type = Element\Service::getElementType($element);
 
                 if (array_key_exists($type, $idMapping) && array_key_exists($id, $idMapping[$type])) {
-                    $element = Element\Service::getElementById($type, $idMapping[$type][$id]);
+                    $element = Element\Service::getElementById($type, (int) $idMapping[$type][$id]);
                 }
             }
         }

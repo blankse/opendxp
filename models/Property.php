@@ -291,7 +291,7 @@ final class Property extends AbstractModel
             if (array_key_exists($this->getType(), $idMapping)) {
                 if ($this->getData() instanceof ElementInterface) {
                     if (array_key_exists((int) $this->getData()->getId(), $idMapping[$this->getType()])) {
-                        $this->setData(Element\Service::getElementById($this->getType(), $idMapping[$this->getType()][$this->getData()->getId()]));
+                        $this->setData(Element\Service::getElementById($this->getType(), (int) $idMapping[$this->getType()][$this->getData()->getId()]));
                     }
                 }
             }

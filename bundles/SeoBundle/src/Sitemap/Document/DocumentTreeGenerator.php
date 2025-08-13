@@ -75,7 +75,7 @@ class DocumentTreeGenerator extends AbstractElementGenerator
     public function populate(UrlContainerInterface $urlContainer, string $section = null): void
     {
         if ($this->options['handleMainDomain'] && (null === $section || $section === 'default')) {
-            $rootDocument = Document::getById($this->options['rootId']);
+            $rootDocument = Document::getById((int) $this->options['rootId']);
 
             if ($rootDocument instanceof Document) {
                 $this->populateCollection($urlContainer, $rootDocument, 'default');

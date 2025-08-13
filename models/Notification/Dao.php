@@ -126,7 +126,7 @@ class Dao extends AbstractDao
         $linkedElement = null;
 
         if ($data['linkedElement']) {
-            $linkedElement = Service::getElementById($data['linkedElementType'], $data['linkedElement']);
+            $linkedElement = Service::getElementById($data['linkedElementType'], (int) $data['linkedElement']);
         }
 
         $model->setId((int)$data['id']);

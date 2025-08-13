@@ -51,7 +51,7 @@ class Relations extends Model\Document\Editable implements Iterator, IdRewriterI
         if (empty($this->elements)) {
             $this->elements = [];
             foreach ($this->elementIds as $elementId) {
-                $el = Element\Service::getElementById($elementId['type'], $elementId['id']);
+                $el = Element\Service::getElementById($elementId['type'], (int) $elementId['id']);
                 if ($el instanceof Element\ElementInterface) {
                     $this->elements[] = $el;
                 }

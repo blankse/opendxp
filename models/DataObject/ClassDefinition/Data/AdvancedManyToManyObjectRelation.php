@@ -676,7 +676,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                     $type = Element\Service::getElementType($eo);
 
                     if (array_key_exists($type, $idMapping) && array_key_exists($id, $idMapping[$type])) {
-                        $newElement = Element\Service::getElementById($type, $idMapping[$type][$id]);
+                        $newElement = Element\Service::getElementById($type, (int) $idMapping[$type][$id]);
                         $metaObject->setObject($newElement);
                     }
                 }
@@ -788,7 +788,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
                 $type = $elementData['type'];
                 $id = $elementData['id'];
-                $target = Element\Service::getElementById($type, $id);
+                $target = Element\Service::getElementById($type, (int) $id);
                 if ($target instanceof DataObject\Concrete) {
                     $columns = $elementMetadata['columns'];
                     $fieldname = $elementMetadata['fieldname'];

@@ -43,7 +43,7 @@ class Dao extends AbstractDao
                 Logger::err('unknown maintype');
             }
 
-            $element = Service::getElementById($entryData['maintype'], $entryData['id']);
+            $element = Service::getElementById($entryData['maintype'], (int) $entryData['id']);
 
             if ($element) {
                 $entry = new Search\Backend\Data();

@@ -292,14 +292,14 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                         $className = $elementData['className'];
                         $itemData = ['id' => $id, 'path' => $fullpath, 'type' => DataObject::OBJECT_TYPE_OBJECT, 'subtype' => $className];
                         /** @var DataObject\Concrete $obj */
-                        $obj = Element\Service::getElementById('object', $id);
+                        $obj = Element\Service::getElementById('object', (int) $id);
                         $itemData['published'] = $obj->getPublished();
                     }
                 } elseif ($targetType == 'asset') {
                     $itemData = ['id' => $id, 'path' => $fullpath, 'type' => 'asset', 'subtype' => $type];
                 } elseif ($targetType == 'document') {
                     $itemData = ['id' => $id, 'path' => $fullpath, 'type' => 'document', 'subtype' => $type];
-                    $document = Element\Service::getElementById('document', $id);
+                    $document = Element\Service::getElementById('document', (int) $id);
                     if (method_exists($document, 'getPublished')) {
                         $itemData['published'] = $document->getPublished();
                     }
@@ -352,7 +352,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                 } elseif ($element['type'] === 'asset') {
                     $e = Asset::getById($element['id']);
                 } elseif ($element['type'] === 'document') {
-                    $e = Document::getById($element['id']);
+                    $e = Document::getById((int) $element['id']);
                 }
 
                 if ($e instanceof Element\ElementInterface) {
@@ -731,7 +731,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     $type = Element\Service::getElementType($eo);
 
                     if (array_key_exists($type, $idMapping) && array_key_exists($id, $idMapping[$type])) {
-                        $newElement = Element\Service::getElementById($type, $idMapping[$type][$id]);
+                        $newElement = Element\Service::getElementById($type, (int) $idMapping[$type][$id]);
                         $metaObject->setElement($newElement);
                     }
                 }
@@ -807,7 +807,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
                 $type = $elementData['type'];
                 $id = $elementData['id'];
-                $element = Element\Service::getElementById($type, $id);
+                $element = Element\Service::getElementById($type, (int) $id);
                 if ($element) {
                     $columns = $elementMetadata['columns'];
                     $fieldname = $elementMetadata['fieldname'];

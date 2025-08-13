@@ -58,7 +58,7 @@ class TranslationController extends UserAwareController
 
         foreach ($data as $el) {
             try {
-                $element = \OpenDxp\Model\Element\Service::getElementById($el['type'], $el['id']);
+                $element = \OpenDxp\Model\Element\Service::getElementById($el['type'], (int) $el['id']);
                 $output = '';
 
                 // check supported types (subtypes)

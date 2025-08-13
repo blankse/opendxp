@@ -195,7 +195,7 @@ class Wysiwyg extends Data implements ResourcePersistenceAwareInterface, QueryRe
         }
         $dependencies = Text::getDependenciesOfWysiwygText($data);
         foreach ($dependencies as $key => $value) {
-            $el = Element\Service::getElementById($value['type'], $value['id']);
+            $el = Element\Service::getElementById($value['type'], (int) $value['id']);
             if (!$el) {
                 throw new Element\ValidationException('Invalid dependency in wysiwyg text');
             }

@@ -522,6 +522,7 @@ class SearchController extends UserAwareController
             'query' => $query,
         ]);
         $eventDispatcher->dispatch($beforeListLoadEvent, AdminSearchEvents::QUICKSEARCH_LIST_BEFORE_LIST_LOAD);
+        /** @var Data\Listing $searcherList */
         $searcherList = $beforeListLoadEvent->getArgument('list');
 
         $hits = $searcherList->load();

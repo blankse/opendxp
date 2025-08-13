@@ -222,7 +222,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             } elseif ($element['type'] === 'asset') {
                 $e = Asset::getById($element['dest_id']);
             } elseif ($element['type'] === 'document') {
-                $e = Document::getById($element['dest_id']);
+                $e = Document::getById((int) $element['dest_id']);
             }
 
             if ($e instanceof Element\ElementInterface) {
@@ -320,7 +320,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
                 } elseif ($element['type'] == 'asset') {
                     $e = Asset::getById($element['id']);
                 } elseif ($element['type'] == 'document') {
-                    $e = Document::getById($element['id']);
+                    $e = Document::getById((int) $element['id']);
                 }
 
                 if ($e instanceof Element\ElementInterface) {
@@ -625,7 +625,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             foreach ($value as $elementData) {
                 $type = $elementData['type'];
                 $id = $elementData['id'];
-                $element = Element\Service::getElementById($type, $id);
+                $element = Element\Service::getElementById($type, (int) $id);
                 if ($element) {
                     $result[] = $element;
                 }

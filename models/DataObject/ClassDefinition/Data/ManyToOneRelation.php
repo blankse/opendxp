@@ -192,7 +192,7 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
         ];
 
         if (!empty($data['dest_id']) && !empty($data['type'])) {
-            $element = Element\Service::getElementById($data['type'], $data['dest_id']);
+            $element = Element\Service::getElementById($data['type'], (int) $data['dest_id']);
             if ($element instanceof Element\ElementInterface) {
                 $result['data'] = $element;
             } else {
@@ -258,7 +258,7 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
     public function getDataFromEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): Asset|Document|DataObject\AbstractObject|null
     {
         if (!empty($data['id']) && !empty($data['type'])) {
-            return Element\Service::getElementById($data['type'], $data['id']);
+            return Element\Service::getElementById($data['type'], (int) $data['id']);
         }
 
         return null;
@@ -475,7 +475,7 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
             $type = $value['type'];
             $id = $value['id'];
 
-            return Element\Service::getElementById($type, $id);
+            return Element\Service::getElementById($type, (int) $id);
         }
 
         return null;

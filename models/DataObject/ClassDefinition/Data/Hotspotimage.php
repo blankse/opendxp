@@ -450,7 +450,7 @@ class Hotspotimage extends Data implements ResourcePersistenceAwareInterface, Qu
                         if ($dataEntry['type'] == 'document' && $dataEntry['value']) {
                             $id = $dataEntry['value']->getId();
                             if (array_key_exists('document', $idMapping) && array_key_exists($id, $idMapping['document'])) {
-                                $dataEntry['value'] = Document::getById($idMapping['document'][$id]);
+                                $dataEntry['value'] = Document::getById((int) $idMapping['document'][$id]);
                             }
                         }
                         $newData[] = $dataEntry;
@@ -553,7 +553,7 @@ class Hotspotimage extends Data implements ResourcePersistenceAwareInterface, Qu
             if ($value['image'] ?? false) {
                 $type = $value['image']['type'];
                 $id = $value['image']['id'];
-                $asset = Element\Service::getElementById($type, $id);
+                $asset = Element\Service::getElementById($type, (int) $id);
                 if ($asset instanceof Asset\Image) {
                     $image->setImage($asset);
                 }

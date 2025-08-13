@@ -44,6 +44,10 @@ class SearchBackendHandler implements BatchHandlerInterface
             return $message->getType() . '-' . $message->getId();
         });
 
+        /**
+         * @var SearchBackendMessage $message
+         * @var Acknowledger $ack
+         */
         foreach ($jobs as [$message, $ack]) {
             try {
                 $element = Element\Service::getElementById($message->getType(), $message->getId());

@@ -152,7 +152,7 @@ class Image extends Model\Document\Editable implements IdRewriterInterface, Edit
                             }
 
                             if (in_array($metaData['type'], ['object', 'asset', 'document'])
-                            && $el = Element\Service::getElementById($metaData['type'], $metaData['value'])) {
+                            && $el = Element\Service::getElementById($metaData['type'], (int) $metaData['value'])) {
                                 $metaData['value'] = $el;
                             }
 

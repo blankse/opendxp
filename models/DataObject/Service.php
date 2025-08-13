@@ -335,7 +335,7 @@ class Service extends Model\Element\Service
 
                     if (str_starts_with($key, '#')) {
                         if (!$haveHelperDefinition) {
-                            $helperDefinitions = self::getHelperDefinitions();
+                            $helperDefinitions = class_exists(GridData\DataObject::class) ? GridData\DataObject::getHelperDefinitions() : [];
                             $haveHelperDefinition = true;
                         }
                         if (!empty($helperDefinitions[$key])) {
@@ -552,34 +552,6 @@ class Service extends Model\Element\Service
 
             return $result;
         });
-    }
-
-    /**
-     * @deprecated Since 11.3, please use GridData\DataObject::getHelperDefinitions() instead (requires open-dxp/admin-ui-classic-bundle v1.5)
-     */
-    public static function getHelperDefinitions(): array
-    {
-        if (class_exists(GridData\DataObject::class)) {
-            return GridData\DataObject::getHelperDefinitions();
-        }
-
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.3.0',
-            sprintf('The "%s" method is deprecated here and moved to admin-ui-classc-bundle v1.5, use "%s" instead.', __METHOD__, 'OpenDxp\Bundle\AdminBundle\Service\GridData::getHelperDefinitions()')
-        );
-
-        $stack = OpenDxp::getContainer()->get('request_stack');
-        if ($stack->getMainRequest()?->hasSession()) {
-            $session = $stack->getSession();
-
-            return Session::useBag($session, function (AttributeBagInterface $session) {
-                return $session->get('helpercolumns', []);
-            }, 'opendxp_gridconfig');
-        }
-
-        return [];
-
     }
 
     public static function getLanguagePermissions(Fieldcollection\Data\AbstractData|Objectbrick\Data\AbstractData|AbstractObject $object, Model\User $user, string $type): ?array
@@ -1701,11 +1673,7 @@ class Service extends Model\Element\Service
         Logger::debug('objects in list:' . $list->getCount());
 
         if ($fields) {
-            if (class_exists(GridData\DataObject::class)) {
-                $helperDefinitions = GridData\DataObject::getHelperDefinitions();
-            } else {
-                $helperDefinitions = self::getHelperDefinitions();
-            }
+            $helperDefinitions = class_exists(GridData\DataObject::class) ? GridData\DataObject::getHelperDefinitions() : [];
 
             $objects = $list->getObjects();
             foreach ($objects as $object) {

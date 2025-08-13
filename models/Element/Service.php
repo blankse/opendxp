@@ -257,7 +257,7 @@ class Service extends Model\AbstractModel
         return match ($config['type']) {
             'asset' => Asset::getById($config['id']),
             'object' => DataObject::getById($config['id']),
-            'document' => Document::getById($config['id']),
+            'document' => Document::getById((int) $config['id']),
             default => null,
         };
     }
@@ -437,16 +437,8 @@ class Service extends Model\AbstractModel
         };
     }
 
-    public static function getElementById(string $type, int|string $id, array $params = []): Asset|Document|AbstractObject|null
+    public static function getElementById(string $type, int $id, array $params = []): Asset|Document|AbstractObject|null
     {
-        if (is_string($id)) {
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.0',
-                sprintf('Passing id as string to method %s is deprecated', __METHOD__)
-            );
-            $id = is_numeric($id) ? (int) $id : 0;
-        }
         $params = self::prepareGetByIdParams($params);
 
         return match ($type) {

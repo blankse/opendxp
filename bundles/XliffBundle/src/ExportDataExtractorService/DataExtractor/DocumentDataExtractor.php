@@ -182,7 +182,7 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
         if ($result->getSourceLanguage() != $result->getTargetLanguages()) {
             $sourceDocumentId = $translations[$result->getSourceLanguage()] ?? false;
             if ($sourceDocumentId) {
-                $sourceDocument = Document::getById($sourceDocumentId);
+                $sourceDocument = Document::getById((int) $sourceDocumentId);
 
                 if ($sourceDocument instanceof Document\PageSnippet) {
                     $document = $sourceDocument;
