@@ -52,6 +52,9 @@ framework:
         default_bus: messenger.bus.opendxp-core
         buses:
             messenger.bus.opendxp-core:
+    property_info:
+        enabled: true
+        with_constructor_extractor: true
     rate_limiter:
         reset_password:
             policy: 'fixed_window'
