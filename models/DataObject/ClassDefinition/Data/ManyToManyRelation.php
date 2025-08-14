@@ -218,9 +218,9 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
         foreach ($data as $element) {
             $e = null;
             if ($element['type'] === 'object') {
-                $e = DataObject::getById($element['dest_id']);
+                $e = DataObject::getById((int) $element['dest_id']);
             } elseif ($element['type'] === 'asset') {
-                $e = Asset::getById($element['dest_id']);
+                $e = Asset::getById((int) $element['dest_id']);
             } elseif ($element['type'] === 'document') {
                 $e = Document::getById((int) $element['dest_id']);
             }
@@ -316,9 +316,9 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             foreach ($data as $element) {
                 $e = null;
                 if ($element['type'] == 'object') {
-                    $e = DataObject::getById($element['id']);
+                    $e = DataObject::getById((int) $element['id']);
                 } elseif ($element['type'] == 'asset') {
-                    $e = Asset::getById($element['id']);
+                    $e = Asset::getById((int) $element['id']);
                 } elseif ($element['type'] == 'document') {
                     $e = Document::getById((int) $element['id']);
                 }

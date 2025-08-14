@@ -127,7 +127,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
             }
 
             foreach ($data as $element) {
-                $source = DataObject::getById($element['src_id']);
+                $source = DataObject::getById((int) $element['src_id']);
 
                 if ($element['type'] && $element['dest_id']) {
                     $destinationType = $element['type'];
@@ -348,9 +348,9 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
             foreach ($data as $element) {
                 $e = null;
                 if ($element['type'] === 'object') {
-                    $e = DataObject::getById($element['id']);
+                    $e = DataObject::getById((int) $element['id']);
                 } elseif ($element['type'] === 'asset') {
-                    $e = Asset::getById($element['id']);
+                    $e = Asset::getById((int) $element['id']);
                 } elseif ($element['type'] === 'document') {
                     $e = Document::getById((int) $element['id']);
                 }

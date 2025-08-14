@@ -255,8 +255,8 @@ class Service extends Model\AbstractModel
     private static function getDependedElement(array $config): Asset|Document|AbstractObject|null
     {
         return match ($config['type']) {
-            'asset' => Asset::getById($config['id']),
-            'object' => DataObject::getById($config['id']),
+            'asset' => Asset::getById((int) $config['id']),
+            'object' => DataObject::getById((int) $config['id']),
             'document' => Document::getById((int) $config['id']),
             default => null,
         };

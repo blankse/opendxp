@@ -18,6 +18,7 @@ namespace OpenDxp\Model\DataObject\ClassDefinition\Data;
 
 use Exception;
 use OpenDxp;
+use OpenDxp\Bundle\AdminBundle\Service\GridData;
 use OpenDxp\Db;
 use OpenDxp\Logger;
 use OpenDxp\Model\DataObject;
@@ -128,7 +129,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
             foreach ($data as $key => $relation) {
                 if ($relation['dest_id']) {
-                    $source = DataObject::getById($relation['src_id']);
+                    $source = DataObject::getById((int) $relation['src_id']);
                     $destinationId = $relation['dest_id'];
 
                     if (!in_array($destinationId, $existingTargets)) {
@@ -219,7 +220,9 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                 $index = $mkey + 1;
                 $object = $metaObject->getObject();
                 if ($object instanceof DataObject\Concrete) {
-                    $columnData = DataObject\Service::gridObjectData($object, $gridFields, null, ['purpose' => 'editmode']);
+                    $columnData = class_exists(GridData\DataObject::class)
+                        ? GridData\DataObject::getData($object, $gridFields, params: ['purpose' => 'editmode'])
+                        : [];
                     foreach ($this->getColumns() as $c) {
                         $getter = 'get' . ucfirst($c['key']);
 

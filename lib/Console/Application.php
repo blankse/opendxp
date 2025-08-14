@@ -68,7 +68,7 @@ final class Application extends \Symfony\Bundle\FrameworkBundle\Console\Applicat
         $maintenanceModeHelper = $kernel->getContainer()->get(MaintenanceModeHelperInterface::class);
         $dispatcher->addListener(ConsoleEvents::COMMAND, function (ConsoleCommandEvent $event) use ($kernel, $maintenanceModeHelper) {
             // skip if maintenance mode is on and the flag is not set
-            if (($maintenanceModeHelper->isActive() || Admin::isInMaintenanceMode()) &&
+            if (($maintenanceModeHelper->isActive()) &&
                 !$event->getInput()->getOption('ignore-maintenance-mode')
             ) {
                 throw new RuntimeException(
@@ -98,10 +98,6 @@ final class Application extends \Symfony\Bundle\FrameworkBundle\Console\Applicat
         $dispatcher->addListener(ConsoleEvents::TERMINATE, function (ConsoleTerminateEvent $event) use ($maintenanceModeHelper) {
             if ($event->getInput()->getOption('maintenance-mode')) {
                 $event->getOutput()->writeln('Deactivating maintenance mode...');
-                //BC Layer for Admin::activateMaintenanceMode, if the maintenance file already exists
-                if (Admin::isInMaintenanceMode()) {
-                    Admin::deactivateMaintenanceMode();
-                }
                 $maintenanceModeHelper->deactivate();
             }
         });

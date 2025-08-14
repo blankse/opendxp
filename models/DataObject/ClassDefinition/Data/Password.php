@@ -32,31 +32,7 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
     use DataObject\Traits\DataWidthTrait;
     use DataObject\Traits\SimpleNormalizerTrait;
 
-    const HASH_FUNCTION_PASSWORD_HASH = 'password_hash';
-
-    /**
-     * @internal
-     *
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     *
-     */
-    public string $algorithm = self::HASH_FUNCTION_PASSWORD_HASH;
-
-    /**
-     * @internal
-     *
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     *
-     */
-    public string $salt = '';
-
-    /**
-     * @internal
-     *
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     *
-     */
-    public string $saltlocation = '';
+    private const MASK = '******';
 
     public ?int $minimumLength = null;
 
@@ -71,99 +47,24 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function setAlgorithm(string $algorithm): void
-    {
-        if ($algorithm !== self::HASH_FUNCTION_PASSWORD_HASH) {
-            trigger_deprecation(
-                'opend-xp/opendxp',
-                '11.2',
-                'Password algorithms other than "password_hash" are deprecated and will be removed in opendxp 12. Please use "password_hash" instead.'
-            );
-        }
-
-        $this->algorithm = $algorithm;
-    }
-
-    /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function getAlgorithm(): string
-    {
-        return $this->algorithm;
-    }
-
-    /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function setSalt(string $salt): void
-    {
-        $this->salt = $salt;
-    }
-
-    /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function getSalt(): string
-    {
-        return $this->salt;
-    }
-
-    /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function setSaltlocation(string $saltlocation): void
-    {
-        $this->saltlocation = $saltlocation;
-    }
-
-    /**
-     * @deprecated since opendxp 11.2, will be removed in opendxp 12
-     */
-    public function getSaltlocation(): string
-    {
-        return $this->saltlocation;
-    }
-
-    /**
      *
      *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
-    public function getDataForResource(mixed $data, DataObject\Concrete $object = null, array $params = []): ?string
+    public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         if (empty($data)) {
             return null;
         }
 
-        // is already a hashed string? Then do not re-hash
-        if ($this->getAlgorithm() === self::HASH_FUNCTION_PASSWORD_HASH) {
-            $info = password_get_info($data);
-            if ($info['algo'] !== null && $info['algo'] !== 0) {
-                return $data;
-            }
-        } else {
-            // password_get_info() will not detect older, less secure, hashing algos.
-            // It might not detect some less common ones as well.
-            $maybeHash = preg_match('/^[a-f0-9]{32,}$/i', $data);
-            $hashLenghts = [
-                32,  // MD2, MD4, MD5, RIPEMD-128, Snefru 128, Tiger/128, HAVAL128
-                40,  // SHA-1, HAS-160, RIPEMD-160, Tiger/160, HAVAL160
-                48,  // Tiger/192, HAVAL192
-                56,  // SHA-224, HAVAL224
-                64,  // SHA-256, BLAKE-256, GOST, GOST CryptoPro, HAVAL256, RIPEMD-256, Snefru 256
-                96,  // SHA-384
-                128, // SHA-512, BLAKE-512, SWIFFT
-            ];
+        $value = (string) $data;
 
-            if ($maybeHash && in_array(strlen($data), $hashLenghts, true)) {
-                // Probably already a hashed string
-                return $data;
-            }
+        // Already a password_* hash? then do not rehash.
+        if ($this->isPasswordStyleHash($value)) {
+            return $value;
         }
 
-        $hashed = $this->calculateHash($data);
+        $hashed = $this->calculateHash($value);
 
         /** set the hashed password back to the object, to be sure that is not plain-text after the first save
          this is especially to avoid plaintext passwords in the search-index */
@@ -174,8 +75,8 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
             ? $params['owner']
             : ($object ?: null);
 
-        if (null !== $passwordModel && !$passwordModel instanceof DataObject\Classificationstore && !$passwordModel instanceof DataObject\Localizedfield) {
-            $setter = 'set' . ucfirst($this->getName());
+        if (null !== $passwordModel && !$this->isNonWritablePasswordContainer($passwordModel)) {
+            $setter = $this->composeSetter();
             $passwordModel->$setter($hashed);
         }
 
@@ -191,30 +92,9 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      */
     public function calculateHash(string $data): string
     {
-        if ($this->algorithm === static::HASH_FUNCTION_PASSWORD_HASH) {
-            $config = Config::getSystemConfiguration()['security']['password'];
+        [$algo, $options] = $this->currentHashSettings();
 
-            $hash = password_hash($data, $config['algorithm'], $config['options']);
-        } else {
-
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.2',
-                'Password algorithms other than "password_hash" are deprecated and will be removed in OpenDxp 12. Please use "password_hash" instead.'
-            );
-
-            if (!empty($this->salt)) {
-                $data = match ($this->saltlocation) {
-                    'back' => $data . $this->salt,
-                    'front' => $this->salt . $data,
-                    default => $data,
-                };
-            }
-
-            $hash = hash($this->algorithm, $data);
-        }
-
-        return $hash;
+        return password_hash($data, $algo, $options);
     }
 
     /**
@@ -230,37 +110,25 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      */
     public function verifyPassword(string $password, DataObject\Concrete $object, bool $updateHash = true): bool
     {
-        $getter = 'get' . ucfirst($this->getName());
-        $setter = 'set' . ucfirst($this->getName());
+        $getter = $this->composeGetter();
+        $setter = $this->composeSetter();
 
-        $objectHash = $object->$getter();
-        if (empty($objectHash)) {
+        $objectHash = (string) ($object->$getter() ?? '');
+        if ($objectHash === '') {
             return false;
         }
 
-        if ($this->getAlgorithm() === static::HASH_FUNCTION_PASSWORD_HASH) {
-            $result = password_verify($password, $objectHash);
+        $result = password_verify($password, $objectHash);
 
-            if ($result && $updateHash) {
-                $config = Config::getSystemConfiguration()['security']['password'];
+        if ($result && $updateHash) {
+            [$algo, $options] = $this->currentHashSettings();
 
-                if (password_needs_rehash($objectHash, $config['algorithm'], $config['options'])) {
-                    $newHash = $this->calculateHash($password);
+            if (password_needs_rehash($objectHash, $algo, $options)) {
+                $newHash = $this->calculateHash($password);
 
-                    $object->$setter($newHash);
-                    $object->save();
-                }
+                $object->$setter($newHash);
+                $object->save();
             }
-        } else {
-
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.2',
-                'Password algorithms other than "password_hash" are deprecated and will be removed in opendxp 12. Please use "password_hash" instead.'
-            );
-
-            $hash = $this->calculateHash($password);
-            $result = hash_equals($objectHash, $hash);
         }
 
         return $result;
@@ -271,7 +139,7 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
-    public function getDataFromResource(mixed $data, DataObject\Concrete $object = null, array $params = []): ?string
+    public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         return $data;
     }
@@ -281,12 +149,12 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
-    public function getDataForQueryResource(mixed $data, DataObject\Concrete $object = null, array $params = []): ?string
+    public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         return $this->getDataForResource($data, $object, $params);
     }
 
-    public function getDataForEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): ?string
+    public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         return $data;
     }
@@ -295,7 +163,7 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      * @see Data::getDataFromEditmode
      *
      */
-    public function getDataFromEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): ?string
+    public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         if ($data === '') {
             return null;
@@ -310,14 +178,14 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
      * @see Data::getVersionPreview
      *
      */
-    public function getVersionPreview(mixed $data, DataObject\Concrete $object = null, array $params = []): string
+    public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
-        return '******';
+        return self::MASK;
     }
 
     public function getDataForGrid(?string $data, Concrete $object, array $params = []): string
     {
-        return '******';
+        return self::MASK;
     }
 
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
@@ -330,7 +198,7 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
         return true;
     }
 
-    public function getDiffDataFromEditmode(array $data, DataObject\Concrete $object = null, array $params = []): mixed
+    public function getDiffDataFromEditmode(array $data, ?DataObject\Concrete $object = null, array $params = []): mixed
     {
         return $data[0]['data'];
     }
@@ -338,7 +206,7 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
     /** See parent class.
      *
      */
-    public function getDiffDataForEditMode(mixed $data, DataObject\Concrete $object = null, array $params = []): ?array
+    public function getDiffDataForEditMode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         $diffdata = [];
         $diffdata['data'] = $data;
@@ -358,16 +226,6 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
         $result[] = $diffdata;
 
         return $result;
-    }
-
-    /**
-     * @param DataObject\ClassDefinition\Data\Password $mainDefinition
-     */
-    public function synchronizeWithMainDefinition(DataObject\ClassDefinition\Data $mainDefinition): void
-    {
-        $this->algorithm = $mainDefinition->algorithm;
-        $this->salt = $mainDefinition->salt;
-        $this->saltlocation = $mainDefinition->saltlocation;
     }
 
     public function getParameterTypeDeclaration(): ?string
@@ -420,5 +278,41 @@ class Password extends Data implements ResourcePersistenceAwareInterface, QueryR
     public function getFieldType(): string
     {
         return 'password';
+    }
+
+    private function isPasswordStyleHash(string $value): bool
+    {
+        $info = password_get_info($value);
+
+        return $info['algo'] !== null && $info['algo'] !== 0;
+    }
+
+    /**
+     * @return array{0:int|string,1:array}
+     */
+    private function currentHashSettings(): array
+    {
+        $cfg = Config::getSystemConfiguration()['security']['password'] ?? [];
+
+        $algo = $cfg['algorithm'] ?? PASSWORD_DEFAULT;
+        $opts = $cfg['options'] ?? [];
+
+        return [$algo, $opts];
+    }
+
+    private function isNonWritablePasswordContainer(object $owner): bool
+    {
+        return $owner instanceof DataObject\Classificationstore
+            || $owner instanceof DataObject\Localizedfield;
+    }
+
+    private function composeSetter(): string
+    {
+        return 'set' . ucfirst($this->getName());
+    }
+
+    private function composeGetter(): string
+    {
+        return 'get' . ucfirst($this->getName());
     }
 }

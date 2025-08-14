@@ -141,13 +141,13 @@ class Video extends Data implements
             $raw = Serialize::unserialize($data);
 
             if ($raw['type'] === 'asset') {
-                if ($asset = Asset::getById($raw['data'])) {
+                if ($asset = Asset::getById((int) $raw['data'])) {
                     $raw['data'] = $asset;
                 }
             }
 
             if ($raw['poster']) {
-                if ($poster = Asset::getById($raw['poster'])) {
+                if ($poster = Asset::getById((int) $raw['poster'])) {
                     $raw['poster'] = $poster;
                 }
             }
@@ -399,13 +399,13 @@ class Video extends Data implements
 
         if ($data && $data->getData() instanceof Asset) {
             if (array_key_exists('asset', $idMapping) && array_key_exists($data->getData()->getId(), $idMapping['asset'])) {
-                $data->setData(Asset::getById($idMapping['asset'][$data->getData()->getId()]));
+                $data->setData(Asset::getById((int) $idMapping['asset'][$data->getData()->getId()]));
             }
         }
 
         if ($data && $data->getPoster() instanceof Asset) {
             if (array_key_exists('asset', $idMapping) && array_key_exists($data->getPoster()->getId(), $idMapping['asset'])) {
-                $data->setPoster(Asset::getById($idMapping['asset'][$data->getPoster()->getId()]));
+                $data->setPoster(Asset::getById((int) $idMapping['asset'][$data->getPoster()->getId()]));
             }
         }
 

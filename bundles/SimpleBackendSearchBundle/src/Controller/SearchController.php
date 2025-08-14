@@ -345,19 +345,13 @@ class SearchController extends UserAwareController
                         $element instanceof Asset => GridData\Asset::getData($element),
                         default => null
                     };
-                } else {
-                    // TODO: remove in open-dxp/opendxp 12.0, kept only to avoid conflicting admin ui classic bundle < 1.5
-                    $data = match (true) {
-                        $element instanceof DataObject\AbstractObject => DataObject\Service::gridObjectData($element, $fields),
-                        default => null
-                    };
                 }
 
                 if ($data) {
                     $elements[] = $data;
                 }
             } else {
-                //TODO: any message that view is blocked?
+                //TODO: any message that view is blocked? (--> Depends on admin-ui-classic-bundle)
                 //$data = Element\Service::gridElementData($element);
             }
         }

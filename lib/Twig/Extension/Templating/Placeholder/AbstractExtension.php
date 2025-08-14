@@ -59,9 +59,6 @@ use Twig\Extension\RuntimeExtensionInterface;
  * @method Container setIndent(string|int $intent)
  * @method string|int getIndent()
  * @method string getWhitespace(string|int $indent)
- * @method void captureStart($type = Container::APPEND, $key = null)
- * @method void captureEnd()
- *
  */
 abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayAccess, RuntimeExtensionInterface
 {

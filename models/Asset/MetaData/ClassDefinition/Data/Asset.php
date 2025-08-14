@@ -98,7 +98,7 @@ class Asset extends Data
     public function getDataForListfolderGrid(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
-            $data = \OpenDxp\Model\Asset::getById($data);
+            $data = \OpenDxp\Model\Asset::getById((int) $data);
         }
 
         if ($data instanceof \OpenDxp\Model\Asset) {

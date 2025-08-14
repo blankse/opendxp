@@ -256,67 +256,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
     }
 
     /**
-     * Start capture action
-     *
-     * @param string $type
-     * @param array|null $attrs
-     *
-     * @deprecated Use twig set tag for output capturing instead.
-     */
-    public function captureStart($type = Container::APPEND, $attrs = null): void
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.4',
-            'Using "captureStart()" is deprecated. Use twig set tag for output capturing instead.'
-        );
-
-        if ($this->_captureLock) {
-            throw new Exception('Cannot nest headStyle captures');
-        }
-
-        $this->_captureLock = true;
-        $this->_captureAttrs = $attrs;
-        $this->_captureType = $type;
-        ob_start();
-    }
-
-    /**
-     * End capture action and store
-     *
-     * @deprecated Use twig set tag for output capturing instead.
-     */
-    public function captureEnd(): void
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.4',
-            'Using "captureEnd()" is deprecated. Use twig set tag for output capturing instead.'
-        );
-
-        $content = ob_get_clean();
-        $attrs = $this->_captureAttrs;
-        $this->_captureAttrs = null;
-        $this->_captureLock = false;
-
-        switch ($this->_captureType) {
-            case Container::SET:
-                $this->setStyle($content, $attrs);
-
-                break;
-            case Container::PREPEND:
-                $this->prependStyle($content, $attrs);
-
-                break;
-            case Container::APPEND:
-            default:
-                $this->appendStyle($content, $attrs);
-
-                break;
-        }
-    }
-
-    /**
      * Convert content and attributes into valid style tag
      *
      * @param  stdClass $item Item to render

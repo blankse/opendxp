@@ -52,7 +52,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     public function getDataFromResource(mixed $data, DataObject\Concrete $object = null, array $params = []): ?Asset
     {
         if ((int)$data > 0) {
-            return Asset\Image::getById($data);
+            return Asset\Image::getById((int) $data);
         }
 
         return null;
@@ -99,7 +99,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     public function getDataFromEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): ?Asset\Image
     {
         if ($data && (int)$data['id'] > 0) {
-            return Asset\Image::getById($data['id']);
+            return Asset\Image::getById((int) $data['id']);
         }
 
         return null;
@@ -217,7 +217,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
         $data = $this->getDataFromObjectParam($container, $params);
         if ($data instanceof Asset\Image) {
             if (array_key_exists('asset', $idMapping) && array_key_exists($data->getId(), $idMapping['asset'])) {
-                return Asset::getById($idMapping['asset'][$data->getId()]);
+                return Asset::getById((int) $idMapping['asset'][$data->getId()]);
             }
         }
 
@@ -280,7 +280,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     public function denormalize(mixed $value, array $params = []): ?Asset
     {
         if (isset($value['id'])) {
-            return Asset\Image::getById($value['id']);
+            return Asset\Image::getById((int) $value['id']);
         }
 
         return null;

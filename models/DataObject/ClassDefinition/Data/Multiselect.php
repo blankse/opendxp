@@ -22,7 +22,6 @@ use OpenDxp\Db\Helper;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
-use OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Service;
 use OpenDxp\Model\DataObject\Concrete;
@@ -541,7 +540,7 @@ class Multiselect extends Data implements
 
     protected function doGetDefaultValue(Concrete $object, array $context = []): mixed
     {
-        /** @var SelectOptionsProviderInterface|MultiSelectOptionsProviderInterface|null $optionsProvider */
+        /** @var SelectOptionsProviderInterface|null $optionsProvider */
         $optionsProvider = DataObject\ClassDefinition\Helper\OptionsProviderResolver::resolveProvider(
             $this->getOptionsProviderClass(),
             DataObject\ClassDefinition\Helper\OptionsProviderResolver::MODE_MULTISELECT

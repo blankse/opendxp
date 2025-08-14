@@ -18,6 +18,7 @@ namespace OpenDxp\Model\DataObject\ClassDefinition\Data;
 
 use Exception;
 use OpenDxp;
+use OpenDxp\Bundle\AdminBundle\Service\GridData;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
@@ -119,7 +120,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
             'data' => [],
         ];
         foreach ($data as $relation) {
-            $o = DataObject::getById($relation['dest_id']);
+            $o = DataObject::getById((int) $relation['dest_id']);
             if ($o instanceof DataObject\Concrete) {
                 $objects['data'][] = $o;
             } else {
@@ -179,7 +180,9 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $referencedObject) {
                 if ($referencedObject instanceof DataObject\Concrete) {
-                    $return[] = DataObject\Service::gridObjectData($referencedObject, $gridFields, null, ['purpose' => 'editmode']);
+                    $return[] = class_exists(GridData\DataObject::class)
+                        ? GridData\DataObject::getData($referencedObject, $gridFields, params: ['purpose' => 'editmode'])
+                        : [];
                 }
             }
         }
@@ -203,7 +206,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
         $objects = [];
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $object) {
-                $o = DataObject::getById($object['id']);
+                $o = DataObject::getById((int) $object['id']);
                 if ($o) {
                     $objects[] = $o;
                 }

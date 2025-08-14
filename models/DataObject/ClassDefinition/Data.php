@@ -49,11 +49,6 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
 
     public array|string|null $permissions = null;
 
-    /**
-     * @deprecated Will be removed in OpenDxp 12, use getFieldType() instead.
-     */
-    public string $fieldtype = '';
-
     public bool $relationType = false;
 
     public bool $invisible = false;
@@ -246,16 +241,8 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     /**
      * @return $this
      */
-    public function setIndex(?bool $index): static
+    public function setIndex(bool $index): static
     {
-        if (null === $index) {
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.0.7',
-                sprintf('Passing null to method %s is deprecated', __METHOD__)
-            );
-            $index = false;
-        }
         $this->index = $index;
 
         return $this;
@@ -1005,36 +992,6 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
         $code .= "}\n\n";
 
         return $code;
-    }
-
-    /**
-     * @deprecated Will be removed in OpenDxp 12
-     */
-    public function getAsIntegerCast(mixed $number): ?int
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.2',
-            'Using "%s" is deprecated and will be removed in OpenDxp 12.',
-            __METHOD__
-        );
-
-        return strlen((string) $number) === 0 ? null : (int)$number;
-    }
-
-    /**
-     * @deprecated Will be removed in OpenDxp 12
-     */
-    public function getAsFloatCast(mixed $number): ?float
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.2',
-            'Using "%s" is deprecated and will be removed in OpenDxp 12.',
-            __METHOD__
-        );
-
-        return strlen((string) $number) === 0 ? null : (float)$number;
     }
 
     public function getVersionPreview(mixed $data, DataObject\Concrete $object = null, array $params = []): string
