@@ -47,24 +47,10 @@ class LogController extends UserAwareController implements KernelControllerEvent
         }
     }
 
-    #[Route('/log/show', name: 'opendxp_admin_bundle_applicationlogger_log_show', methods: ['GET', 'POST'])]
+    #[Route('/log/show', name: 'opendxp_admin_bundle_applicationlogger_log_show', methods: ['POST'])]
     public function showAction(Request $request, Connection $db): JsonResponse
     {
         $requestSource = $request->request;
-
-        //TODO: Remove the GET method support in OpenDxp 12
-        if ($request->isMethod('GET')) {
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.5.0',
-                sprintf('Calling route "%s" (%s) via "GET" method is deprecated and will not be supported anymore in 12.
-                Please use "POST" method instead.',
-                    'opendxp_admin_bundle_applicationlogger_log_show',
-                    __METHOD__
-                )
-            );
-            $requestSource = $request->query;
-        }
 
         $this->checkPermission('application_logging');
 

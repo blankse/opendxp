@@ -69,10 +69,6 @@ class LowQualityImagePreviewCommand extends AbstractCommand
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        if ($input->hasOption('generator')) {
-            trigger_deprecation('open-dxp/opendxp', '11.2.0', 'Using the "generator" option is deprecated and will be removed in OpenDxp 12.');
-        }
-
         $conditionVariables = [];
 
         // get only images
