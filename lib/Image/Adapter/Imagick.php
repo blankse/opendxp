@@ -739,14 +739,7 @@ class Imagick extends Adapter
             if ($asset instanceof Asset\Image) {
                 $image = $asset->getTemporaryFile();
             } else {
-                trigger_deprecation(
-                    'open-dxp/opendxp',
-                    '10.3',
-                    'Using relative path for Image Thumbnail overlay is deprecated, use Asset Image path.'
-                );
-
-                $image = ltrim($image, '/');
-                $image = OPENDXP_PROJECT_ROOT . '/' . $image;
+                throw new Exception(sprintf('Image asset "%s" not found.', $image));
             }
 
             $newImage = new \Imagick();
