@@ -202,14 +202,16 @@ class Manager
         return $workflow;
     }
 
-    /**
-     * @deprecated will return ?WorkflowInterface in 12.0.0
-     */
-    public function getWorkflowByName(string $workflowName): ?object
+    public function getWorkflowByName(string $workflowName): ?WorkflowInterface
     {
         $config = $this->getWorkflowConfig($workflowName);
+        $workflow = OpenDxp::getContainer()?->get($config->getType() . '.' . $workflowName);
 
-        return OpenDxp::getContainer()->get($config->getType() . '.' . $workflowName);
+        if (!$workflow instanceof WorkflowInterface) {
+            return null;
+        }
+
+        return $workflow;
     }
 
     /**
