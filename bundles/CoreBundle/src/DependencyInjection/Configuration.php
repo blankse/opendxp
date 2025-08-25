@@ -134,7 +134,6 @@ final class Configuration implements ConfigurationInterface
         $this->addTemplatingEngineNode($rootNode);
         $this->addGotenbergNode($rootNode);
         $this->addDependencyNode($rootNode);
-        $this->addChromiumNode($rootNode);
         $storageNode = ConfigurationHelper::addConfigLocationWithWriteTargetNodes($rootNode, [
             'image_thumbnails' => OPENDXP_CONFIGURATION_DIRECTORY . '/image_thumbnails',
             'video_thumbnails' => OPENDXP_CONFIGURATION_DIRECTORY . '/video_thumbnails',
@@ -215,10 +214,6 @@ final class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->defaultFalse()
-                ->end()
-                ->scalarNode('language')
-                    ->defaultValue('en')
-                    ->setDeprecated('open-dxp/opendxp', '11.2')
                 ->end()
                 ->arrayNode('valid_languages')
                     ->info('String or array format are supported.')
@@ -2043,24 +2038,5 @@ final class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ->end();
-    }
-
-    /**
-     * @deprecated
-     */
-    private function addChromiumNode(ArrayNodeDefinition $rootNode): void
-    {
-        $rootNode
-            ->children()
-                ->arrayNode('chromium')
-                    ->setDeprecated('open-dxp/opendxp', '11.2', 'Chromium service is deprecated and will be removed in OpenDxp 12. Use Gotenberg instead.')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('uri')
-                            ->defaultNull()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
     }
 }

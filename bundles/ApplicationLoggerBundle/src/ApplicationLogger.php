@@ -80,35 +80,6 @@ class ApplicationLogger implements LoggerInterface
         $this->component = $component;
     }
 
-    /**
-     *
-     * @deprecated
-     *
-     */
-    public function setFileObject(FileObject|string $fileObject): void
-    {
-        $this->fileObject = $fileObject;
-    }
-
-    /**
-     *
-     * @deprecated
-     */
-    public function setRelatedObject(\OpenDxp\Model\Asset|int|\OpenDxp\Model\Document|\OpenDxp\Model\DataObject\AbstractObject $relatedObject): void
-    {
-        $this->relatedObject = $relatedObject;
-
-        if ($this->relatedObject instanceof \OpenDxp\Model\DataObject\AbstractObject) {
-            $this->relatedObjectType = 'object';
-        } elseif ($this->relatedObject instanceof \OpenDxp\Model\Asset) {
-            $this->relatedObjectType = 'asset';
-        } elseif ($this->relatedObject instanceof \OpenDxp\Model\Document) {
-            $this->relatedObjectType = 'document';
-        } else {
-            $this->relatedObjectType = 'object';
-        }
-    }
-
     public function log(mixed $level, string|Stringable $message, array $context = []): void
     {
         if (!isset($context['component'])) {
