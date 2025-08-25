@@ -32,6 +32,9 @@ Upgrade to the latest Pimcore `11.5.x` first!
 ## Breaking Changes
 
 ### Core
+- ⚠️ **Important:** Removed hardcoded password salt in `OpenDxp\Tool\Authentication::preparePlainTextPassword()`.
+  > As a BC layer the new config option `opendxp.security.password.salt` was introduced. Set it to "pimcore" to keep 
+    password logins of existing installations working.
 - Renamed `OpenDxp\Routing\Loader\AnnotatedRouteControllerLoader` to `OpenDxp\Routing\Loader\AttributeRouteControllerLoader`.
 - `OpenDxp\Extension\Document\Areabrick\AbstractAreabrick` no longer implements `Symfony\Component\DependencyInjection\ContainerAwareInterface`. Use dependency injection for services instead.
 - Removed `symfony/templating` as core dependency; fully rely on Twig now.

@@ -212,9 +212,12 @@ class Authentication
 
     private static function preparePlainTextPassword(string $username, string $plainTextPassword): string
     {
+
+        $config = Config::getSystemConfiguration()['security']['password'];
+
         // plaintext password is prepared as digest A1 hash, this is to be backward compatible because this was
         // the former hashing algorithm in pimcore (< version 2.1.1)
-        return md5($username . ':pimcore:' . $plainTextPassword);
+        return md5(sprintf('%s:%s:%s', $username, $config['salt'], $plainTextPassword));
     }
 
     /**
