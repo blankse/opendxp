@@ -28,7 +28,7 @@ class UserProvider implements UserProviderInterface
         $openDxpUser = OpenDxpUser::getByName($identifier);
 
         if ($openDxpUser) {
-            return new User($openDxpUser);
+            return $this->buildUser($openDxpUser);
         }
 
         throw new UserNotFoundException(sprintf('User %s was not found', $identifier));

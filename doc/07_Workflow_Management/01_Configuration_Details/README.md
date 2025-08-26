@@ -70,10 +70,14 @@ opendxp:
                         label:               close product
                         permissions:
                             -
-                                condition:           is_fully_authenticated() and 'ROLE_OPENDXP_ADMIN' in role_names
-                                modify:
+                                condition: is_fully_authenticated() and 'ROLE_OPENDXP_ADMIN' in role_names
+                                modify: true
+                            # for OpenDXP roles use ROLE_<role name in uppercase>
                             -
-                                modify:
+                                condition: is_fully_authenticated() and 'ROLE_OPENDXP_USER' in role_names
+                                modify: true
+                            -
+                                modify: false
                                 objectLayout:        2
 
                 # Prototype
