@@ -42,11 +42,11 @@ namespace OpenDxp\Navigation\Renderer;
 use OpenDxp\Navigation\Container;
 use OpenDxp\Navigation\Page;
 use RecursiveIteratorIterator;
-use Symfony\Component\Templating\EngineInterface;
+use Twig\Environment;
 
 abstract class AbstractRenderer implements RendererInterface
 {
-    protected EngineInterface $templatingEngine;
+    protected Environment $templatingEngine;
 
     /**
      * The minimum depth a page must have to be included when rendering
@@ -84,7 +84,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     protected bool $_renderInvisible = false;
 
-    public function __construct(EngineInterface $templatingEngine)
+    public function __construct(Environment $templatingEngine)
     {
         $this->templatingEngine = $templatingEngine;
     }

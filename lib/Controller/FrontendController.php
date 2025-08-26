@@ -23,6 +23,7 @@ use OpenDxp\Http\Request\Resolver\ResponseHeaderResolver;
 use OpenDxp\Model\Document;
 use OpenDxp\Templating\Renderer\EditableRenderer;
 use RuntimeException;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -30,7 +31,7 @@ use Symfony\Component\HttpFoundation\Response;
  * @property Document|null $document
  * @property bool $editmode
  */
-abstract class FrontendController extends Controller
+abstract class FrontendController extends AbstractController
 {
     /**
      * @return string[]

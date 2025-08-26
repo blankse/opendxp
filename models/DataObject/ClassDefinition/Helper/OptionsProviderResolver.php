@@ -16,7 +16,6 @@ declare(strict_types=1);
 
 namespace OpenDxp\Model\DataObject\ClassDefinition\Helper;
 
-use OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\SelectOptionsProviderInterface;
 
 /**
@@ -33,19 +32,7 @@ class OptionsProviderResolver extends ClassResolver
     public static function resolveProvider(?string $providerClass, int $mode, bool $showError = false): ?object
     {
         return self::resolve($providerClass, function ($provider) use ($mode) {
-
-            if ($provider instanceof MultiSelectOptionsProviderInterface) {
-                trigger_deprecation(
-                    'open-dxp/opendxp',
-                    '11.2',
-                    'Implementing %s is deprecated, use %s instead',
-                    MultiSelectOptionsProviderInterface::class,
-                    SelectOptionsProviderInterface::class,
-                );
-            }
-
             return ($mode == self::MODE_SELECT && ($provider instanceof SelectOptionsProviderInterface))
-                || ($mode == self::MODE_MULTISELECT && ($provider instanceof MultiSelectOptionsProviderInterface))
                 || ($mode == self::MODE_MULTISELECT && ($provider instanceof SelectOptionsProviderInterface));
         }, $showError);
     }

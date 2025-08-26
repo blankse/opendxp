@@ -87,7 +87,7 @@ class MarkerHotspotItem implements ArrayAccess
     {
         if ($this->offsetExists($offset)) {
             if ($offset === 'value' && in_array($this->type, ['object', 'asset', 'document']) && $this->value) {
-                return Model\Element\Service::getElementById($this->type, $this->value);
+                return Model\Element\Service::getElementById($this->type, (int) $this->value);
             }
 
             return $this->$offset;

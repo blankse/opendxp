@@ -37,7 +37,7 @@ class Asset extends Data
     {
         $element = null;
         if (is_numeric($value)) {
-            $element = Service::getElementById('asset', $value);
+            $element = Service::getElementById('asset', (int) $value);
         }
 
         return $element;
@@ -86,7 +86,7 @@ class Asset extends Data
     public function getDataForEditMode(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
-            $data = Service::getElementById('asset', $data);
+            $data = Service::getElementById('asset', (int) $data);
         }
         if ($data instanceof \OpenDxp\Model\Asset) {
             return $data->getRealFullPath();
@@ -98,7 +98,7 @@ class Asset extends Data
     public function getDataForListfolderGrid(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
-            $data = \OpenDxp\Model\Asset::getById($data);
+            $data = \OpenDxp\Model\Asset::getById((int) $data);
         }
 
         if ($data instanceof \OpenDxp\Model\Asset) {

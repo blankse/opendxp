@@ -1,6 +1,5 @@
 {# @var brick \OpenDxp\Extension\Document\Areabrick\AreabrickInterface #}
 {# @var info \OpenDxp\Model\Document\Editable\Area\Info #}
-{# @var templating \Symfony\Component\Templating\EngineInterface #}
 
 {# @var editmode bool #}
 
@@ -42,7 +41,7 @@
             {% endblock %}
 
                 {% block areabrickFrontend %}
-                    {{ templating.render(viewTemplate, viewParameters) | raw }}
+                    {{ include(viewTemplate, viewParameters) }}
                 {% endblock %}
 
             {% block areabrickCloseTag %}

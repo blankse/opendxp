@@ -79,7 +79,7 @@ class Dao extends Model\Dao\AbstractDao
 
         // add language from source document
         if (!empty($translations)) {
-            $sourceDocument = Document::getById($sourceId);
+            $sourceDocument = Document::getById((int) $sourceId);
             $translations[$sourceDocument->getProperty('language')] = $sourceDocument->getId();
         }
 

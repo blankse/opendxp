@@ -16,12 +16,12 @@ declare(strict_types=1);
 
 namespace OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler;
 
-use OpenDxp\Routing\Loader\AnnotatedRouteControllerLoader;
+use OpenDxp\Routing\Loader\AttributeRouteControllerLoader;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Set annotation loader to our own implementation normalizing admin routes: converts the prefix
+ * Set attribute loader to our own implementation normalizing admin routes: converts the prefix
  * opendxp_pimcoreadmin_ to just opendxp_admin_
  *
  * @internal
@@ -33,11 +33,11 @@ final class RoutingLoaderPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->hasDefinition('routing.loader.annotation')) {
+        if (!$container->hasDefinition('routing.loader.attribute')) {
             return;
         }
 
-        $definition = $container->getDefinition('routing.loader.annotation');
-        $definition->setClass(AnnotatedRouteControllerLoader::class);
+        $definition = $container->getDefinition('routing.loader.attribute');
+        $definition->setClass(AttributeRouteControllerLoader::class);
     }
 }

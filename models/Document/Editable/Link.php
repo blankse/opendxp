@@ -132,7 +132,7 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
         $sane = true;
         if (is_array($this->data) && isset($this->data['internal']) && $this->data['internal']) {
             if ($this->data['internalType'] == 'document') {
-                $doc = Document::getById($this->data['internalId']);
+                $doc = Document::getById((int) $this->data['internalId']);
                 if (!$doc) {
                     $sane = false;
                     Logger::notice(
@@ -142,7 +142,7 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
                     $this->data = null;
                 }
             } elseif ($this->data['internalType'] == 'asset') {
-                $asset = Asset::getById($this->data['internalId']);
+                $asset = Asset::getById((int) $this->data['internalId']);
                 if (!$asset) {
                     $sane = false;
                     Logger::notice(
@@ -194,7 +194,7 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
 
         if (isset($this->data['internal']) && $this->data['internal']) {
             if ($this->data['internalType'] == 'document') {
-                if ($doc = Document::getById($this->data['internalId'])) {
+                if ($doc = Document::getById((int) $this->data['internalId'])) {
                     if ($editmode || (!Document::doHideUnpublished() || $doc->isPublished())) {
                         $this->data['path'] = $doc->$method();
                     } else {
@@ -202,11 +202,11 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
                     }
                 }
             } elseif ($this->data['internalType'] == 'asset') {
-                if ($asset = Asset::getById($this->data['internalId'])) {
+                if ($asset = Asset::getById((int) $this->data['internalId'])) {
                     $this->data['path'] = $asset->$method();
                 }
             } elseif ($this->data['internalType'] == 'object') {
-                if ($object = Model\DataObject::getById($this->data['internalId'])) {
+                if ($object = Model\DataObject::getById((int) $this->data['internalId'])) {
                     if ($editmode) {
                         $this->data['path'] = $object->getFullPath();
                     } else {
@@ -357,7 +357,7 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
         if (is_array($this->data) && $isInternal) {
             if ((int)$this->data['internalId'] > 0) {
                 if ($this->data['internalType'] == 'document') {
-                    if ($doc = Document::getById($this->data['internalId'])) {
+                    if ($doc = Document::getById((int) $this->data['internalId'])) {
                         $key = 'document_'.$doc->getId();
 
                         $dependencies[$key] = [
@@ -366,7 +366,7 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
                         ];
                     }
                 } elseif ($this->data['internalType'] == 'asset') {
-                    if ($asset = Asset::getById($this->data['internalId'])) {
+                    if ($asset = Asset::getById((int) $this->data['internalId'])) {
                         $key = 'asset_' . $asset->getId();
 
                         $dependencies[$key] = [

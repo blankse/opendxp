@@ -43,7 +43,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
 
         foreach ($documentsData as $documentData) {
             if ($documentData['type']) {
-                if ($doc = Document::getById($documentData['id'])) {
+                if ($doc = Document::getById((int) $documentData['id'])) {
                     $documents[] = $doc;
                 }
             }

@@ -57,22 +57,6 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
         return $result;
     }
 
-    /**
-     * @deprecated
-     */
-    protected function addDoumentEditables(Document $document, AttributeSet $result): DocumentDataExtractor
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.1',
-            'Using "%s" is deprecated and will be removed in OpenDxp 12, use "%s" instead.',
-            'addDoumentEditables',
-            'addDocumentEditables'
-        );
-
-        return $this->addDocumentEditables($document, $result);
-    }
-
     protected function addDocumentEditables(Document $document, AttributeSet $result): DocumentDataExtractor
     {
         $editables = [];
@@ -182,7 +166,7 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
         if ($result->getSourceLanguage() != $result->getTargetLanguages()) {
             $sourceDocumentId = $translations[$result->getSourceLanguage()] ?? false;
             if ($sourceDocumentId) {
-                $sourceDocument = Document::getById($sourceDocumentId);
+                $sourceDocument = Document::getById((int) $sourceDocumentId);
 
                 if ($sourceDocument instanceof Document\PageSnippet) {
                     $document = $sourceDocument;

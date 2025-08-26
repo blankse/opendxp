@@ -176,68 +176,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     }
 
     /**
-     * Start capture action
-     *
-     * @param string $captureType
-     * @param string $type
-     *
-     * @deprecated Use twig set tag for output capturing instead.
-     */
-    public function captureStart($captureType = Container::APPEND, $type = 'text/javascript', array $attrs = []): void
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.4',
-            'Using "captureStart()" is deprecated. Use twig set tag for output capturing instead.'
-        );
-
-        if ($this->_captureLock) {
-            throw new Exception('Cannot nest headScript captures');
-        }
-
-        $this->_captureLock = true;
-        $this->_captureType = $captureType;
-        $this->_captureScriptType = $type;
-        $this->_captureScriptAttrs = $attrs;
-        ob_start();
-    }
-
-    /**
-     * End capture action and store
-     *
-     * @deprecated Use twig set tag for output capturing instead.
-     */
-    public function captureEnd(): void
-    {
-        trigger_deprecation(
-            'open-dxp/opendxp',
-            '11.4',
-            'Using "captureEnd()" is deprecated. Use twig set tag for output capturing instead.'
-        );
-
-        $content = ob_get_clean();
-        $type = $this->_captureScriptType;
-        $attrs = $this->_captureScriptAttrs;
-        $this->_captureScriptType = null;
-        $this->_captureScriptAttrs = null;
-        $this->_captureLock = false;
-
-        switch ($this->_captureType) {
-            case Container::SET:
-            case Container::PREPEND:
-            case Container::APPEND:
-                $action = strtolower($this->_captureType) . 'Script';
-
-                break;
-            default:
-                $action = 'appendScript';
-
-                break;
-        }
-        $this->$action($content, $type, $attrs);
-    }
-
-    /**
      * Overload method access
      *
      * Allows the following method calls:

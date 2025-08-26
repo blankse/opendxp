@@ -522,7 +522,7 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
 
         // invalidate cache items
         foreach ($ids as $id) {
-            $element = Service::getElementById($type, $id);
+            $element = Service::getElementById($type, (int) $id);
             if ($element) {
                 $element->clearDependentCache();
             }

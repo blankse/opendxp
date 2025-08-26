@@ -405,7 +405,7 @@ class Hotspotimage extends Data implements ResourcePersistenceAwareInterface, Qu
         if ($data instanceof DataObject\Data\Hotspotimage && $data->getImage()) {
             $id = $data->getImage()->getId();
             if (array_key_exists('asset', $idMapping) && array_key_exists($id, $idMapping['asset'])) {
-                $data->setImage(Asset\Image::getById($idMapping['asset'][$id]));
+                $data->setImage(Asset\Image::getById((int) $idMapping['asset'][$id]));
 
                 // reset hotspot, marker & crop
                 $data->setHotspots(null);
@@ -436,21 +436,21 @@ class Hotspotimage extends Data implements ResourcePersistenceAwareInterface, Qu
                         if ($dataEntry['type'] == 'object' && $dataEntry['value']) {
                             $id = $dataEntry['value']->getId();
                             if (array_key_exists('object', $idMapping) && array_key_exists($id, $idMapping['object'])) {
-                                $dataEntry['value'] = DataObject::getById($idMapping['object'][$id]);
+                                $dataEntry['value'] = DataObject::getById((int) $idMapping['object'][$id]);
                             }
                         }
                         //rewrite assets
                         if ($dataEntry['type'] == 'asset' && $dataEntry['value']) {
                             $id = $dataEntry['value']->getId();
                             if (array_key_exists('asset', $idMapping) && array_key_exists($id, $idMapping['asset'])) {
-                                $dataEntry['value'] = Asset::getById($idMapping['asset'][$id]);
+                                $dataEntry['value'] = Asset::getById((int) $idMapping['asset'][$id]);
                             }
                         }
                         //rewrite documents
                         if ($dataEntry['type'] == 'document' && $dataEntry['value']) {
                             $id = $dataEntry['value']->getId();
                             if (array_key_exists('document', $idMapping) && array_key_exists($id, $idMapping['document'])) {
-                                $dataEntry['value'] = Document::getById($idMapping['document'][$id]);
+                                $dataEntry['value'] = Document::getById((int) $idMapping['document'][$id]);
                             }
                         }
                         $newData[] = $dataEntry;
@@ -553,7 +553,7 @@ class Hotspotimage extends Data implements ResourcePersistenceAwareInterface, Qu
             if ($value['image'] ?? false) {
                 $type = $value['image']['type'];
                 $id = $value['image']['id'];
-                $asset = Element\Service::getElementById($type, $id);
+                $asset = Element\Service::getElementById($type, (int) $id);
                 if ($asset instanceof Asset\Image) {
                     $image->setImage($asset);
                 }

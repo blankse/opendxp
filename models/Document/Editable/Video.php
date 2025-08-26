@@ -488,7 +488,7 @@ class Video extends Model\Document\Editable implements IdRewriterInterface
         }
         if (
             $asset->getCustomSetting('image_thumbnail_asset') &&
-            ($customPreviewAsset = Asset\Image::getById($asset->getCustomSetting('image_thumbnail_asset')))
+            ($customPreviewAsset = Asset\Image::getById((int) $asset->getCustomSetting('image_thumbnail_asset')))
         ) {
             return $customPreviewAsset->getThumbnail($imageThumbnailConf);
         }

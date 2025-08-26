@@ -41,7 +41,7 @@ class Dao extends Model\Listing\Dao\AbstractDao
 
         foreach ($assetsData as $assetData) {
             if ($assetData['type']) {
-                if ($asset = Model\Asset::getById($assetData['id'])) {
+                if ($asset = Model\Asset::getById((int) $assetData['id'])) {
                     $assets[] = $asset;
                 }
             }

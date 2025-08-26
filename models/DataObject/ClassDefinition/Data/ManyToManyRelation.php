@@ -218,11 +218,11 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
         foreach ($data as $element) {
             $e = null;
             if ($element['type'] === 'object') {
-                $e = DataObject::getById($element['dest_id']);
+                $e = DataObject::getById((int) $element['dest_id']);
             } elseif ($element['type'] === 'asset') {
-                $e = Asset::getById($element['dest_id']);
+                $e = Asset::getById((int) $element['dest_id']);
             } elseif ($element['type'] === 'document') {
-                $e = Document::getById($element['dest_id']);
+                $e = Document::getById((int) $element['dest_id']);
             }
 
             if ($e instanceof Element\ElementInterface) {
@@ -316,11 +316,11 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             foreach ($data as $element) {
                 $e = null;
                 if ($element['type'] == 'object') {
-                    $e = DataObject::getById($element['id']);
+                    $e = DataObject::getById((int) $element['id']);
                 } elseif ($element['type'] == 'asset') {
-                    $e = Asset::getById($element['id']);
+                    $e = Asset::getById((int) $element['id']);
                 } elseif ($element['type'] == 'document') {
-                    $e = Document::getById($element['id']);
+                    $e = Document::getById((int) $element['id']);
                 }
 
                 if ($e instanceof Element\ElementInterface) {
@@ -625,7 +625,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             foreach ($value as $elementData) {
                 $type = $elementData['type'];
                 $id = $elementData['id'];
-                $element = Element\Service::getElementById($type, $id);
+                $element = Element\Service::getElementById($type, (int) $id);
                 if ($element) {
                     $result[] = $element;
                 }
@@ -781,6 +781,25 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
         }
 
         throw new InvalidArgumentException('Filtering '.__CLASS__.' does only support "=" operator');
+    }
+
+    /**
+     * Filter by relation feature
+     *
+     *
+     */
+    public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
+    {
+        $prefix = '';
+        $name = $params['name'] ?: $this->name;
+
+        if ($params['brickPrefix']) {
+            // The brick prefix is always quoted and with a dot suffix, so removing the first
+            // and second last character to unquote
+            $prefix = substr($params['brickPrefix'], 1, -2) . substr($params['brickPrefix'], -1);
+        }
+
+        return $this->getRelationFilterCondition($value, $operator, $prefix . $name);
     }
 
     public function getQueryColumnType(): string

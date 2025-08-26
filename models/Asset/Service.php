@@ -356,7 +356,7 @@ class Service extends Model\Element\Service
      */
     public static function getImageThumbnailByArrayConfig(array $config): null|ThumbnailInterface|Asset\Video\ImageThumbnailInterface|Asset\Document\ImageThumbnailInterface|array
     {
-        $asset = Asset::getById($config['asset_id']);
+        $asset = Asset::getById((int) $config['asset_id']);
 
         if (!$asset) {
             return null;

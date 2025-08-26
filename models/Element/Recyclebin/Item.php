@@ -354,15 +354,6 @@ class Item extends Model\AbstractModel
         return sprintf('%s/%s.psf', $this->getType(), $this->getId());
     }
 
-    /**
-     * @deprecated since opendxp 11.3 and will be removed in 12.0
-     * @see Item::getStorageFile()
-     */
-    public function getStoreageFile(): string
-    {
-        return $this->getStorageFile();
-    }
-
     protected function getStorageFileBinary(Element\ElementInterface $element): string
     {
         return sprintf('%s/%s_%s-%s.bin', $this->getType(), $this->getId(), Element\Service::getElementType($element), $element->getId());

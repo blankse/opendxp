@@ -18,7 +18,7 @@ namespace OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider;
 
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 
-interface SelectOptionsProviderInterface extends MultiSelectOptionsProviderInterface
+interface SelectOptionsProviderInterface
 {
     public function getOptions(array $context, Data $fieldDefinition): array;
 

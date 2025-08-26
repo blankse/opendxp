@@ -21,6 +21,10 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\ErrorHandler\Debug;
 
+/*
+ * TODO migrate installer to Symfony runtime
+ */
+
 @ini_set('display_errors', 'On');
 
 $maxExecutionTime = 0;

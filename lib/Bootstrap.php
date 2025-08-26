@@ -82,7 +82,7 @@ class Bootstrap
         if (!$openDxpConsole) {
             $maintenanceModeHelper = $kernel->getContainer()->get(MaintenanceModeHelperInterface::class);
             // skip if maintenance mode is on and the flag is not set
-            if (($maintenanceModeHelper->isActive() || Admin::isInMaintenanceMode()) &&
+            if (($maintenanceModeHelper->isActive()) &&
                 !in_array('--ignore-maintenance-mode', $_SERVER['argv'])) {
                 die("in maintenance mode -> skip\nset the flag --ignore-maintenance-mode to force execution\n");
             }
@@ -107,27 +107,6 @@ class Bootstrap
     public static function bootstrap(): void
     {
         $isCli = in_array(PHP_SAPI, ['cli', 'phpdbg', 'embed'], true);
-
-        // BC Layer when using the public/index.php without symfony runtime open-dxp/skeleton #128 OR without open-dxp/skeleton #183 (< 11.0.4)
-        if (!Tool::hasCurrentRequest() && !$isCli && !isset($_ENV['SYMFONY_DOTENV_VARS'])) {
-            trigger_deprecation(
-                'open-dxp/skeleton',
-                '11.2.0',
-                'For consistency purpose, it is recommended to use the autoload from Symfony Runtime.
-                When using it, the line "Bootstrap::bootstrap();" in `public/index.php` should be moved just above "$kernel = Bootstrap::kernel();" and within the closure'
-            );
-            self::bootDotEnvVariables();
-        }
-
-        // BC Layer when using bin/console without symfony runtime, exclude installer script
-        if ($isCli && !isset($_ENV['SYMFONY_DOTENV_VARS']) && !self::$isInstaller) {
-            trigger_deprecation(
-                'open-dxp/skeleton',
-                '11.2.0',
-                'For consistency purpose, it is recommended to use the autoload from Symfony Runtime in project root "bin/console"'
-            );
-            self::bootDotEnvVariables();
-        }
 
         // Installer
         // Keep this block unless core is requiring symfony runtime as mandatory and opendxp-install is adapted

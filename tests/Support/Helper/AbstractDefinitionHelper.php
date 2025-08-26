@@ -60,7 +60,7 @@ abstract class AbstractDefinitionHelper extends Module
             $name = $type;
         }
 
-        $classname = 'OpenDxp\\Model\\DataObject\\ClassDefinition\Data\\' . ucfirst($type);
+        $classname = 'OpenDxp\\Model\\DataObject\\ClassDefinition\\Data\\' . ucfirst($type);
         /** @var Data $child */
         $child = new $classname();
         $child->setName($name);

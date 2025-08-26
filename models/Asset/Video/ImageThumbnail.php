@@ -101,7 +101,7 @@ final class ImageThumbnail implements ImageThumbnailInterface
                 if ($this->imageAsset) {
                     $im = $this->imageAsset;
                 } else {
-                    $im = Model\Asset::getById($im);
+                    $im = Model\Asset::getById((int) $im);
                 }
 
                 if ($im instanceof Image) {
@@ -234,7 +234,7 @@ final class ImageThumbnail implements ImageThumbnailInterface
                 $thumbConfigRes->setHighResolution($highRes);
                 $thumbConfigRes->setMedias([]);
                 $imgId = $this->asset->getCustomSetting('image_thumbnail_asset');
-                $img = Model\Asset::getById($imgId);
+                $img = Model\Asset::getById((int) $imgId);
 
                 if ($img instanceof Image) {
                     $thumb = $img->getThumbnail($thumbConfigRes);

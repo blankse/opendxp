@@ -1,7 +1,9 @@
 framework:
     router:
         strict_requirements: true
-    profiler: { only_exceptions: false }
+    profiler:
+        only_exceptions: false
+        collect_serializer_data: true
 
 web_profiler:
     toolbar: true

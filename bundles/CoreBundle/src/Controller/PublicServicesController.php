@@ -18,10 +18,10 @@ namespace OpenDxp\Bundle\CoreBundle\Controller;
 
 use Exception;
 use OpenDxp\Bundle\SeoBundle\Config;
-use OpenDxp\Controller\Controller;
 use OpenDxp\Logger;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\Site;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 /**
  * @internal
  */
-class PublicServicesController extends Controller
+class PublicServicesController extends AbstractController
 {
     public function thumbnailAction(Request $request): RedirectResponse|StreamedResponse
     {

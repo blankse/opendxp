@@ -42,21 +42,18 @@ use OpenDxp\Model\Element\ElementInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
- * @Route("/search")
- *
  * @internal
  */
+#[Route('/search')]
 class SearchController extends UserAwareController
 {
     use JsonHelperTrait;
 
     /**
-     * @Route("/find", name="opendxp_bundle_search_search_find", methods={"GET", "POST"})
-     *
      * @todo: $conditionTypeParts could be undefined
      *
      * @todo: $conditionSubtypeParts could be undefined
@@ -65,6 +62,7 @@ class SearchController extends UserAwareController
      *
      * @todo: $data could be undefined
      */
+    #[Route('/find', name: 'opendxp_bundle_search_search_find', methods: ['GET', 'POST'])]
     public function findAction(Request $request, EventDispatcherInterface $eventDispatcher, GridHelperService $gridHelperService): JsonResponse
     {
         $allParams = array_merge($request->request->all(), $request->query->all());
@@ -347,19 +345,13 @@ class SearchController extends UserAwareController
                         $element instanceof Asset => GridData\Asset::getData($element),
                         default => null
                     };
-                } else {
-                    // TODO: remove in open-dxp/opendxp 12.0, kept only to avoid conflicting admin ui classic bundle < 1.5
-                    $data = match (true) {
-                        $element instanceof DataObject\AbstractObject => DataObject\Service::gridObjectData($element, $fields),
-                        default => null
-                    };
                 }
 
                 if ($data) {
                     $elements[] = $data;
                 }
             } else {
-                //TODO: any message that view is blocked?
+                //TODO: any message that view is blocked? (--> Depends on admin-ui-classic-bundle)
                 //$data = Element\Service::gridElementData($element);
             }
         }
@@ -492,11 +484,7 @@ class SearchController extends UserAwareController
         return $query;
     }
 
-    /**
-     * @Route("/quicksearch", name="opendxp_bundle_search_search_quicksearch", methods={"GET"})
-     *
-     *
-     */
+    #[Route('/quicksearch', name: 'opendxp_bundle_search_search_quicksearch', methods: ['GET'])]
     public function quickSearchAction(Request $request, EventDispatcherInterface $eventDispatcher): JsonResponse
     {
         $query = $this->filterQueryParam($request->query->getString('query'));
@@ -528,6 +516,7 @@ class SearchController extends UserAwareController
             'query' => $query,
         ]);
         $eventDispatcher->dispatch($beforeListLoadEvent, AdminSearchEvents::QUICKSEARCH_LIST_BEFORE_LIST_LOAD);
+        /** @var Data\Listing $searcherList */
         $searcherList = $beforeListLoadEvent->getArgument('list');
 
         $hits = $searcherList->load();
@@ -564,11 +553,7 @@ class SearchController extends UserAwareController
         return $this->jsonResponse($result);
     }
 
-    /**
-     * @Route("/quicksearch-get-by-id", name="opendxp_bundle_search_search_quicksearch_by_id", methods={"GET"})
-     *
-     *
-     */
+    #[Route('/quicksearch-get-by-id', name: 'opendxp_bundle_search_search_quicksearch_by_id', methods: ['GET'])]
     public function quickSearchByIdAction(Request $request, Config $config): JsonResponse
     {
         $type = $request->query->getString('type');
@@ -635,7 +620,6 @@ class SearchController extends UserAwareController
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function addAdminStyle(ElementInterface $element, int $context = null, array &$data = []): void

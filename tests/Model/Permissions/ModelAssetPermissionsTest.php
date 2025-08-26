@@ -451,7 +451,10 @@ class ModelAssetPermissionsTest extends ModelTestCase
         $responseData = $controller->findAction(
             $request,
             new EventDispatcher(),
-            $this->getMockBuilder('\OpenDxp\Bundle\AdminBundle\Helper\GridHelperService')->getMock() //this is not used in the test
+            $this
+                ->getMockBuilder('\OpenDxp\Bundle\AdminBundle\Helper\GridHelperService')
+                ->disableOriginalConstructor()
+                ->getMock() //this is not used in the test
         );
 
         $responsePaths = [];

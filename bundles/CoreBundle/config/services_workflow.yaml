@@ -45,7 +45,6 @@ services:
         arguments:
             $tokenStorage: '@security.token_storage'
             $accessDecisionManager: '@security.access.decision_manager'
-            $exceptionOnNoToken: false
 
     OpenDxp\Workflow\ExpressionService:
         class: OpenDxp\Workflow\ExpressionService

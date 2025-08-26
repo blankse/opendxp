@@ -21,11 +21,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 abstract class AbstractOpenDxpBundle extends Bundle implements OpenDxpBundleInterface
 {
-    /**
-     * @deprecated
-     */
-    protected static ?OpenDxpBundleManager $bundleManager = null;
-
     public function getNiceName(): string
     {
         return $this->getName();
@@ -49,7 +44,6 @@ abstract class AbstractOpenDxpBundle extends Bundle implements OpenDxpBundleInte
     public static function isInstalled(): bool
     {
         $bundleManager = OpenDxp::getContainer()->get(OpenDxpBundleManager::class);
-        static::$bundleManager = $bundleManager; // @TODO: compatibility layer to be removed in OpenDxp 12
         $bundle = $bundleManager->getActiveBundle(static::class, false);
 
         return $bundleManager->isInstalled($bundle);

@@ -222,18 +222,6 @@ final class Console
         return $process->getOutput();
     }
 
-    /**
-     * @deprecated since v6.9. For long running background tasks switch to a queue implementation.
-     */
-    public static function runPhpScriptInBackground(string $script, array $arguments = [], string $outputFile = null): int
-    {
-        $cmd = self::buildPhpScriptCmd($script, $arguments);
-        $process = new Process($cmd);
-        $commandLine = $process->getCommandLine();
-
-        return self::execInBackground($commandLine, $outputFile);
-    }
-
     public static function execInBackground(string $cmd, string $outputFile = null): int
     {
         // windows systems

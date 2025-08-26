@@ -16,15 +16,15 @@
 namespace OpenDxp\Bundle\CoreBundle\Controller;
 
 use Exception;
-use OpenDxp\Controller\Controller;
 use OpenDxp\Logger;
 use OpenDxp\Model\Asset;
 use PDO;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @internal
  */
-class WebDavController extends Controller
+class WebDavController extends AbstractController
 {
     public function webdavAction(): void
     {

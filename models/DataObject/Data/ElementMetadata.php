@@ -144,7 +144,7 @@ class ElementMetadata extends Model\AbstractModel implements DataObject\OwnerAwa
     public function getElement(): ?Model\Element\ElementInterface
     {
         if ($this->getElementType() && $this->getElementId()) {
-            $element = Model\Element\Service::getElementById($this->getElementType(), $this->getElementId());
+            $element = Model\Element\Service::getElementById($this->getElementType(), (int) $this->getElementId());
             if (!$element) {
                 Logger::info('element ' . $this->getElementType() . ' ' . $this->getElementId() . ' does not exist anymore');
             }

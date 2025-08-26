@@ -24,7 +24,6 @@ services:
 
     OpenDxp\Twig\Extension\DumpExtension: ~
 
-    OpenDxp\Twig\Extension\CacheExtension: ~
     OpenDxp\Twig\Extension\CacheTagExtension: ~
 
     OpenDxp\Twig\Extension\Templating\OpenDxpUrl:

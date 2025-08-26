@@ -31,7 +31,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
  * @internal
@@ -47,28 +47,10 @@ class LogController extends UserAwareController implements KernelControllerEvent
         }
     }
 
-    /**
-     * @Route("/log/show", name="opendxp_admin_bundle_applicationlogger_log_show", methods={"GET", "POST"})
-     *
-     *
-     */
+    #[Route('/log/show', name: 'opendxp_admin_bundle_applicationlogger_log_show', methods: ['POST'])]
     public function showAction(Request $request, Connection $db): JsonResponse
     {
         $requestSource = $request->request;
-
-        //TODO: Remove the GET method support in OpenDxp 12
-        if ($request->isMethod('GET')) {
-            trigger_deprecation(
-                'open-dxp/opendxp',
-                '11.5.0',
-                sprintf('Calling route "%s" (%s) via "GET" method is deprecated and will not be supported anymore in 12.
-                Please use "POST" method instead.',
-                    'opendxp_admin_bundle_applicationlogger_log_show',
-                    __METHOD__
-                )
-            );
-            $requestSource = $request->query;
-        }
 
         $this->checkPermission('application_logging');
 
@@ -185,11 +167,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $dateTime;
     }
 
-    /**
-     * @Route("/log/priority-json", name="opendxp_admin_bundle_applicationlogger_log_priorityjson", methods={"GET"})
-     *
-     *
-     */
+    #[Route("/log/priority-json", name: "opendxp_admin_bundle_applicationlogger_log_priorityjson", methods: ["GET"])]
     public function priorityJsonAction(Request $request): JsonResponse
     {
         $this->checkPermission('application_logging');
@@ -202,11 +180,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $this->jsonResponse(['priorities' => $priorities]);
     }
 
-    /**
-     * @Route("/log/component-json", name="opendxp_admin_bundle_applicationlogger_log_componentjson", methods={"GET"})
-     *
-     *
-     */
+    #[Route("/log/component-json", name: "opendxp_admin_bundle_applicationlogger_log_componentjson", methods: ["GET"])]
     public function componentJsonAction(Request $request): JsonResponse
     {
         $this->checkPermission('application_logging');
@@ -219,9 +193,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $this->jsonResponse(['components' => $components]);
     }
 
-    /**
-     * @Route("/log/show-file-object", name="opendxp_admin_bundle_applicationlogger_log_showfileobject", methods={"GET"})
-     */
+    #[Route("/log/show-file-object", name: "opendxp_admin_bundle_applicationlogger_log_showfileobject", methods: ["GET"])]
     public function showFileObjectAction(Request $request): StreamedResponse
     {
         $this->checkPermission('application_logging');

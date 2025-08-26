@@ -19,12 +19,13 @@ use OpenDxp\Logger;
 use OpenDxp\Model\User;
 use OpenDxp\Security\User\TokenStorageUserResolver;
 use OpenDxp\Security\User\User as UserProxy;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Contracts\Service\Attribute\Required;
 use Throwable;
 
-abstract class UserAwareController extends Controller
+abstract class UserAwareController extends AbstractController
 {
     protected TokenStorageUserResolver $tokenResolver;
 

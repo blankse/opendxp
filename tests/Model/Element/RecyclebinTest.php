@@ -78,8 +78,6 @@ class RecyclebinTest extends ModelTestCase
         $recycledStorage = unserialize($storage->read($recycledItems->current()->getStorageFile()));
         $this->assertEquals($objectId, $recycledStorage->getId(), 'Recycled Object not found.');
 
-        $this->assertEquals($recycledItems->current()->getStorageFile(), $recycledItems->current()->getStoreageFile());    // deprecated method name
-
         //restore asserts
         $recycledItems->current()->restore();
 

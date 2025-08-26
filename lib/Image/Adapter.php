@@ -306,29 +306,7 @@ abstract class Adapter implements AdapterInterface
         return $this;
     }
 
-    /**
-     * @deprecated Provided by AdapterInterface::load() instead
-     */
-    abstract public function load(string $imagePath, array $options = []): static|false;
-
-    /**
-     * @deprecated Provided by AdapterInterface::save() instead
-     */
-    abstract public function save(string $path, string $format = null, int $quality = null): static;
-
     abstract protected function destroy(): void;
-
-    /**
-     * @deprecated Provided by AdapterInterface::getContentOptimizedFormat() instead
-     */
-    abstract public function getContentOptimizedFormat(): string;
-
-    /**
-     * @deprecated Provided by AdapterInterface::supportsFormat() instead
-     *
-     * @internal
-     */
-    abstract public function supportsFormat(string $format, bool $force = false): bool;
 
     public function preModify(): void
     {

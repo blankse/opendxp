@@ -18,6 +18,10 @@ namespace OpenDxp\Bundle\SeoBundle\Controller\Traits;
 use OpenDxp\Bundle\AdminBundle\Controller\Traits\DocumentTreeConfigTrait;
 use OpenDxp\Model\Element\ElementInterface;
 
+/**
+ * @see \OpenDxp\Bundle\AdminBundle\Controller\Traits\DocumentTreeConfigTrait
+ * @todo Migrate this properly to make sure the DocumentTreeConfigTrait can be removed/deprecated.
+ */
 if (trait_exists(DocumentTreeConfigTrait::class)) {
     /**
      * @internal

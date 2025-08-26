@@ -20,13 +20,11 @@ use OpenDxp\Controller\UserAwareController;
 use OpenDxp\Model\DataObject;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class DataObjectController extends UserAwareController
 {
-    /**
-     * @Route("/relation-objects-list", name="opendxp_bundle_search_dataobject_relation_objects_list", methods={"GET"})
-     */
+    #[Route('/relation-objects-list', name: 'opendxp_bundle_search_dataobject_relation_objects_list', methods: ['GET'])]
     public function optionsAction(Request $request): JsonResponse
     {
         $fieldConfig = json_decode($request->query->getString('fieldConfig'), true);
