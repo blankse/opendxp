@@ -5,26 +5,20 @@
 ### Preparation
 Upgrade to the latest Pimcore `11.5.x` first!
 
-### Settings Store
+#### Settings Store
 - In table `settings_store`, replace `BUNDLE_INSTALLED__Pimcore` with `BUNDLE_INSTALLED__OpenDxp`
-
-### Methods
+#### Methods
 - getPimcoreUser => getOpenDxpUser
-
-### Configuration
+#### Configuration
 - Autoload directory: config/pimcore => config/opendxp
 - All Pimcore configuration blocks `pimcore_*` (like pimcore_admin) => `opendxp_*`
-
-### Constants
+#### Constants
 - All Constants `PIMCORE_` => `OPENDXP_`
-
-### Messenger
+#### Messenger
 - All runners from `pimcore_` => `opendxp_`
-
-### Commands
+#### Commands
 - All commands from `pimcore:` => `opendxp:`
-
-### Twig
+#### Twig
 - All twig methods changed from `pimcore_` => `opendxp_`
 
 ***
@@ -104,6 +98,3 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
 
 ### Templates
 - Removed `key_value_table.html.twig` from `CoreBundle`
-
-## Migrations
-TBD

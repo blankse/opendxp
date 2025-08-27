@@ -18,9 +18,10 @@ It is not affiliated with or endorsed by Pimcore GmbH.
 [![Software License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](LICENSE.md)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat)](https://gitter.im/open-dxp/opendxp)
 
+* [Migrate to OpenDXP 1.0](doc/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md#migrating-from-pimcore-to-opendxp)
 * [Documentation](doc)
 * [Issue Tracker](https://github.com/open-dxp/opendxp/issues) - Report bugs or suggest new features
-* [Forums](https://github.com/open-dxp/opendxp/discussions) - Community support and discussions
+* [Forums](https://github.com/orgs/open-dxp/discussions) - Community support and discussions
 
 ## Contribute  
 **Bug fixes:** please create a pull request including a step by step description to reproduce the problem  
