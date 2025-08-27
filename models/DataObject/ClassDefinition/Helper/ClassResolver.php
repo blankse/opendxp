@@ -29,7 +29,7 @@ abstract class ClassResolver
 
     protected static function resolve(
         ?string $class,
-        callable $validationCallback = null,
+        ?callable $validationCallback = null,
         bool $showError = true
     ): ?object {
         if (!$class) {
@@ -56,7 +56,7 @@ abstract class ClassResolver
         return $return;
     }
 
-    private static function returnValidServiceOrNull(object $service, callable $validationCallback = null): ?object
+    private static function returnValidServiceOrNull(object $service, ?callable $validationCallback = null): ?object
     {
         if ($validationCallback && !$validationCallback($service)) {
             return null;

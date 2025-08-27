@@ -20,5 +20,5 @@ use OpenDxp\Model\DataObject\Concrete;
 
 interface BeforeEncryptionMarshallerInterface
 {
-    public function marshalBeforeEncryption(mixed $value, Concrete $object = null, array $params = []): mixed;
+    public function marshalBeforeEncryption(mixed $value, ?Concrete $object = null, array $params = []): mixed;
 }

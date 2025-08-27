@@ -47,7 +47,7 @@ class OpenDxpContextResolver extends AbstractRequestResolver
      *
      *
      */
-    public function getOpenDxpContext(Request $request = null): ?string
+    public function getOpenDxpContext(?Request $request = null): ?string
     {
         if (null === $request) {
             $request = $this->getCurrentRequest();
