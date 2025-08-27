@@ -546,7 +546,7 @@ class Service extends Model\Element\Service
     }
 
     /**
-     * @deprecated Since 11.3, please use GridData\DataObject::getHelperDefinitions() instead (requires pimcore/admin-ui-classic-bundle v1.5)
+     * @deprecated Since 1.0, please use GridData\DataObject::getHelperDefinitions() instead (requires open-dxp/admin-ui-classic-bundle)
      */
     public static function getHelperDefinitions(): array
     {
@@ -555,9 +555,9 @@ class Service extends Model\Element\Service
         }
 
         trigger_deprecation(
-            'pimcore/pimcore',
+            'open-dxp/opendxp',
             '11.3.0',
-            sprintf('The "%s" method is deprecated here and moved to admin-ui-classc-bundle v1.5, use "%s" instead.', __METHOD__, 'Pimcore\Bundle\AdminBundle\Service\GridData::getHelperDefinitions()')
+            sprintf('The "%s" method is deprecated here and moved to admin-ui-classc-bundle v1.5, use "%s" instead.', __METHOD__, 'OpenDxp\Bundle\AdminBundle\Service\GridData::getHelperDefinitions()')
         );
 
         $stack = OpenDxp::getContainer()->get('request_stack');
@@ -566,7 +566,7 @@ class Service extends Model\Element\Service
 
             return Session::useBag($session, function (AttributeBagInterface $session) {
                 return $session->get('helpercolumns', []);
-            }, 'pimcore_gridconfig');
+            }, 'opendxp_gridconfig');
         }
 
         return [];
@@ -609,7 +609,7 @@ class Service extends Model\Element\Service
 
         if ($permissionSet !== null) {
             // backwards compatibility. If all entries are null, then the workspace rule was set up with
-            // an opendxp pimcore
+            // an older opendxp
 
             $permission = $permissionSet['layouts'];
             if ($permission) {
@@ -1903,7 +1903,7 @@ class Service extends Model\Element\Service
     }
 
     /**
-     * @deprecated Since 11.3, please use \Pimcore\Bundle\AdminBundle\Service\DataObject::getInheritedData() instead
+     * @deprecated Since 1.0, please use \OpenDxp\Bundle\AdminBundle\Service\DataObject::getInheritedData() instead
      */
     protected static function getInheritedData(Concrete $object, string $key, string $requestedLanguage): array
     {
