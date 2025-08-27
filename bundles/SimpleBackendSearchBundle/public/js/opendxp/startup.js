@@ -22,10 +22,10 @@ opendxp.bundle.search = Class.create({
     initialize: function () {
         document.addEventListener(opendxp.events.preRegisterKeyBindings, this.registerKeyBinding.bind(this));
         document.addEventListener(opendxp.events.preMenuBuild, this.preMenuBuild.bind(this));
-        document.addEventListener(opendxp.events.openDxpReady, this.openDxpReady.bind(this));
+        document.addEventListener(opendxp.events.opendxpReady, this.opendxpReady.bind(this));
     },
 
-    openDxpReady: function () {
+    opendxpReady: function () {
         this.registerSearchService();
     },
 
