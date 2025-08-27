@@ -80,7 +80,7 @@ class OpenDxpUrl implements RuntimeExtensionInterface
         if ($object) {
             if (method_exists($object, 'getClass') && method_exists($object->getClass(), 'getLinkGenerator')) {
                 $linkGenerator = $object->getClass()->getLinkGenerator();
-            } elseif (method_exists($object, 'getLinkGenerator')) { // useful for ecommerce LinkGeneratorAwareInterface
+            } elseif (method_exists($object, 'getLinkGenerator')) {
                 $linkGenerator = $object->getLinkGenerator();
             }
         }

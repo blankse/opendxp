@@ -1,14 +1,18 @@
 # Link Generator
 
 ### Summary
-Link Generators are used to dynamically generate web-links for objects and are automatically called when objects 
-are linked in document link editables, link document types and object link tags.
 
-Additionally they are also enabling the preview tab for data objects.  
+Link Generators dynamically create web links for objects.  
+They are automatically invoked when objects are linked in:  
+- Document link editables  
+- Link document types  
+- Object link tags  
 
-Link generators are defined on class level, there are two ways to do this. 
+Additionally, Link Generators enable the preview tab for data objects.
 
-Either simply specify the class name or the name of a Symfony service (notice the prefix).
+Link Generators are defined at the class level. There are two ways to specify them:  
+- By providing the class name  
+- By referencing a Symfony service (using a specific prefix)
 
 ![Link Generator Setup1](../../../img/linkgenerator_class.png)
 
@@ -23,8 +27,6 @@ services:
 
     App\Website\LinkGenerator\ProductLinkGenerator:
         public: true
-
-    ...
 ```
 
 ### Sample Link Generator Implementation
@@ -37,10 +39,9 @@ namespace App\Website\LinkGenerator;
 use App\Model\Product\AccessoryPart;
 use App\Model\Product\Car;
 use App\Website\Tool\Text;
-use OpenDxp\Bundle\EcommerceFrameworkBundle\Model\ProductInterface;
+use App\Model\ProductInterface;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\LinkGeneratorInterface;
-use OpenDxp\Bundle\EcommerceFrameworkBundle\Model\DefaultMockup;
 
 class ProductLinkGenerator extends AbstractProductLinkGenerator implements LinkGeneratorInterface
 {
@@ -68,7 +69,7 @@ class ProductLinkGenerator extends AbstractProductLinkGenerator implements LinkG
                     'path' => $this->getNavigationPath($object->getMainCategory(), $params['rootCategory'] ?? null),
                     'page' => null
                 ],
-                'shop-detail',
+                'product-detail',
                 true
             );
         });
