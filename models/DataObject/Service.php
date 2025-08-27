@@ -546,7 +546,7 @@ class Service extends Model\Element\Service
     }
 
     /**
-     * @deprecated Since 1.0, please use GridData\DataObject::getHelperDefinitions() instead (requires open-dxp/admin-ui-classic-bundle)
+     * @deprecated Since 1.0.0, please use OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getHelperDefinitions() instead
      */
     public static function getHelperDefinitions(): array
     {
@@ -556,8 +556,8 @@ class Service extends Model\Element\Service
 
         trigger_deprecation(
             'open-dxp/opendxp',
-            '11.3.0',
-            sprintf('The "%s" method is deprecated here and moved to admin-ui-classc-bundle v1.5, use "%s" instead.', __METHOD__, 'OpenDxp\Bundle\AdminBundle\Service\GridData::getHelperDefinitions()')
+            '1.0.0',
+            sprintf('The "%s" method is deprecated here and moved to admin-ui-classc-bundle, use "%s" instead.', __METHOD__, 'OpenDxp\Bundle\AdminBundle\Service\GridData::getHelperDefinitions()')
         );
 
         $stack = OpenDxp::getContainer()->get('request_stack');
