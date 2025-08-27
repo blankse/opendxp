@@ -19,7 +19,6 @@ namespace OpenDxp\Workflow\Notification;
 use Exception;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Notification\Service\NotificationService;
-use Symfony\Component\Workflow\Workflow;
 use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
