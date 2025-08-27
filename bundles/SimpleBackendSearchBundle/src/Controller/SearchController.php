@@ -345,6 +345,12 @@ class SearchController extends UserAwareController
                         $element instanceof Asset => GridData\Asset::getData($element),
                         default => null
                     };
+                } else {
+                    // TODO: remove in fix dependency on admin-ui-classic-bundle
+                    $data = match (true) {
+                        $element instanceof DataObject\AbstractObject => DataObject\Service::gridObjectData($element, $fields),
+                        default => null
+                    };
                 }
 
                 if ($data) {
