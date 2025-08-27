@@ -22,7 +22,6 @@ use OpenDxp\Event\System\ConsoleEvent;
 use OpenDxp\Event\SystemEvents;
 use OpenDxp\Migrations\FilteredMigrationsRepository;
 use OpenDxp\Migrations\FilteredTableMetadataStorage;
-use OpenDxp\Tool\Admin;
 use OpenDxp\Tool\MaintenanceModeHelperInterface;
 use OpenDxp\Version;
 use RuntimeException;

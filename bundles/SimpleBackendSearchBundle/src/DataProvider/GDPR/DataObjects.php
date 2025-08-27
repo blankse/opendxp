@@ -20,7 +20,6 @@ use OpenDxp\Bundle\AdminBundle\GDPR\DataProvider;
 use OpenDxp\Bundle\AdminBundle\Helper\QueryParams;
 use OpenDxp\Bundle\AdminBundle\Service\GridData;
 use OpenDxp\Bundle\SimpleBackendSearchBundle\Model\Search\Backend\Data;
-use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Element;
 

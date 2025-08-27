@@ -39,7 +39,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /**
  * @internal
  */
-#[Route("/redirects")]
+#[Route('/redirects')]
 class RedirectsController extends UserAwareController
 {
     use JsonHelperTrait;
@@ -224,7 +224,7 @@ class RedirectsController extends UserAwareController
         ]);
     }
 
-    #[Route("/cleanup", name: 'opendxp_bundle_seo_redirects_cleanup', methods: ['DELETE'])]
+    #[Route('/cleanup', name: 'opendxp_bundle_seo_redirects_cleanup', methods: ['DELETE'])]
     public function cleanupAction(): JsonResponse
     {
         $this->checkPermission('redirects');
@@ -247,7 +247,7 @@ class RedirectsController extends UserAwareController
         }
     }
 
-    #[Route("/get-statuscodes", name: 'opendxp_bundle_seo_redirects_statuscodes', methods: ['GET'])]
+    #[Route('/get-statuscodes', name: 'opendxp_bundle_seo_redirects_statuscodes', methods: ['GET'])]
     public function statusCodesAction(): JsonResponse
     {
         $this->checkPermission('redirects');

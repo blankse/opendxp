@@ -32,7 +32,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 /**
  * @internal
  */
-#[Route("/document")]
+#[Route('/document')]
 class DocumentController extends UserAwareController
 {
     use JsonHelperTrait;

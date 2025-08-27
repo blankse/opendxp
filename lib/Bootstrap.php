@@ -21,7 +21,6 @@ use InvalidArgumentException;
 use OpenDxp;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\Document;
-use OpenDxp\Tool\Admin;
 use OpenDxp\Tool\MaintenanceModeHelperInterface;
 use Symfony\Component\Dotenv\Dotenv;
 use Symfony\Component\ErrorHandler\Debug;

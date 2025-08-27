@@ -167,7 +167,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $dateTime;
     }
 
-    #[Route("/log/priority-json", name: "opendxp_admin_bundle_applicationlogger_log_priorityjson", methods: ["GET"])]
+    #[Route('/log/priority-json', name: 'opendxp_admin_bundle_applicationlogger_log_priorityjson', methods: ['GET'])]
     public function priorityJsonAction(Request $request): JsonResponse
     {
         $this->checkPermission('application_logging');
@@ -180,7 +180,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $this->jsonResponse(['priorities' => $priorities]);
     }
 
-    #[Route("/log/component-json", name: "opendxp_admin_bundle_applicationlogger_log_componentjson", methods: ["GET"])]
+    #[Route('/log/component-json', name: 'opendxp_admin_bundle_applicationlogger_log_componentjson', methods: ['GET'])]
     public function componentJsonAction(Request $request): JsonResponse
     {
         $this->checkPermission('application_logging');
@@ -193,7 +193,7 @@ class LogController extends UserAwareController implements KernelControllerEvent
         return $this->jsonResponse(['components' => $components]);
     }
 
-    #[Route("/log/show-file-object", name: "opendxp_admin_bundle_applicationlogger_log_showfileobject", methods: ["GET"])]
+    #[Route('/log/show-file-object', name: 'opendxp_admin_bundle_applicationlogger_log_showfileobject', methods: ['GET'])]
     public function showFileObjectAction(Request $request): StreamedResponse
     {
         $this->checkPermission('application_logging');

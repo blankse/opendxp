@@ -18,7 +18,6 @@ namespace OpenDxp\Bundle\CoreBundle\Command;
 
 use Exception;
 use OpenDxp\Console\AbstractCommand;
-use OpenDxp\Tool\Admin;
 use OpenDxp\Tool\MaintenanceModeHelperInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;

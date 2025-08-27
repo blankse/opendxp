@@ -26,7 +26,6 @@ use ReflectionClass;
 use Symfony\Component\Config\Resource\DirectoryResource;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;

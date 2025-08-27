@@ -40,7 +40,6 @@ declare(strict_types=1);
 namespace OpenDxp\Twig\Extension\Templating;
 
 use OpenDxp\Twig\Extension\Templating\Placeholder\AbstractExtension;
-use OpenDxp\Twig\Extension\Templating\Placeholder\Container;
 use OpenDxp\Twig\Extension\Templating\Placeholder\ContainerService;
 use OpenDxp\Twig\Extension\Templating\Placeholder\Exception;
 use stdClass;
