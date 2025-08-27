@@ -345,6 +345,12 @@ class SearchController extends UserAwareController
                         $element instanceof Asset => GridData\Asset::getData($element),
                         default => null
                     };
+                } else {
+                    // TODO: remove in fix dependency on admin-ui-classic-bundle
+                    $data = match (true) {
+                        $element instanceof DataObject\AbstractObject => DataObject\Service::gridObjectData($element, $fields),
+                        default => null
+                    };
                 }
 
                 if ($data) {
@@ -622,7 +628,7 @@ class SearchController extends UserAwareController
     /**
      * @throws Exception
      */
-    protected function addAdminStyle(ElementInterface $element, int $context = null, array &$data = []): void
+    protected function addAdminStyle(ElementInterface $element, ?int $context = null, array &$data = []): void
     {
         $event = new ElementAdminStyleEvent($element, new AdminStyle($element), $context);
         OpenDxp::getEventDispatcher()->dispatch($event, AdminEvents::RESOLVE_ELEMENT_ADMIN_STYLE);

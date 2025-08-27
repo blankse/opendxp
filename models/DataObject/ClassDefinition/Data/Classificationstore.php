@@ -146,7 +146,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      *
      * @see Data::getDataForEditmode
      */
-    public function getDataForEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): array
+    public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
         if (!$data instanceof DataObject\Classificationstore) {
             return [];
@@ -299,7 +299,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      */
     public function getDataFromEditmode(
         mixed $data,
-        DataObject\Concrete $object = null,
+        ?DataObject\Concrete $object = null,
         array $params = []
     ): DataObject\Classificationstore {
         $classificationStore = $this->getDataFromObjectParam($object);
@@ -360,7 +360,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      * @param DataObject\Concrete|null $object
      *
      */
-    public function getDataForGrid(mixed $data, Concrete $object = null, array $params = []): string
+    public function getDataForGrid(mixed $data, ?Concrete $object = null, array $params = []): string
     {
         return 'not supported';
     }
@@ -371,7 +371,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      * @see Data::getVersionPreview
      *
      */
-    public function getVersionPreview(mixed $data, DataObject\Concrete $object = null, array $params = []): string
+    public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         // this is handled directly in the template
         return 'CLASSIFICATIONSTORE';
@@ -673,7 +673,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      *
      * @throws Exception
      */
-    public function getDiffDataForEditmode(mixed $data, DataObject\Concrete $object = null, array $params = []): ?array
+    public function getDiffDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         throw new Exception('not supported');
     }
@@ -681,7 +681,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
     /**
      * @throws Exception
      */
-    public function getDiffDataFromEditmode(array $data, Concrete $object = null, array $params = []): mixed
+    public function getDiffDataFromEditmode(array $data, ?Concrete $object = null, array $params = []): mixed
     {
         throw new Exception('not supported');
     }

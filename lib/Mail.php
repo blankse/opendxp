@@ -126,7 +126,7 @@ class Mail extends Email
      * @param array|Headers|null $headers
      * @param AbstractPart|null $body
      */
-    public function __construct($headers = null, $body = null, string $contentType = null)
+    public function __construct($headers = null, $body = null, ?string $contentType = null)
     {
         if (is_array($headers)) {
             $options = $headers;
@@ -428,7 +428,7 @@ class Mail extends Email
      *
      * @return $this Provides fluent interface
      */
-    public function send(MailerInterface $mailer = null): static
+    public function send(?MailerInterface $mailer = null): static
     {
         $bodyHtmlRendered = $this->getBodyHtmlRendered();
         if ($bodyHtmlRendered) {
@@ -463,7 +463,7 @@ class Mail extends Email
      *
      * @throws Exception
      */
-    public function sendWithoutRendering(MailerInterface $mailer = null): static
+    public function sendWithoutRendering(?MailerInterface $mailer = null): static
     {
         // filter email addresses
 

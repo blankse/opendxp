@@ -263,7 +263,7 @@ class ApplicationLogger implements LoggerInterface
         $this->log($level, $message, $context);
     }
 
-    public function logException(string $message, Throwable $exceptionObject, ?string $priority = 'alert', \OpenDxp\Model\DataObject\AbstractObject $relatedObject = null, string $component = null): void
+    public function logException(string $message, Throwable $exceptionObject, ?string $priority = 'alert', ?\OpenDxp\Model\DataObject\AbstractObject $relatedObject = null, ?string $component = null): void
     {
         if (is_null($priority)) {
             $priority = 'alert';
@@ -289,7 +289,7 @@ class ApplicationLogger implements LoggerInterface
         string $message,
         Throwable $exception,
         int|string|Level $level = Level::Alert,
-        \OpenDxp\Model\DataObject\AbstractObject $relatedObject = null,
+        ?\OpenDxp\Model\DataObject\AbstractObject $relatedObject = null,
         array $context = []
     ): void {
         $message .= ' : ' . $exception->getMessage();

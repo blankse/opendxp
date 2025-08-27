@@ -24,6 +24,7 @@ use OpenDxp\Workflow\Notification\NotificationEmailService;
 use OpenDxp\Workflow\Transition;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
+use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -74,6 +75,10 @@ class NotificationSubscriber implements EventSubscriberInterface
         $transition = $event->getTransition();
         $workflow = $this->workflowManager->getWorkflowByName($event->getWorkflowName());
 
+        if ($workflow === null) {
+            return;
+        }
+
         $notificationSettings = $transition->getNotificationSettings();
         foreach ($notificationSettings as $notificationSetting) {
             $condition = $notificationSetting['condition'] ?? null;
@@ -93,7 +98,7 @@ class NotificationSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function handleNotifyPostWorkflowEmail(Transition $transition, \Symfony\Component\Workflow\Workflow $workflow, ElementInterface $subject, string $mailType, string $mailPath, array $notifyUsers, array $notifyRoles): void
+    private function handleNotifyPostWorkflowEmail(Transition $transition, WorkflowInterface $workflow, ElementInterface $subject, string $mailType, string $mailPath, array $notifyUsers, array $notifyRoles): void
     {
         //notify users
         $subjectType = ($subject instanceof Concrete ? $subject->getClassName() : Service::getElementType($subject));
@@ -110,7 +115,7 @@ class NotificationSubscriber implements EventSubscriberInterface
         );
     }
 
-    private function handleNotifyPostWorkflowOpenDxpNotification(Transition $transition, \Symfony\Component\Workflow\Workflow $workflow, ElementInterface $subject, array $notifyUsers, array $notifyRoles): void
+    private function handleNotifyPostWorkflowOpenDxpNotification(Transition $transition, WorkflowInterface $workflow, ElementInterface $subject, array $notifyUsers, array $notifyRoles): void
     {
         $subjectType = ($subject instanceof Concrete ? $subject->getClassName() : Service::getElementType($subject));
         $this->OpenDxpNotificationService->sendOpenDxpNotification(

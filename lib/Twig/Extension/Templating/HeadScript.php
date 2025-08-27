@@ -159,7 +159,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      *
      * @return $this
      */
-    public function __invoke(string $mode = self::FILE, string $spec = null, string $placement = 'APPEND', array $attrs = [], string $type = 'text/javascript'): static
+    public function __invoke(string $mode = self::FILE, ?string $spec = null, string $placement = 'APPEND', array $attrs = [], string $type = 'text/javascript'): static
     {
         if (is_string($spec)) {
             $action = ucfirst(strtolower($mode));
@@ -447,7 +447,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      *
      *
      */
-    public function toString(int|string $indent = null): string
+    public function toString(int|string|null $indent = null): string
     {
         $this->prepareEntries();
 
@@ -518,7 +518,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      *
      *
      */
-    public function createData(string $type, array $attributes, string $content = null): stdClass
+    public function createData(string $type, array $attributes, ?string $content = null): stdClass
     {
         $data = new stdClass();
         $data->type = $type;

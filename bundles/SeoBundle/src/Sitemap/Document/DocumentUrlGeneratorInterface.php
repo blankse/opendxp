@@ -23,5 +23,5 @@ use OpenDxp\Model\Site;
 
 interface DocumentUrlGeneratorInterface extends UrlGeneratorInterface
 {
-    public function generateDocumentUrl(Document $document, Site $site = null, array $options = []): string;
+    public function generateDocumentUrl(Document $document, ?Site $site = null, array $options = []): string;
 }

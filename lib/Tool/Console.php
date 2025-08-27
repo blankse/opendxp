@@ -199,7 +199,7 @@ final class Console
     /**
      * @param string[] $arguments
      */
-    public static function runPhpScript(string $script, array $arguments = [], string $outputFile = null, float $timeout = 60): string
+    public static function runPhpScript(string $script, array $arguments = [], ?string $outputFile = null, float $timeout = 60): string
     {
         $cmd = self::buildPhpScriptCmd($script, $arguments);
         self::addLowProcessPriority($cmd);
@@ -222,7 +222,7 @@ final class Console
         return $process->getOutput();
     }
 
-    public static function execInBackground(string $cmd, string $outputFile = null): int
+    public static function execInBackground(string $cmd, ?string $outputFile = null): int
     {
         // windows systems
         if (self::getSystemEnvironment() == 'windows') {
