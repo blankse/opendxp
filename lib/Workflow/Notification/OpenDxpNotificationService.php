@@ -20,6 +20,7 @@ use Exception;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Notification\Service\NotificationService;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class OpenDxpNotificationService extends AbstractNotificationService
@@ -38,7 +39,7 @@ class OpenDxpNotificationService extends AbstractNotificationService
         $this->translator = $translator;
     }
 
-    public function sendOpenDxpNotification(array $users, array $roles, Workflow $workflow, string $subjectType, ElementInterface $subject, string $action): void
+    public function sendOpenDxpNotification(array $users, array $roles, WorkflowInterface $workflow, string $subjectType, ElementInterface $subject, string $action): void
     {
         try {
             $recipients = $this->getNotificationUsersByName($users, $roles, true);

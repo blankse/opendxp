@@ -42,6 +42,7 @@ use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Tool;
 use OpenDxp\Tool\Admin as AdminTool;
 use stdClass;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\SyntaxError;
 use Throwable;
@@ -309,8 +310,8 @@ class Service extends Model\Element\Service
             $attributes = json_decode(json_encode($definition->attributes));
 
             // TODO refactor how the service is accessed into something non-static and inject the service there
-            $service = OpenDxp::getContainer()->get(GridColumnConfigService::class);
-            if (!$service) {
+            $service = OpenDxp::getContainer()?->get(GridColumnConfigService::class, ContainerInterface::NULL_ON_INVALID_REFERENCE);
+            if ($service === null) {
                 throw new AdminClassicBundleNotFoundException('Admin Bundle not found. Please install the package open-dxp/admin-ui-classic-bundle.');
             }
             $config = $service->buildOutputDataConfig([$attributes], $context);

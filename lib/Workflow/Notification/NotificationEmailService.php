@@ -24,6 +24,7 @@ use OpenDxp\Tool;
 use OpenDxp\Workflow\EventSubscriber\NotificationSubscriber;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Workflow\Workflow;
+use Symfony\Component\Workflow\WorkflowInterface;
 use Symfony\Contracts\Translation\LocaleAwareInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
@@ -49,7 +50,7 @@ class NotificationEmailService extends AbstractNotificationService
      * Sends an Mail
      *
      */
-    public function sendWorkflowEmailNotification(array $users, array $roles, Workflow $workflow, string $subjectType, ElementInterface $subject, string $action, string $mailType, string $mailPath): void
+    public function sendWorkflowEmailNotification(array $users, array $roles, WorkflowInterface $workflow, string $subjectType, ElementInterface $subject, string $action, string $mailType, string $mailPath): void
     {
         try {
             $recipients = $this->getNotificationUsersByName($users, $roles);
@@ -117,7 +118,7 @@ class NotificationEmailService extends AbstractNotificationService
     /**
      * @param User[] $recipients
      */
-    protected function sendOpenDxpDocumentMail(array $recipients, string $subjectType, ElementInterface $subject, Workflow $workflow, string $action, string $language, string $mailPath, string $deeplink): void
+    protected function sendOpenDxpDocumentMail(array $recipients, string $subjectType, ElementInterface $subject, WorkflowInterface $workflow, string $action, string $language, string $mailPath, string $deeplink): void
     {
         $mail = new \OpenDxp\Mail(['document' => $mailPath, 'params' => $this->getNotificationEmailParameters($subjectType, $subject, $workflow, $action, $deeplink, $language)]);
 
@@ -131,7 +132,7 @@ class NotificationEmailService extends AbstractNotificationService
     /**
      * @param User[] $recipients
      */
-    protected function sendTemplateMail(array $recipients, string $subjectType, ElementInterface $subject, Workflow $workflow, string $action, string $language, string $mailPath, string $deeplink): void
+    protected function sendTemplateMail(array $recipients, string $subjectType, ElementInterface $subject, WorkflowInterface $workflow, string $action, string $language, string $mailPath, string $deeplink): void
     {
         $mail = new \OpenDxp\Mail();
 
@@ -148,7 +149,7 @@ class NotificationEmailService extends AbstractNotificationService
         $mail->send();
     }
 
-    protected function getHtmlBody(string $subjectType, ElementInterface $subject, Workflow $workflow, string $action, string $language, string $mailPath, string $deeplink): string
+    protected function getHtmlBody(string $subjectType, ElementInterface $subject, WorkflowInterface $workflow, string $action, string $language, string $mailPath, string $deeplink): string
     {
         $translatorLocaleBackup = null;
         if ($this->translator instanceof LocaleAwareInterface) {
@@ -170,7 +171,7 @@ class NotificationEmailService extends AbstractNotificationService
         }
     }
 
-    protected function getNotificationEmailParameters(string $subjectType, ElementInterface $subject, Workflow $workflow, string $action, string $deeplink, string $language): array
+    protected function getNotificationEmailParameters(string $subjectType, ElementInterface $subject, WorkflowInterface $workflow, string $action, string $deeplink, string $language): array
     {
         $noteDescription = $this->getNoteInfo($subject->getId());
 
