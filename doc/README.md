@@ -1,26 +1,25 @@
----
-title: Core Framework
----
-
 # OpenDXP Core Framework Documentation
 
-> This documentation section provides all information you need to use the Core Framework of OpenDXP. 
-> 
-> We've aimed this part of the documentation at a developer's audience.
+> This section provides everything developers need to work with the OpenDXP Core Framework.  
+> It is aimed specifically at a technical audience.
 
-OpenDXP provides a fully flexible and extendable platform for managing and exploiting data of any type. The Core Framework is the foundation of the whole platform and provides a lot of basic functionalities.
+OpenDXP offers a fully flexible and extensible platform for managing and utilizing data of any type.  
+The Core Framework forms the foundation of the entire platform and delivers essential basic functionalities.
 
-It gathers four major modules to answer a lot of use cases:
-- Product Information (PIM) and Master Data Management (MDM)
-- Digital Asset Management (DAM)
-- Enterprise Content Management (CMS/UX)
-- B2C and B2B E-commerce Framework
+It consists of four main modules, covering a wide range of use cases:  
+- Product Information Management (PIM) and Master Data Management (MDM)  
+- Digital Asset Management (DAM)  
+- Enterprise Content Management (CMS/UX)  
 
-The system is written in PHP, follows the Model-View-Controller (MVC) pattern and relies on the Symfony Framework.
+The system is developed in PHP, follows the Model-View-Controller (MVC) architecture, and is built on the Symfony Framework.
 
-OpenDXP provides the management of three types of elements that cover any kind of data: Documents, Assets and Objects. Following the principle of single-source publishing, each type is saved only once with a single ID that serves as a reference ID whenever it is reused somewhere.
+OpenDXP manages three types of elements that cover all data types:  
+Documents, Assets, and Objects.  
+Following the single-source publishing principle, each element is stored once with a unique ID.  
+This ID is used as a reference whenever the element is reused.
 
-The Core Framework comes with several core features that can be fully adapted or extended with additional bundles (see the OpenDXP Extensions section for existing extensions maintained by OpenDXP).
+The Core Framework includes many core features that you can fully customize or extend using additional bundles.  
+(See the OpenDXP Extensions section for a list of officially maintained extensions.)
 
 ## Documentation Overview
 

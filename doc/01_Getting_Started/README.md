@@ -1,6 +1,6 @@
 # Getting Started With OpenDXP
 
-This section provides a quick getting started tutorial for OpenDXP and covers the following topics: 
+This section provides a quick getting-started tutorial for OpenDXP and covers the following topics: 
 
 1. Installation of OpenDXP:
    - via [Docker](../01_Getting_Started/00_Installation/00_Docker_Based_Installation.md)

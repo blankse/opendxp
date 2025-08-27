@@ -102,5 +102,8 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
   - `OpenDxp\Twig\Extension\Templating\HeadScript`: removed `captureStart()` and `captureEnd()`; use Twig set tag for output capturing.
   - Removed deprecated `opendxp_cache` Twig function (`OpenDxp\Twig\Extension\CacheExtension`); use the `opendxpcache` tag instead.
 
+### Templates
+- Removed `key_value_table.html.twig` from `CoreBundle`
+
 ## Migrations
 TBD

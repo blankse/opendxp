@@ -1,4 +1,5 @@
-![OpenDXP](./doc/img/logo-readme.svg)
+<img src="./doc/img/logo-readme.svg" alt="OpenDXP" width="50%" />
+
 Open Source Data & Digital Experience Platform
 
 ***
@@ -26,31 +27,36 @@ It is not affiliated with or endorsed by Pimcore GmbH.
 **Security vulnerabilities:** please see our [security policy](https://github.com/open-dxp/opendxp/security/policy)
   
 ## Key Benefits and Advantages
-### ⚒ Data Modelling and UI Design at the same Time 
-No matter if you're dealing with unstructured web documents or structured data for MDM/PIM, you define the 
-UI design (web documents by a template and structured data with an intuitive graphical editor), Pimcore knows 
-how to persist the data efficiently and optimized for fast access.
 
-### Agnostic and Universal Framework for your Data
-Due to the framework approach, OpenDXP is very flexible and adapts perfectly to your needs. Built on top of 
-the well-known Symfony Framework you have a solid and modern foundation for your project. 
+### Simultaneous Data Modeling and UI Design  
+OpenDXP lets you design your data model and user interface at the same time.  
+Use templates for unstructured web content or a graphical editor for structured MDM/PIM data.  
+The platform saves your data efficiently and optimizes access speed.
 
-### Extensible and huge Symfony Community
-Benefit from all existing Symfony Components and Bundles provided by the community or create your own 
-Bundles to extend your Projects with reusable components. 
+### Flexible, Framework-Agnostic Data Platform  
+OpenDXP is built on the solid Symfony Framework.  
+This gives you a modern foundation that adapts easily to your project needs.  
+Its flexible architecture allows you to customize the platform without limits.
 
-### Your Digital World consolidated in one Platform
-No more API, import/export and synchronization hell between MDM/PIM, E-Commerce, DAM, and your Web-CMS. 
-All is working seamlessly together, natively ... this is what OpenDXP is built for. 
+### Extensive Symfony Ecosystem and Extensibility  
+Take advantage of the large Symfony community and its many components and bundles.  
+You can also create your own reusable bundles to add new features.  
+OpenDXP’s modular setup supports growth and innovation.
 
-### Modern and Intuitive UI
-We love good-looking user interfaces, designed to be efficient for daily use and optimized for a great
-experience for editors. 
+### Unified Digital Experience Platform  
+Forget about complex integrations between MDM/PIM, DAM, and Web-CMS.  
+OpenDXP combines all these systems natively in one platform.  
+This eliminates the need for multiple APIs, imports/exports, and sync processes.
+
+### Modern, Intuitive User Interface  
+We focus on clean and user-friendly interfaces.  
+The UI is designed for daily use and optimized for editors’ workflows.  
+It looks great and feels natural to use.
 
 ***
 
 ## Getting Started
-_**Only 3 commands to start!**_
+_**Only three commands to start!**_
 
 ```bash
 COMPOSER_MEMORY_LIMIT=-1 composer create-project open-dxp/skeleton ./my-project
@@ -58,9 +64,7 @@ cd ./my-project
 ./vendor/bin/opendxp-install
 ```
 
-This will install an empty skeleton application, 
-but we're also offering a demo package for your convenience - of course also with 3 commands
-[Click here for more installation options and a detailed guide](doc/01_Getting_Started/README.md)
+This will install an empty skeleton application. [Click here for more installation options and a detailed guide](doc/01_Getting_Started/README.md)
 
 ## Supported Versions
 Support of a minor version of OpenDXP packages ends with the release of the next minor version.
