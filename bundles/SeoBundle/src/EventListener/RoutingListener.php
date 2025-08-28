@@ -56,7 +56,7 @@ class RoutingListener implements EventSubscriberInterface
         if (!$this->matchesOpenDxpContext($request, OpenDxpContextResolver::CONTEXT_DEFAULT)) {
             return;
         }
-        
+
         $response = $this->redirectHandler->checkForRedirect($request, true);
         if ($response) {
             $event->setResponse($response);
