@@ -1,5 +1,18 @@
 # Upgrade Notes
 
+## OpenDXP 1.1.0
+
+### [Core]
+- Added `open-dxp/admin-bundle` as core dependency since this is currently the only backend UI available.
+
+### [AdminBundle]
+- Renamed `open-dxp/admin-ui-classic-bundle` to `open-dxp/admin-bundle`.
+  - PHP namespace has **not** changed.
+- Abandoned composer package `open-dxp/admin-ui-classic-bundle`.
+
+### [SeoBundle]
+- Performance improvements for redirect resolving in `RoutingListener`.
+
 ## Migrating from Pimcore to OpenDXP
 
 ### Preparation
@@ -23,9 +36,9 @@ Upgrade to the latest Pimcore `11.5.x` first!
 
 ***
 
-## Breaking Changes
+### Breaking Changes
 
-### Core
+#### Core
 - ⚠️ **Important:** Removed hardcoded password salt in `OpenDxp\Tool\Authentication::preparePlainTextPassword()`.
   > As a BC layer the new config option `opendxp.security.password.salt` was introduced. Set it to "pimcore" to keep 
     password logins of existing installations working.
@@ -88,7 +101,7 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
 - Removed deprecated GET method for `OpenDxp\Bundle\ApplicationLoggerBundle\Controller\LogController::showAction()`. Use POST instead.
 - Removed deprecated console option `--generator` for `opendxp:image:low-quality-preview` (`OpenDxp\Bundle\CoreBundle\Command\LowQualityImagePreviewCommand`).
 
-### PHP & Symfony deprecations
+#### PHP & Symfony deprecations
 - Removed dotenv variable BC layer in `OpenDxp\Bootstrap::bootstrap()`. Use Symfony Runtime (public/index.php & bin/console.php).
 - Twig templating deprecations (use Twig instead of Symfony Templating):
   - `OpenDxp\Twig\Extension\Templating\Placeholder\Container`: removed `captureStart()` and `captureEnd()`; use Twig set tag for output capturing.
