@@ -36,7 +36,7 @@ opendxp.helpers.hasSearchImplementation()
 If you want to create your own search implementation you have to provide some predefined methods. 
 These methods are: `openItemSelector`, `showQuickSearch`, `hideQuickSearch` and `getObjectRelationInlineSearchRoute`.
 - The `openItemSelector` method will be triggered by certain data object fields and editables through the 
-  [helper.js](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/public/js/opendxp/helpers.js#L822).
+  [helper.js](https://github.com/open-dxp/admin-bundle/blob/1.x/public/js/opendxp/helpers.js#L822).
 - The `showQuickSearch` and `hideQuickSearch` is responsible for managing the quickSearch.
 - The `getObjectRelationInlineSearchRoute` has to return the route to `DataObjectController::optionsAction`.
 

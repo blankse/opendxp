@@ -50,9 +50,9 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
 ### Removed Deprecations
 - `OpenDxp\Model\Element\Service::getElementById()`: Parameter `$id` no longer supports `string`; use `int` instead.
 - `OpenDxp\Model\Document::getById()`: Parameter `$id` no longer supports `string`; use `int` instead.
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::getHelperDefinitions()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getHelperDefinitions()` instead (requires `open-dxp/admin-ui-classic-bundle`).
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::gridObjectData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getData()` instead (requires `open-dxp/admin-ui-classic-bundle`).
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::getInheritedData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData::getInheritedData()` instead (requires `open-dxp/admin-ui-classic-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::getHelperDefinitions()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getHelperDefinitions()` instead (requires `open-dxp/admin-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::gridObjectData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getData()` instead (requires `open-dxp/admin-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::getInheritedData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData::getInheritedData()` instead (requires `open-dxp/admin-bundle`).
 - Removed BC layer `OpenDxp\Model\DataObject\Service::getVersionDependentColumnName()` (conversion of `o_`-prefixed columns/properties). Migrate or delete versions before upgrading.
 - Removed `OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface`. Use `...\SelectOptionsProviderInterface` instead.
 - Removed support for any password algorithm other than `password_hash` in `OpenDxp\Model\DataObject\ClassDefinition\Data\Password`.

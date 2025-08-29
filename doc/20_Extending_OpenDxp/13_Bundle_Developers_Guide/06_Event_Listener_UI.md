@@ -58,7 +58,7 @@ document.addEventListener(opendxp.events.opendxpReady, (e) => {
 
 ## JavaScript UI Events
 
-For registering events just add a listener with some of the events from [events.js](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/public/js/opendxp/events.js). 
+For registering events just add a listener with some of the events from [events.js](https://github.com/open-dxp/admin-bundle/blob/1.x/public/js/opendxp/events.js). 
 
 
 ## Validate OpenDXP Object's Data in frontend before saving

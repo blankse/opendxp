@@ -34,7 +34,7 @@ All OpenDXP events are defined and documented as a constant on component specifi
 - [Mail](https://github.com/open-dxp/opendxp/blob/1.x/lib/Event/MailEvents.php)
 - [Notifications](https://github.com/open-dxp/opendxp/blob/1.x/lib/Event/NotificationEvents.php)
 - [Redirect](https://github.com/open-dxp/opendxp/blob/1.x/bundles/SeoBundle/src/Event/RedirectEvents.php)
-- [Admin](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/src/Event/AdminEvents.php)
+- [Admin](https://github.com/open-dxp/admin-bundle/blob/1.x/src/Event/AdminEvents.php)
 - [Frontend](https://github.com/open-dxp/opendxp/blob/1.x/lib/Event/FrontendEvents.php)
 - [Cache](https://github.com/open-dxp/opendxp/blob/1.x/lib/Event/CoreCacheEvents.php)
 - [Full-Page Cache](https://github.com/open-dxp/opendxp/blob/1.x/lib/Event/FullPageCacheEvents.php)
@@ -105,7 +105,7 @@ To ensure maximum security, it is advisable to combine this with an object DI to
 ### Hook into the Open Document|Asset|Data Object dialog
 
 By the default, OpenDXP tries to a resolve an element by its ID or path.
-You can change this behavior by handling the [AdminEvents::RESOLVE_ELEMENT](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/src/Event/AdminEvents.php) event
+You can change this behavior by handling the [AdminEvents::RESOLVE_ELEMENT](https://github.com/open-dxp/admin-bundle/blob/1.x/src/Event/AdminEvents.php) event
 and implement your own logic.
 
 ```php

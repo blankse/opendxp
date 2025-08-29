@@ -14,7 +14,7 @@ be changed.
  
 The basic idea is to provide one's own implementation of `OpenDxp\Model\Element\AdminStyle`.
  
-This can be achieved by attaching a listener to the [`AdminEvents::RESOLVE_ELEMENT_ADMIN_STYLE`](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/src/Event/AdminEvents.php#L428-L439) event. 
+This can be achieved by attaching a listener to the [`AdminEvents::RESOLVE_ELEMENT_ADMIN_STYLE`](https://github.com/open-dxp/admin-bundle/blob/1.x/src/Event/AdminEvents.php#L428-L439) event. 
 
 Example:
 
