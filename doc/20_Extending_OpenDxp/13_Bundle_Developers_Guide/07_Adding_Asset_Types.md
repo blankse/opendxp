@@ -30,7 +30,7 @@ It needs to extend `opendxp.asset.asset`, be located in the namespace `opendxp.a
 `$type` property of the corresponding PHP class.
 
 For examples have a look at the OpenDXP core asset types at
-[github](https://github.com/open-dxp/admin-ui-classic-bundle/tree/1.x/public/js/opendxp/asset)
+[github](https://github.com/open-dxp/admin-bundle/tree/1.x/public/js/opendxp/asset)
 
 ## 3) Register the asset on the asset type map
 

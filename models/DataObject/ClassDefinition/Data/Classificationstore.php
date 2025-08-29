@@ -866,7 +866,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
                 }
                 $definition = DataObject\Classificationstore\Service::getFieldDefinitionFromKeyConfig($keyGroupRelation);
 
-                // changes here also have an effect here: "https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/public/js/opendxp/object/tags/classificationstore.js"
+                // changes here also have an effect here: "https://github.com/open-dxp/admin-bundle/blob/1.x/public/js/opendxp/object/tags/classificationstore.js"
                 $fallbackTooltip = $definition->getName();
                 if (!empty($keyGroupRelation->getDescription())) {
                     $fallbackTooltip .= ' - ' . $keyGroupRelation->getDescription();

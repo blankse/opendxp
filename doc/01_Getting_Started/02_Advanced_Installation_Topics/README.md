@@ -88,7 +88,7 @@ The `BundleSetupEvent` is triggered under two circumstances:
 
 By subscribing or listening to the `BundleSetupEvent`, you can add or remove bundles from the required or recommended lists.
 
-For practical examples, refer to the [OpenDXP Skeleton](https://github.com/open-dxp/skeleton). It shows how the [Admin UI Classic Bundle](https://github.com/open-dxp/admin-ui-classic-bundle) is integrated.
+For practical examples, refer to the [OpenDXP Skeleton](https://github.com/open-dxp/skeleton). It shows how the [Admin UI Classic Bundle](https://github.com/open-dxp/admin-bundle) is integrated.
 
 ```php
 <?php

@@ -61,7 +61,7 @@ exports can be attached or external data sources can be included.
 To do so, following steps are necessary: 
 
 1) Create a custom implementation of 
-[`OpenDxp\Bundle\AdminBundle\GDPR\DataProvider\DataProviderInterface`](https://github.com/open-dxp/admin-ui-classic-bundle/blob/1.x/src/GDPR/DataProvider/DataProviderInterface.php#L20). 
+[`OpenDxp\Bundle\AdminBundle\GDPR\DataProvider\DataProviderInterface`](https://github.com/open-dxp/admin-bundle/blob/1.x/src/GDPR/DataProvider/DataProviderInterface.php#L20). 
 The following functions need to be implemented:
 
     * `getSortPriority()` - Returns sort priority for the tabs - higher is sorted first.

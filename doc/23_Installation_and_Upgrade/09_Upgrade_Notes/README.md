@@ -1,5 +1,18 @@
 # Upgrade Notes
 
+## OpenDXP 1.1.0
+
+### [Core]
+- Added `open-dxp/admin-bundle` as core dependency since this is currently the only backend UI available.
+
+### [AdminBundle]
+- Renamed `open-dxp/admin-ui-classic-bundle` to `open-dxp/admin-bundle`.
+  - PHP namespace has **not** changed.
+- Abandoned composer package `open-dxp/admin-ui-classic-bundle`.
+
+### [SeoBundle]
+- Performance improvements for redirect resolving in `RoutingListener`.
+
 ## Migrating from Pimcore to OpenDXP
 
 ### Preparation
@@ -23,9 +36,9 @@ Upgrade to the latest Pimcore `11.5.x` first!
 
 ***
 
-## Breaking Changes
+### Breaking Changes
 
-### Core
+#### Core
 - ⚠️ **Important:** Removed hardcoded password salt in `OpenDxp\Tool\Authentication::preparePlainTextPassword()`.
   > As a BC layer the new config option `opendxp.security.password.salt` was introduced. Set it to "pimcore" to keep 
     password logins of existing installations working.
@@ -50,9 +63,9 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
 ### Removed Deprecations
 - `OpenDxp\Model\Element\Service::getElementById()`: Parameter `$id` no longer supports `string`; use `int` instead.
 - `OpenDxp\Model\Document::getById()`: Parameter `$id` no longer supports `string`; use `int` instead.
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::getHelperDefinitions()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getHelperDefinitions()` instead (requires `open-dxp/admin-ui-classic-bundle`).
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::gridObjectData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getData()` instead (requires `open-dxp/admin-ui-classic-bundle`).
-- Removed deprecated method `OpenDxp\Model\DataObject\Service::getInheritedData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData::getInheritedData()` instead (requires `open-dxp/admin-ui-classic-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::getHelperDefinitions()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getHelperDefinitions()` instead (requires `open-dxp/admin-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::gridObjectData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData\DataObject::getData()` instead (requires `open-dxp/admin-bundle`).
+- Removed deprecated method `OpenDxp\Model\DataObject\Service::getInheritedData()`. Use `OpenDxp\Bundle\AdminBundle\Service\GridData::getInheritedData()` instead (requires `open-dxp/admin-bundle`).
 - Removed BC layer `OpenDxp\Model\DataObject\Service::getVersionDependentColumnName()` (conversion of `o_`-prefixed columns/properties). Migrate or delete versions before upgrading.
 - Removed `OpenDxp\Model\DataObject\ClassDefinition\DynamicOptionsProvider\MultiSelectOptionsProviderInterface`. Use `...\SelectOptionsProviderInterface` instead.
 - Removed support for any password algorithm other than `password_hash` in `OpenDxp\Model\DataObject\ClassDefinition\Data\Password`.
@@ -88,7 +101,7 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
 - Removed deprecated GET method for `OpenDxp\Bundle\ApplicationLoggerBundle\Controller\LogController::showAction()`. Use POST instead.
 - Removed deprecated console option `--generator` for `opendxp:image:low-quality-preview` (`OpenDxp\Bundle\CoreBundle\Command\LowQualityImagePreviewCommand`).
 
-### PHP & Symfony deprecations
+#### PHP & Symfony deprecations
 - Removed dotenv variable BC layer in `OpenDxp\Bootstrap::bootstrap()`. Use Symfony Runtime (public/index.php & bin/console.php).
 - Twig templating deprecations (use Twig instead of Symfony Templating):
   - `OpenDxp\Twig\Extension\Templating\Placeholder\Container`: removed `captureStart()` and `captureEnd()`; use Twig set tag for output capturing.

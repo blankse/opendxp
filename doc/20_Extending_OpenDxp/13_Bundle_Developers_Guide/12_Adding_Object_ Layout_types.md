@@ -18,7 +18,7 @@ Following steps are necessary to do so:
    `$fieldtype` property of the corresponding PHP class.
      
    For examples have a look at the OpenDXP core layout types at  
-   [github](https://github.com/open-dxp/admin-ui-classic-bundle/tree/1.x/public/js/opendxp/object/classes/layout)
+   [github](https://github.com/open-dxp/admin-bundle/tree/1.x/public/js/opendxp/object/classes/layout)
 
 3) Create JavaScript class for object editor:
    This JavaScript class defines the representation of the layout type in the *object editor*. You can use very simple ExtJS elements here.
@@ -27,7 +27,7 @@ Following steps are necessary to do so:
    `$fieldtype` property of the corresponding PHP class.
      
    For examples have a look at the OpenDXP core layout types at  
-   [github](https://github.com/open-dxp/admin-ui-classic-bundle/tree/1.x/public/js/opendxp/object/layout)
+   [github](https://github.com/open-dxp/admin-bundle/tree/1.x/public/js/opendxp/object/layout)
     
 4) Register a layout type in OpenDXP by extending the `opendxp.objects.class_definitions.data.layout` configuration. 
    This can be done in any config file which is loaded (e.g. `config/config.yaml`), but if you provide the layout type 
