@@ -13,7 +13,7 @@
 ### [SeoBundle]
 - Performance improvements for redirect resolving in `RoutingListener`.
 
-## Migrating from Pimcore to OpenDXP
+## Get started with OpenDXP 1.0
 
 ### Preparation
 Upgrade to the latest Pimcore `11.5.x` first!

@@ -1,4 +1,4 @@
-<img src="./doc/img/logo-readme.svg" alt="OpenDXP" width="50%" />
+<img src="./doc/img/logo-readme.png" alt="OpenDXP" width="60%" />
 
 Open Source Data & Digital Experience Platform
 
@@ -6,11 +6,12 @@ Open Source Data & Digital Experience Platform
 
 ## Disclaimer
 
-> A community-driven fork based on Pimcore Community Edition (GPLv3), created to keep Open Source open!  
+> OpenDXP is a community-driven fork based on the Pimcore® Community Edition (GPLv3).  
+> OpenDXP is independent and maintained by its community and contributors. 
+> It is not affiliated with, endorsed by, or sponsored by Pimcore GmbH.   
 > Original credits: [Pimcore GmbH](https://www.pimcore.com)
 
-OpenDXP is an independent, community-maintained fork of Pimcore.  
-It is not affiliated with or endorsed by Pimcore GmbH.
+**OpenDXP is based on the Pimcore® Community Edition and remains licensed under GPLv3.**
 
 ***
 
@@ -18,7 +19,7 @@ It is not affiliated with or endorsed by Pimcore GmbH.
 [![Software License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg?style=flat)](LICENSE.md)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg?style=flat)](https://gitter.im/open-dxp/opendxp)
 
-* [Migrate to OpenDXP 1.0](doc/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md#migrating-from-pimcore-to-opendxp)
+* [Get started with OpenDXP 1.0](doc/23_Installation_and_Upgrade/09_Upgrade_Notes/README.md#get-started-with-opendxp-10)
 * [Documentation](doc)
 * [Issue Tracker](https://github.com/open-dxp/opendxp/issues) - Report bugs or suggest new features
 * [Forums](https://github.com/orgs/open-dxp/discussions) - Community support and discussions
@@ -27,32 +28,26 @@ It is not affiliated with or endorsed by Pimcore GmbH.
 **Bug fixes:** please create a pull request including a step by step description to reproduce the problem  
 **Security vulnerabilities:** please see our [security policy](https://github.com/open-dxp/opendxp/security/policy)
   
-## Key Benefits and Advantages
+## Core Features and Highlights
+OpenDXP provides a codebase that enables: 
 
-### Simultaneous Data Modeling and UI Design  
-OpenDXP lets you design your data model and user interface at the same time.  
-Use templates for unstructured web content or a graphical editor for structured MDM/PIM data.  
-The platform saves your data efficiently and optimizes access speed.
+### Simultaneous Data Modeling and UI Configuration 
+OpenDXP supports defining data structures (e.g., MDM/PIM) and configuring editorial UIs in parallel.
+Unstructured web content can be handled via templates; structured data can be managed with a graphical class editor. 
+Data is persisted by the application according to the project’s configuration. 
 
-### Flexible, Framework-Agnostic Data Platform  
-OpenDXP is built on the solid Symfony Framework.  
-This gives you a modern foundation that adapts easily to your project needs.  
-Its flexible architecture allows you to customize the platform without limits.
+### Flexible Framework and Extensibility 
+OpenDXP uses the Symfony framework.
+Functionality can be extended via Symfony components and custom bundles. 
+APIs allow integration with various frontend stacks. 
 
-### Extensive Symfony Ecosystem and Extensibility  
-Take advantage of the large Symfony community and its many components and bundles.  
-You can also create your own reusable bundles to add new features.  
-OpenDXP’s modular setup supports growth and innovation.
+### Combined Functional Areas 
+The application includes functionality for MDM/PIM, DAM, and Web‑CMS within the same codebase.
+Depending on solution architecture, this setup can reduce additional integration work (e.g., separate APIs, import/export, synchronization). 
 
-### Unified Digital Experience Platform  
-Forget about complex integrations between MDM/PIM, DAM, and Web-CMS.  
-OpenDXP combines all these systems natively in one platform.  
-This eliminates the need for multiple APIs, imports/exports, and sync processes.
-
-### Modern, Intuitive User Interface  
-We focus on clean and user-friendly interfaces.  
-The UI is designed for daily use and optimized for editors’ workflows.  
-It looks great and feels natural to use.
+### Administration Interface 
+The administration interface is available for editorial workflows. 
+Configuration options can be adjusted to align UI behavior with project requirements. 
 
 ***
 
@@ -70,13 +65,21 @@ This will install an empty skeleton application. [Click here for more installati
 ## Supported Versions
 Support of a minor version of OpenDXP packages ends with the release of the next minor version.
 
-## Copyright and License 
-Copyright: OpenDXP
+***
 
-This project is a fork of [Pimcore Community Edition (7158319 / v11.5.8)](https://github.com/pimcore/pimcore/tree/7158319cd13fccbf259ca209c0355ab178b00c6e),
-which is © Pimcore GmbH and licensed under the GPLv3.
+## Upstream Origin & Version Transparency 
+This project is a fork of the [Pimcore® Community Edition (7158319 / v11.5.8)](https://github.com/pimcore/pimcore/tree/7158319cd13fccbf259ca209c0355ab178b00c6e), which is © Pimcore GmbH and licensed under GPLv3. 
 
-For licensing details please visit [LICENSE.md](LICENSE.md)
+## License 
+Licensed under the GNU General Public License v3.0 (GPLv3). For details, please see [LICENSE.md](LICENSE.md). 
+
+## Copyright 
+© Pimcore GmbH  
+© 2025 OpenDXP Contributors — GPLv3 
+
+## Trademarks 
+Pimcore® is a registered [trademark](https://www.trademarkelite.com/europe/trademark/trademark-detail/009309841/PIMCORE) of Pimcore GmbH. 
+Any use of the Pimcore® mark in this repository is purely descriptive to identify the original upstream project. 
 
 ***
 
@@ -84,4 +87,9 @@ For licensing details please visit [LICENSE.md](LICENSE.md)
 For inquiries, suggestions, or contributions, feel free to reach us at contact@opendxp.ch.
 
 ## About
-OpenDXP is a community-driven project maintained and developed by [DACHCOM.DIGITAL](https://www.dachcom.com/de-ch), based in Rheineck, Switzerland.
+OpenDXP is a community-driven project initiated by [DACHCOM.DIGITAL](https://www.dachcom.com/de-ch) (Rheineck, Switzerland) and maintained by its community and contributors. 
+OpenDXP is independent and not affiliated with Pimcore GmbH. 
+
+The project’s purpose is to preserve and maintain a GPLv3‑licensed codebase for community use.   
+
+It is **not positioned as a competitor** to products or services of Pimcore GmbH and does **not** purport to replace or supersede any Pimcore offering.   
