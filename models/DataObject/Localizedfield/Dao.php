@@ -22,6 +22,7 @@ use OpenDxp\Db\Helper;
 use OpenDxp\Logger;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
+use OpenDxp\Model\DataObject\ClassDefinition\Data\CalculatedValue;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\CustomResourcePersistingInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\LazyLoadingSupportInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\QueryResourcePersistenceAwareInterface;
@@ -335,7 +336,7 @@ class Dao extends Model\Dao\AbstractDao
                                     }
                                 }
 
-                                if ($inheritanceEnabled && $fd->getFieldType() != 'calculatedValue') {
+                                if ($inheritanceEnabled && !$fd instanceof CalculatedValue) {
                                     //get changed fields for inheritance
                                     if ($fd->isRelationType()) {
                                         if (is_array($insertData)) {
