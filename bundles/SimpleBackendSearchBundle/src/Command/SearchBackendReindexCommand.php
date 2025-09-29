@@ -102,6 +102,7 @@ class SearchBackendReindexCommand extends AbstractCommand
                     }
                 }
                 OpenDxp::collectGarbage();
+                OpenDxp::deleteTemporaryFiles();
             }
         }
 

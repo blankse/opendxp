@@ -55,17 +55,23 @@ class Listing
      */
     public function loadFileNames(): array
     {
-        $filenames= [];
+        $filenames = [];
 
-        $fieldCollectionFolders = array_unique([OPENDXP_CLASS_DEFINITION_DIRECTORY . '/fieldcollections', OPENDXP_CUSTOM_CONFIGURATION_CLASS_DEFINITION_DIRECTORY . '/fieldcollections']);
+        $fieldCollectionFolders = array_filter(array_unique(array_map('realpath', [
+            OPENDXP_CLASS_DEFINITION_DIRECTORY . '/fieldcollections',
+            OPENDXP_CUSTOM_CONFIGURATION_CLASS_DEFINITION_DIRECTORY . '/fieldcollections',
+        ])));
 
         foreach ($fieldCollectionFolders as $fieldCollectionFolder) {
             $files = glob($fieldCollectionFolder . '/*.php');
             foreach ($files as $file) {
-                $filenames[] = $file;
+                $realFile = realpath($file);
+                if ($realFile) {
+                    $filenames[] = $realFile;
+                }
             }
         }
 
-        return $filenames;
+        return array_unique($filenames);
     }
 }

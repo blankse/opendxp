@@ -52,12 +52,25 @@ class ClassesDefinitionsBuildCommand extends AbstractCommand
     {
         $cacheStatus = Cache::isEnabled();
         Cache::disable();
-        $objectClassesFolders = array_unique([OPENDXP_CLASS_DEFINITION_DIRECTORY, OPENDXP_CUSTOM_CONFIGURATION_CLASS_DEFINITION_DIRECTORY]);
+
+        $objectClassesFolders = array_filter(array_unique(array_map('realpath', [
+            OPENDXP_CLASS_DEFINITION_DIRECTORY,
+            OPENDXP_CUSTOM_CONFIGURATION_CLASS_DEFINITION_DIRECTORY,
+        ])));
+
+        $includedFiles = [];
 
         foreach ($objectClassesFolders as $objectClassesFolder) {
             $files = glob($objectClassesFolder.'/*.php');
 
             foreach ($files as $file) {
+                $realFile = realpath($file);
+
+                if (isset($includedFiles[$realFile])) {
+                    continue;
+                }
+
+                $includedFiles[$realFile] = true;
                 $class = include $file;
 
                 $this->classDumper->dumpPHPClasses($class);

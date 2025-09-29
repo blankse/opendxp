@@ -85,7 +85,7 @@ To get a list of all available commands use `./bin/console list`.
 | opendxp:definition:import:units           | Import Quantity value units definition from a JSON export                                                                         |
 | opendxp:deployment:classes-rebuild        | Rebuilds classes and db structure based on updated `var/classes/definition_*.php` files                                           |
 | opendxp:thumbnails:image                  | Generate image thumbnails, useful to pre-generate thumbnails in the background. Use `--processes` option for parallel processing. |
-| opendxp:thumbnails:optimize-images        | Optimize file size of all images in `web/var/tmp`                                                                                 |
+| opendxp:thumbnails:optimize-images        | Optimize file size of all images in `public/var/tmp`                                                                              |
 | opendxp:thumbnails:video                  | Generate video thumbnails, useful to pre-generate thumbnails in the background. Use `--processes` option for parallel processing. |
 
 Find more about the OpenDXP Console on the [dedicated page](../19_Development_Tools_and_Details/11_Console_CLI.md).
