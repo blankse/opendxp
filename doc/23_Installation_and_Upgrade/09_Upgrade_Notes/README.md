@@ -18,13 +18,15 @@
 ### Preparation
 Upgrade to the latest Pimcore `11.5.x` first!
 
+#### bin/console
+- Replace the use-statements Pimcore with OpenDxp or download it from [skeleton](https://github.com/open-dxp/skeleton/blob/1.x/bin/console). After composer upgrade you'll able to run php bin/console again and debug any missing replacements.
 #### Settings Store
 - In table `settings_store`, replace `BUNDLE_INSTALLED__Pimcore` with `BUNDLE_INSTALLED__OpenDxp`
 #### Methods
 - getPimcoreUser => getOpenDxpUser
 #### Configuration
 - Autoload directory: config/pimcore => config/opendxp
-- All Pimcore configuration blocks `pimcore_*` (like pimcore_admin) => `opendxp_*`
+- All Pimcore configuration blocks `pimcore_*` (like pimcore_admin) => `opendxp_*`. This affects config and var/config folder.
 #### Constants
 - All Constants `PIMCORE_` => `OPENDXP_`
 #### Messenger
@@ -108,6 +110,7 @@ As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its o
   - `OpenDxp\Twig\Extension\Templating\HeadStyle`: removed `captureStart()` and `captureEnd()`; use Twig set tag for output capturing.
   - `OpenDxp\Twig\Extension\Templating\HeadScript`: removed `captureStart()` and `captureEnd()`; use Twig set tag for output capturing.
   - Removed deprecated `opendxp_cache` Twig function (`OpenDxp\Twig\Extension\CacheExtension`); use the `opendxpcache` tag instead.
+  - Removed enable_authenticator_manager from security.yaml due to symfony 7.3
 
 ### Templates
 - Removed `key_value_table.html.twig` from `CoreBundle`
