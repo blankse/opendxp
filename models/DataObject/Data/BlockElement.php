@@ -134,6 +134,8 @@ class BlockElement extends AbstractModel implements OwnerAwareFieldInterface, Ca
             new UnmarshalMatcher()
         );
 
+        $copier->addFilter(new SetNullFilter(), new PropertyNameMatcher('_owner'));
+
         $copier->addFilter(new \DeepCopy\Filter\KeepFilter(), new class() implements \DeepCopy\Matcher\Matcher {
             /**
              * @param object $object
