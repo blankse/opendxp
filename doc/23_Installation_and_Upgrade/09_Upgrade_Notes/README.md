@@ -1,5 +1,10 @@
 # Upgrade Notes
 
+## OpenDXP 1.1.3
+
+### [Core]
+- BlockElement: Add SetNullFilter for '_owner' property in DeepCopy configuration to improve performance.
+
 ## OpenDXP 1.1.0
 
 ### [Core]
