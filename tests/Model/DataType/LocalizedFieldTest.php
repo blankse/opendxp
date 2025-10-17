@@ -24,7 +24,6 @@ use OpenDxp\SystemSettingsConfig;
 use OpenDxp\Tests\Support\Helper\OpenDxp;
 use OpenDxp\Tests\Support\Test\ModelTestCase;
 use OpenDxp\Tests\Support\Util\TestHelper;
-use OpenDxp\Version;
 
 class LocalizedFieldTest extends ModelTestCase
 {
