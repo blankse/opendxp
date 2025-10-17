@@ -25,7 +25,7 @@ final class Version
 {
     const PACKAGE_NAME = 'open-dxp/opendxp';
 
-    private const MAJOR_VERSION = 11;
+    private const MAJOR_VERSION = 1;
 
     public static function getMajorVersion(): int
     {

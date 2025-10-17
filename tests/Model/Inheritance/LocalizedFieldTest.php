@@ -25,7 +25,6 @@ use OpenDxp\Tests\Support\Helper\OpenDxp;
 use OpenDxp\Tests\Support\Test\ModelTestCase;
 use OpenDxp\Tests\Support\Util\TestHelper;
 use OpenDxp\Tool;
-use OpenDxp\Version;
 
 class LocalizedFieldTest extends ModelTestCase
 {
@@ -39,23 +38,14 @@ class LocalizedFieldTest extends ModelTestCase
         TestHelper::cleanUp();
         \OpenDxp::setAdminMode();
 
-        if (Version::getMajorVersion() >= 11) {
-            $openDxpModule = $this->getModule('\\'.OpenDxp::class);
-            $this->config = $openDxpModule->grabService(SystemSettingsConfig::class);
-            $this->originalConfig = $this->config->get();
-        } else {
-            $this->originalConfig = \OpenDxp\Config::getSystemConfiguration();
-        }
-
+        $openDxpModule = $this->getModule('\\'.OpenDxp::class);
+        $this->config = $openDxpModule->grabService(SystemSettingsConfig::class);
+        $this->originalConfig = $this->config::get();
     }
 
     public function tearDown(): void
     {
-        if (Version::getMajorVersion() >= 11) {
-            $this->config->testSave($this->originalConfig);
-        } else {
-            \OpenDxp\Config::setSystemConfiguration($this->originalConfig);
-        }
+        $this->config->testSave($this->originalConfig);
 
         parent::tearDown();
     }
@@ -65,11 +55,8 @@ class LocalizedFieldTest extends ModelTestCase
         $configuration = $this->originalConfig;
         $configuration['general']['fallback_languages']['de'] = 'en';
 
-        if (Version::getMajorVersion() >= 11) {
-            $this->config->testSave($configuration);
-        } else {
-            \OpenDxp\Config::setSystemConfiguration($configuration);
-        }
+        $this->config->testSave($configuration);
+
         // create root -> one -> two -> three
         $one = new Inheritance();
         $one->setKey('one');
