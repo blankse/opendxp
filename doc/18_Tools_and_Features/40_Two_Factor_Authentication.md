@@ -19,8 +19,6 @@ After enabling it a secret will be generated and you can setup your Google Authe
 
 After reloading you will be prompt to enter the verification code for the first time.
 
- ![2falogin](../img/two_factor_authentication_login.png)
- 
 ## Admin Setup
 
 It is also possible to force users to use two factor authentication. This can be done in the Users menu by checking 'Two Factor Authentication required'.

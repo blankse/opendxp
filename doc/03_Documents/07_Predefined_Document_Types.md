@@ -10,7 +10,6 @@ should be used in a specific document because they can choose out of a predefine
 ## Example
 
 To define document-type go to *Settings* > *Document-Types*.
-![Document types grid](../img/documenttypes_grid.png)
 
 Let's suppose that you've created controller, action and template for a books listing.
 

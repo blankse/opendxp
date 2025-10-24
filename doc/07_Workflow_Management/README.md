@@ -110,8 +110,6 @@ To customize the e-mail template, following options are available:
 ## Workflow History
 In the *"Notes & Events"* tab, there is a list with every action used on the object via the Workflow module.
 
-![Notes & Events - notes from the workflow](../img/notesandevents_object_grid.png)
-
 ## Workflow Overview
 
 If workflows are configured for a OpenDXP element, an additional tab with workflow details like all configured workflows, 

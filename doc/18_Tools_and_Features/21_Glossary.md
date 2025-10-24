@@ -22,8 +22,6 @@ Open the glossary editor ![Tools](../img/Icon_tools.png) **Tools -> Glossary** a
 
 </div>
 
-![Glossary grid](../img/glossary_grid.png)
-
 Then you have to define one or more regions in your views, telling the glossary where you want it to replace your terms.
 
 ```twig

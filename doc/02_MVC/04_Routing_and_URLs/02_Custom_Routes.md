@@ -25,8 +25,6 @@ still use [Symfony's routing capabilities](https://symfony.com/doc/current/routi
 
 Custom Routes are configured in the OpenDXP backend interface as follows. 
 
-![Grid with the new route](../../img/custom-routes.png)
-
 Following options are relevant: 
 * *Name* - name of the Custom Route for identifying it
 * *Pattern* - URL pattern configured with a regex
@@ -44,8 +42,6 @@ favorite IDE and keep track of the changes in your VCS (eg. Git).
 ## Accessing Variables in Controller
 This is how you can access (form a controller action) the values of the variables (placeholders) you specified in 
 the custom route:
-
-![Custom Routes and Variables](../../img/custom-routes2.png)
 
 ```php
 <?php
@@ -115,8 +111,6 @@ to do so just embrace the part with curly brackets { } (see example below).
 |----------|------------------------|------------------|-----------------------------------------------|-----------|--------------|----------|--------------|-------------|
 | news category  | /\\/news-category\\/([^_]+)_([0-9]+)(_category_)?([0-9]+)?/ |  /news-category/%text_%id\{_category_%categoryId\}    | App\Controller\NewsController::listingAction  | text,id,text2,categoryId   |              |        | 1              |       |
   
-![Grid with the new route](../../img/Routing_grid2.png)
-
 Due to optional parameters, the above example matches for the following URL's:
 
 * /news-category/testcategory_12_category_2

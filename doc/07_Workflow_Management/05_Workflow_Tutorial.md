@@ -266,4 +266,3 @@ Below, you can find showcase of the workflow I've just prepared.
 
 In the *"Notes & Events"* tab, there is a list with every action used on the object via the Workflow module.
 
-![Notes & Events - notes from the workflow](../img/notesandevents_object_grid.png)

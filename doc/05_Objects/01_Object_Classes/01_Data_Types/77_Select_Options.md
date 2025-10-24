@@ -2,8 +2,6 @@
 
 Select options are predefined sets of options which may be used for (multi)select fields.
 
-![Fieldcollection Configuration](../../../img/classes-datatypes-selectoptions-editor.png)
-
 The 'Name' column is optional, unless the value can't be converted to a valid PHP enum case.
 This applies to values starting with a number or certain symbols.
 A name may contain alphanumeric characters and underscores.

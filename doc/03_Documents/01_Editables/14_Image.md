@@ -81,10 +81,6 @@ Learn more about thumbnails here: [Image Thumbnails](../../04_Assets/03_Working_
 }) }}
 ```
 
-###### Backend Preview
-
-![Image with title and specified size - the backend preview](../../img/image_preview_backend3.png)
-
 ### An Example with a Direct Thumbnail Configuration
 
 You can also change the thumbnail configuration:

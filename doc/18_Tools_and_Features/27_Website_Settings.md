@@ -18,7 +18,6 @@ The returned configuration is an array containing your settings.
 
 
 ### Example Configuration
-![Website Setting Config](../img/website-settings.png)
 
 Usage in a template:
 

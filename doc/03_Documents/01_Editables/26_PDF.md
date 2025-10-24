@@ -36,6 +36,4 @@ This looks like the following in editmode:
 
 ![PDF editable - the empty area](../../img/editables_pdf_empty_container.png)
 
-A user can now drag documents there from the *Assets* tree:
-
-![PDF editable - drag a document](../../img/editables_pdf_filled.png)
+A user can now drag documents there from the *Assets* tree.

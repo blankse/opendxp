@@ -11,8 +11,6 @@ document and inherited from the main document.
 1. Drag a main document to the document where you'd like to inherit the contents (*Content-Main Document* in settings tab).
 2. Press the *Apply new main document* button
 
-![Apply main document](../img/main_document_1step.png)
-
 3. Confirm the warning dialog 
 
 ![Confirm main document changes](../img/main_document_2step.png)
