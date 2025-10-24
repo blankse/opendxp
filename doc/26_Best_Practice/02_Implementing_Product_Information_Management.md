@@ -420,7 +420,6 @@ As you can see in the previous screenshot, when the user clicks on the transitio
 To summarize, in this section, you learned how to configure a OpenDXP workflow. By defining custom layouts, you can force users to fill in product information step by step, to ensure data completion. In particular, you learned how to define places for the workflow and how to configure workflow transitions.
 
 ## Summary
-
 In this tutorial, you learned the concept of Product Information Management by defining a Product entity and providing practical examples. In the first section of the chapter, you first learned what a PIM is and which are its main features. Then, you learned how to create and configure a Product class, according to your needs.
 
 After having defined the Product class, you learned how to enable inheritance for the class and how to define product variants for an existing product. Through practical code examples, you also learned how to retrieve variants on listings and how to create new product variants.
@@ -430,5 +429,3 @@ In particular, you have seen a code example showing how to calculate the price o
 After that, you learned how to use Objectbricks to extend the Product class, attaching groups of attributes useful to define specific concepts. This is useful if you want to represent different kinds of products without creating a class for each kind, to avoid the redundancy of common attributes.
 
 In the last section, you learned how to configure custom layouts for OpenDXP classes and how to use them in OpenDXP workflow configurations. Through a concrete example, you learned how to configure a workflow to fill in product information step by step.
-## Learn more
-This was a sample chapter from the book _Modernizing Enterprise CMS Using OpenDXP by Daniele Fontani, Marco Guiducci, Francesco Minà available at Packt Publishing (2021)_. You can purchase the full book [here](https://www.packtpub.com/product/modernizing-enterprise-cms-using-pimcore/9781801075404).
