@@ -10,8 +10,6 @@ In this example, we want to display the asset metadata title of the target asset
 
 ![Asset Metadata](../../../img/formatter_class_asset.png)
 
-![Formatter Class](../../../img/formatter_class_object.png)
-
 ### Configuration via class editor
 
 Just specify the formatter service in the class editor. 

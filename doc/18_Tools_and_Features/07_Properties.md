@@ -35,14 +35,7 @@ To add global properties which are available everywhere use [Website Settings](.
 ![Predefined properties - selectbox](../img/properties_predefined_selectbox.png)
 
 ## Configuration example
-
-<div class="inline-imgs">
-
 You can find the Predefined properties configuration in the ![Settings](../img/Icon_settings.png) **Settings -> Predefined properties** menu.
-
-</div>
-
-![Predefined properties configuration](../img/properties_predefined_configuration.png)
 
 The following fields are available in the properties configuration.
 

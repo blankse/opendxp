@@ -7,8 +7,7 @@ To enable automatic static page generation on document save or by CLI command, g
 
 Mark enable checkbox and define optional lifetime for static pages (which regenerates static page after lifetime) and save document.
 
-Once, the static page generator is enabled, the document icon changes to grey icon:
-![Static Page Detail](../img/static_page2.png)
+Once, the static page generator is enabled, the document icon changes to grey icon.
 
 and last generated information is displayed in document settings, when the generation is requested from frontend or cli command.
 ![Static Page Detail](../img/static_page3.png)

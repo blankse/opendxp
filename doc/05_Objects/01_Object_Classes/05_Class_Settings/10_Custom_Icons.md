@@ -12,8 +12,6 @@ In the object tree the user can see on the first sight what an object should rep
 custom icons are assigned to a class and how they are displayed in the object tree. It is easy for the user to see 
 immediately which objects are of the type "News".
 
-![Class Icons](../../../img/classes-icons1.png)
-
 Icons that come along with OpenDXP by default can be found in `<YOUR-DOMAN>/admin/misc/icon-list` (backend session needed).
 
 #### Icon Sizes

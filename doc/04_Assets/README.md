@@ -15,8 +15,6 @@ OpenDXP is able to render preview images for most file types.
 Some file types, like images, can be edited directly in OpenDXP and can be used to create thumbnails for different 
 output channels. Note that the image editor does use the [miniPaint image editor](https://github.com/viliusle/miniPaint) under the hood.
 
-![OpenDXP Assets](../img/opendxp_assets.png)
-
 As Asset documents depend on background processes to generate thumbnails and search text, these processes require page count processing.
 Occasionally, this results in the consumption of unnecessary processing resources, even when the feature is not extensively used.
 In such situations, it is possible to disable the background processing as follows:

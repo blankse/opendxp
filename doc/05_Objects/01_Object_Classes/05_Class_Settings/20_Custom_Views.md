@@ -10,8 +10,6 @@ To create or edit perspectives and custom views within the OpenDXP backend UI us
 An unlimited number of custom views can be created. Specify the tree type, root node and layout settings. 
 Note that the ID is mandatory and must be unique!
 
-![Custom Views](../../../img/classes-custom-views1.png)
-
 For a sample configuration file have a look at the [sample configuration](21_Custom_View_Example.md).
 
 ## The Configuration File
@@ -195,9 +193,6 @@ opendxp:
 
 ``` 
    
-![Custom Views](../../../img/classes-custom-views4.png)   
-
-
 ## Customizing the Tree Context Menu
 
 Allows you to hide certain context menu items via the customview's treeContextMenu configuration option.

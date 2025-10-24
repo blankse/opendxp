@@ -142,8 +142,6 @@ The example CSS below shows how to do that (includes 3 Levels):
 
 ## Setting a Document's Navigation Property
 
-![Settings for navigation on document edit page.](../img/navigation_document_settings.png)
-
 Pages and links have **Navigation Settings** in their system properties as shown in the screen above. 
 These navigation settings include the following properties:
 

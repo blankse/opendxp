@@ -12,8 +12,6 @@ with each other programmatically.
 Regardless of the creation method of users and objects, in the first step the member class 
 has to be defined in *Settings* > *Object* > *Classes*:
 
-![Member Class Config](../img/object-user1.png)
-
 In this example, the class `member` has the three properties `location`, `name` and `user`. 
 The class can have an arbitrary number of properties. What is important in this context is, 
 that it has a property of the type `User`. Speaking in code this would be a 

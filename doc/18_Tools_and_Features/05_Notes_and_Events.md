@@ -39,8 +39,6 @@ $note->save();
 
 And this is how the entry looks like:
 
-![Notes & events - the grid preview](../img/notesandevents_preview.png)
-
 > **Note:** As the title of a note is translatable (admin domain) make sure you don't add variable text that would lead
 > to unintended translation entries. Use the description or data for details instead.
 

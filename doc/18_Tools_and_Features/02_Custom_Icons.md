@@ -122,8 +122,6 @@ The example outlines how to provide a custom tooltip for `Car` objects.
 
 Result:
 
-![Class Icons](../img/classes-icons3.png)
-
 #### Example: Custom Style for Assets
 
 This will display the modification date and image size as additional information. Besides that, it shows

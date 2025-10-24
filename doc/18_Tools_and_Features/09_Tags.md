@@ -22,8 +22,6 @@ In `Documents`, `Assets`, or `Data Objects` editor, there is an additional tab w
 
 In the `Search` dialog, tags can be selected as additional criteria for the search (user permission *tags search* necessary).
 
-![Tags usage](../img/tags_filtering.png)
-
 ## Working With Tags via API
 
 ### Overview 

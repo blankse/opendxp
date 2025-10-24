@@ -10,8 +10,6 @@ easily extendable. Also headless execution of OpenDXP is possible.
 OpenDXP is built for developers and should empower them to build great digital experiences easily. As a consequence, OpenDXP 
 is NOT an ‘out-of-the-box’ software product like Wordpress, Magento, Akeneo, WooCommerce, Shopify and others. You need a developer to get started. 
 
-![OpenDXP](../img/opendxp_basis.png)
-
 # OpenDXP in a Nutshell
 Our mission is to provide ONE platform for ANY data, ANY channel, ANY process and ANY one. 
 

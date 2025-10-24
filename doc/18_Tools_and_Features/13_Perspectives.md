@@ -23,11 +23,7 @@ You can define:
 * the standard elements on the welcome screen
 * which portlets can be added to a dashboard
 
-![Perspectives - basic examples](../img/perspectives_example_backend.png)
-
 You can define an arbitrary number of perspectives and switch between them via the File menu.
-
-![Perspectives - menu](../img/perspectives_menu.png)
 
 You can restrict the access to certain perspectives via the user settings.
 
@@ -259,6 +255,3 @@ I changed the number of elements rendered in the main OpenDXP menu.
 Also I added two trees. The first (on the right side) for assets and the second on the left side for the 
 custom view with product objects.
  
-The view after switch looks like in the picture.
-
-![Custom perspective](../img/perspectives_custom_perspective.png)

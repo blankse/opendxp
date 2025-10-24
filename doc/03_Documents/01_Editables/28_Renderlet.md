@@ -62,8 +62,6 @@ The code below shows how to use renderlet to create gallery based on it.
 
 Now editors are able to put elements onto the renderlet in the editmode.
 
-![Renderlet gallery - editmode](../../img/editables_renderlet_gallery_example_editmode.png)
-
 ### Specify the Controller Action
 
 ```php

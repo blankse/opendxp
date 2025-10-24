@@ -47,16 +47,6 @@ such as: `class`, `target`, `id`, `style`, `accesskey`, `name`, `title`, `data-*
 </p>
 ```
 
-You could see the backend preview in the picture, below.
-
-![Link editable - adminitration panel](../../img/editables_link_backend_preview.png)
-
-And the frontend:
-
-![Link editable - frontend](../../img/editables_link_frontend_preview.png)
-
-
-
 ### Use Link in the Block Editable
 
 Let's see how to make a list of links with [Block](./06_Block.md).
@@ -70,8 +60,7 @@ Let's see how to make a list of links with [Block](./06_Block.md).
 </ul>
 ```
 
-The above example renders a list of links: 
-![The links list in the backend](../../img/editables_link_inside_block.png)
+The above example renders a list of links.
 
 ### Link Generators
 
