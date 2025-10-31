@@ -17,12 +17,14 @@ declare(strict_types=1);
 namespace OpenDxp\Model\DataObject\ClassDefinition;
 
 use Exception;
+use JsonException;
 use OpenDxp;
 use OpenDxp\Loader\ImplementationLoader\LoaderInterface;
 use OpenDxp\Logger;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\VarExporterInterface;
 use OpenDxp\Tool;
+use RuntimeException;
 
 class Service
 {
@@ -100,7 +102,15 @@ class Service
             $userId = $user->getId();
         }
 
-        $importData = json_decode($json, true);
+        try {
+            $importData = json_decode($json, true, flags: JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            if ($throwException) {
+                throw new RuntimeException('Error while decoding json data', previous: $e);
+            }
+
+            return false;
+        }
 
         if ($importData['layoutDefinitions'] !== null) {
             // set layout-definition
