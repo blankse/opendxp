@@ -68,7 +68,7 @@ Support of a minor version of OpenDXP packages ends with the release of the next
 ***
 
 ## Upstream Origin & Version Transparency 
-This project is a fork of the [Pimcore® Community Edition (4a6b08e / v11.5.11)](https://github.com/pimcore/pimcore/tree/4a6b08e7633aeb0ecf0fc983412498b6d5e828d3), which is © Pimcore GmbH and licensed under GPLv3. 
+This project is a fork of the [Pimcore® Community Edition (4748c2b / v11.5.12)](https://github.com/pimcore/pimcore/tree/4748c2b6549652252bd5b30e9f134701d0230e73), which is © Pimcore GmbH and licensed under GPLv3. 
 
 ## License 
 Licensed under the GNU General Public License v3.0 (GPLv3). For details, please see [LICENSE.md](LICENSE.md). 
