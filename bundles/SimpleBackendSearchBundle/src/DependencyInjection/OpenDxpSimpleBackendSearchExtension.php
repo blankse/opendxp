@@ -37,6 +37,13 @@ class OpenDxpSimpleBackendSearchExtension extends Extension implements PrependEx
         );
 
         $loader->load('services.yaml');
+
+        /** @var array<string, class-string> $bundles */
+        $bundles = $container->getParameter('kernel.bundles');
+
+        if (array_key_exists('OpenDxpAdminBundle', $bundles)) {
+            $loader->load('admin-classic-services.yaml');
+        }
     }
 
     public function prepend(ContainerBuilder $container): void

@@ -1,0 +1,18 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+
+  #
+  # Data Provider
+  #
+
+  OpenDxp\Bundle\AdminBundle\GDPR\DataProvider\Assets:
+    class: OpenDxp\Bundle\SimpleBackendSearchBundle\DataProvider\GDPR\Assets
+    arguments:
+      $config: '%opendxp.gdpr-data-extrator.assets%'
+
+  OpenDxp\Bundle\AdminBundle\GDPR\DataProvider\DataObjects:
+    class: OpenDxp\Bundle\SimpleBackendSearchBundle\DataProvider\GDPR\DataObjects
+    arguments:
+      $config: '%opendxp.gdpr-data-extrator.dataobjects%'
