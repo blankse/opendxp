@@ -12,8 +12,7 @@ Normally Doctrine Migrations just runs/lists all available migrations, defined i
 Since it could be useful to filter migrations for a certain path (core, bundle or project), OpenDXP adds the `--prefix` option to all 
 Doctrine commands, which let's you filter migrations by the given namespace.
 
-If you'd like to create migrations for your bundle, please have a look at our
-[bundles documentation](../20_Extending_OpenDxp/13_Bundle_Developers_Guide/05_opendxp_bundles/01_Installers.md). 
+If you'd like to create migrations for your bundle, please have a look at our [bundles documentation](../20_Extending_OpenDxp/13_Bundle_Developers_Guide/05_OpenDxp_Bundles/01_Installers.md).
 We're providing a customized abstract for bundles which makes using bundles even 
 more comfortable. 
 
