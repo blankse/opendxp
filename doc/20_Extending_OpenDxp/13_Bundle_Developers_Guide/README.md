@@ -17,7 +17,7 @@ possibilities. These bundles provide a similar API as plugins did in previous ve
 * The bundle can be installed with `opendxp:bundle:install` or uninstalled with `opendxp:bundle:uninstall` to trigger the installation/uninstallation (e.g. to install/update database structure).
 * The bundle adds methods to natively register JS and CSS files to be loaded with the admin interface and in edit mode. 
 
-See the [OpenDXP Bundles](./05_opendxp_bundles/README.md) documentation to get started with OpenDXP bundles.
+See the [OpenDXP Bundles](./05_OpenDxp_Bundles/README.md) documentation to get started with OpenDXP bundles.
 
 ### Generating OpenDXP Bundles
 

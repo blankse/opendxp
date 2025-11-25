@@ -1,7 +1,7 @@
 # Loading Assets in the Admin UI
 
 If you need to load assets (JS, CSS) in the Admin or Editmode UI, you have 2 options, depending on if you do that from a
-[OpenDXP Bundle](./05_opendxp_bundles/README.md) or from somewhere else.
+[OpenDXP Bundle](./05_OpenDxp_Bundles/README.md) or from somewhere else.
 
 ## OpenDXP Bundles
 
@@ -11,7 +11,6 @@ The interface prescribes the following methods:
 - `getCssPaths`
 - `getEditmodeJsPaths`
 - `getEditmodeCssPaths`
-
 
 In order to implement all four methods prescribed by the interface you can use the [`BundleAdminClassicTrait`](https://github.com/open-dxp/opendxp/blob/1.x/lib/Extension/Bundle/Traits/BundleAdminClassicTrait.php).
 

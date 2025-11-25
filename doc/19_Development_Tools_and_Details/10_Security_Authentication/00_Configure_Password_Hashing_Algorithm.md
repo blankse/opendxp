@@ -14,4 +14,4 @@ opendxp:
                 cost: 13
   ```
 
-This config will be used for OpenDXP's backend users and [fields of type `Password` in custom OpenDXP Objects](./01_Authenticate_OpenDXP_Objects.md).
+This config will be used for OpenDXP's backend users and [fields of type `Password` in custom OpenDXP Objects](./01_Authenticate_OpenDxp_Objects.md).
