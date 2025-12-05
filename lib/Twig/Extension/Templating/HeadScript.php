@@ -66,6 +66,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     use WebLinksTrait;
 
     public const string FILE = 'FILE';
+
     public const string SCRIPT = 'SCRIPT';
 
     /**
@@ -80,7 +81,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Capture type and/or attributes (used for hinting during capture)
-     * @var bool
      */
     protected bool $_captureLock = false;
 
@@ -239,9 +239,9 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     {
         foreach ($this->getContainer() as $item) {
             if (
-               $item->source === null &&
-                array_key_exists('src', $item->attributes) &&
-                $file == $item->attributes['src']
+                $item->source === null &&
+                 array_key_exists('src', $item->attributes) &&
+                 $file == $item->attributes['src']
             ) {
                 return true;
             }

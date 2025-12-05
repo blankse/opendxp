@@ -618,10 +618,10 @@ class Mail extends Email
             Logger::err((string) $e);
 
             throw new Exception(sprintf(
-                    'Failed rendering the %s: %s. Please check your twig sandbox security policy or contact the administrator.',
-                    $context,
-                    substr($e->getMessage(), 0, strpos($e->getMessage(), ' in "__string'))
-                )
+                'Failed rendering the %s: %s. Please check your twig sandbox security policy or contact the administrator.',
+                $context,
+                substr($e->getMessage(), 0, strpos($e->getMessage(), ' in "__string'))
+            )
             );
 
         } finally {

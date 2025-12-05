@@ -18,14 +18,12 @@ namespace OpenDxp\Bundle\GenericExecutionEngineBundle;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaException;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Entity\JobRun;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\PermissionConstants;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\TableConstants;
-use OpenDxp\Extension\Bundle\Installer\Exception\InstallationException;
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 

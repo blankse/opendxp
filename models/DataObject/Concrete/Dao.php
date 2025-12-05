@@ -219,7 +219,7 @@ class Dao extends Model\DataObject\AbstractObject\Dao
                         ],
                         'owner' => $this->model,
                         'fieldname' => $fieldName,
-                        'newParent' => $this->model->isFieldDirty('parentId')
+                        'newParent' => $this->model->isFieldDirty('parentId'),
                     ];
 
                     $fd->save($this->model, $saveParams);

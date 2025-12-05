@@ -249,7 +249,7 @@ class Fieldcollection extends Model\AbstractModel implements Iterator, DirtyIndi
                             'containerKey' => $type,
                             'fieldname' => $fcField,
                             'index' => $index,
-                        ]
+                        ],
                     ];
 
                     $isDirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();

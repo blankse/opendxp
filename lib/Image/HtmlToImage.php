@@ -18,7 +18,6 @@ namespace OpenDxp\Image;
 
 use Exception;
 use Gotenberg\Gotenberg as GotenbergAPI;
-use Gotenberg\Modules\Chromium;
 use OpenDxp\Config;
 use OpenDxp\Helper\GotenbergHelper;
 

@@ -30,7 +30,6 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data\LazyLoadingSupportInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Link;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Relations\AbstractRelations;
 use OpenDxp\Model\DataObject\Exception\InheritanceParentNotFoundException;
-use OpenDxp\Model\Element\DirtyIndicatorInterface;
 use OpenDxp\SystemSettingsConfig;
 
 /**
