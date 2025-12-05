@@ -143,25 +143,25 @@
         "codeception/module-symfony": "^3.1.0",
         "composer/composer": "*",
         "ergebnis/phpstan-rules": "^2.9",
-        "gotenberg/gotenberg-php": "^1.1 || ^2.4",
+        "gotenberg/gotenberg-php": "^2.4",
         "phpstan/phpstan": "2.1.33",
-        "phpstan/phpstan-symfony": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0.9",
         "phpunit/phpunit": "^9.3",
-        "symfony/dotenv": "^6.4",
-        "symfony/runtime": "^6.4",
+        "symfony/dotenv": "^7.4",
+        "symfony/runtime": "^7.4",
         "webmozarts/console-parallelization": "^2.1"
     },
     "suggest": {
         "ext-sockets": "*",
-        "ext-imagick": "^3.4.0",
         "ext-redis": "*",
-        "gotenberg/gotenberg-php": "^2.0 - Required for generating pdf via Gotenberg in assets preview (LibreOffice), page preview, version diff and web2print",
+        "ext-imagick": "^3.4.0",
         "elasticsearch/elasticsearch": "Required for Elastic Search service",
-        "chrome-php/chrome": "Optional for Documents Page Previews when requiring gotenberg-php v2, but required if you opt for gotenberg-php v1",
-        "webmozarts/console-parallelization": "Required for parallelization of console commands",
-        "symfony/dotenv": "Required for loading environment vars from .env files",
+        "gotenberg/gotenberg-php": "^2.4 - Required for generating pdf via Gotenberg in assets preview (LibreOffice), page preview, version diff and web2print",
+        "chrome-php/chrome": "^1.4.0 - Optional for Documents Page Previews when requiring gotenberg-php v2, but required if you opt for gotenberg-php v1",
+        "webmozarts/console-parallelization": "^2.1 - Required for parallelization of console commands",
         "phpdocumentor/reflection-docblock": "^5.2 - Required for OpenDXP Generic Execution Engine Bundle",
-        "symfony/property-info": "^6.3 - Required for OpenDXP Generic Execution Engine Bundle"
+        "symfony/dotenv": "^7.4 - Required for loading environment vars from .env files",
+        "symfony/property-info": "^7.4 - Required for OpenDXP Generic Execution Engine Bundle"
     },
     "autoload": {
         "files": [
