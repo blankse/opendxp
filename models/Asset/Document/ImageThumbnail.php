@@ -46,8 +46,12 @@ final class ImageThumbnail implements ImageThumbnailInterface
      */
     protected int $page = 1;
 
-    public function __construct(?Model\Asset\Document $asset, array|string|Image\Thumbnail\Config|null $config = null, int $page = 1, bool $deferred = true)
-    {
+    public function __construct(
+        ?Model\Asset\Document $asset,
+        array|string|Image\Thumbnail\Config|null $config = null,
+        int $page = 1,
+        bool $deferred = true
+    ) {
         $this->asset = $asset;
         $this->config = $this->createConfig($config ?? []);
         $this->page = $page;
@@ -120,6 +124,7 @@ final class ImageThumbnail implements ImageThumbnailInterface
             'deferred' => $deferred,
             'generated' => $generated,
         ]);
+
         OpenDxp::getEventDispatcher()->dispatch($event, AssetEvents::DOCUMENT_IMAGE_THUMBNAIL);
     }
 
@@ -128,7 +133,14 @@ final class ImageThumbnail implements ImageThumbnailInterface
      */
     private function getCacheFileStream()
     {
+        if (!$this->asset instanceof Model\Asset\Document) {
+            Logger::info('Cannot create cache file stream: asset is not of type document');
+
+            return null;
+        }
+
         $storage = Storage::get('asset_cache');
+
         $cacheFilePath = sprintf(
             '%s/%s/image-thumb__%s__document_original_image/page_%s.png',
             rtrim($this->asset->getRealPath(), '/'),
@@ -145,11 +157,13 @@ final class ImageThumbnail implements ImageThumbnailInterface
                 try {
                     $converter = Document::getInstance();
                     $converter->load($this->asset);
+
                     if (false === $converter->saveImage($tempFile, $this->page)) {
                         Logger::info('Creation of cache file stream of document ' . $this->asset->getRealFullPath() . ' is failed.');
 
                         return null;
                     }
+
                     $tempFileContent = file_get_contents($tempFile);
                     if (false === $tempFileContent) {
                         Logger::info('Creation of cache file stream of document ' . $this->asset->getRealFullPath() . ' is failed.');
@@ -173,7 +187,6 @@ final class ImageThumbnail implements ImageThumbnailInterface
     /**
      * Get the public path to the thumbnail image.
      * This method is here for backwards compatility.
-     * Up to OpenDxp 1.4.8 a thumbnail was returned as a path to an image.
      *
      * @return string Public path to thumbnail image.
      */
@@ -192,7 +205,7 @@ final class ImageThumbnail implements ImageThumbnailInterface
 
         if ($config) {
             $format = strtolower($config->getFormat());
-            if ($format == 'source') {
+            if ($format === 'source') {
                 $config->setFormat('PNG');
             }
         }

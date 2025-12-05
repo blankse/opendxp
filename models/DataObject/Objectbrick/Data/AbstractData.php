@@ -74,9 +74,7 @@ abstract class AbstractData extends Model\AbstractModel implements Model\DataObj
 
     public function getDefinition(): DataObject\Objectbrick\Definition
     {
-        $definition = DataObject\Objectbrick\Definition::getByKey($this->getType());
-
-        return $definition;
+        return DataObject\Objectbrick\Definition::getByKey($this->getType());
     }
 
     public function setDoDelete(bool $doDelete): static
@@ -200,9 +198,7 @@ abstract class AbstractData extends Model\AbstractModel implements Model\DataObj
         $lazyLoadedFieldNames = [];
         $fields = $this->getDefinition()->getFieldDefinitions(['suppressEnrichment' => true]);
         foreach ($fields as $field) {
-            if ($field instanceof LazyLoadingSupportInterface
-                && $field instanceof DataObject\ClassDefinition\Data
-                && $field->getLazyLoading()) {
+            if ($field instanceof LazyLoadingSupportInterface && $field->getLazyLoading()) {
                 $lazyLoadedFieldNames[] = $field->getName();
             }
         }

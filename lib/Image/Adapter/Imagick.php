@@ -62,7 +62,6 @@ class Imagick extends Adapter
         }
 
         if ($this->resource) {
-            unset($this->resource);
             $this->resource = null;
         }
 
@@ -187,26 +186,25 @@ class Imagick extends Adapter
             $format = 'png32';
         }
 
-        if ($format == 'original') {
+        if ($format === 'original') {
             $format = $this->sourceImageFormat;
         }
 
         $format = strtolower($format);
 
-        if ($format == 'png') {
+        if ($format === 'png') {
             // we need to force imagick to create png32 images, otherwise this can cause some strange effects
             // when used with gray-scale images
             $format = 'png32';
         }
 
-        $originalFilename = null;
         $i = $this->resource; // this is because of HHVM which has problems with $this->resource->writeImage();
 
         if (in_array($format, ['jpeg', 'pjpeg', 'jpg']) && $this->isAlphaPossible) {
             // set white background for transparent pixels
             $i->setImageBackgroundColor('#ffffff');
 
-            if ($i->getImageAlphaChannel() !== 0) { // Note: returns (int) 0 if there's no AlphaChannel, PHP Docs are wrong. See: https://www.imagemagick.org/api/channel.php
+            if ($i->getImageAlphaChannel()) {
                 // Imagick version compatibility
                 $alphaChannel = 11; // This works at least as far back as version 3.1.0~rc1-1
                 if (defined('Imagick::ALPHACHANNEL_REMOVE')) {
@@ -221,7 +219,7 @@ class Imagick extends Adapter
 
         if (!$this->isPreserveMetaData()) {
             $i->stripImage();
-            if ($format == 'png32') {
+            if ($format === 'png32') {
                 // do not include any meta-data
                 // this is due a bug in -strip, therefore we have to use this custom option
                 // see also: https://github.com/ImageMagick/ImageMagick/issues/156
@@ -237,7 +235,7 @@ class Imagick extends Adapter
             $i->setImageCompressionQuality($quality);
         }
 
-        if ($format == 'tiff') {
+        if ($format === 'tiff') {
             $i->setCompression(\Imagick::COMPRESSION_LZW);
         }
 
@@ -473,6 +471,12 @@ class Imagick extends Adapter
 
     public function resize(int $width, int $height): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         // this is the check for vector formats because they need to have a resolution set
@@ -534,6 +538,12 @@ class Imagick extends Adapter
 
     public function crop(int $x, int $y, int $width, int $height): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         if ($this->checkPreserveAnimation()) {
@@ -578,6 +588,12 @@ class Imagick extends Adapter
 
     public function trim(int $tolerance): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         $this->resource->trimimage($tolerance);
@@ -620,7 +636,7 @@ class Imagick extends Adapter
     {
         $newImage = null;
         if ($this->checkPreserveAnimation()) {
-            foreach ($this->resource as $i => $frame) {
+            foreach ($this->resource as $frame) {
                 $imageFrame = $this->createImage($width, $height, $color);
                 $imageFrame->compositeImage($frame, $composite, $x, $y);
                 if (!$newImage) {
@@ -639,6 +655,12 @@ class Imagick extends Adapter
 
     public function rotate(int $angle): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         $this->resource->rotateImage(new ImagickPixel('none'), $angle);
@@ -654,6 +676,12 @@ class Imagick extends Adapter
 
     public function roundCorners(int $width, int $height): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         $this->internalRoundCorners($width, $height);
@@ -813,6 +841,12 @@ class Imagick extends Adapter
 
     public function grayscale(): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
         $this->resource->setImageType(\Imagick::IMGTYPE_GRAYSCALEMATTE);
         $this->postModify();
@@ -822,6 +856,12 @@ class Imagick extends Adapter
 
     public function sepia(): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
         $this->resource->sepiatoneimage(85);
         $this->postModify();
@@ -831,6 +871,12 @@ class Imagick extends Adapter
 
     public function sharpen(float $radius = 0, float $sigma = 1.0, float $amount = 1.0, float $threshold = 0.05): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
         $this->resource->normalizeImage();
         $this->resource->unsharpMaskImage($radius, $sigma, $amount, $threshold);
@@ -841,6 +887,12 @@ class Imagick extends Adapter
 
     public function gaussianBlur(int $radius = 0, float $sigma = 1.0): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
         $this->resource->gaussianBlurImage($radius, $sigma);
         $this->postModify();
@@ -850,6 +902,12 @@ class Imagick extends Adapter
 
     public function brightnessSaturation(int $brightness = 100, int $saturation = 100, int $hue = 100): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
         $this->resource->modulateImage($brightness, $saturation, $hue);
         $this->postModify();
@@ -859,6 +917,12 @@ class Imagick extends Adapter
 
     public function mirror(string $mode): static
     {
+        if ($this->resource === null) {
+            Logger::error('Cannot process image: resource is null');
+
+            return $this;
+        }
+
         $this->preModify();
 
         if ($mode == 'vertical') {

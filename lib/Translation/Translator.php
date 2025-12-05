@@ -97,9 +97,7 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
             $term = vsprintf($term, $parameters);
         }
 
-        $term = $this->updateLinks($term);
-
-        return $term;
+        return $this->updateLinks($term);
     }
 
     public function setLocale(string $locale): void
@@ -161,7 +159,8 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                     $translationTerm = Tool\Text::removeLineBreaks($translation['text']);
                     if (
                         (!isset($data[$translation['key']]) && !$this->getCatalogue($locale)->has($translation['key'], $domain)) ||
-                        !empty($translationTerm)) {
+                        !empty($translationTerm)
+                    ) {
                         $translationKey = $translation['key'];
 
                         if (empty($translationTerm) && $debugAdminTranslations) {
@@ -181,14 +180,13 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
                     $domain => $data,
                     $domain.MessageCatalogue::INTL_DOMAIN_SUFFIX => $dataIntl,
                 ];
+
                 $catalogue = new MessageCatalogue($locale, $data);
 
                 Cache::save($catalogue, $cacheKey, ['translator', 'translator_website', 'translate'], null, 999);
             }
 
-            if ($catalogue) {
-                $this->getCatalogue($locale)->addCatalogue($catalogue);
-            }
+            $this->getCatalogue($locale)->addCatalogue($catalogue);
         }
     }
 

@@ -163,16 +163,19 @@ abstract class Kernel extends SymfonyKernel
 
         // on opendxp shutdown
         register_shutdown_function(function () {
-            // check if container still exists at this point as it could already
-            // be cleared (e.g. when running tests which boot multiple containers)
+
             try {
+                // check if container still exists at this point as it could already
+                // be cleared (e.g. when running tests which boot multiple containers)
                 $container = $this->getContainer();
             } catch (LogicException) {
                 // Container is cleared. Allow tests to finish.
             }
-            if (isset($container) && $container instanceof ContainerInterface) {
+
+            if (isset($container)) {
                 $container->get('event_dispatcher')->dispatch(new GenericEvent(), SystemEvents::SHUTDOWN);
             }
+
             OpenDxp::shutdown();
         });
     }
@@ -208,7 +211,6 @@ abstract class Kernel extends SymfonyKernel
     /**
      * Creates bundle collection. Use this method to set bundles on the collection
      * early.
-     *
      */
     protected function createBundleCollection(): BundleCollection
     {
@@ -217,7 +219,6 @@ abstract class Kernel extends SymfonyKernel
 
     /**
      * Returns the bundle collection which was used to build the set of used bundles
-     *
      */
     public function getBundleCollection(): BundleCollection
     {
@@ -226,7 +227,6 @@ abstract class Kernel extends SymfonyKernel
 
     /**
      * Registers "core" bundles
-     *
      */
     protected function registerCoreBundlesToCollection(BundleCollection $collection): void
     {
@@ -273,7 +273,6 @@ abstract class Kernel extends SymfonyKernel
      * to handle priorities and environment specific bundles.
      *
      * To be implemented in child classes
-     *
      */
     public function registerBundlesToCollection(BundleCollection $collection): void
     {

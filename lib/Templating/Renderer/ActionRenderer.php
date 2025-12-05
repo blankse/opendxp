@@ -53,8 +53,6 @@ class ActionRenderer
 
     /**
      * Create a document controller reference
-     *
-     *
      */
     public function createDocumentReference(Document\PageSnippet $document, array $attributes = [], array $query = []): ControllerReference
     {
@@ -65,16 +63,12 @@ class ActionRenderer
 
     /**
      * Add document params to params array
-     *
-     *
      */
     public function addDocumentAttributes(Document\PageSnippet $document, array $attributes = [], string $context = OpenDxpContextResolver::CONTEXT_DEFAULT): array
     {
-        if (null !== $context) {
-            // document needs to be rendered with default context as the context guesser can't resolve the
-            // context from a fragment route
-            $attributes[OpenDxpContextResolver::ATTRIBUTE_OPENDXP_CONTEXT] = $context;
-        }
+        // document needs to be rendered with default context as the context guesser can't resolve the
+        // context from a fragment route
+        $attributes[OpenDxpContextResolver::ATTRIBUTE_OPENDXP_CONTEXT] = $context;
 
         // The CMF dynamic router sets the 2 attributes contentDocument and contentTemplate to set
         // a route's document and template. Those attributes are later used by controller listeners to

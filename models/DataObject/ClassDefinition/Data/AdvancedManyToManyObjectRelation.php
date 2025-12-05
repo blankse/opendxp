@@ -80,10 +80,11 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
     protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
-        $return = [];
+        if (is_array($data)) {
 
-        if (is_array($data) && count($data) > 0) {
             $counter = 1;
+            $return = [];
+
             foreach ($data as $metaObject) {
                 $object = $metaObject->getObject();
                 if ($object instanceof DataObject\Concrete) {
@@ -98,13 +99,9 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
             }
 
             return $return;
-        } elseif (is_array($data) && count($data) === 0) {
-            //give empty array if data was not null
-            return [];
-        } else {
-            //return null if data was null - this indicates data was not loaded
-            return null;
         }
+
+        return null;
     }
 
     protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
@@ -141,7 +138,8 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
                     if ($source instanceof DataObject\Concrete) {
                         /** @var DataObject\Data\ObjectMetadata $metaData */
-                        $metaData = OpenDxp::getContainer()->get('opendxp.model.factory')
+                        $metaData = OpenDxp::getContainer()
+                            ->get('opendxp.model.factory')
                             ->build(DataObject\Data\ObjectMetadata::class, [
                                 'fieldname' => $this->getName(),
                                 'columns' => $this->getColumnKeys(),
@@ -201,10 +199,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -244,10 +239,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -275,7 +267,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                         $setter = 'set' . ucfirst($c['key']);
                         $value = $relation[$c['key']] ?? null;
 
-                        if ($c['type'] == 'multiselect' && is_array($value)) {
+                        if ($c['type'] === 'multiselect' && is_array($value)) {
                             $value = implode(',', $value);
                         }
 
@@ -298,7 +290,6 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
     /**
      * @param DataObject\Concrete|null $object
-     *
      */
     public function getDataForGrid(?array $data, ?Concrete $object = null, array $params = []): array
     {
@@ -306,10 +297,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -479,7 +467,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                     $sql .= ' AND '.Db\Helper::quoteInto($db, 'ownername = ?', $context['fieldname']);
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+                if (!DataObject::isDirtyDetectionDisabled()) {
                     if ($context['containerType']) {
                         $sql .= ' AND '.Db\Helper::quoteInto($db, 'ownertype = ?', $context['containerType']);
                     }
@@ -499,8 +487,8 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
             $counter = 1;
             foreach ($objectsMetadata as $mkey => $meta) {
-                $ownerName = isset($relation['ownername']) ? $relation['ownername'] : '';
-                $ownerType = isset($relation['ownertype']) ? $relation['ownertype'] : '';
+                $ownerName = $relation['ownername'] ?? '';
+                $ownerType = $relation['ownertype'] ?? '';
                 $meta->save($objectConcrete, $ownerType, $ownerName, $position, $counter);
 
                 $counter++;
@@ -563,7 +551,7 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                     $deleteConditions['ownername'] = $context['fieldname'];
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+                if (!DataObject::isDirtyDetectionDisabled()) {
                     if ($context['containerType']) {
                         $deleteConditions['ownertype'] = $context['containerType'];
                     }
@@ -659,7 +647,8 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {
         /** @var DataObject\Data\ObjectMetadata $temp */
-        $temp = OpenDxp::getContainer()->get('opendxp.model.factory')
+        $temp = OpenDxp::getContainer()
+            ->get('opendxp.model.factory')
             ->build('OpenDxp\Model\DataObject\Data\ObjectMetadata', [
                 'fieldname' => null,
             ]);

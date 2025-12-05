@@ -403,9 +403,9 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
                     $operator .= ' AND ' . $db->quote($endDate->format($dateFormat));
 
                     return $key . ' ' . $operator;
-                } else {
-                    return $key . ' ' . $operator . ' ' . $db->quote($startDate->format($dateFormat));
                 }
+
+                return $key . ' ' . $operator . ' ' . $db->quote($startDate->format($dateFormat));
             }
 
             if ($this->elementType === 'boolean') {
@@ -444,7 +444,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
             }
 
             if (str_contains($name, 'cskey') && is_array($value) && !empty($value)) {
-                $values = array_map(function ($val) use ($db) {
+                $values = array_map(static function ($val) use ($db) {
                     return $db->quote(Helper::escapeLike($val));
                 }, $value);
 
@@ -476,7 +476,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         } else {
             $typeDeclaration = '';
@@ -525,7 +525,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getParameterTypeDeclaration()) {
+        if ($this->getParameterTypeDeclaration()) {
             $typeDeclaration = $this->getParameterTypeDeclaration() . ' ';
         } else {
             $typeDeclaration = '';
@@ -603,7 +603,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         } else {
             $typeDeclaration = '';
@@ -650,7 +650,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getParameterTypeDeclaration()) {
+        if ($this->getParameterTypeDeclaration()) {
             $typeDeclaration = $this->getParameterTypeDeclaration() . ' ';
         } else {
             $typeDeclaration = '';
@@ -731,7 +731,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         } else {
             $typeDeclaration = '';
@@ -770,7 +770,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getParameterTypeDeclaration()) {
+        if ($this->getParameterTypeDeclaration()) {
             $typeDeclaration = $this->getParameterTypeDeclaration() . ' ';
         } else {
             $typeDeclaration = '';
@@ -840,7 +840,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     {
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         } else {
             $typeDeclaration = '';
@@ -885,7 +885,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
             $containerGetter = 'getClass';
         }
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getParameterTypeDeclaration()) {
+        if ($this->getParameterTypeDeclaration()) {
             $typeDeclaration = $this->getParameterTypeDeclaration() . ' ';
         } else {
             $typeDeclaration = '';
@@ -1009,9 +1009,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
      */
     public function getDiffDataFromEditmode(array $data, ?DataObject\Concrete $object = null, array $params = []): mixed
     {
-        $thedata = $this->getDataFromEditmode($data[0]['data'], $object, $params);
-
-        return $thedata;
+        return $this->getDataFromEditmode($data[0]['data'], $object, $params);
     }
 
     /**
@@ -1118,16 +1116,16 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
                                 }
 
                                 throw new Exception('object seems to be modified, item with orginal index ' . $originalIndex . ' not found, new index: ' . $index);
-                            } else {
-                                return null;
                             }
-                        } else {
+
                             return null;
                         }
-                    } elseif ($object instanceof DataObject\Localizedfield) {
-                        $data = $object->getLocalizedValue($this->getName(), $params['language'], true);
 
-                        return $data;
+                        return null;
+                    }
+
+                    if ($object instanceof DataObject\Localizedfield) {
+                        return $object->getLocalizedValue($this->getName(), $params['language'], true);
                     }
                 }
             } elseif ($context['containerType'] === 'objectbrick' && ($this instanceof DataObject\ClassDefinition\Data\Localizedfields || $object instanceof DataObject\Localizedfield)) {
@@ -1146,11 +1144,12 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
                     }
 
                     return null;
-                } elseif ($object instanceof DataObject\Localizedfield) {
-                    $data = $object->getLocalizedValue($this->getName(), $params['language'], true);
-
-                    return $data;
                 }
+
+                if ($object instanceof DataObject\Localizedfield) {
+                    return $object->getLocalizedValue($this->getName(), $params['language'], true);
+                }
+
             } elseif ($context['containerType'] === 'classificationstore') {
                 $fieldname = $context['fieldname'];
                 $getter = 'get' . ucfirst($fieldname);
@@ -1161,9 +1160,8 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
 
                     /** @var DataObject\Classificationstore $classificationStoreData */
                     $classificationStoreData = $object->$getter();
-                    $data = $classificationStoreData->getLocalizedKeyValue($groupId, $keyId, $language, true, true);
 
-                    return $data;
+                    return $classificationStoreData->getLocalizedKeyValue($groupId, $keyId, $language, true, true);
                 }
             }
         }
@@ -1237,9 +1235,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
 
     public function markLazyloadedFieldAsLoaded(Localizedfield|AbstractData|Model\DataObject\Objectbrick\Data\AbstractData|Concrete $object): void
     {
-        if ($object instanceof DataObject\LazyLoadedFieldsInterface) {
-            $object->markLazyKeyAsLoaded($this->getName());
-        }
+        $object->markLazyKeyAsLoaded($this->getName());
     }
 
     /**

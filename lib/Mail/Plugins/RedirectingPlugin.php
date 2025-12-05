@@ -102,7 +102,7 @@ final class RedirectingPlugin
      */
     public function sendPerformed(Mail $message): void
     {
-        if ($message instanceof Mail && $message->doRedirectMailsToDebugMailAddresses()) {
+        if ($message->doRedirectMailsToDebugMailAddresses()) {
             $this->setSenderAndReceiversParams($message);
             $this->removeDebugInformation($message);
         }

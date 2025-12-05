@@ -283,13 +283,11 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
             }
         }
 
-        $result = [
+        return [
             'data' => $fieldData,
             'metaData' => $metaData,
             'inherited' => $inherited,
         ];
-
-        return $result;
     }
 
     /**
@@ -397,16 +395,18 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
                     continue;
                 }
                 foreach ($keys as $keyId => $values) {
+
                     $keyConfig = $this->getKeyConfiguration($keyId);
-                    /** @var ResourcePersistenceAwareInterface $fieldDefinition */
                     $fieldDefinition = DataObject\Classificationstore\Service::getFieldDefinitionFromKeyConfig($keyConfig);
 
-                    foreach ($values as $language => $value) {
-                        $value = $fieldDefinition->getDataForResource($value, $object, $params);
-                        if (is_array($value)) {
-                            $value = implode(',', $value);
+                    if ($fieldDefinition instanceof ResourcePersistenceAwareInterface) {
+                        foreach ($values as $value) {
+                            $value = $fieldDefinition->getDataForResource($value, $object, $params);
+                            if (is_array($value)) {
+                                $value = implode(',', $value);
+                            }
+                            $dataString .= $value . ' ';
                         }
-                        $dataString .= $value . ' ';
                     }
                 }
             }
@@ -1109,15 +1109,13 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
 
     /**
      * Creates getter code which is used for generation of php file for object classes using this data type
-     *
-     *
      */
     public function getGetterCode(DataObject\Objectbrick\Definition|DataObject\ClassDefinition|DataObject\Fieldcollection\Definition $class): string
     {
         $key = $this->getName();
 
         $typeDeclaration = '';
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         }
 

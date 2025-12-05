@@ -15,7 +15,7 @@ parameters:
         - bundles/SimpleBackendSearchBundle/src/DataProvider/GDPR/DataObjects.php
 
     symfony:
-        container_xml_path: var/cache/test/App_KernelTestDebugContainer.xml
+        containerXmlPath: var/cache/test/App_KernelTestDebugContainer.xml
 
     ignoreErrors:
         - identifier: new.static
@@ -26,8 +26,6 @@ parameters:
     universalObjectCratesClasses:
         - OpenDxp\Config\Config
         - OpenDxp\Templating\Model\ViewModel
-
-    checkAlwaysTrueCheckTypeFunctionCall: true
 
     ergebnis:
         final:
@@ -44,7 +42,11 @@ parameters:
             enabled: false
         noExtends:
             enabled: false
+        noNamedArgument:
+            enabled: false
         noIsset:
+            enabled: false
+        noAssignByReference:
             enabled: false
         noNullableReturnTypeDeclaration:
             enabled: false
@@ -53,6 +55,10 @@ parameters:
         noParameterWithNullableTypeDeclaration:
             enabled: false
         noParameterWithNullDefaultValue:
+            enabled: false
+        noParameterPassedByReference:
+            enabled: false
+        noReturnByReference:
             enabled: false
         noSwitch:
             enabled: false

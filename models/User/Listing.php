@@ -20,7 +20,7 @@ use OpenDxp\Model\User;
 
 /**
  * @method \OpenDxp\Model\User\Listing\Dao getDao()
- * @method User[] load()
+ * @method User[]|User\Folder[] load()
  */
 class Listing extends Listing\AbstractListing
 {

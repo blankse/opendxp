@@ -71,10 +71,11 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
     protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
-        $return = [];
+        if (is_array($data)) {
 
-        if (is_array($data) && count($data) > 0) {
             $counter = 1;
+            $return = [];
+
             foreach ($data as $metaObject) {
                 $element = $metaObject->getElement();
                 if ($element instanceof Element\ElementInterface) {
@@ -89,13 +90,9 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
             }
 
             return $return;
-        } elseif (is_array($data) && count($data) === 0) {
-            //give empty array if data was not null
-            return [];
-        } else {
-            //return null if data was null - this indicates data was not loaded
-            return null;
         }
+
+        return null;
     }
 
     protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
@@ -141,8 +138,10 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     }
 
                     if ($source instanceof DataObject\Concrete) {
+
                         /** @var DataObject\Data\ElementMetadata $metaData */
-                        $metaData = OpenDxp::getContainer()->get('opendxp.model.factory')
+                        $metaData = OpenDxp::getContainer()
+                            ->get('opendxp.model.factory')
                             ->build(
                                 'OpenDxp\Model\DataObject\Data\ElementMetadata',
                                 [
@@ -172,7 +171,6 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                             $index,
                             $destinationType
                         );
-                        $objects[] = $metaData;
 
                         $list['data'][] = $metaData;
                     }
@@ -185,8 +183,6 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -214,10 +210,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -245,9 +238,9 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
                 $keyCol = 'key';
                 $className = '';
-                if ($targetType == 'object') {
+                if ($targetType === 'object') {
                     $className = ', className';
-                } elseif ($targetType == 'asset') {
+                } elseif ($targetType === 'asset') {
                     $keyCol = 'filename';
                 }
 
@@ -295,9 +288,9 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                         $obj = Element\Service::getElementById('object', (int) $id);
                         $itemData['published'] = $obj->getPublished();
                     }
-                } elseif ($targetType == 'asset') {
+                } elseif ($targetType === 'asset') {
                     $itemData = ['id' => $id, 'path' => $fullpath, 'type' => 'asset', 'subtype' => $type];
-                } elseif ($targetType == 'document') {
+                } elseif ($targetType === 'document') {
                     $itemData = ['id' => $id, 'path' => $fullpath, 'type' => 'document', 'subtype' => $type];
                     $document = Element\Service::getElementById('document', (int) $id);
                     if (method_exists($document, 'getPublished')) {
@@ -331,10 +324,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -562,7 +552,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     $sql .= ' AND ' . Db\Helper::quoteInto($db, 'ownername = ?', $context['fieldname']);
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+                if (!DataObject::isDirtyDetectionDisabled()) {
                     if ($context['containerType']) {
                         if ($object instanceof Localizedfield) {
                             $context['containerType'] = 'localizedfield';
@@ -587,8 +577,8 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
             $counter = 1;
             foreach ($multihrefMetadata as $mkey => $meta) {
-                $ownerName = isset($relation['ownername']) ? $relation['ownername'] : '';
-                $ownerType = isset($relation['ownertype']) ? $relation['ownertype'] : '';
+                $ownerName = $relation['ownername'] ?? '';
+                $ownerType = $relation['ownertype'] ?? '';
                 $meta->save($objectConcrete, $ownerType, $ownerName, $position, $counter);
                 $counter++;
             }
@@ -659,7 +649,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     $deleteCondition['ownername'] = $context['fieldname'];
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+                if (!DataObject::isDirtyDetectionDisabled()) {
                     if (!empty($context['containerType'])) {
                         $deleteCondition['ownertype'] = $context['containerType'];
                     }

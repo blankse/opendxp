@@ -23,7 +23,7 @@ use Symfony\Component\DomCrawler\Crawler;
  */
 class DomCrawler extends Crawler
 {
-    public const FRAGMENT_WRAPPER_TAG = 'opendxp-fragment-wrapper';
+    public const string FRAGMENT_WRAPPER_TAG = 'opendxp-fragment-wrapper';
 
     private bool $wrappedHtmlFragment = false;
 

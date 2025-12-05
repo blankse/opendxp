@@ -87,14 +87,15 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
 
     protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
-        $return = [];
+        if (is_array($data)) {
 
-        if (is_array($data) && count($data) > 0) {
             $counter = 1;
-            foreach ($data as $object) {
-                if ($object instanceof DataObject\Concrete) {
+            $return = [];
+
+            foreach ($data as $element) {
+                if ($element instanceof DataObject\Concrete) {
                     $return[] = [
-                        'dest_id' => $object->getId(),
+                        'dest_id' => $element->getId(),
                         'type' => 'object',
                         'fieldname' => $this->getName(),
                         'index' => $counter,
@@ -104,13 +105,9 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
             }
 
             return $return;
-        } elseif (is_array($data) && count($data) === 0) {
-            //give empty array if data was not null
-            return [];
-        } else {
-            //return null if data was null - this indicates data was not loaded
-            return null;
         }
+
+        return null;
     }
 
     protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed

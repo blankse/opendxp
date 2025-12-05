@@ -44,7 +44,6 @@ class GotenbergHelper
 
         $request = null;
 
-        /** @var GotenbergAPI|object $chrome */
         $chrome = GotenbergAPI::chromium(Config::getSystemConfiguration('gotenberg')['base_url']);
         if (method_exists($chrome, 'html')) {
             // gotenberg/gotenberg-php API Client v1

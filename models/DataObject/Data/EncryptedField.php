@@ -122,6 +122,7 @@ class EncryptedField implements OwnerAwareFieldInterface
                 throw new Exception('could not load key');
             }
         }
-        unset($this->encrypted);
+
+        $this->encrypted = null;
     }
 }

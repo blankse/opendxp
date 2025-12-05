@@ -25,15 +25,15 @@ use OpenDxp\Model\Tool\SettingsStore\Dao;
  */
 final class SettingsStore extends Model\AbstractModel
 {
-    public const TYPE_BOOLEAN = 'bool';
+    public const string TYPE_BOOLEAN = 'bool';
 
-    public const TYPE_FLOAT = 'float';
+    public const string TYPE_FLOAT = 'float';
 
-    public const TYPE_INTEGER = 'int';
+    public const string TYPE_INTEGER = 'int';
 
-    public const TYPE_STRING = 'string';
+    public const string TYPE_STRING = 'string';
 
-    protected const ALLOWED_TYPES = [
+    protected const array ALLOWED_TYPES = [
         self::TYPE_BOOLEAN,
         self::TYPE_FLOAT,
         self::TYPE_INTEGER,
@@ -154,7 +154,7 @@ final class SettingsStore extends Model\AbstractModel
         $this->scope = (string) $scope;
     }
 
-    public function getType(): ?string
+    public function getType(): string
     {
         return $this->type;
     }

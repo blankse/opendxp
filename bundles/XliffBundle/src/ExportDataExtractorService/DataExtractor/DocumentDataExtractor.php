@@ -26,13 +26,10 @@ use OpenDxp\Model\Property;
 
 class DocumentDataExtractor extends AbstractElementDataExtractor
 {
-    const EXPORTABLE_TAGS = ['wysiwyg', 'input', 'textarea', 'image', 'link'];
+    public const array EXPORTABLE_TAGS = ['wysiwyg', 'input', 'textarea', 'image', 'link'];
 
-    private EditableUsageResolver $EditableUsageResolver;
-
-    public function __construct(EditableUsageResolver $EditableUsageResolver)
+    public function __construct(private EditableUsageResolver $EditableUsageResolver)
     {
-        $this->EditableUsageResolver = $EditableUsageResolver;
     }
 
     /**
@@ -148,7 +145,11 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
 
     protected function doExportProperty(Property $property): bool
     {
-        return parent::doExportProperty($property) && !in_array($property->getName(), [
+        return
+            parent::doExportProperty($property) &&
+            !in_array(
+                $property->getName(),
+                [
                     'language',
                     'navigation_target',
                     'navigation_exclude',
@@ -158,19 +159,19 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
                     'navigation_relation',
                     'navigation_accesskey',
                     'navigation_tabindex',
-                ]);
+                ]
+            );
     }
 
     private function resetSourceDocument(Document &$document, AttributeSet $result, array $translations): void
     {
-        if ($result->getSourceLanguage() != $result->getTargetLanguages()) {
-            $sourceDocumentId = $translations[$result->getSourceLanguage()] ?? false;
-            if ($sourceDocumentId) {
-                $sourceDocument = Document::getById((int) $sourceDocumentId);
+        $sourceDocumentId = $translations[$result->getSourceLanguage()] ?? false;
 
-                if ($sourceDocument instanceof Document\PageSnippet) {
-                    $document = $sourceDocument;
-                }
+        if ($sourceDocumentId) {
+            $sourceDocument = Document::getById((int) $sourceDocumentId);
+
+            if ($sourceDocument instanceof Document\PageSnippet) {
+                $document = $sourceDocument;
             }
         }
     }

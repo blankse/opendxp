@@ -95,7 +95,7 @@ class Processor
             $linkTargetTrimmed = rtrim((string)$linkTarget, ' /');
             if ($document instanceof Document) {
                 // check if the current document is the target link (id check)
-                if ($entry['linkType'] == 'internal' && $document->getId() == $linkTarget) {
+                if ($entry['linkType'] === 'internal' && $document->getId() == $linkTarget) {
                     continue;
                 }
 
@@ -117,13 +117,13 @@ class Processor
         $data = $tmpData;
         $data['count'] = array_fill(0, count($data['search']), 0);
 
-        $es->each(function ($parentNode, $i) use ($options, $data) {
-            /** @var DomCrawler|null $parentNode */
+        $es->each(function (DomCrawler $parentNode) use ($options, $data) {
+
             $text = $parentNode->html();
+
             if (
-                $parentNode instanceof DomCrawler &&
-                !in_array($parentNode->nodeName(), $this->blockedTags) &&
-                strlen(trim($text))
+                trim($text) !== '' &&
+                !in_array($parentNode->nodeName(), $this->blockedTags)
             ) {
                 $originalText = $text;
                 if ($options['limit'] < 0) {
@@ -151,6 +151,7 @@ class Processor
 
         $result = html_entity_decode($html->html(), ENT_XML1);
         $html->clear();
+
         unset($html);
 
         return $result;

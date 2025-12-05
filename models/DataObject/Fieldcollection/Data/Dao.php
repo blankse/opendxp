@@ -44,8 +44,8 @@ class Dao extends Model\Dao\AbstractDao
         foreach ($this->model->getDefinition()->getFieldDefinitions() as $fieldName => $fd) {
             $getter = 'get' . ucfirst($fieldName);
 
-            if ($fd instanceof CustomResourcePersistingInterface
-                && $fd instanceof Model\DataObject\ClassDefinition\Data) {
+            if ($fd instanceof CustomResourcePersistingInterface) {
+
                 if (!$fd instanceof Model\DataObject\ClassDefinition\Data\Localizedfields && $fd->supportsDirtyDetection() && !$saveRelationalData) {
                     continue;
                 }
@@ -71,8 +71,7 @@ class Dao extends Model\Dao\AbstractDao
                     $this->model, $params
                 );
             }
-            if ($fd instanceof ResourcePersistenceAwareInterface
-                && $fd instanceof Model\DataObject\ClassDefinition\Data) {
+            if ($fd instanceof ResourcePersistenceAwareInterface) {
                 $fieldDefinitionParams = [
                     'owner' => $this->model, //\OpenDxp\Model\DataObject\Fieldcollection\Data\Dao
                     'fieldname' => $fd->getName(),
@@ -87,9 +86,7 @@ class Dao extends Model\Dao\AbstractDao
                     $this->model->set($fieldName, $fd->getDataFromResource($insertData, $object, $fieldDefinitionParams));
                 }
 
-                if ($this->model instanceof Model\Element\DirtyIndicatorInterface) {
-                    $this->model->markFieldDirty($fieldName, false);
-                }
+                $this->model->markFieldDirty($fieldName, false);
             }
         }
 

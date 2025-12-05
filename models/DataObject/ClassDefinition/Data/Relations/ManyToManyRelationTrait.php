@@ -38,8 +38,7 @@ trait ManyToManyRelationTrait
 
         if (
             $forceSave === false &&
-            !DataObject::isDirtyDetectionDisabled() &&
-            $object instanceof DirtyIndicatorInterface
+            !DataObject::isDirtyDetectionDisabled()
         ) {
             if ($object instanceof DataObject\Localizedfield) {
                 if ($object->getObject() instanceof DirtyIndicatorInterface && !$object->hasDirtyFields()) {
