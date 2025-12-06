@@ -39,6 +39,14 @@ class UserChecker extends InMemoryUserChecker
     {
         $this->checkValidUser($user);
 
+        /** @var User $opendxpUser */
+        $opendxpUser = $user->getUser();
+
+        // this is to reduce potential many last login update queries within a small time frame
+        if ($opendxpUser->getLastLogin() <= time() - 60) {
+            $opendxpUser->setLastLoginDate(); //set user current login date
+        }
+
         parent::checkPostAuth($user);
     }
 

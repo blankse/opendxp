@@ -32,6 +32,7 @@ use OpenDxp\Model\Document;
 use OpenDxp\Tool\HtmlUtils;
 use OpenDxp\Tool\Serialize;
 use RuntimeException;
+use Stringable;
 use Throwable;
 
 /**
@@ -39,7 +40,7 @@ use Throwable;
  * @method void save()
  * @method void delete()
  */
-abstract class Editable extends Model\AbstractModel implements Model\Document\Editable\EditableInterface
+abstract class Editable extends Model\AbstractModel implements Model\Document\Editable\EditableInterface, Stringable
 {
     /**
      * Contains some configurations for the editmode, or the thumbnail name, ...

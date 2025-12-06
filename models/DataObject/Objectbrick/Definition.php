@@ -470,7 +470,7 @@ class Definition extends Model\DataObject\Fieldcollection\Definition
      */
     public function getContainerClassFolder(string $classname): string
     {
-        return OPENDXP_CLASS_DIRECTORY . '/DataObject/' . ucfirst($classname);
+        return OPENDXP_CLASS_DEFINITION_DIRECTORY . '/DataObject/' . ucfirst($classname);
     }
 
     /**
