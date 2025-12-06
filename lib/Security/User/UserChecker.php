@@ -39,7 +39,7 @@ class UserChecker extends InMemoryUserChecker
     {
         $this->checkValidUser($user);
 
-        /** @var User $opendxpUser */
+        /** @var User $user */
         $opendxpUser = $user->getUser();
 
         // this is to reduce potential many last login update queries within a small time frame
