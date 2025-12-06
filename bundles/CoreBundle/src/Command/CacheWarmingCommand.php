@@ -146,7 +146,7 @@ class CacheWarmingCommand extends AbstractCommand
     protected function writeWarmingMessage(string $type, array $types, string $extra = ''): void
     {
         $output = sprintf('Warming <comment>%s</comment> cache', $type);
-        if (null !== $types && count($types) > 0) {
+        if (count($types) > 0) {
             $output .= sprintf(' for types %s', $this->humanList($types, 'and', '<info>%s</info>'));
         } else {
             $output .= sprintf(' for <info>all</info> types');
@@ -162,13 +162,11 @@ class CacheWarmingCommand extends AbstractCommand
 
     /**
      * A,B,C -> A, B or C (with an optional template for each item)
-     *
-     *
      */
     protected function humanList(array $list, string $glue = 'or', ?string $template = null): string
     {
         if (null !== $template) {
-            array_walk($list, function (&$item) use ($template) {
+            array_walk($list, static function (&$item) use ($template) {
                 $item = sprintf($template, $item);
             });
         }
@@ -177,16 +175,14 @@ class CacheWarmingCommand extends AbstractCommand
             $lastElement = array_pop($list);
 
             return implode(', ', $list) . ' ' . $glue . ' ' . $lastElement;
-        } else {
-            return implode(', ', $list);
         }
+
+        return implode(', ', $list);
     }
 
     /**
      * Get one of types, document, asset or object types, handle "all" value
      * and list input validation.
-     *
-     *
      */
     protected function getArrayOption(string $option, string $property, string $singular, bool $fallback = false): mixed
     {

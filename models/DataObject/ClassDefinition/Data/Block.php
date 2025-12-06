@@ -359,68 +359,60 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
      */
     protected function getBlockDataFromContainer(Concrete $object, array $params = []): mixed
     {
-        $data = null;
-
         $context = $params['context'] ?? null;
 
-        if (isset($context['containerType'])) {
-            if ($context['containerType'] === 'fieldcollection') {
-                $fieldname = $context['fieldname'];
+        if (!isset($context['containerType'])) {
+            return null;
+        }
 
-                if ($object instanceof DataObject\Concrete) {
-                    $containerGetter = 'get' . ucfirst($fieldname);
-                    $container = $object->$containerGetter();
-                    if ($container) {
-                        $originalIndex = $context['oIndex'];
+        if ($context['containerType'] === 'fieldcollection') {
+            $fieldname = $context['fieldname'];
 
-                        // field collection or block items
-                        if (!is_null($originalIndex)) {
-                            $items = $container->getItems();
+            $containerGetter = 'get' . ucfirst($fieldname);
+            $container = $object->$containerGetter();
+            if ($container) {
+                $originalIndex = $context['oIndex'];
 
-                            if ($items && count($items) > $originalIndex) {
-                                $item = $items[$originalIndex];
+                // field collection or block items
+                if (!is_null($originalIndex)) {
+                    $items = $container->getItems();
 
-                                $getter = 'get' . ucfirst($this->getName());
-                                $data = $item->$getter();
+                    if ($items && count($items) > $originalIndex) {
+                        $item = $items[$originalIndex];
 
-                                return $data;
-                            }
-                        } else {
-                            return null;
-                        }
-                    } else {
-                        return null;
+                        $getter = 'get' . ucfirst($this->getName());
+
+                        return $item->$getter();
                     }
+                } else {
+                    return null;
                 }
-            } elseif ($context['containerType'] === 'objectbrick') {
-                $fieldname = $context['fieldname'];
+            } else {
+                return null;
+            }
+        } elseif ($context['containerType'] === 'objectbrick') {
+            $fieldname = $context['fieldname'];
 
-                if ($object instanceof DataObject\Concrete) {
-                    $containerGetter = 'get' . ucfirst($fieldname);
-                    $container = $object->$containerGetter();
-                    if ($container) {
-                        $brickGetter = 'get' . ucfirst($context['containerKey']);
-                        /** @var DataObject\Objectbrick\Data\AbstractData|null $brickData */
-                        $brickData = $container->$brickGetter();
+            $containerGetter = 'get' . ucfirst($fieldname);
+            $container = $object->$containerGetter();
+            if ($container) {
+                $brickGetter = 'get' . ucfirst($context['containerKey']);
+                /** @var DataObject\Objectbrick\Data\AbstractData|null $brickData */
+                $brickData = $container->$brickGetter();
 
-                        if ($brickData) {
-                            $blockGetter = $params['blockGetter'];
-                            $data = $brickData->$blockGetter();
+                if ($brickData) {
+                    $blockGetter = $params['blockGetter'];
 
-                            return $data;
-                        }
-                    }
+                    return $brickData->$blockGetter();
                 }
             }
         }
 
-        return $data;
+        return null;
     }
 
     /**
      * @see Data::getVersionPreview
-     *
-     *
      */
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -437,11 +429,11 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
         return true;
     }
 
-    /** Generates a pretty version preview (similar to getVersionPreview) can be either HTML or
+    /**
+     * Generates a pretty version preview (similar to getVersionPreview) can be either HTML or
      * a image URL.
      *
      * @param DataObject\Concrete|null $object
-     *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): array
     {
@@ -584,7 +576,7 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
             'fieldDefinitionsCache',
             'referencedFields',
             'blockedVarsForExport',
-            'childs',         //TODO remove in OpenDxp 12
+            'childs',         //TODO remove in OpenDxp 2
         ];
     }
 
@@ -927,7 +919,6 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
 
     /**
      * This method is called in DataObject\ClassDefinition::save()
-     *
      */
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {
@@ -957,23 +948,24 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
     {
         if (!isset($params['owner'])) {
             throw new Error('owner missing');
-        } else {
-            // addition check. if owner is passed but no fieldname then there is something wrong with the params.
-            if (!array_key_exists('fieldname', $params)) {
-                // do not throw an exception because it is silently swallowed by the caller
-                throw new Error('params contains owner but no fieldname');
-            }
-
-            if ($params['owner'] instanceof DataObject\Localizedfield) {
-                //make sure that for a localized field parent the language param is set and not empty
-                if (($params['language'] ?? null) === null) {
-                    throw new Error('language param missing');
-                }
-            }
-            $blockElement->_setOwner($params['owner']);
-            $blockElement->_setOwnerFieldname($params['fieldname']);
-            $blockElement->_setOwnerLanguage($params['language'] ?? null);
         }
+
+        // addition check. if owner is passed but no fieldname then there is something wrong with the params.
+        if (!array_key_exists('fieldname', $params)) {
+            // do not throw an exception because it is silently swallowed by the caller
+            throw new Error('params contains owner but no fieldname');
+        }
+
+        if ($params['owner'] instanceof DataObject\Localizedfield) {
+            //make sure that for a localized field parent the language param is set and not empty
+            if (($params['language'] ?? null) === null) {
+                throw new Error('language param missing');
+            }
+        }
+
+        $blockElement->_setOwner($params['owner']);
+        $blockElement->_setOwnerFieldname($params['fieldname']);
+        $blockElement->_setOwnerLanguage($params['language'] ?? null);
     }
 
     public function getPhpdocInputType(): ?string

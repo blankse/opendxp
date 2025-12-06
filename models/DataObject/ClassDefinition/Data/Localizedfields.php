@@ -146,10 +146,10 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
         $dataItems = $data->getInternalData($loadLazy);
         foreach ($dataItems as $language => $values) {
             foreach ($this->getFieldDefinitions() as $fd) {
-                if ($fd instanceof LazyLoadingSupportInterface
-                    && $fd instanceof DataObject\ClassDefinition\Data
-                    && $fd->getLazyLoading()
-                    && $loadLazy) {
+                if ($fd instanceof LazyLoadingSupportInterface &&
+                    $fd->getLazyLoading() &&
+                    $loadLazy
+                ) {
                     $lazyKey = $data->buildLazyKey($fd->getName(), $language);
                     if (!$data->isLazyKeyLoaded($lazyKey) && $fd instanceof CustomResourcePersistingInterface) {
                         $params['language'] = $language;
@@ -170,7 +170,7 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
                 }
 
                 $key = $fd->getName();
-                $fdata = isset($values[$fd->getName()]) ? $values[$fd->getName()] : null;
+                $fdata = $values[$fd->getName()] ?? null;
 
                 if (!isset($fieldData[$language][$key]) || $fd->isEmpty($fieldData[$language][$key])) {
                     // never override existing data
@@ -720,8 +720,10 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
 
     private function getDataForValidity(Localizedfield $localizedObject, array $languages): array
     {
-        if (!$localizedObject->getObject()
-            || $localizedObject->getObject()->getType() != DataObject::OBJECT_TYPE_VARIANT) {
+        if (
+            !$localizedObject->getObject() ||
+            $localizedObject->getObject()->getType() !== DataObject::OBJECT_TYPE_VARIANT
+        ) {
             return $localizedObject->getInternalData(true);
         }
 
@@ -741,8 +743,6 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
     {
         $return = [];
 
-        $myname = $this->getName();
-
         if (!$data instanceof Localizedfield) {
             return [];
         }
@@ -760,9 +760,8 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
                     $diffdata['type'] = $item['type'];
                     $diffdata['value'] = $item['value'];
 
-                    // this is not needed anymoe
-                    unset($item['type']);
-                    unset($item['value']);
+                    // this is not needed anymore
+                    unset($item['type'], $item['value']);
 
                     $diffdata['title'] = $this->getName().' / '.$item['title'];
                     $diffdata['lang'] = $language;
@@ -861,8 +860,7 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
 
         foreach ($validLanguages as $language) {
             foreach ($this->getFieldDefinitions() as $fd) {
-                if ($fd instanceof IdRewriterInterface
-                && $fd instanceof DataObject\ClassDefinition\Data) {
+                if ($fd instanceof IdRewriterInterface) {
                     $d = $fd->rewriteIds($data, $idMapping, ['language' => $language]);
                     $data->setLocalizedValue($fd->getName(), $d, $language);
                 }

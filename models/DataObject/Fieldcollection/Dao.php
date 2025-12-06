@@ -102,10 +102,7 @@ class Dao extends Model\Dao\AbstractDao
 
                             if ($value === 0 || !empty($value)) {
                                 $collection->setValue($key, $value);
-
-                                if ($collection instanceof Model\Element\DirtyIndicatorInterface) {
-                                    $collection->markFieldDirty($key, false);
-                                }
+                                $collection->markFieldDirty($key, false);
                             }
                         }
                     }
@@ -193,12 +190,13 @@ class Dao extends Model\Dao\AbstractDao
             $childDefinitions = $definition->getFieldDefinitions(['suppressEnrichment' => true]);
 
             foreach ($childDefinitions as $fd) {
-                if (!DataObject::isDirtyDetectionDisabled() && $this->model instanceof Model\Element\DirtyIndicatorInterface) {
-                    if ($fd instanceof DataObject\ClassDefinition\Data\Relations\AbstractRelations && !$this->model->isFieldDirty(
-                        '_self'
-                    )) {
-                        continue;
-                    }
+
+                if (
+                    $fd instanceof DataObject\ClassDefinition\Data\Relations\AbstractRelations &&
+                    !$this->model->isFieldDirty('_self') &&
+                    !DataObject::isDirtyDetectionDisabled()
+                ) {
+                    continue;
                 }
 
                 if ($fd instanceof CustomResourcePersistingInterface) {
@@ -218,6 +216,7 @@ class Dao extends Model\Dao\AbstractDao
         }
 
         $isDirty = $this->model->isFieldDirty('_self');
+
         if (!$isDirty) {
             if ($items = $this->model->getItems()) {
                 /** @var Model\Element\DirtyIndicatorInterface $item */
@@ -230,6 +229,7 @@ class Dao extends Model\Dao\AbstractDao
                 }
             }
         }
+
         if (!$this->model->isFieldDirty('_self') && !DataObject::isDirtyDetectionDisabled()) {
             return [];
         }

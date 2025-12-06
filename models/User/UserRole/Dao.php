@@ -22,7 +22,7 @@ use OpenDxp\Model\Element;
 /**
  * @internal
  *
- * @property \OpenDxp\Model\User\UserRole\Folder $model
+ * @property \OpenDxp\Model\User\UserRole $model
  */
 class Dao extends Model\User\AbstractUser\Dao
 {

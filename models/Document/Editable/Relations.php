@@ -104,9 +104,7 @@ class Relations extends Model\Document\Editable implements Iterator, IdRewriterI
         $return = '';
 
         foreach ($this->getElements() as $element) {
-            if ($element instanceof Element\ElementInterface) {
-                $return .= Element\Service::getElementType($element) . ': ' . $element->getFullPath() . '<br />';
-            }
+            $return .= Element\Service::getElementType($element) . ': ' . $element->getFullPath() . '<br />';
         }
 
         return $return;
@@ -165,15 +163,13 @@ class Relations extends Model\Document\Editable implements Iterator, IdRewriterI
         $dependencies = [];
 
         foreach ($this->elements as $element) {
-            if ($element instanceof Element\ElementInterface) {
-                $elementType = Element\Service::getElementType($element);
-                $key = $elementType . '_' . $element->getId();
+            $elementType = Element\Service::getElementType($element);
+            $key = $elementType . '_' . $element->getId();
 
-                $dependencies[$key] = [
-                    'id' => $element->getId(),
-                    'type' => $elementType,
-                ];
-            }
+            $dependencies[$key] = [
+                'id' => $element->getId(),
+                'type' => $elementType,
+            ];
         }
 
         return $dependencies;

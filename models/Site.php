@@ -164,11 +164,7 @@ final class Site extends AbstractModel
      */
     public static function isSiteRequest(): bool
     {
-        if (null !== self::$currentSite) {
-            return true;
-        }
-
-        return false;
+        return null !== self::$currentSite;
     }
 
     /**

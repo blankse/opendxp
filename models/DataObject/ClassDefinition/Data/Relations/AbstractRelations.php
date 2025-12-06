@@ -39,7 +39,7 @@ abstract class AbstractRelations extends Data implements
     use DataObject\Traits\ContextPersistenceTrait;
     use Data\Extension\Relation;
 
-    const RELATION_ID_SEPARATOR = '$$';
+    public const string RELATION_ID_SEPARATOR = '$$';
 
     /**
      * Set of allowed classes
@@ -114,9 +114,10 @@ abstract class AbstractRelations extends Data implements
         if (!isset($params['context'])) {
             $params['context'] = null;
         }
+
         $context = $params['context'];
 
-        if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+        if (!DataObject::isDirtyDetectionDisabled()) {
             if (!isset($context['containerType']) || $context['containerType'] !== 'fieldcollection') {
                 if ($object instanceof DataObject\Localizedfield) {
                     if ($object->getObject() instanceof Element\DirtyIndicatorInterface && !$object->hasDirtyFields()) {
@@ -252,7 +253,7 @@ abstract class AbstractRelations extends Data implements
             $object instanceof \OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData => $object->getObject()->getClassId(),
         };
 
-        if (!DataObject::isDirtyDetectionDisabled() && $object instanceof Element\DirtyIndicatorInterface) {
+        if (!DataObject::isDirtyDetectionDisabled()) {
             if (!isset($context['containerType']) || $context['containerType'] !== 'fieldcollection') {
                 if ($object instanceof DataObject\Localizedfield) {
                     if ($object->getObject() instanceof Element\DirtyIndicatorInterface && !$object->hasDirtyFields()) {
@@ -327,7 +328,7 @@ abstract class AbstractRelations extends Data implements
         usort($relations, static fn ($a, $b) => $a['index'] <=> $b['index']);
 
         $data = $this->loadData($relations, $object, $params);
-        if ($object instanceof Element\DirtyIndicatorInterface && $data['dirty']) {
+        if ($data['dirty']) {
             $object->markFieldDirty($this->getName(), true);
         }
 

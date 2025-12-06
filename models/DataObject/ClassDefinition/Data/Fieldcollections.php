@@ -492,7 +492,7 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
         // getter, no inheritance here, that's the only difference
         $key = $this->getName();
 
-        if ($this instanceof DataObject\ClassDefinition\Data\TypeDeclarationSupportInterface && $this->getReturnTypeDeclaration()) {
+        if ($this->getReturnTypeDeclaration()) {
             $typeDeclaration = ': ' . $this->getReturnTypeDeclaration();
         } else {
             $typeDeclaration = '';
@@ -543,7 +543,6 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
      * a image URL.
      *
      * @param DataObject\Concrete|null $object
-     *
      */
     public function getDiffVersionPreview(?DataObject\Fieldcollection $data, ?Concrete $object = null, array $params = []): array
     {
@@ -590,8 +589,7 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
 
                 if ($collectionDef = DataObject\Fieldcollection\Definition::getByKey($item->getType())) {
                     foreach ($collectionDef->getFieldDefinitions() as $fd) {
-                        if ($fd instanceof IdRewriterInterface
-                            && $fd instanceof DataObject\ClassDefinition\Data) {
+                        if ($fd instanceof IdRewriterInterface) {
                             $d = $fd->rewriteIds($item, $idMapping, $params);
                             $setter = 'set' . ucfirst($fd->getName());
                             $item->$setter($d);
@@ -616,7 +614,6 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
 
     /**
      * This method is called in DataObject\ClassDefinition::save() and is used to create the database table for the localized data
-     *
      */
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {
@@ -781,9 +778,11 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
                 $collection->setFieldname($params['fieldname'] ?? null);
 
                 foreach ($itemData as $fieldKey => $fieldValue) {
-                    if ($fieldKey == 'type') {
+
+                    if ($fieldKey === 'type') {
                         continue;
                     }
+
                     $fc = $fcDef->getFieldDefinition($fieldKey);
                     if ($fc instanceof NormalizerInterface) {
                         $fieldValue = $fc->denormalize($fieldValue, $params);

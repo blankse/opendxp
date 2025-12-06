@@ -38,9 +38,8 @@ class Bootstrap
     {
         self::setProjectRoot();
         self::bootstrap();
-        $kernel = self::kernel();
 
-        return $kernel;
+        return self::kernel();
     }
 
     public static function startupCli(): Kernel|KernelInterface

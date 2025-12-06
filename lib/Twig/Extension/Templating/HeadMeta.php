@@ -68,7 +68,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Types of attributes
-     *
      */
     protected array $_typeKeys = ['name', 'http-equiv', 'charset', 'property'];
 
@@ -83,12 +82,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
      */
     protected string $_regKey = 'HeadMeta';
 
-    /**
-     * HeadMeta constructor.
-     *
-     * Set separator to PHP_EOL.
-     *
-     */
     public function __construct(ContainerService $containerService)
     {
         parent::__construct($containerService);
@@ -97,7 +90,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Retrieve object instance; optionally add meta tag
-     *
      *
      * @return $this
      */
@@ -173,7 +165,7 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
             $argc = count($args);
             $index = null;
 
-            if ('offsetSet' == $action) {
+            if ('offsetSet' === $action) {
                 if (0 < $argc) {
                     $index = array_shift($args);
                     --$argc;
@@ -190,7 +182,7 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
             $item = $this->createData($type, $args[0], $args[1], $args[2]);
 
-            if ('offsetSet' == $action) {
+            if ('offsetSet' === $action) {
                 $this->offsetSet($index, $item);
 
                 return $this;
@@ -206,8 +198,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Determine if item is valid
-     *
-     *
      */
     protected function _isValid(mixed $item): bool
     {
@@ -265,7 +255,7 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
     /**
      * Prepend
      *
-     * @param  string $value
+     * @param  stdClass $value
      *
      * @throws Exception
      */
@@ -280,8 +270,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Set
-     *
-     *
      *
      * @throws Exception
      */
@@ -303,14 +291,13 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Build meta HTML string
-     *
-     *
      */
     public function itemToString(stdClass $item): string
     {
         if (!in_array($item->type, $this->_typeKeys)) {
             throw new Exception(sprintf('Invalid type "%s" provided for meta', $item->type));
         }
+
         $type = $item->type;
 
         $modifiersString = '';
@@ -345,8 +332,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Render placeholder as string
-     *
-     *
      */
     public function toString(int|string|null $indent = null): string
     {
@@ -377,8 +362,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Create data item for inserting into stack
-     *
-     *
      */
     public function createData(string $type, string $typeValue, string $content, array $modifiers): stdClass
     {
@@ -404,7 +387,6 @@ class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
     }
 
     /**
-     *
      * @return $this
      */
     public function setDescription(string $string, ?int $length = null, string $suffix = ''): static

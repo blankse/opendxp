@@ -69,7 +69,6 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
      * @see ResourcePersistenceAwareInterface::getDataForResource
      *
      * @param Model\DataObject\Concrete|null $object
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -93,10 +92,9 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         $list = new Model\User\Listing();
         $list->setOrder('asc');
         $list->setOrderKey('name');
-        $users = $list->load();
 
         $options = [];
-        foreach ($users as $user) {
+        foreach ($list->load() as $user) {
             if ($user instanceof Model\User) {
                 $value = $user->getName();
                 $first = $user->getFirstname();
@@ -110,6 +108,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
                 ];
             }
         }
+
         $this->setOptions($options);
     }
 

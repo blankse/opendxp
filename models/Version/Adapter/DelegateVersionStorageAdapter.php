@@ -31,8 +31,8 @@ class DelegateVersionStorageAdapter implements VersionStorageAdapterInterface
 
     public function __construct(protected int $byteThreshold,
         protected VersionStorageAdapterInterface $defaultAdapter,
-        protected VersionStorageAdapterInterface $fallbackAdapter)
-    {
+        protected VersionStorageAdapterInterface $fallbackAdapter
+    ) {
         $this->adapters[$defaultAdapter->getStorageType(null, null)] = $defaultAdapter;
         $this->adapters[$fallbackAdapter->getStorageType(null, null)] = $fallbackAdapter;
     }
@@ -41,9 +41,10 @@ class DelegateVersionStorageAdapter implements VersionStorageAdapterInterface
     {
         if (empty($storageType) === true) {
             return $this->defaultAdapter;
-        } else {
-            $adapter = $this->adapters[$storageType] ?? null;
         }
+
+        $adapter = $this->adapters[$storageType] ?? null;
+
         if (isset($adapter) === false) {
             throw new Exception('no adapter for storage type ' . $storageType . ' found.');
         }
@@ -61,14 +62,11 @@ class DelegateVersionStorageAdapter implements VersionStorageAdapterInterface
         return $this->getAdapter($version->getStorageType())->loadBinaryData($version);
     }
 
-    public function getStorageType(?int $metaDataSize = null,
-        ?int $binaryDataSize = null): string
+    public function getStorageType(?int $metaDataSize = null, ?int $binaryDataSize = null): string
     {
-        if (empty($this->fallbackAdapter) === false) {
-            if ($metaDataSize > $this->byteThreshold ||
-                $binaryDataSize > $this->byteThreshold) {
-                return $this->fallbackAdapter->getStorageType($metaDataSize, $binaryDataSize);
-            }
+        if ($metaDataSize > $this->byteThreshold ||
+            $binaryDataSize > $this->byteThreshold) {
+            return $this->fallbackAdapter->getStorageType($metaDataSize, $binaryDataSize);
         }
 
         return $this->defaultAdapter->getStorageType($metaDataSize, $binaryDataSize);

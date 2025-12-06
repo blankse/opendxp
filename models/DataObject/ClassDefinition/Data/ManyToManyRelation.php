@@ -183,15 +183,16 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
 
     protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
-        $return = [];
+        if (is_array($data)) {
 
-        if (is_array($data) && count($data) > 0) {
             $counter = 1;
-            foreach ($data as $object) {
-                if ($object instanceof Element\ElementInterface) {
+            $return = [];
+
+            foreach ($data as $element) {
+                if ($element instanceof Element\ElementInterface) {
                     $return[] = [
-                        'dest_id' => $object->getId(),
-                        'type' => Element\Service::getElementType($object),
+                        'dest_id' => $element->getId(),
+                        'type' => Element\Service::getElementType($element),
                         'fieldname' => $this->getName(),
                         'index' => $counter,
                     ];
@@ -200,13 +201,9 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
             }
 
             return $return;
-        } elseif (is_array($data) && count($data) === 0) {
-            //give empty array if data was not null
-            return [];
-        } else {
-            //return null if data was null  - this indicates data was not loaded
-            return null;
         }
+
+        return null;
     }
 
     protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
@@ -237,8 +234,6 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
@@ -267,10 +262,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -315,11 +307,11 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $element) {
                 $e = null;
-                if ($element['type'] == 'object') {
+                if ($element['type'] === 'object') {
                     $e = DataObject::getById((int) $element['id']);
-                } elseif ($element['type'] == 'asset') {
+                } elseif ($element['type'] === 'asset') {
                     $e = Asset::getById((int) $element['id']);
-                } elseif ($element['type'] == 'document') {
+                } elseif ($element['type'] === 'document') {
                     $e = Document::getById((int) $element['id']);
                 }
 
@@ -335,7 +327,6 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
 
     /**
      * @param null|DataObject\Concrete $object
-     *
      */
     public function getDataFromGridEditor(array $data, ?Concrete $object = null, array $params = []): ?array
     {
@@ -353,10 +344,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -458,10 +446,7 @@ class ManyToManyRelation extends AbstractRelations implements QueryResourcePersi
 
                 $container->setObjectVar($this->getName(), $data);
                 $this->markLazyloadedFieldAsLoaded($container);
-
-                if ($container instanceof Element\DirtyIndicatorInterface) {
-                    $container->markFieldDirty($this->getName(), false);
-                }
+                $container->markFieldDirty($this->getName(), false);
             }
         } elseif ($container instanceof DataObject\Localizedfield) {
             $data = $params['data'];

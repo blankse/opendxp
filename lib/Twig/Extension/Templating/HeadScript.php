@@ -65,31 +65,22 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 {
     use WebLinksTrait;
 
-    /**#@+
-     * Script type contants
-     * @const string
-     */
-    const FILE = 'FILE';
+    public const string FILE = 'FILE';
 
-    const SCRIPT = 'SCRIPT';
-
-    // #@-
+    public const string SCRIPT = 'SCRIPT';
 
     /**
      * Registry key for placeholder
-     *
      */
     protected string $_regKey = 'HeadScript';
 
     /**
      * Are arbitrary attributes allowed?
-     *
      */
     protected bool $_arbitraryAttributes = false;
 
-    /**#@+
+    /**
      * Capture type and/or attributes (used for hinting during capture)
-     * @var bool
      */
     protected bool $_captureLock = false;
 
@@ -99,11 +90,8 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     protected string $_captureType;
 
-    // #@-
-
     /**
      * Optional allowed attributes for script tag
-     *
      */
     protected array $_optionalAttributes = [
         'charset', 'defer', 'language', 'src', 'type', 'async',
@@ -111,14 +99,12 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Required attributes for script tag
-     *
      */
     protected array $_requiredAttributes = ['type'];
 
     /**
      * Whether or not to format scripts using CDATA; used only if doctype
      * helper is not accessible
-     *
      */
     public bool $useCdata = false;
 
@@ -129,12 +115,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      */
     protected $webLinkAttributes = ['as' => 'script'];
 
-    /**
-     * HeadScript constructor.
-     *
-     * Set separator to PHP_EOL.
-     *
-     */
     public function __construct(
         ContainerService $containerService,
         WebLinkExtension $webLinkExtension
@@ -205,7 +185,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
             $attrs = [];
             $index = null;
 
-            if ('offsetSet' == $action) {
+            if ('offsetSet' === $action) {
                 $index = array_shift($args);
                 if (1 > count($args)) {
                     throw new Exception(sprintf('Method "%s" requires at least two arguments, an index and source', $method));
@@ -224,7 +204,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
             switch ($mode) {
                 case 'script':
                     $item = $this->createData($type, $attrs, $content);
-                    if ('offsetSet' == $action) {
+                    if ('offsetSet' === $action) {
                         $this->offsetSet($index, $item);
                     } else {
                         $this->$action($item);
@@ -233,10 +213,10 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
                     break;
                 case 'file':
                 default:
-                    if (!$this->_isDuplicate($content) || $action == 'set') {
+                    if (!$this->_isDuplicate($content) || $action === 'set') {
                         $attrs['src'] = $content;
                         $item = $this->createData($type, $attrs);
-                        if ('offsetSet' == $action) {
+                        if ('offsetSet' === $action) {
                             $this->offsetSet($index, $item);
                         } else {
                             $this->$action($item);
@@ -254,15 +234,15 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Is the file specified a duplicate?
-     *
-     *
      */
     protected function _isDuplicate(string $file): bool
     {
         foreach ($this->getContainer() as $item) {
-            if (($item->source === null)
-                && array_key_exists('src', $item->attributes)
-                && ($file == $item->attributes['src'])) {
+            if (
+                $item->source === null &&
+                 array_key_exists('src', $item->attributes) &&
+                 $file == $item->attributes['src']
+            ) {
                 return true;
             }
         }
@@ -277,9 +257,11 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      */
     protected function _isValid(mixed $value): bool
     {
-        if ((!$value instanceof stdClass)
-            || !isset($value->type)
-            || (!isset($value->source) && !isset($value->attributes))) {
+        if (
+            !$value instanceof stdClass ||
+            !isset($value->type) ||
+            (!isset($value->source) && !isset($value->attributes))
+        ) {
             return false;
         }
 
@@ -289,8 +271,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     /**
      * Override append
      *
-     * @param  string $value
-     *
+     * @param  stdClass $value
      */
     public function append($value): void
     {
@@ -304,8 +285,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     /**
      * Override prepend
      *
-     * @param  string $value
-     *
+     * @param  stdClass $value
      */
     public function prepend($value): void
     {
@@ -319,8 +299,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     /**
      * Override set
      *
-     * @param  string $value
-     *
+     * @param  stdClass $value
      */
     public function set($value): void
     {
@@ -335,7 +314,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
      * Override offsetSet
      *
      * @param  string|int $offset
-     *
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -349,7 +327,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
     /**
      * Set flag indicating if arbitrary attributes are allowed
      *
-     *
      * @return $this
      */
     public function setAllowArbitraryAttributes(bool $flag): static
@@ -361,7 +338,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Are arbitrary attributes allowed?
-     *
      */
     public function arbitraryAttributesAllowed(): bool
     {
@@ -370,29 +346,31 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Create script HTML
-     *
-     *
      */
     public function itemToString(stdClass $item, string $indent, string $escapeStart, string $escapeEnd): string
     {
         $attrString = '';
 
         $type = ($this->_autoEscape) ? $this->_escape($item->type) : $item->type;
-        if ($type != 'text/javascript') {
+        if ($type !== 'text/javascript') {
             $item->attributes['type'] = $type;
         }
 
         if (!empty($item->attributes)) {
             foreach ($item->attributes as $key => $value) {
-                if ((!$this->arbitraryAttributesAllowed() && !in_array($key, $this->_optionalAttributes))
-                    || in_array($key, ['conditional', 'noescape'])) {
+
+                if (
+                    (!$this->arbitraryAttributesAllowed() && !in_array($key, $this->_optionalAttributes)) ||
+                    in_array($key, ['conditional', 'noescape'])
+                ) {
                     continue;
                 }
-                if ('defer' == $key) {
+
+                if ('defer' === $key) {
                     $value = 'defer';
                 }
 
-                if ('async' == $key) {
+                if ('async' === $key) {
                     $value = 'async';
                 }
                 $attrString .= sprintf(' %s="%s"', $key, ($this->_autoEscape) ? $this->_escape($value) : $value);
@@ -444,8 +422,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Retrieve string representation
-     *
-     *
      */
     public function toString(int|string|null $indent = null): string
     {
@@ -469,9 +445,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
             $items[] = $this->itemToString($item, $indent, $escapeStart, $escapeEnd);
         }
 
-        $return = implode($this->getSeparator(), $items);
-
-        return $return;
+        return implode($this->getSeparator(), $items);
     }
 
     protected function prepareEntries(): void
@@ -496,6 +470,7 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
             $event = new GenericEvent($this, [
                 'item' => $item,
             ]);
+
             OpenDxp::getEventDispatcher()->dispatch($event, FrontendEvents::VIEW_HELPER_HEAD_SCRIPT);
 
             if (isset($item->attributes) && is_array($item->attributes)) {
@@ -515,8 +490,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Create data item containing all necessary components of script
-     *
-     *
      */
     public function createData(string $type, array $attributes, ?string $content = null): stdClass
     {

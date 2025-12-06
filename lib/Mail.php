@@ -474,7 +474,7 @@ class Mail extends Email
         $recipients = [];
 
         foreach (['To', 'Cc', 'Bcc', 'ReplyTo'] as $key) {
-            $recipients[$key] = null;
+
             $getterName = 'get' . $key;
             $addresses = $this->$getterName();
 
@@ -568,17 +568,15 @@ class Mail extends Email
     }
 
     /**
-     * @param array<Address|string> $recipients
+     * @param array<string, array<Address|string>> $recipients
      *
-     * @return array<Address|string>
+     * @return array<string, array<Address|string>>
      */
     private function getDebugMailRecipients(array $recipients): array
     {
         $headers = $this->getHeaders();
 
         foreach (['To', 'Cc', 'Bcc', 'ReplyTo'] as $key) {
-            $recipients[$key] = null;
-
             $headerName = 'X-OpenDxp-Debug-' . $key;
             if ($headers->has($headerName)) {
                 /** @var MailboxListHeader $header */
@@ -611,17 +609,24 @@ class Mail extends Email
                 $escaper->setDefaultStrategy(false);
             }
 
-            $template = $twig->createTemplate($string, 'opendxp_email_' . $context);
+            return $twig
+                ->createTemplate($string, 'opendxp_email_' . $context)
+                ->render($this->getParams());
 
-            return $template->render($this->getParams());
         } catch (SecurityError $e) {
+
             Logger::err((string) $e);
 
-            throw new Exception(sprintf('Failed rendering the %s: %s. Please check your twig sandbox security policy or contact the administrator.',
-                $context, substr($e->getMessage(), 0, strpos($e->getMessage(), ' in "__string'))));
+            throw new Exception(sprintf(
+                'Failed rendering the %s: %s. Please check your twig sandbox security policy or contact the administrator.',
+                $context,
+                substr($e->getMessage(), 0, strpos($e->getMessage(), ' in "__string'))
+            )
+            );
+
         } finally {
             // Restore the default escaping strategy (HTML) after rendering the subject
-            if ($twig instanceof \Twig\Environment && $defaultStrategy !== null) {
+            if ($defaultStrategy !== null) {
                 $twig->getExtension(EscaperExtension::class)->setDefaultStrategy($defaultStrategy);
             }
 
@@ -800,7 +805,7 @@ class Mail extends Email
     {
         $content = '';
 
-        if ($htmlContent) {
+        if (!empty($htmlContent)) {
             try {
                 $converter = new HtmlConverter();
                 $converter->getConfig()->merge($this->getHtml2TextOptions());

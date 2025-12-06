@@ -26,25 +26,25 @@ class Document
     /**
      * Singleton for OpenDxp\Document
      *
-     *
-     *
      * @throws Exception
      */
     public static function getInstance(?string $adapter = null): ?Document\Adapter
     {
         try {
             if ($adapter) {
+
                 $adapterClass = '\\OpenDxp\\Document\\Adapter\\' . $adapter;
                 if (Tool::classExists($adapterClass)) {
                     return new $adapterClass();
-                } else {
-                    throw new Exception('document-transcode adapter `' . $adapter . '´ does not exist.');
                 }
-            } else {
-                if ($adapter = self::getDefaultAdapter()) {
-                    return $adapter;
-                }
+
+                throw new Exception('document-transcode adapter `' . $adapter . '´ does not exist.');
             }
+
+            if ($adapter = self::getDefaultAdapter()) {
+                return $adapter;
+            }
+
         } catch (Exception $e) {
             Logger::crit('Unable to load document adapter: ' . $e->getMessage());
 
@@ -56,7 +56,6 @@ class Document
 
     /**
      * Checks if adapter is available.
-     *
      */
     public static function isAvailable(): bool
     {
@@ -69,8 +68,6 @@ class Document
 
     /**
      * Checks if a file type is supported by the adapter.
-     *
-     *
      */
     public static function isFileTypeSupported(string $filetype): bool
     {
@@ -83,7 +80,6 @@ class Document
 
     /**
      * Returns adapter class if exists or false if doesn't exist
-     *
      */
     public static function getDefaultAdapter(): ?Document\Adapter
     {

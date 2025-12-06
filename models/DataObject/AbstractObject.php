@@ -43,17 +43,17 @@ use OpenDxp\Model\Element\ElementInterface;
  */
 abstract class AbstractObject extends Model\Element\AbstractElement
 {
-    const OBJECT_TYPE_FOLDER = 'folder';
+    public const string OBJECT_TYPE_FOLDER = 'folder';
 
-    const OBJECT_TYPE_OBJECT = 'object';
+    public const string OBJECT_TYPE_OBJECT = 'object';
 
-    const OBJECT_TYPE_VARIANT = 'variant';
+    public const string OBJECT_TYPE_VARIANT = 'variant';
 
-    const OBJECT_CHILDREN_SORT_BY_DEFAULT = 'key';
+    public const string OBJECT_CHILDREN_SORT_BY_DEFAULT = 'key';
 
-    const OBJECT_CHILDREN_SORT_BY_INDEX = 'index';
+    public const string OBJECT_CHILDREN_SORT_BY_INDEX = 'index';
 
-    const OBJECT_CHILDREN_SORT_ORDER_DEFAULT = 'ASC';
+    public const string OBJECT_CHILDREN_SORT_ORDER_DEFAULT = 'ASC';
 
     /**
      * possible types of a document
@@ -249,7 +249,7 @@ abstract class AbstractObject extends Model\Element\AbstractElement
             RuntimeCache::set($cacheKey, $object);
         }
 
-        if (!$object || !static::typeMatch($object)) {
+        if (!static::typeMatch($object)) {
             return null;
         }
 
@@ -747,9 +747,7 @@ abstract class AbstractObject extends Model\Element\AbstractElement
 
     public function getFullPath(): string
     {
-        $path = $this->getPath() . $this->getKey();
-
-        return $path;
+        return $this->getPath() . $this->getKey();
     }
 
     public function getRealPath(): string
@@ -955,9 +953,7 @@ abstract class AbstractObject extends Model\Element\AbstractElement
             $objectTypes = implode('_', $objectTypes);
         }
 
-        $cacheKey = $objectTypes . (!empty($includingUnpublished) ? '_' : '') . (string)$includingUnpublished;
-
-        return $cacheKey;
+        return $objectTypes . (!empty($includingUnpublished) ? '_' : '') . (string)$includingUnpublished;
     }
 
     /**
@@ -1053,7 +1049,7 @@ abstract class AbstractObject extends Model\Element\AbstractElement
             if (isset($listConfig['limit']) && $listConfig['limit'] == 1) {
                 $elements = $list->getObjects();
 
-                return isset($elements[0]) ? $elements[0] : null;
+                return $elements[0] ?? null;
             }
 
             return $list;

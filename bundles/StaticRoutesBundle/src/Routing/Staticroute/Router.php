@@ -194,7 +194,7 @@ final class Router implements RouterInterface, RequestMatcherInterface, Versatil
         $params = $this->context->getParameters();
 
         foreach ($this->getStaticRoutes() as $route) {
-            if (null !== $request && null !== $route->getMethods() && 0 !== count($route->getMethods())) {
+            if (null !== $request && 0 !== count($route->getMethods())) {
                 $method = $request->getMethod();
 
                 if (!in_array($method, $route->getMethods(), true)) {
@@ -212,9 +212,7 @@ final class Router implements RouterInterface, RequestMatcherInterface, Versatil
                 $routeParams['opendxp_request_source'] = 'staticroute';
                 $routeParams['_route'] = $route->getName();
 
-                $routeParams = $this->processRouteParams($routeParams);
-
-                return $routeParams;
+                return $this->processRouteParams($routeParams);
             }
         }
 

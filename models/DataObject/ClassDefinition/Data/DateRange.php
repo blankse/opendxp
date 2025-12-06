@@ -48,7 +48,6 @@ class DateRange extends Data implements
     ];
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
@@ -60,12 +59,10 @@ class DateRange extends Data implements
             $startDate = $data->getStartDate();
             $endDate = $data->getEndDate();
 
-            $result = [
+            return [
                 $startDateKey =>  $startDate->getTimestamp(),
                 $endDateKey => $endDate instanceof CarbonInterface ? $endDate->getTimestamp() : null,
             ];
-
-            return $result;
         }
 
         return [
@@ -75,7 +72,6 @@ class DateRange extends Data implements
     }
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?CarbonPeriod
@@ -87,10 +83,7 @@ class DateRange extends Data implements
             $startDate = $this->getDateFromTimestamp($data[$startDateKey]);
             $endDate = $this->getDateFromTimestamp($data[$endDateKey]);
             $period = CarbonPeriod::create()->setStartDate($startDate);
-
-            if ($endDate instanceof Carbon) {
-                $period->setEndDate($endDate);
-            }
+            $period->setEndDate($endDate);
 
             return $period;
         }
@@ -99,8 +92,6 @@ class DateRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
@@ -109,10 +100,7 @@ class DateRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -129,8 +117,6 @@ class DateRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?CarbonPeriod
@@ -164,10 +150,7 @@ class DateRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -263,9 +246,9 @@ class DateRange extends Data implements
             $startDate = $data->getStartDate();
             $endDate = $data->getEndDate();
 
-            if (!$startDate instanceof CarbonInterface || !$endDate instanceof CarbonInterface) {
+            if (!$endDate instanceof CarbonInterface) {
                 throw new ValidationException(
-                    sprintf('Either the start or end value in field [ %s ] is not a date', $fieldName)
+                    sprintf('End value in field [ %s ] is not a date', $fieldName)
                 );
             }
 

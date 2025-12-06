@@ -275,24 +275,27 @@ class Objectbrick extends Model\AbstractModel implements DirtyIndicatorInterface
     {
         $item = $this->get($brick);
         if ($item && !$item->isLazyKeyLoaded($field)) {
+
             $brickDef = Model\DataObject\Objectbrick\Definition::getByKey($brick);
-            /** @var Model\DataObject\ClassDefinition\Data\CustomResourcePersistingInterface $fieldDef */
             $fieldDef = $brickDef->getFieldDefinition($field);
-            $context = [];
-            $context['object'] = $this->getObject();
-            $context['containerType'] = 'objectbrick';
-            $context['containerKey'] = $brick;
-            $context['brickField'] = $brickField;
-            $context['fieldname'] = $field;
-            $params['context'] = $context;
 
-            $isDirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
-            DataObject::disableDirtyDetection();
-            $data = $fieldDef->load($this->$brick, $params);
-            DataObject::setDisableDirtyDetection($isDirtyDetectionDisabled);
+            if ($fieldDef instanceof DataObject\ClassDefinition\Data\CustomResourcePersistingInterface) {
+                $context = [];
+                $context['object'] = $this->getObject();
+                $context['containerType'] = 'objectbrick';
+                $context['containerKey'] = $brick;
+                $context['brickField'] = $brickField;
+                $context['fieldname'] = $field;
+                $params['context'] = $context;
 
-            $item->setObjectVar($field, $data);
-            $item->markLazyKeyAsLoaded($field);
+                $isDirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
+                DataObject::disableDirtyDetection();
+                $data = $fieldDef->load($this->$brick, $params);
+                DataObject::setDisableDirtyDetection($isDirtyDetectionDisabled);
+
+                $item->setObjectVar($field, $data);
+                $item->markLazyKeyAsLoaded($field);
+            }
         }
     }
 

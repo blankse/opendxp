@@ -18,14 +18,12 @@ namespace OpenDxp\Bundle\GenericExecutionEngineBundle;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\SchemaException;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Entity\JobRun;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\PermissionConstants;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\TableConstants;
-use OpenDxp\Extension\Bundle\Installer\Exception\InstallationException;
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
@@ -34,20 +32,19 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  */
 final class Installer extends SettingsStoreAwareInstaller
 {
-    public function __construct(
-        private readonly Connection $db,
-        BundleInterface $bundle,
+    public const string USER_PERMISSIONS_CATEGORY = 'OpenDxp Generic Execution Engine';
 
-    ) {
-        parent::__construct($bundle);
-    }
-
-    public const USER_PERMISSIONS_CATEGORY = 'OpenDxp Generic Execution Engine';
-
-    protected const USER_PERMISSIONS = [
+    protected const array USER_PERMISSIONS = [
         PermissionConstants::GEE_JOB_RUN,
         PermissionConstants::GEE_SEE_ALL_JOB_RUNS,
     ];
+
+    public function __construct(
+        private readonly Connection $db,
+        BundleInterface $bundle,
+    ) {
+        parent::__construct($bundle);
+    }
 
     /**
      * @throws SchemaException|Exception
@@ -252,13 +249,11 @@ final class Installer extends SettingsStoreAwareInstaller
      */
     private function executeDiffSql(Schema $newSchema): void
     {
-        $currentSchema = $this->db->createSchemaManager()->introspectSchema();
-        $schemaComparator = new Comparator($this->db->getDatabasePlatform());
-        $schemaDiff = $schemaComparator->compareSchemas($currentSchema, $newSchema);
         $dbPlatform = $this->db->getDatabasePlatform();
-        if (!$dbPlatform instanceof AbstractPlatform) {
-            throw new InstallationException('Could not get database platform.');
-        }
+        $currentSchema = $this->db->createSchemaManager()->introspectSchema();
+
+        $schemaComparator = new Comparator($dbPlatform);
+        $schemaDiff = $schemaComparator->compareSchemas($currentSchema, $newSchema);
 
         $sqlStatements = $dbPlatform->getAlterSchemaSQL($schemaDiff);
 
