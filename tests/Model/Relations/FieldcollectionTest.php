@@ -20,6 +20,7 @@ use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\Data\ElementMetadata;
 use OpenDxp\Model\DataObject\Fieldcollection;
+use OpenDxp\Model\DataObject\Fieldcollection\Definition;
 use OpenDxp\Model\DataObject\RelationTest;
 use OpenDxp\Model\DataObject\Service;
 use OpenDxp\Tests\Support\Test\ModelTestCase;
