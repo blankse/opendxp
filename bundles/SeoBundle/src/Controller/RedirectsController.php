@@ -24,7 +24,6 @@ use OpenDxp\Bundle\SeoBundle\Redirect\Csv;
 use OpenDxp\Bundle\SeoBundle\Redirect\RedirectHandler;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
-use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
 use OpenDxp\Logger;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Site;
@@ -124,12 +123,7 @@ class RedirectsController extends UserAwareController
                 return $this->jsonResponse(['data' => $redirect->getObjectVars(), 'success' => true]);
             }
         } else {
-            if (!class_exists(QueryParams::class)) {
-                throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
-            }
-
             // get list of routes
-
             $list = new Redirect\Listing();
             $list->setLimit($request->request->getInt('limit', 50));
             $list->setOffset($request->request->getInt('start'));

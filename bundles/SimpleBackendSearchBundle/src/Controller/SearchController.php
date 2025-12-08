@@ -31,7 +31,6 @@ use OpenDxp\Config;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
 use OpenDxp\Db\Helper;
-use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Localizedfields;
@@ -292,14 +291,12 @@ class SearchController extends UserAwareController
                 'context' => $allParams,
             ]);
 
-            if (class_exists(AdminEvents::class)) {
-                $eventDispatcher->dispatch($beforeListLoadEvent, AdminEvents::ASSET_LIST_BEFORE_LIST_LOAD);
-                /** @var Data\Listing $searcherList */
-                $searcherList = $beforeListLoadEvent->getArgument('list');
-            }
+            $eventDispatcher->dispatch($beforeListLoadEvent, AdminEvents::ASSET_LIST_BEFORE_LIST_LOAD);
+            /** @var Data\Listing $searcherList */
+            $searcherList = $beforeListLoadEvent->getArgument('list');
         }
 
-        if (in_array('document', $types) && class_exists(AdminEvents::class)) {
+        if (in_array('document', $types)) {
             // Global document list event (same than the SEARCH_LIST_BEFORE_LIST_LOAD event, but this last one is global for search, list, tree)
             $beforeListLoadEvent = new GenericEvent($this, [
                 'list' => $searcherList,
@@ -317,11 +314,9 @@ class SearchController extends UserAwareController
                 'context' => $allParams,
             ]);
 
-            if (class_exists(AdminEvents::class)) {
-                $eventDispatcher->dispatch($beforeListLoadEvent, AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD);
-                /** @var Data\Listing $searcherList */
-                $searcherList = $beforeListLoadEvent->getArgument('list');
-            }
+            $eventDispatcher->dispatch($beforeListLoadEvent, AdminEvents::OBJECT_LIST_BEFORE_LIST_LOAD);
+            /** @var Data\Listing $searcherList */
+            $searcherList = $beforeListLoadEvent->getArgument('list');
         }
 
         try {
@@ -335,23 +330,14 @@ class SearchController extends UserAwareController
             $element = Element\Service::getElementById($hit->getId()->getType(), $hit->getId()->getId());
             if ($element->isAllowed('list')) {
 
-                $data = null;
-                if (class_exists(GridData\DataObject::class)) {
-                    $data = match (true) {
-                        $element instanceof DataObject\AbstractObject => GridData\DataObject::getData($element, $fields),
-                        $element instanceof Document => GridData\Document::getData($element),
-                        $element instanceof Asset => GridData\Asset::getData($element),
-                        default => null
-                    };
-                } else {
-                    // TODO: remove in fix dependency on admin-ui-classic-bundle
-                    $data = match (true) {
-                        $element instanceof DataObject\AbstractObject => DataObject\Service::gridObjectData($element, $fields),
-                        default => null
-                    };
-                }
+                $data = match (true) {
+                    $element instanceof DataObject\AbstractObject => GridData\DataObject::getData($element, $fields),
+                    $element instanceof Document => GridData\Document::getData($element),
+                    $element instanceof Asset => GridData\Asset::getData($element),
+                    default => null
+                };
 
-                if ($data) {
+                if ($data !== null) {
                     $elements[] = $data;
                 }
             } else {
@@ -379,15 +365,8 @@ class SearchController extends UserAwareController
         return $this->jsonResponse($result);
     }
 
-    /**
-     * @throws AdminClassicBundleNotFoundException
-     */
     protected function extractSortingSettings(array $params): array
     {
-        if (!class_exists(QueryParams::class)) {
-            throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
-        }
-
         return QueryParams::extractSortingSettings($params);
     }
 
@@ -537,10 +516,7 @@ class SearchController extends UserAwareController
                     'fullpathList' => htmlspecialchars($this->shortenPath($element->getRealFullPath())),
                 ];
 
-                if (class_exists(ElementAdminStyleEvent::class)) {
-                    $this->addAdminStyle($element, ElementAdminStyleEvent::CONTEXT_SEARCH, $data);
-                }
-
+                $this->addAdminStyle($element, ElementAdminStyleEvent::CONTEXT_SEARCH, $data);
                 $elements[] = $data;
             }
         }

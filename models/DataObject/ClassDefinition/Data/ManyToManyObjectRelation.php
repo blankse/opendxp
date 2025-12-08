@@ -177,9 +177,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
         if (is_array($data) && count($data) > 0) {
             foreach ($data as $referencedObject) {
                 if ($referencedObject instanceof DataObject\Concrete) {
-                    $return[] = class_exists(GridData\DataObject::class)
-                        ? GridData\DataObject::getData($referencedObject, $gridFields, params: ['purpose' => 'editmode'])
-                        : [];
+                    $return[] = GridData\DataObject::getData($referencedObject, $gridFields, params: ['purpose' => 'editmode']);
                 }
             }
         }
