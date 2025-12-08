@@ -40,12 +40,9 @@ use OpenDxp\Model\Element\DirtyIndicatorInterface;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Tool;
 use OpenDxp\Tool\Admin as AdminTool;
-use OpenDxp\Tool\Session;
 use stdClass;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\ExpressionLanguage\SyntaxError;
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBagInterface;
 use Throwable;
 
 /**
