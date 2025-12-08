@@ -20,7 +20,6 @@ use Exception;
 use OpenDxp\Bundle\CustomReportsBundle\Tool;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
-use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
 use OpenDxp\Model\Element\Service;
 use OpenDxp\Model\Exception\ConfigWriteException;
 use stdClass;
@@ -264,9 +263,6 @@ class CustomReportController extends UserAwareController
     public function dataAction(Request $request): JsonResponse
     {
         $this->checkPermission('reports');
-        if (!class_exists(\OpenDxp\Bundle\AdminBundle\Helper\QueryParams::class)) {
-            throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
-        }
         $offset = $request->request->getInt('start', 0);
         $limit = $request->request->getInt('limit', 40);
         $config = Tool\Config::getByName($request->request->getString('name'));
@@ -438,16 +434,15 @@ class CustomReportController extends UserAwareController
     // gets the sort, direction, filters, drilldownfilters from grid or initial config
     private function getSortAndFilters(Request $request, stdClass $configuration): array
     {
-        $sortingSettings = null;
         $sort = null;
         $dir = null;
-        if (class_exists('\OpenDxp\Bundle\AdminBundle\Helper\QueryParams')) {
-            $sortingSettings = \OpenDxp\Bundle\AdminBundle\Helper\QueryParams::extractSortingSettings(array_merge($request->request->all(), $request->query->all()));
-        }
-        if (is_array($sortingSettings) && $sortingSettings['orderKey']) {
+        $sortingSettings = \OpenDxp\Bundle\AdminBundle\Helper\QueryParams::extractSortingSettings(array_merge($request->request->all(), $request->query->all()));
+
+        if ($sortingSettings['orderKey']) {
             $sort = $sortingSettings['orderKey'];
             $dir = $sortingSettings['order'];
         }
+
         $filters = ($request->request->has('filter') ? json_decode($request->request->getString('filter'), true) : null);
         $drillDownFilters = $request->request->all('drillDownFilters');
         if ($sort === null && $dir === null && property_exists($configuration, 'orderby') && $configuration->orderby !== '' && $configuration->orderbydir !== '') {

@@ -489,10 +489,6 @@ class ModelAssetPermissionsTest extends ModelTestCase
 
     public function testSearch(): void
     {
-        // Tests are disabled when not using admin-ui-classic-bundle ^1.5
-        if (!class_exists(\OpenDxp\Bundle\AdminBundle\Service\GridData\Asset::class)) {
-            return;
-        }
         $admin = User::getByName('admin');
 
         //search hugo
@@ -530,11 +526,6 @@ class ModelAssetPermissionsTest extends ModelTestCase
 
     public function testManyElementSearch(): void
     {
-        // Tests are disabled when not using admin-ui-classic-bundle ^1.5
-        if (!class_exists(\OpenDxp\Bundle\AdminBundle\Service\GridData\Asset::class)) {
-            return;
-        }
-
         $admin = User::getByName('admin');
 
         //prepare additional data

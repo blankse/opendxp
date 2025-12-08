@@ -20,7 +20,6 @@ use OpenDxp\Bundle\GlossaryBundle\Model\Glossary;
 use OpenDxp\Cache;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
-use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
 use OpenDxp\Model\Document;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,10 +100,6 @@ class SettingsController extends UserAwareController
                 return $this->jsonResponse(['data' => $glossary->getObjectVars(), 'success' => true]);
             }
         } else {
-            if (!class_exists(\OpenDxp\Bundle\AdminBundle\Helper\QueryParams::class)) {
-                throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
-            }
-
             $list = new Glossary\Listing();
             $list->setLimit($request->request->getInt('limit', 50));
             $list->setOffset($request->request->getInt('start'));

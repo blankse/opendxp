@@ -215,15 +215,13 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
                 $index = $mkey + 1;
                 $object = $metaObject->getObject();
                 if ($object instanceof DataObject\Concrete) {
-                    $columnData = class_exists(GridData\DataObject::class)
-                        ? GridData\DataObject::getData($object, $gridFields, params: ['purpose' => 'editmode'])
-                        : [];
+                    $columnData = GridData\DataObject::getData($object, $gridFields, params: ['purpose' => 'editmode']);
                     foreach ($this->getColumns() as $c) {
                         $getter = 'get' . ucfirst($c['key']);
 
                         try {
                             $columnData[$c['key']] = $metaObject->$getter();
-                        } catch (Exception $e) {
+                        } catch (Exception) {
                             Logger::debug('Meta column '.$c['key'].' does not exist');
                         }
                     }

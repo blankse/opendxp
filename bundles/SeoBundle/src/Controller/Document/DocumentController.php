@@ -15,11 +15,10 @@
 
 namespace OpenDxp\Bundle\SeoBundle\Controller\Document;
 
+use OpenDxp\Bundle\AdminBundle\Controller\Traits\DocumentTreeConfigTrait;
 use OpenDxp\Bundle\AdminBundle\Event\AdminEvents;
-use OpenDxp\Bundle\SeoBundle\Controller\Traits\DocumentTreeConfigWrapperTrait;
 use OpenDxp\Controller\Traits\JsonHelperTrait;
 use OpenDxp\Controller\UserAwareController;
-use OpenDxp\Extension\Bundle\Exception\AdminClassicBundleNotFoundException;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Document\Page;
 use OpenDxp\Routing\Dynamic\DocumentRouteHandler;
@@ -36,7 +35,7 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 class DocumentController extends UserAwareController
 {
     use JsonHelperTrait;
-    use DocumentTreeConfigWrapperTrait;
+    use DocumentTreeConfigTrait;
 
     private const DOCUMENT_ROOT_ID = 1;
 
@@ -66,10 +65,6 @@ class DocumentController extends UserAwareController
         DocumentRouteHandler $documentRouteHandler
     ): JsonResponse {
         $this->checkPermission('seo_document_editor');
-
-        if (!class_exists(AdminEvents::class)) {
-            throw new AdminClassicBundleNotFoundException('This action requires package "open-dxp/admin-ui-classic-bundle" to be installed.');
-        }
 
         $allParams = array_merge($request->request->all(), $request->query->all());
 

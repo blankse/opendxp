@@ -42,7 +42,7 @@ class SearchBackendListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        $events = [
+        return [
             DataObjectEvents::POST_ADD => 'onPostAddUpdateElement',
             DocumentEvents::POST_ADD => 'onPostAddUpdateElement',
             AssetEvents::POST_ADD => 'onPostAddUpdateElement',
@@ -54,14 +54,9 @@ class SearchBackendListener implements EventSubscriberInterface
             DataObjectEvents::POST_UPDATE => 'onPostAddUpdateElement',
             DocumentEvents::POST_UPDATE => 'onPostAddUpdateElement',
             AssetEvents::POST_UPDATE => 'onPostAddUpdateElement',
+
+            AdminEvents::OBJECT_LIST_HANDLE_FULLTEXT_QUERY => 'onHandleFulltextQuery',
         ];
-
-        // used when admin UI classic bundle is installed
-        if (class_exists(AdminEvents::class) && defined(AdminEvents::class . '::OBJECT_LIST_HANDLE_FULLTEXT_QUERY')) {
-            $events[AdminEvents::OBJECT_LIST_HANDLE_FULLTEXT_QUERY] = 'onHandleFulltextQuery';
-        }
-
-        return $events;
     }
 
     public function onPostAddUpdateElement(ElementEventInterface $e): void
