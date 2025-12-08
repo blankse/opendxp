@@ -20,6 +20,7 @@ use Exception;
 use JsonSerializable;
 use OpenDxp;
 use OpenDxp\Model;
+use Override;
 use RuntimeException;
 use stdClass;
 
@@ -94,7 +95,7 @@ class Config extends Model\AbstractModel implements JsonSerializable
             $dao->getByName($name);
 
             return $report;
-        } catch (Model\Exception\NotFoundException $e) {
+        } catch (Model\Exception\NotFoundException) {
             return null;
         }
     }
@@ -104,11 +105,7 @@ class Config extends Model\AbstractModel implements JsonSerializable
         $reports = [];
 
         $list = new Config\Listing();
-        if ($user) {
-            $items = $list->getDao()->loadForGivenUser($user);
-        } else {
-            $items = $list->getDao()->loadList();
-        }
+        $items = $user ? $list->getDao()->loadForGivenUser($user) : $list->getDao()->loadList();
 
         foreach ($items as $item) {
             $reports[] = [
@@ -129,7 +126,7 @@ class Config extends Model\AbstractModel implements JsonSerializable
      */
     public static function getAdapter(?stdClass $configuration, ?Config $fullConfig = null): Adapter\CustomReportAdapterInterface
     {
-        if ($configuration === null) {
+        if (!$configuration instanceof stdClass) {
             $configuration = new stdClass();
         }
 
@@ -343,12 +340,10 @@ class Config extends Model\AbstractModel implements JsonSerializable
     public function getSharedUserIds(): array
     {
         $sharedUserIds = [];
-        if ($this->sharedUserNames) {
-            foreach ($this->sharedUserNames as $username) {
-                $user = Model\User::getByName($username);
-                if ($user) {
-                    $sharedUserIds[] = $user->getId();
-                }
+        foreach ($this->sharedUserNames as $username) {
+            $user = Model\User::getByName($username);
+            if ($user) {
+                $sharedUserIds[] = $user->getId();
             }
         }
 
@@ -361,12 +356,10 @@ class Config extends Model\AbstractModel implements JsonSerializable
     public function getSharedRoleIds(): array
     {
         $sharedRoleIds = [];
-        if ($this->sharedRoleNames) {
-            foreach ($this->sharedRoleNames as $name) {
-                $role = Model\User\Role::getByName($name);
-                if ($role) {
-                    $sharedRoleIds[] = $role->getId();
-                }
+        foreach ($this->sharedRoleNames as $name) {
+            $role = Model\User\Role::getByName($name);
+            if ($role) {
+                $sharedRoleIds[] = $role->getId();
             }
         }
 
@@ -414,6 +407,7 @@ class Config extends Model\AbstractModel implements JsonSerializable
         return $data;
     }
 
+    #[Override]
     public function __clone(): void
     {
         if ($this->dao) {

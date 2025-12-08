@@ -37,7 +37,7 @@ class DocumentController extends UserAwareController
     use JsonHelperTrait;
     use DocumentTreeConfigTrait;
 
-    private const DOCUMENT_ROOT_ID = 1;
+    private const int DOCUMENT_ROOT_ID = 1;
 
     #[Route('/seopanel-tree-root', name: 'opendxp_bundle_seo_document_document_seopaneltreeroot', methods: ['GET'])]
     public function seopanelTreeRootAction(DocumentRouteHandler $documentRouteHandler): JsonResponse
@@ -66,7 +66,7 @@ class DocumentController extends UserAwareController
     ): JsonResponse {
         $this->checkPermission('seo_document_editor');
 
-        $allParams = array_merge($request->request->all(), $request->query->all());
+        $allParams = [...$request->request->all(), ...$request->query->all()];
 
         $filterPrepareEvent = new GenericEvent($this, [
             'requestParams' => $allParams,

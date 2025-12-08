@@ -54,7 +54,7 @@ final class Tool
      */
     public static function hasCurrentRequest(): bool
     {
-        return self::$currentRequest !== null;
+        return self::$currentRequest instanceof \Symfony\Component\HttpFoundation\Request;
     }
 
     /**
@@ -73,11 +73,7 @@ final class Tool
             return true;
         }
 
-        if (in_array($language, $languages)) {
-            return true;
-        }
-
-        return false;
+        return in_array($language, $languages);
     }
 
     /**
@@ -89,7 +85,7 @@ final class Tool
      */
     public static function getValidLanguages(): array
     {
-        if (empty(self::$validLanguages)) {
+        if (self::$validLanguages === []) {
             $config = SystemSettingsConfig::get()['general'];
             if (empty($config['valid_languages'])) {
                 return [];
@@ -109,7 +105,7 @@ final class Tool
 
     public static function getRequiredLanguages(): array
     {
-        if (empty(self::$requiredLanguages) === true) {
+        if (self::$requiredLanguages === []) {
             $config = SystemSettingsConfig::get()['general'];
             if (empty($config['required_languages'])) {
                 return Tool::getValidLanguages();
@@ -159,10 +155,11 @@ final class Tool
         $config = SystemSettingsConfig::get()['general'];
         $defaultLanguage = $config['default_language'] ?? null;
         $languages = self::getValidLanguages();
-
-        if (!empty($languages) && in_array($defaultLanguage, $languages)) {
+        if ($languages !== [] && in_array($defaultLanguage, $languages)) {
             return $defaultLanguage;
-        } elseif (!empty($languages)) {
+        }
+
+        if ($languages !== []) {
             return $languages[0];
         }
 
@@ -233,11 +230,7 @@ final class Tool
                 $displayName = Locale::getDisplayName($code, $locale);
                 $displayRegion = Locale::getDisplayRegion($code, $locale);
 
-                if ($displayRegion) {
-                    $translation = $displayRegion . ' [' . $codeBCP . ']';
-                } else {
-                    $translation = $displayName . ' [' . $codeBCP . ']';
-                }
+                $translation = $displayRegion ? $displayRegion . ' [' . $codeBCP . ']' : $displayName . ' [' . $codeBCP . ']';
 
                 $languageOptions[$codeBCP] = $translation;
             }
@@ -252,14 +245,12 @@ final class Tool
 
     private static function resolveRequest(?Request $request = null): ?Request
     {
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             // do an extra check for the container as we might be in a state where no container is set yet
             if (OpenDxp::hasContainer()) {
                 $request = OpenDxp::getContainer()->get('request_stack')->getMainRequest();
-            } else {
-                if (null !== self::$currentRequest) {
-                    return self::$currentRequest;
-                }
+            } elseif (self::$currentRequest instanceof \Symfony\Component\HttpFoundation\Request) {
+                return self::$currentRequest;
             }
         }
 
@@ -268,7 +259,7 @@ final class Tool
 
     public static function isFrontend(?Request $request = null): bool
     {
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             $request = OpenDxp::getContainer()->get('request_stack')->getMainRequest();
         }
 
@@ -288,7 +279,7 @@ final class Tool
     {
         $request = self::resolveRequest($request);
 
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             return false;
         }
 
@@ -318,7 +309,7 @@ final class Tool
     {
         $request = self::resolveRequest($request);
 
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             return false;
         }
 
@@ -330,17 +321,10 @@ final class Tool
             return false;
         }
 
-        $requestKeys = array_merge(
-            array_keys($request->query->all()),
-            array_keys($request->request->all())
-        );
+        $requestKeys = [...array_keys($request->query->all()), ...array_keys($request->request->all())];
 
         // check for manually disabled ?opendxp_outputfilters_disabled=true
-        if (in_array('opendxp_outputfilters_disabled', $requestKeys) && OpenDxp::inDebugMode()) {
-            return false;
-        }
-
-        return true;
+        return !(in_array('opendxp_outputfilters_disabled', $requestKeys) && OpenDxp::inDebugMode());
     }
 
     /**
@@ -350,7 +334,7 @@ final class Tool
     {
         $request = self::resolveRequest($request);
 
-        if (null === $request || !$request->getHost()) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request || !$request->getHost()) {
             $config = SystemSettingsConfig::get()['general'];
             $domain = $config['domain'];
 
@@ -367,7 +351,7 @@ final class Tool
     {
         $request = self::resolveRequest($request);
 
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             return 'http';
         }
 
@@ -387,7 +371,7 @@ final class Tool
         $hostname = '';
         $port = '';
 
-        if (null !== $request) {
+        if ($request instanceof \Symfony\Component\HttpFoundation\Request) {
             $protocol = $request->getScheme();
             $hostname = $request->getHost();
 
@@ -437,9 +421,8 @@ final class Tool
         }
 
         $ips = explode(',', $ip);
-        $ip = trim(array_shift($ips));
 
-        return $ip;
+        return trim(array_shift($ips));
     }
 
     /**
@@ -449,7 +432,7 @@ final class Tool
     {
         $request = self::resolveRequest($request);
 
-        if (null === $request) {
+        if (!$request instanceof \Symfony\Component\HttpFoundation\Request) {
             return null;
         }
 
@@ -501,7 +484,7 @@ final class Tool
                 parse_str($urlParts['query'], $urlParams);
 
                 if ($urlParams) {
-                    $paramsGet = array_merge($urlParams, $paramsGet);
+                    $paramsGet = [...$urlParams, ...$paramsGet];
                 }
             }
 
@@ -519,7 +502,7 @@ final class Tool
             if ($response->getStatusCode() < 300) {
                 return (string)$response->getBody();
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
         }
 
         return false;
@@ -573,10 +556,9 @@ final class Tool
         // OpenDxp\Tool::ClassMapAutoloader(), but don't know what actual conditions causes this problem.
         // but to be save we log the errors into the debug.log, so if anything else happens we can see it there
         // the normal warning is e.g. Warning: include_once(Path/To/Class.php): failed to open stream: No such file or directory in ...
-        set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline): bool {
+        set_error_handler(fn (int $errno, string $errstr, string $errfile, int $errline): bool =>
             //Logger::debug(implode(" ", [$errno, $errstr, $errfile, $errline]));
-            return true;
-        });
+            true);
 
         $exists = $functionName($class);
 

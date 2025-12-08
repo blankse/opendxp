@@ -19,6 +19,7 @@ namespace OpenDxp\Model\User;
 use OpenDxp\Model\User\Workspace\Asset;
 use OpenDxp\Model\User\Workspace\DataObject;
 use OpenDxp\Model\User\Workspace\Document;
+use Override;
 
 /**
  * @method \OpenDxp\Model\User\UserRole\Dao getDao()
@@ -88,6 +89,7 @@ abstract class UserRole extends AbstractUser implements UserRoleInterface
      */
     protected array $websiteTranslationLanguagesEdit = [];
 
+    #[Override]
     protected function update(): void
     {
         $this->getDao()->update();
@@ -147,11 +149,7 @@ abstract class UserRole extends AbstractUser implements UserRoleInterface
 
     public function getPermission(string $permissionName): bool
     {
-        if (in_array($permissionName, $this->permissions)) {
-            return true;
-        }
-
-        return false;
+        return in_array($permissionName, $this->permissions);
     }
 
     /**
@@ -380,7 +378,7 @@ abstract class UserRole extends AbstractUser implements UserRoleInterface
         }
 
         if (empty($array) || !is_array($array)) {
-            $array = [];
+            return [];
         }
 
         return $array;

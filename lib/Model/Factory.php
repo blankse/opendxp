@@ -19,6 +19,7 @@ namespace OpenDxp\Model;
 
 use OpenDxp\Loader\ImplementationLoader\ClassMapLoader;
 use OpenDxp\Loader\ImplementationLoader\ImplementationLoader;
+use Override;
 
 /**
  * @internal
@@ -30,13 +31,14 @@ final class Factory extends ImplementationLoader implements FactoryInterface
         $map = [];
         foreach ($this->loaders as $loader) {
             if ($loader instanceof ClassMapLoader) {
-                $map = array_merge($map, $loader->getClassMap());
+                $map = [...$map, ...$loader->getClassMap()];
             }
         }
 
         return $map;
     }
 
+    #[Override]
     public function build(string $name, array $params = []): AbstractModel
     {
         return parent::build($name, $params);

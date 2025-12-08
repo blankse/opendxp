@@ -22,6 +22,7 @@ use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Service;
 use OpenDxp\Model\DataObject\Concrete;
+use Override;
 
 class User extends Model\DataObject\ClassDefinition\Data\Select
 {
@@ -49,15 +50,15 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
     /**
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      *
-     * @param null|Model\DataObject\Concrete $object
      *
      */
+    #[Override]
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): ?string
     {
         if (!empty($data)) {
             try {
                 $this->checkValidity($data, true, $params);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $data = null;
             }
         }
@@ -67,16 +68,15 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
-     * @param Model\DataObject\Concrete|null $object
      */
+    #[Override]
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         $this->init();
         if (!empty($data)) {
             try {
                 $this->checkValidity($data, true, $params);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $data = null;
             }
         }
@@ -112,6 +112,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         $this->setOptions($options);
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && empty($data)) {
@@ -126,6 +127,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         }
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         return '';
@@ -156,6 +158,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         $this->init();
     }
 
+    #[Override]
     public function jsonSerialize(): mixed
     {
         if (Service::doRemoveDynamicOptions()) {
@@ -165,6 +168,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         return parent::jsonSerialize();
     }
 
+    #[Override]
     public function resolveBlockedVars(): array
     {
         $blockedVars = parent::resolveBlockedVars();
@@ -173,6 +177,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         return $blockedVars;
     }
 
+    #[Override]
     public function getUnique(): bool
     {
         return $this->unique;
@@ -183,6 +188,7 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
         $this->unique = $unique;
     }
 
+    #[Override]
     public function getFieldType(): string
     {
         return 'user';

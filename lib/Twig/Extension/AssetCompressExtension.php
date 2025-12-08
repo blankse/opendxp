@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OpenDxp\Twig\Extension;
 
 use OpenDxp\Twig\TokenParser\AssetCompressParser;
+use Override;
 use Twig\Extension\AbstractExtension;
 
 /**
@@ -25,6 +26,7 @@ use Twig\Extension\AbstractExtension;
  */
 class AssetCompressExtension extends AbstractExtension
 {
+    #[Override]
     public function getTokenParsers(): array
     {
         return [

@@ -21,6 +21,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 use stdClass;
 
 class StructuredTable extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, TypeDeclarationSupportInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface
@@ -159,7 +160,6 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     * @param null|DataObject\Concrete $object
      *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      *
@@ -204,21 +204,21 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
         $editArray = [];
-        if ($data instanceof DataObject\Data\StructuredTable) {
-            if ($data->isEmpty()) {
-                return [];
-            } else {
-                $data = $data->getData();
-                foreach ($this->getRows() as $r) {
-                    $editArrayItem = [];
-                    $editArrayItem['__row_identifyer'] = $r['key'];
-                    $editArrayItem['__row_label'] = $r['label'];
-                    foreach ($this->getCols() as $c) {
-                        $editArrayItem[$c['key']] = $data[$r['key']][$c['key']];
-                    }
-                    $editArray[] = $editArrayItem;
-                }
+        if (!$data instanceof DataObject\Data\StructuredTable) {
+            return $editArray;
+        }
+        if ($data->isEmpty()) {
+            return [];
+        }
+        $data = $data->getData();
+        foreach ($this->getRows() as $r) {
+            $editArrayItem = [];
+            $editArrayItem['__row_identifyer'] = $r['key'];
+            $editArrayItem['__row_label'] = $r['label'];
+            foreach ($this->getCols() as $c) {
+                $editArrayItem[$c['key']] = $data[$r['key']][$c['key']];
             }
+            $editArray[] = $editArrayItem;
         }
 
         return $editArray;
@@ -243,16 +243,13 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
         return $table;
     }
 
-    /**
-     * @param DataObject\Concrete|null $object
-     *
-     */
     public function getDataForGrid(?DataObject\Data\StructuredTable $data, ?Concrete $object = null, array $params = []): ?array
     {
-        if ($data instanceof DataObject\Data\StructuredTable) {
-            if (!$data->isEmpty()) {
-                return $data->getData();
-            }
+        if (!$data instanceof DataObject\Data\StructuredTable) {
+            return null;
+        }
+        if (!$data->isEmpty()) {
+            return $data->getData();
         }
 
         return null;
@@ -264,6 +261,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof DataObject\Data\StructuredTable) {
@@ -273,6 +271,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
         return '';
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory()) {
@@ -297,6 +296,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
         }
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $value = $this->getDataFromObjectParam($object, $params);
@@ -370,6 +370,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
         return $mapper[$type];
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         if ($data instanceof DataObject\Data\StructuredTable) {
@@ -379,6 +380,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
         return true;
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -387,6 +389,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     /** See parent class.
      *
      */
+    #[Override]
     public function getDiffDataForEditMode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         $defaultData = parent::getDiffDataForEditMode($data, $object, $params);
@@ -402,6 +405,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     /**
      * @param DataObject\ClassDefinition\Data\StructuredTable $mainDefinition
      */
+    #[Override]
     public function synchronizeWithMainDefinition(DataObject\ClassDefinition\Data $mainDefinition): void
     {
         $this->labelWidth = $mainDefinition->labelWidth;
@@ -441,9 +445,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     public function normalize(mixed $value, array $params = []): ?array
     {
         if ($value instanceof DataObject\Data\StructuredTable) {
-            $data = $value->getData();
-
-            return $data;
+            return $value->getData();
         }
 
         return null;

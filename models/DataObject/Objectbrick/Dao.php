@@ -21,6 +21,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\CustomResourcePersistingInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\LazyLoadingSupportInterface;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\ResourcePersistenceAwareInterface;
+use Override;
 
 /**
  * @internal
@@ -29,6 +30,7 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data\ResourcePersistenceAwareInterf
  */
 class Dao extends Model\DataObject\Fieldcollection\Dao
 {
+    #[Override]
     public function load(DataObject\Concrete $object, array $params = []): array
     {
         /** @var DataObject\ClassDefinition\Data\Objectbricks $fieldDef */
@@ -47,7 +49,7 @@ class Dao extends Model\DataObject\Fieldcollection\Dao
 
             try {
                 $results = $this->db->fetchAllAssociative('SELECT * FROM '.$tableName.' WHERE id = ? AND fieldname = ?', [$object->getId(), $this->model->getFieldname()]);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 $results = [];
             }
 
@@ -73,10 +75,8 @@ class Dao extends Model\DataObject\Fieldcollection\Dao
                     if ($fd instanceof CustomResourcePersistingInterface) {
                         $doLoad = true;
 
-                        if ($fd instanceof LazyLoadingSupportInterface) {
-                            if ($fd->getLazyLoading()) {
-                                $doLoad = false;
-                            }
+                        if ($fd instanceof LazyLoadingSupportInterface && $fd->getLazyLoading()) {
+                            $doLoad = false;
                         }
 
                         if ($doLoad) {
@@ -90,7 +90,7 @@ class Dao extends Model\DataObject\Fieldcollection\Dao
                     if ($fd instanceof ResourcePersistenceAwareInterface) {
                         if (is_array($fd->getColumnType())) {
                             $multidata = [];
-                            foreach ($fd->getColumnType() as $fkey => $fvalue) {
+                            foreach (array_keys($fd->getColumnType()) as $fkey) {
                                 $multidata[$key . '__' . $fkey] = $result[$key . '__' . $fkey];
                             }
                             $brick->setValue(
@@ -125,6 +125,7 @@ class Dao extends Model\DataObject\Fieldcollection\Dao
      * @param bool $saveMode true if called from save method
      *
      */
+    #[Override]
     public function delete(DataObject\Concrete $object, bool $saveMode = false): array
     {
         // this is to clean up also the inherited values

@@ -17,18 +17,21 @@ declare(strict_types=1);
 namespace OpenDxp\Bundle\SimpleBackendSearchBundle;
 
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
+use Override;
 
 /**
  * @internal
  */
 class Installer extends SettingsStoreAwareInstaller
 {
+    #[Override]
     public function install(): void
     {
         $this->installDatabaseTable();
         parent::install();
     }
 
+    #[Override]
     public function uninstall(): void
     {
         $this->uninstallDatabaseTable();

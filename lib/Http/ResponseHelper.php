@@ -61,10 +61,6 @@ class ResponseHelper
             return false;
         }
 
-        if (str_contains((string)$response->getContent(), '<html')) {
-            return true;
-        }
-
-        return false;
+        return str_contains((string)$response->getContent(), '<html');
     }
 }

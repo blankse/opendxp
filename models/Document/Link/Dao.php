@@ -16,6 +16,7 @@
 namespace OpenDxp\Model\Document\Link;
 
 use OpenDxp\Model;
+use Override;
 
 /**
  * @internal
@@ -30,6 +31,7 @@ class Dao extends Model\Document\Dao
      *
      * @throws Model\Exception\NotFoundException
      */
+    #[Override]
     public function getById(?int $id = null): void
     {
         if ($id != null) {
@@ -50,6 +52,7 @@ class Dao extends Model\Document\Dao
         }
     }
 
+    #[Override]
     public function create(): void
     {
         parent::create();

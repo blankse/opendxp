@@ -25,6 +25,7 @@ use OpenDxp\Extension\Document\Areabrick\EditableDialogBoxInterface;
 use OpenDxp\Model;
 use OpenDxp\Templating\Renderer\EditableRenderer;
 use OpenDxp\Tool\HtmlUtils;
+use Override;
 
 /**
  * @method \OpenDxp\Model\Document\Editable\Dao getDao()
@@ -56,6 +57,7 @@ class Area extends Model\Document\Editable
         ];
     }
 
+    #[Override]
     public function getDataForResource(): array
     {
         return [
@@ -70,6 +72,7 @@ class Area extends Model\Document\Editable
         ];
     }
 
+    #[Override]
     public function admin(): void
     {
         $attributes = $this->getEditmodeElementAttributes();
@@ -86,7 +89,8 @@ class Area extends Model\Document\Editable
             // Unsupported element was passed (e.g., Block, Areablock, ...)
             // or an Areas was passed, which is not supported to avoid too long editable names
             throw new Exception(sprintf('Using editables of type "%s" for the editable dialog "%s" is not supported.', get_debug_type($config), $dialogId));
-        } elseif ($config instanceof Model\Document\Editable) {
+        }
+        if ($config instanceof Model\Document\Editable) {
             // Map editable to array config
             $config = [
                 'type' => $config->getType(),
@@ -135,7 +139,7 @@ class Area extends Model\Document\Editable
         }
 
         if (is_array($config['globalParams'] ?? null)) {
-            $params = array_merge($config['globalParams'], $params);
+            $params = [...$config['globalParams'], ...$params];
         }
 
         $info->setParams($params);
@@ -185,10 +189,8 @@ class Area extends Model\Document\Editable
         }
 
         $params = [];
-        if (isset($config['params']) && is_array($config['params']) && array_key_exists($config['type'], $config['params'])) {
-            if (is_array($config['params'][$config['type']])) {
-                $params = $config['params'][$config['type']];
-            }
+        if (isset($config['params']) && is_array($config['params']) && array_key_exists($config['type'], $config['params']) && is_array($config['params'][$config['type']])) {
+            $params = $config['params'][$config['type']];
         }
 
         $info->setParams($params);

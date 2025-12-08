@@ -19,8 +19,9 @@ namespace OpenDxp\Model\DataObject\Data;
 use Exception;
 use OpenDxp\Model\DataObject\OwnerAwareFieldInterface;
 use OpenDxp\Model\DataObject\Traits\OwnerAwareFieldTrait;
+use Stringable;
 
-class RgbaColor implements OwnerAwareFieldInterface
+class RgbaColor implements OwnerAwareFieldInterface, Stringable
 {
     use OwnerAwareFieldTrait;
 
@@ -120,7 +121,7 @@ class RgbaColor implements OwnerAwareFieldInterface
             $result = sprintf('%02x%02x%02x', $this->r, $this->g, $this->b);
         }
         if ($withHash) {
-            $result = '#' . $result;
+            return '#' . $result;
         }
 
         return $result;
@@ -134,8 +135,8 @@ class RgbaColor implements OwnerAwareFieldInterface
     {
         $hexValue = ltrim($hexValue, '#');
         $length = strlen($hexValue);
-        if ($length == 6 || $length == 8) {
-            if ($length == 6) {
+        if ($length === 6 || $length === 8) {
+            if ($length === 6) {
                 [$r, $g, $b] = sscanf($hexValue, '%02x%02x%02x');
                 $a = 255;
             } else {

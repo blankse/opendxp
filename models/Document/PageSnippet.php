@@ -28,6 +28,7 @@ use OpenDxp\Model;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Document\Editable\Loader\EditableLoaderInterface;
 use OpenDxp\SystemSettingsConfig;
+use Override;
 
 /**
  * @method Model\Document\PageSnippet\Dao getDao()
@@ -124,6 +125,7 @@ abstract class PageSnippet extends Model\Document
         return self::$getInheritedValues;
     }
 
+    #[Override]
     public function save(array $parameters = []): static
     {
         // checking the required editables renders the document, so this needs to be
@@ -136,6 +138,7 @@ abstract class PageSnippet extends Model\Document
         return parent::save($parameters);
     }
 
+    #[Override]
     protected function update(array $params = []): void
     {
         // update elements
@@ -218,6 +221,7 @@ abstract class PageSnippet extends Model\Document
         }
     }
 
+    #[Override]
     protected function doDelete(): void
     {
         // Dispatch Symfony Message Bus to delete versions
@@ -231,6 +235,7 @@ abstract class PageSnippet extends Model\Document
         parent::doDelete();
     }
 
+    #[Override]
     public function getCacheTags(array $tags = []): array
     {
         $tags = parent::getCacheTags($tags);
@@ -242,6 +247,7 @@ abstract class PageSnippet extends Model\Document
         return $tags;
     }
 
+    #[Override]
     public function resolveDependencies(): array
     {
         $dependencies = [parent::resolveDependencies()];
@@ -312,13 +318,13 @@ abstract class PageSnippet extends Model\Document
                 $loader = OpenDxp::getContainer()->get(Document\Editable\Loader\EditableLoader::class);
                 $editable = $loader->build($type);
 
-                $this->editables = $this->editables ?? [];
+                $this->editables ??= [];
                 $this->editables[$name] = $editable;
                 $this->editables[$name]->setDataFromEditmode($data);
                 $this->editables[$name]->setName($name);
                 $this->editables[$name]->setDocument($this);
             }
-        } catch (Exception $e) {
+        } catch (Exception) {
             Logger::warning("can't set element " . $name . ' with the type ' . $type . ' to the document: ' . $this->getRealFullPath());
         }
 
@@ -372,7 +378,7 @@ abstract class PageSnippet extends Model\Document
         if (!$inheritedEditable) {
             // check for content main document (inherit data)
             $contentMainDocument = $this->getContentMainDocument();
-            if ($contentMainDocument instanceof self && $contentMainDocument->getId() != $this->getId()) {
+            if ($contentMainDocument instanceof self && $contentMainDocument->getId() !== $this->getId()) {
                 $inheritedEditable = $contentMainDocument->getEditable($name);
                 if ($inheritedEditable) {
                     $inheritedEditable = clone $inheritedEditable;
@@ -455,7 +461,7 @@ abstract class PageSnippet extends Model\Document
 
     public function hasEditable(string $name): bool
     {
-        return $this->getEditable($name) !== null;
+        return $this->getEditable($name) instanceof \OpenDxp\Model\Document\Editable;
     }
 
     /**
@@ -468,7 +474,7 @@ abstract class PageSnippet extends Model\Document
 
             if (self::getGetInheritedValues() && $this->supportsContentMain() && $this->getContentMainDocument()) {
                 $contentMainEditables = $this->getContentMainDocument()->getEditables();
-                $documentEditables = array_merge($contentMainEditables, $documentEditables);
+                $documentEditables = [...$contentMainEditables, ...$documentEditables];
                 $this->inheritedEditables = $documentEditables;
             }
 
@@ -491,6 +497,7 @@ abstract class PageSnippet extends Model\Document
     /**
      * @return Model\Version[]
      */
+    #[Override]
     public function getVersions(): array
     {
         if ($this->versions === null) {
@@ -519,6 +526,7 @@ abstract class PageSnippet extends Model\Document
         return $this->getFullPath();
     }
 
+    #[Override]
     public function __sleep(): array
     {
         $finalVars = [];
@@ -554,10 +562,8 @@ abstract class PageSnippet extends Model\Document
 
         if (!$hostname) {
             $hostname = \OpenDxp\Config::getSystemConfiguration('general')['domain'];
-            if (empty($hostname)) {
-                if (!$hostname = \OpenDxp\Tool::getHostname()) {
-                    throw new Exception('No hostname available');
-                }
+            if (empty($hostname) && !$hostname = \OpenDxp\Tool::getHostname()) {
+                throw new Exception('No hostname available');
             }
         }
 
@@ -570,7 +576,7 @@ abstract class PageSnippet extends Model\Document
 
         $site = \OpenDxp\Tool\Frontend::getSiteForDocument($this);
         if ($site instanceof Model\Site && $site->getMainDomain()) {
-            $url = $scheme . $site->getMainDomain() . preg_replace('@^' . $site->getRootPath() . '/?@', '/', $this->getRealFullPath());
+            return $scheme . $site->getMainDomain() . preg_replace('@^' . $site->getRootPath() . '/?@', '/', $this->getRealFullPath());
         }
 
         return $url;
@@ -639,7 +645,7 @@ abstract class PageSnippet extends Model\Document
                         }
                     }
                 }
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // noting to do, as rendering the document failed for whatever reason
             }
         }
@@ -665,6 +671,7 @@ abstract class PageSnippet extends Model\Document
         $this->staticGeneratorLifetime = $staticGeneratorLifetime;
     }
 
+    #[Override]
     public function __wakeup(): void
     {
         $propertyMappings = [

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace OpenDxp\Model\DataObject\QuantityValue\Unit;
 
 use OpenDxp\Model;
+use Override;
 
 /**
  * @method \OpenDxp\Model\DataObject\QuantityValue\Unit\Listing\Dao getDao()
@@ -26,6 +27,7 @@ use OpenDxp\Model;
  */
 class Listing extends Model\Listing\AbstractListing
 {
+    #[Override]
     public function isValidOrderKey(string $key): bool
     {
         return in_array($key, ['abbreviation', 'group', 'id', 'longname', 'baseunit', 'factor'], true);

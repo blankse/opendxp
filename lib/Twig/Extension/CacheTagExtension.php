@@ -20,6 +20,7 @@ namespace OpenDxp\Twig\Extension;
 use OpenDxp\Cache;
 use OpenDxp\Tool;
 use OpenDxp\Twig\TokenParser\CacheParser;
+use Override;
 use Twig\Extension\AbstractExtension;
 use function is_null;
 
@@ -28,8 +29,9 @@ use function is_null;
  */
 class CacheTagExtension extends AbstractExtension
 {
-    private const CACHE_KEY_PREFIX = 'opendxp_twigcache_';
+    private const string CACHE_KEY_PREFIX = 'opendxp_twigcache_';
 
+    #[Override]
     public function getTokenParsers(): array
     {
         return [
@@ -71,6 +73,10 @@ class CacheTagExtension extends AbstractExtension
 
     private function isCacheEnabled(bool $force): bool
     {
-        return !Tool::isFrontendRequestByAdmin() || $force;
+        if (!Tool::isFrontendRequestByAdmin()) {
+            return true;
+        }
+
+        return $force;
     }
 }

@@ -17,6 +17,7 @@ declare(strict_types=1);
 
 namespace OpenDxp\Twig\Node;
 
+use Override;
 use Twig\Compiler;
 use Twig\Node\Node;
 
@@ -30,6 +31,7 @@ class AssetCompressNode extends Node
         parent::__construct(['body' => $body], [], $lineno, $tag);
     }
 
+    #[Override]
     public function compile(Compiler $compiler): void
     {
         $compiler

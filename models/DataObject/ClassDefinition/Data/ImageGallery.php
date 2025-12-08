@@ -23,6 +23,7 @@ use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Element;
 use OpenDxp\Normalizer\NormalizerInterface;
 use OpenDxp\Tool\Serialize;
+use Override;
 
 class ImageGallery extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, TypeDeclarationSupportInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface, IdRewriterInterface
 {
@@ -104,7 +105,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
             $ids = [];
             $fd = new Hotspotimage();
 
-            foreach ($data as $key => $item) {
+            foreach ($data as $item) {
                 $itemData = $fd->getDataForResource($item, $object, $params);
                 $ids[] = $itemData['__image'];
                 $hotspots[] = $itemData['__hotspots'];
@@ -152,7 +153,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
 
         $fd = new Hotspotimage();
 
-        $images = array_map('intval', explode(',', $images));
+        $images = array_map(intval(...), explode(',', $images));
         for ($i = 1; $i < count($images) - 1; $i++) {
             $imageId = $images[$i];
             $hotspotData = $hotspots[$i - 1];
@@ -253,6 +254,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof DataObject\Data\ImageGallery) {
@@ -262,6 +264,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
         return '';
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -272,11 +275,13 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
         return '';
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         return '';
     }
 
+    #[Override]
     public function getCacheTags(mixed $data, array $tags = []): array
     {
         if ($data instanceof DataObject\Data\ImageGallery) {
@@ -285,11 +290,11 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
                 $tags = $fd->getCacheTags($item, $tags);
             }
         }
-        $tags = array_unique($tags);
 
-        return $tags;
+        return array_unique($tags);
     }
 
+    #[Override]
     public function resolveDependencies(mixed $data): array
     {
         $dependencies = [];
@@ -298,7 +303,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
             $fd = new Hotspotimage();
             foreach ($data as $item) {
                 $itemDependencies = $fd->resolveDependencies($item);
-                $dependencies = array_merge($dependencies, $itemDependencies);
+                $dependencies = [...$dependencies, ...$itemDependencies];
             }
         }
 
@@ -327,6 +332,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
      *
      * @throws Element\ValidationException
      */
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (
@@ -339,6 +345,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
         parent::checkValidity($data, $omitMandatoryCheck);
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         if (empty($data)) {
@@ -347,7 +354,7 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
 
         if ($data instanceof DataObject\Data\ImageGallery) {
             $items = $data->getItems();
-            if (empty($items)) {
+            if ($items === []) {
                 return true;
             }
         }
@@ -360,13 +367,13 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
         $oldValue = $oldValue instanceof DataObject\Data\ImageGallery ? $oldValue->getItems() : [];
         $newValue = $newValue instanceof DataObject\Data\ImageGallery ? $newValue->getItems() : [];
 
-        if (count($oldValue) != count($newValue)) {
+        if (count($oldValue) !== count($newValue)) {
             return false;
         }
 
         $fd = new Hotspotimage();
 
-        foreach ($oldValue as $i => $item) {
+        foreach (array_keys($oldValue) as $i) {
             if (!$fd->isEqual($oldValue[$i], $newValue[$i])) {
                 return false;
             }
@@ -401,11 +408,9 @@ class ImageGallery extends Data implements ResourcePersistenceAwareInterface, Qu
             $list = [];
             $items = $value->getItems();
             $def = new Hotspotimage();
-            if ($items) {
-                foreach ($items as $item) {
-                    if ($item instanceof DataObject\Data\Hotspotimage) {
-                        $list[] = $def->normalize($item, $params);
-                    }
+            foreach ($items as $item) {
+                if ($item instanceof DataObject\Data\Hotspotimage) {
+                    $list[] = $def->normalize($item, $params);
                 }
             }
 

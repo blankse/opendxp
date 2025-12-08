@@ -42,6 +42,7 @@ namespace OpenDxp\Twig\Extension\Templating;
 use OpenDxp\Twig\Extension\Templating\Placeholder\AbstractExtension;
 use OpenDxp\Twig\Extension\Templating\Placeholder\Container;
 use OpenDxp\Twig\Extension\Templating\Placeholder\Exception;
+use Override;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
@@ -65,17 +66,15 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
     public function __invoke(?string $title = null, ?string $setType = null): static
     {
         if (null === $setType) {
-            $setType = (null === $this->getDefaultAttachOrder())
-                ? Container::APPEND
-                : $this->getDefaultAttachOrder();
+            $setType = $this->getDefaultAttachOrder() ?? Container::APPEND;
         }
 
         $title = (string) $title;
 
         if ($title !== '') {
-            if ($setType == Container::SET) {
+            if ($setType === Container::SET) {
                 $this->set($title);
-            } elseif ($setType == Container::PREPEND) {
+            } elseif ($setType === Container::PREPEND) {
                 $this->prepend($title);
             } else {
                 $this->append($title);
@@ -120,6 +119,7 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
      *
      *
      */
+    #[Override]
     public function toString(?string $indent = null, ?string $locale = null): string
     {
         $indent = (null !== $indent)

@@ -26,6 +26,7 @@ use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Element\ValidationException;
 use OpenDxp\Normalizer\NormalizerInterface;
 use OpenDxp\Tool\UserTimezone;
+use Override;
 
 class DateRange extends Data implements
     ResourcePersistenceAwareInterface,
@@ -152,6 +153,7 @@ class DateRange extends Data implements
     /**
      * @see Data::getVersionPreview
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof CarbonPeriod) {
@@ -171,6 +173,7 @@ class DateRange extends Data implements
      *
      * @throws Exception
      */
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -184,11 +187,13 @@ class DateRange extends Data implements
         return '';
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         return '';
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -221,9 +226,10 @@ class DateRange extends Data implements
             'fieldDefinitionsCache',
         ];
 
-        return array_merge($defaultBlockedVars, $this->getBlockedVarsForExport());
+        return [...$defaultBlockedVars, ...$this->getBlockedVarsForExport()];
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         $isEmpty = true;
@@ -238,7 +244,7 @@ class DateRange extends Data implements
 
         $fieldName = $this->getName();
 
-        if (true === $isEmpty && false === $omitMandatoryCheck && $this->getMandatory()) {
+        if ($isEmpty && false === $omitMandatoryCheck && $this->getMandatory()) {
             throw new ValidationException(sprintf('Empty mandatory field [ %s ]', $fieldName));
         }
 
@@ -276,7 +282,7 @@ class DateRange extends Data implements
         $newEndDate = $newValue->getEndDate();
 
         if ($oldStartDate->format('Y-m-d') === $newStartDate->format('Y-m-d')) {
-            if ($oldEndDate === null && $newEndDate === null) {
+            if (!$oldEndDate instanceof \Carbon\CarbonInterface && !$newEndDate instanceof \Carbon\CarbonInterface) {
                 return true;
             }
 
@@ -344,14 +350,10 @@ class DateRange extends Data implements
      */
     public function setColumnType(string|array $columnType): void
     {
-        if (is_array($columnType)) {
-            $this->columnType = $columnType;
-        } else {
-            $this->columnType = [
-                'start_date' => $columnType,
-                'end_date' => $columnType,
-            ];
-        }
+        $this->columnType = is_array($columnType) ? $columnType : [
+            'start_date' => $columnType,
+            'end_date' => $columnType,
+        ];
     }
 
     public function marshalVersion(Concrete $object, mixed $data): mixed

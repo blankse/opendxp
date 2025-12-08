@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OpenDxp\Bundle\InstallBundle;
 
 use OpenDxp\Bundle\InstallBundle\DependencyInjection\OpenDxpInstallExtension;
+use Override;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -26,6 +27,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class OpenDxpInstallBundle extends Bundle
 {
+    #[Override]
     public function getContainerExtension(): ?ExtensionInterface
     {
         if (null === $this->extension) {
@@ -35,6 +37,7 @@ class OpenDxpInstallBundle extends Bundle
         return $this->extension;
     }
 
+    #[Override]
     public function getPath(): string
     {
         return dirname(__DIR__);

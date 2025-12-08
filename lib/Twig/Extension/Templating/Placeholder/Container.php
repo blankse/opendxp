@@ -40,8 +40,9 @@ declare(strict_types=1);
 namespace OpenDxp\Twig\Extension\Templating\Placeholder;
 
 use ArrayObject;
+use Stringable;
 
-class Container extends ArrayObject
+class Container extends ArrayObject implements Stringable
 {
     /**
      * Whether or not to override all contents of placeholder
@@ -137,7 +138,7 @@ class Container extends ArrayObject
      */
     public function getValue(): mixed
     {
-        if (1 == count($this)) {
+        if (1 === count($this)) {
             $keys = $this->getKeys();
             $key = array_shift($keys);
 
@@ -246,10 +247,10 @@ class Container extends ArrayObject
     public function getWhitespace(int|string $indent): string
     {
         if (is_int($indent)) {
-            $indent = str_repeat(' ', $indent);
+            return str_repeat(' ', $indent);
         }
 
-        return (string) $indent;
+        return $indent;
     }
 
     /**
@@ -272,7 +273,7 @@ class Container extends ArrayObject
     public function nextIndex(): int
     {
         $keys = $this->getKeys();
-        if (0 == count($keys)) {
+        if (0 === count($keys)) {
             return 0;
         }
 
@@ -300,9 +301,8 @@ class Container extends ArrayObject
             . $this->getPrefix()
             . implode($this->getSeparator(), $items)
             . $this->getPostfix();
-        $return = preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
 
-        return $return;
+        return preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
     }
 
     /**

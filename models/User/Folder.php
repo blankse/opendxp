@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace OpenDxp\Model\User;
 
+use Override;
+
 /**
  * @method \OpenDxp\Model\User\Dao getDao()
  */
@@ -23,6 +25,7 @@ class Folder extends UserRole\Folder
 {
     protected string $type = 'userfolder';
 
+    #[Override]
     public function getChildren(): array
     {
         if ($this->children === null) {

@@ -18,16 +18,14 @@ namespace OpenDxp\Model\DataObject\Data;
 
 use OpenDxp\Model\DataObject\OwnerAwareFieldInterface;
 use OpenDxp\Model\DataObject\Traits\OwnerAwareFieldTrait;
+use Stringable;
 
-class ExternalImage implements OwnerAwareFieldInterface
+class ExternalImage implements OwnerAwareFieldInterface, Stringable
 {
     use OwnerAwareFieldTrait;
 
-    protected ?string $url = null;
-
-    public function __construct(?string $url = null)
+    public function __construct(protected ?string $url = null)
     {
-        $this->url = $url;
         $this->markMeDirty();
     }
 

@@ -20,6 +20,7 @@ use OpenDxp;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject\ClassDefinition\Service;
 use OpenDxp\Tool;
+use Override;
 
 class Language extends Model\DataObject\ClassDefinition\Data\Select
 {
@@ -38,10 +39,8 @@ class Language extends Model\DataObject\ClassDefinition\Data\Select
         $options = [];
 
         foreach ($locales as $short => $translation) {
-            if ($this->getOnlySystemLanguages()) {
-                if (!in_array($short, $validLanguages)) {
-                    continue;
-                }
+            if ($this->getOnlySystemLanguages() && !in_array($short, $validLanguages)) {
+                continue;
             }
 
             $options[] = [
@@ -79,6 +78,7 @@ class Language extends Model\DataObject\ClassDefinition\Data\Select
         return $obj;
     }
 
+    #[Override]
     public function jsonSerialize(): mixed
     {
         if (Service::doRemoveDynamicOptions()) {
@@ -88,6 +88,7 @@ class Language extends Model\DataObject\ClassDefinition\Data\Select
         return parent::jsonSerialize();
     }
 
+    #[Override]
     public function resolveBlockedVars(): array
     {
         $blockedVars = parent::resolveBlockedVars();
@@ -96,11 +97,13 @@ class Language extends Model\DataObject\ClassDefinition\Data\Select
         return $blockedVars;
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;
     }
 
+    #[Override]
     public function getFieldType(): string
     {
         return 'language';

@@ -20,6 +20,7 @@ use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, TypeDeclarationSupportInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface
 {
@@ -81,8 +82,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -91,8 +90,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -111,7 +108,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
      *
      * @see Data::getDataForEditmode
      *
@@ -152,31 +148,32 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
             $value['type'] = 'html';
 
             return $value;
-        } else {
-            return '';
         }
+
+        return '';
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         if ($this->isExcludeFromSearchIndex()) {
             return '';
-        } else {
-            return parent::getDataForSearchIndex($object, $params);
         }
+
+        return parent::getDataForSearchIndex($object, $params);
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
-        if (!$omitMandatoryCheck && $this->getMaxLength() !== null) {
-            if ($data !== null && mb_strlen($data) > $this->getMaxLength()) {
-                throw new Model\Element\ValidationException('Value in field [ ' . $this->getName() . " ] longer than max length of '" . $this->getMaxLength() . "'");
-            }
+        if (!$omitMandatoryCheck && $this->getMaxLength() !== null && ($data !== null && mb_strlen($data) > $this->getMaxLength())) {
+            throw new Model\Element\ValidationException('Value in field [ ' . $this->getName() . " ] longer than max length of '" . $this->getMaxLength() . "'");
         }
 
         parent::checkValidity($data, $omitMandatoryCheck);
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;

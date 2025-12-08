@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace OpenDxp\Model\Asset\MetaData\ClassDefinition\Data;
 
 use OpenDxp\Model\Element\Service;
+use Override;
 
 class Asset extends Data
 {
@@ -35,14 +36,14 @@ class Asset extends Data
 
     public function denormalize(mixed $value, array $params = []): mixed
     {
-        $element = null;
         if (is_numeric($value)) {
-            $element = Service::getElementById('asset', (int) $value);
+            return Service::getElementById('asset', (int) $value);
         }
 
-        return $element;
+        return null;
     }
 
+    #[Override]
     public function transformGetterData(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -52,6 +53,7 @@ class Asset extends Data
         return $data;
     }
 
+    #[Override]
     public function transformSetterData(mixed $data, array $params = []): mixed
     {
         if ($data instanceof \OpenDxp\Model\Asset) {
@@ -61,6 +63,7 @@ class Asset extends Data
         return $data;
     }
 
+    #[Override]
     public function getDataFromEditMode(mixed $data, array $params = []): int|string|null
     {
         $element = $data;
@@ -74,6 +77,7 @@ class Asset extends Data
         return '';
     }
 
+    #[Override]
     public function getDataForResource(mixed $data, array $params = []): mixed
     {
         if ($data instanceof \OpenDxp\Model\Asset) {
@@ -83,6 +87,7 @@ class Asset extends Data
         return $data;
     }
 
+    #[Override]
     public function getDataForEditMode(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -90,11 +95,12 @@ class Asset extends Data
         }
         if ($data instanceof \OpenDxp\Model\Asset) {
             return $data->getRealFullPath();
-        } else {
-            return '';
         }
+
+        return '';
     }
 
+    #[Override]
     public function getDataForListfolderGrid(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -108,6 +114,7 @@ class Asset extends Data
         return $data;
     }
 
+    #[Override]
     public function resolveDependencies(mixed $data, array $params = []): array
     {
         if ($data instanceof \OpenDxp\Model\Asset && isset($params['type'])) {
@@ -126,6 +133,7 @@ class Asset extends Data
         return [];
     }
 
+    #[Override]
     public function getDataFromListfolderGrid(mixed $data, array $params = []): ?int
     {
         $data = \OpenDxp\Model\Asset::getByPath($data);

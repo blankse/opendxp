@@ -17,6 +17,7 @@ namespace OpenDxp\Model\DataObject\Data\ObjectMetadata;
 
 use OpenDxp\Db\Helper;
 use OpenDxp\Model\DataObject;
+use Override;
 
 /**
  * @internal
@@ -37,10 +38,10 @@ class Dao extends DataObject\Data\AbstractMetadata\Dao
             'dest_id' => $this->model->getElement()->getId(),
             'fieldname' => $this->model->getFieldname(),
             'ownertype' => $ownertype,
-            'ownername' => $ownername ? $ownername : '',
-            'index' => $index ? $index : '0',
-            'position' => $position ? $position : '0',
-            'type' => $type ? $type : 'object', ];
+            'ownername' => $ownername ?: '',
+            'index' => $index ?: '0',
+            'position' => $position ?: '0',
+            'type' => $type ?: 'object', ];
 
         foreach ($this->model->getColumns() as $column) {
             $getter = 'get' . ucfirst($column);
@@ -51,6 +52,7 @@ class Dao extends DataObject\Data\AbstractMetadata\Dao
         }
     }
 
+    #[Override]
     protected function getTablename(DataObject\Concrete $object): string
     {
         return 'object_metadata_' . $object->getClassId();
@@ -62,7 +64,7 @@ class Dao extends DataObject\Data\AbstractMetadata\Dao
 
         $query = 'SELECT * FROM ' . $this->getTablename($source) . ' WHERE id = ? AND dest_id = ? AND fieldname = ? AND ownertype = ? AND ownername = ? and position = ? and `index` = ? ' . $typeQuery;
         $dataRaw = $this->db->fetchAllAssociative($query, [$source->getId(), $destinationId, $fieldname, $ownertype, $ownername, $position, $index]);
-        if (!empty($dataRaw)) {
+        if ($dataRaw !== []) {
             $this->model->setObjectId($destinationId);
             $this->model->setFieldname($fieldname);
             $columns = $this->model->getColumns();
@@ -74,8 +76,8 @@ class Dao extends DataObject\Data\AbstractMetadata\Dao
             }
 
             return $this->model;
-        } else {
-            return null;
         }
+
+        return null;
     }
 }

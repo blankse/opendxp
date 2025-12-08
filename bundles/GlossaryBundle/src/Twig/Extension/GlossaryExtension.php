@@ -18,28 +18,17 @@ declare(strict_types=1);
 namespace OpenDxp\Bundle\GlossaryBundle\Twig\Extension;
 
 use OpenDxp\Bundle\GlossaryBundle\Tool\Processor;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 
 /**
  * @internal
  */
-class GlossaryExtension extends AbstractExtension
+class GlossaryExtension
 {
-    private Processor $glossaryProcessor;
-
-    public function __construct(Processor $glossaryProcessor)
+    public function __construct(private readonly Processor $glossaryProcessor)
     {
-        $this->glossaryProcessor = $glossaryProcessor;
     }
 
-    public function getFilters(): array
-    {
-        return [
-            new TwigFilter('opendxp_glossary', [$this, 'applyGlossary'], ['is_safe' => ['html']]),
-        ];
-    }
-
+    #[\Twig\Attribute\AsTwigFilter('opendxp_glossary', isSafe: ['html'])]
     public function applyGlossary(string $string, array $options = []): string
     {
         if (!$string) {

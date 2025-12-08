@@ -19,6 +19,7 @@ namespace OpenDxp\Model\Document\Editable;
 use Carbon\Carbon;
 use DateTimeInterface;
 use OpenDxp\Model;
+use Override;
 
 /**
  * @method \OpenDxp\Model\Document\Editable\Dao getDao()
@@ -64,11 +65,7 @@ class Date extends Model\Document\Editable implements EditmodeDataInterface
                 return $this->date->isoFormat($this->config['outputIsoFormat']);
             }
 
-            if (isset($this->config['format']) && $this->config['format']) {
-                $format = $this->config['format'];
-            } else {
-                $format = DateTimeInterface::ATOM;
-            }
+            $format = isset($this->config['format']) && $this->config['format'] ? $this->config['format'] : DateTimeInterface::ATOM;
 
             return $this->date->format($format);
         }
@@ -76,6 +73,7 @@ class Date extends Model\Document\Editable implements EditmodeDataInterface
         return '';
     }
 
+    #[Override]
     public function getDataForResource(): mixed
     {
         if ($this->date) {
@@ -106,11 +104,7 @@ class Date extends Model\Document\Editable implements EditmodeDataInterface
 
     public function isEmpty(): bool
     {
-        if ($this->date) {
-            return false;
-        }
-
-        return true;
+        return !$this->date;
     }
 
     private function setDateFromTimestamp(int $timestamp): void

@@ -23,6 +23,7 @@ use OpenDxp\Extension\Bundle\Traits\BundleAdminClassicTrait;
 use OpenDxp\Extension\Bundle\Traits\PackageVersionTrait;
 use OpenDxp\HttpKernel\Bundle\DependentBundleInterface;
 use OpenDxp\HttpKernel\BundleCollection\BundleCollection;
+use Override;
 use Presta\SitemapBundle\PrestaSitemapBundle;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 
@@ -31,6 +32,7 @@ class OpenDxpSeoBundle extends AbstractOpenDxpBundle implements DependentBundleI
     use BundleAdminClassicTrait;
     use PackageVersionTrait;
 
+    #[Override]
     public function getContainerExtension(): ?ExtensionInterface
     {
         if (null === $this->extension) {
@@ -63,6 +65,7 @@ class OpenDxpSeoBundle extends AbstractOpenDxpBundle implements DependentBundleI
         return $this->container->get(Installer::class);
     }
 
+    #[Override]
     public function getPath(): string
     {
         return dirname(__DIR__);

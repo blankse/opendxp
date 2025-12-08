@@ -19,9 +19,11 @@ namespace OpenDxp\Model\Asset\Metadata\Loader;
 
 use OpenDxp\Loader\ImplementationLoader\ImplementationLoader;
 use OpenDxp\Model\Asset\MetaData\ClassDefinition\Data\DataDefinitionInterface;
+use Override;
 
 final class DataLoader extends ImplementationLoader implements DataLoaderInterface
 {
+    #[Override]
     public function build(string $name, array $params = []): DataDefinitionInterface
     {
         return parent::build($name, $params);

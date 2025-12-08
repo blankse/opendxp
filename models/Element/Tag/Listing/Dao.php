@@ -52,14 +52,14 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $tagsIds = $this->db->fetchFirstColumn('SELECT id FROM tags' . $this->getCondition() . $this->getGroupBy() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables(), $this->model->getConditionVariableTypes());
 
-        return array_map('intval', $tagsIds);
+        return array_map(intval(...), $tagsIds);
     }
 
     public function getTotalCount(): int
     {
         try {
             return (int) $this->db->fetchOne('SELECT COUNT(*) FROM tags ' . $this->getCondition(), $this->model->getConditionVariables(), $this->model->getConditionVariableTypes());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return 0;
         }
     }

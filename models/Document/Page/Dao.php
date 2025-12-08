@@ -17,6 +17,7 @@ namespace OpenDxp\Model\Document\Page;
 
 use Exception;
 use OpenDxp\Model;
+use Override;
 
 /**
  * @internal
@@ -31,6 +32,7 @@ class Dao extends Model\Document\PageSnippet\Dao
      *
      * @throws Model\Exception\NotFoundException
      */
+    #[Override]
     public function getById(?int $id = null): void
     {
         if ($id != null) {
@@ -50,6 +52,7 @@ class Dao extends Model\Document\PageSnippet\Dao
         }
     }
 
+    #[Override]
     public function create(): void
     {
         parent::create();
@@ -62,6 +65,7 @@ class Dao extends Model\Document\PageSnippet\Dao
     /**
      * @throws Exception
      */
+    #[Override]
     public function delete(): void
     {
         $this->deleteAllProperties();

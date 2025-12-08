@@ -17,6 +17,7 @@ namespace OpenDxp\Security\Hasher;
 
 use OpenDxp\Security\User\User;
 use OpenDxp\Tool\Authentication;
+use Override;
 use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
@@ -32,6 +33,7 @@ class OpenDxpUserPasswordHasher extends AbstractUserAwarePasswordHasher
 {
     use CheckPasswordLengthTrait;
 
+    #[Override]
     public function hash(string $plainPassword, ?string $salt = null): string
     {
         if ($this->isPasswordTooLong($plainPassword)) {
@@ -41,6 +43,7 @@ class OpenDxpUserPasswordHasher extends AbstractUserAwarePasswordHasher
         return Authentication::getPasswordHash($this->getUser()->getUserIdentifier(), $plainPassword);
     }
 
+    #[Override]
     public function verify(string $hashedPassword, string $plainPassword, ?string $salt = null): bool
     {
         if ($this->isPasswordTooLong($hashedPassword)) {

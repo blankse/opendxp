@@ -20,6 +20,7 @@ use Exception;
 use OpenDxp\Logger;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\Element;
+use Override;
 use Sabre\DAV;
 
 /**
@@ -33,6 +34,7 @@ class Tree extends DAV\Tree
      * @param string $sourcePath
      * @param string $destinationPath
      */
+    #[Override]
     public function move($sourcePath, $destinationPath): void
     {
         $nameParts = explode('/', $sourcePath);
@@ -44,7 +46,7 @@ class Tree extends DAV\Tree
         $destinationPath = implode('/', $nameParts);
 
         try {
-            if (dirname($sourcePath) == dirname($destinationPath)) {
+            if (dirname($sourcePath) === dirname($destinationPath)) {
                 $asset = null;
 
                 if ($asset = Asset::getByPath('/' . $destinationPath)) {

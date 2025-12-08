@@ -22,6 +22,7 @@ use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Element\ValidationException;
 use OpenDxp\Normalizer\NormalizerInterface;
 use OpenDxp\Tool\Serialize;
+use Override;
 
 class Geopolyline extends AbstractGeo implements
     ResourcePersistenceAwareInterface,
@@ -61,6 +62,7 @@ class Geopolyline extends AbstractGeo implements
         return $this->getDataForResource($data, $object, $params);
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         $isEmpty = true;
@@ -100,18 +102,16 @@ class Geopolyline extends AbstractGeo implements
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
-        if (!empty($data)) {
-            if (is_array($data)) {
-                $points = [];
-                foreach ($data as $point) {
-                    $points[] = [
-                        'latitude' => $point->getLatitude(),
-                        'longitude' => $point->getLongitude(),
-                    ];
-                }
-
-                return $points;
+        if (!empty($data) && is_array($data)) {
+            $points = [];
+            foreach ($data as $point) {
+                $points[] = [
+                    'latitude' => $point->getLatitude(),
+                    'longitude' => $point->getLongitude(),
+                ];
             }
+
+            return $points;
         }
 
         return null;
@@ -143,11 +143,13 @@ class Geopolyline extends AbstractGeo implements
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         return $this->getDiffVersionPreview($data, $object, $params);
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -166,11 +168,13 @@ class Geopolyline extends AbstractGeo implements
         return '';
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         return '';
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -179,7 +183,6 @@ class Geopolyline extends AbstractGeo implements
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
      *
-     * @param DataObject\Concrete|null $object
      *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): string
@@ -202,7 +205,7 @@ class Geopolyline extends AbstractGeo implements
         }
 
         if (!is_array($oldValue) || !is_array($newValue)
-            || count($oldValue) != count($newValue)) {
+            || count($oldValue) !== count($newValue)) {
             return false;
         }
 
@@ -211,7 +214,7 @@ class Geopolyline extends AbstractGeo implements
         $oldValue = array_values($oldValue);
         $newValue = array_values($newValue);
 
-        foreach ($oldValue as $p => $point) {
+        foreach (array_keys($oldValue) as $p) {
             if (!$fd->isEqual($oldValue[$p], $newValue[$p])) {
                 return false;
             }

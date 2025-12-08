@@ -27,6 +27,7 @@ use OpenDxp\Model\DataObject\Fieldcollection\Data\AbstractData;
 use OpenDxp\Model\DataObject\Localizedfield;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Element;
+use Override;
 
 class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewriterInterface, PreGetDataInterface, ClassSavedInterface
 {
@@ -69,6 +70,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
      */
     public bool $allowMultipleAssignments = false;
 
+    #[Override]
     protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
         if (is_array($data)) {
@@ -95,6 +97,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return null;
     }
 
+    #[Override]
     protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed
     {
         $list = [
@@ -143,7 +146,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                         $metaData = OpenDxp::getContainer()
                             ->get('opendxp.model.factory')
                             ->build(
-                                'OpenDxp\Model\DataObject\Data\ElementMetadata',
+                                \OpenDxp\Model\DataObject\Data\ElementMetadata::class,
                                 [
                                     'fieldname' => $this->getName(),
                                     'columns' => $this->getColumnKeys(),
@@ -185,6 +188,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     /**
      * @throws Exception
      */
+    #[Override]
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
         //return null when data is not set
@@ -212,6 +216,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     /**
      * @see Data::getDataForEditmode
      */
+    #[Override]
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         $return = [];
@@ -307,7 +312,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
                     try {
                         $itemData[$c['key']] = $metaObject->$getter();
-                    } catch (Exception $e) {
+                    } catch (Exception) {
                         Logger::debug('Meta column '.$c['key'].' does not exist');
                     }
                 }
@@ -326,6 +331,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     /**
      * @see Data::getDataFromEditmode
      */
+    #[Override]
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         //if not set, return null
@@ -349,7 +355,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     /** @var DataObject\Data\ElementMetadata $metaData */
                     $metaData = OpenDxp::getContainer()->get('opendxp.model.factory')
                         ->build(
-                            'OpenDxp\Model\DataObject\Data\ElementMetadata',
+                            \OpenDxp\Model\DataObject\Data\ElementMetadata::class,
                             [
                                 'fieldname' => $this->getName(),
                                 'columns' => $this->getColumnKeys(),
@@ -382,6 +388,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return $multihrefMetadata;
     }
 
+    #[Override]
     public function getDataForGrid(?array $data, ?Concrete $object = null, array $params = []): ?array
     {
         $ret = $this->getDataForEditmode($data, $object, $params);
@@ -395,6 +402,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         $items = [];
@@ -433,6 +441,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return '';
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && empty($data)) {
@@ -470,6 +479,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         }
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -488,6 +498,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return '';
     }
 
+    #[Override]
     public function save(
         Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete $object,
         array $params = []): void
@@ -552,13 +563,11 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     $sql .= ' AND ' . Db\Helper::quoteInto($db, 'ownername = ?', $context['fieldname']);
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled()) {
-                    if ($context['containerType']) {
-                        if ($object instanceof Localizedfield) {
-                            $context['containerType'] = 'localizedfield';
-                        }
-                        $sql .= ' AND ' . Db\Helper::quoteInto($db, 'ownertype = ?', $context['containerType']);
+                if (!DataObject::isDirtyDetectionDisabled() && $context['containerType']) {
+                    if ($object instanceof Localizedfield) {
+                        $context['containerType'] = 'localizedfield';
                     }
+                    $sql .= ' AND ' . Db\Helper::quoteInto($db, 'ownertype = ?', $context['containerType']);
                 }
             }
         }
@@ -576,7 +585,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
             }
 
             $counter = 1;
-            foreach ($multihrefMetadata as $mkey => $meta) {
+            foreach ($multihrefMetadata as $meta) {
                 $ownerName = $relation['ownername'] ?? '';
                 $ownerType = $relation['ownertype'] ?? '';
                 $meta->save($objectConcrete, $ownerType, $ownerName, $position, $counter);
@@ -587,6 +596,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         parent::save($object, $params);
     }
 
+    #[Override]
     public function preGetData(mixed $container, array $params = []): mixed
     {
         $data = null;
@@ -649,10 +659,8 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
                     $deleteCondition['ownername'] = $context['fieldname'];
                 }
 
-                if (!DataObject::isDirtyDetectionDisabled()) {
-                    if (!empty($context['containerType'])) {
-                        $deleteCondition['ownertype'] = $context['containerType'];
-                    }
+                if (!DataObject::isDirtyDetectionDisabled() && !empty($context['containerType'])) {
+                    $deleteCondition['ownertype'] = $context['containerType'];
                 }
             }
 
@@ -700,7 +708,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         /** @var DataObject\Data\ElementMetadata $temp */
         $temp = OpenDxp::getContainer()->get('opendxp.model.factory')
             ->build(
-                'OpenDxp\Model\DataObject\Data\ElementMetadata',
+                \OpenDxp\Model\DataObject\Data\ElementMetadata::class,
                 [
                     'fieldname' => null,
                 ]
@@ -709,6 +717,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         $temp->getDao()->createOrUpdateTable($class);
     }
 
+    #[Override]
     public function rewriteIds(mixed $container, array $idMapping, array $params = []): mixed
     {
         $data = $this->getDataFromObjectParam($container, $params);
@@ -734,12 +743,14 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     /**
      * @param DataObject\ClassDefinition\Data\AdvancedManyToManyRelation $mainDefinition
      */
+    #[Override]
     public function synchronizeWithMainDefinition(DataObject\ClassDefinition\Data $mainDefinition): void
     {
         parent::synchronizeWithMainDefinition($mainDefinition);
         $this->columns = $mainDefinition->columns;
     }
 
+    #[Override]
     public function resolveDependencies(mixed $data): array
     {
         $dependencies = [];
@@ -760,6 +771,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return $dependencies;
     }
 
+    #[Override]
     public function normalize(mixed $value, array $params = []): ?array
     {
         if (is_array($value)) {
@@ -787,6 +799,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return null;
     }
 
+    #[Override]
     public function denormalize(mixed $value, array $params = []): ?array
     {
         if (is_array($value)) {
@@ -817,6 +830,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return null;
     }
 
+    #[Override]
     protected function processDiffDataForEditMode(?array $originalData, ?array $data, ?Concrete $object = null, array $params = []): ?array
     {
         if ($data) {
@@ -865,13 +879,13 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return $data;
     }
 
+    #[Override]
     public function getDiffDataForEditMode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
-        $data = parent::getDiffDataForEditMode($data, $object, $params);
-
-        return $data;
+        return parent::getDiffDataForEditMode($data, $object, $params);
     }
 
+    #[Override]
     public function getDiffDataFromEditmode(array $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         if ($data) {
@@ -891,6 +905,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         return null;
     }
 
+    #[Override]
     public function isOptimizedAdminLoading(): bool
     {
         return $this->optimizedAdminLoading;
@@ -926,16 +941,19 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
         $this->enableBatchEdit = $enableBatchEdit;
     }
 
+    #[Override]
     public function getPhpdocInputType(): ?string
     {
         return '\\'.DataObject\Data\ElementMetadata::class.'[]';
     }
 
+    #[Override]
     public function getPhpdocReturnType(): ?string
     {
         return '\\'.DataObject\Data\ElementMetadata::class.'[]';
     }
 
+    #[Override]
     public function getFieldType(): string
     {
         return 'advancedManyToManyRelation';

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace OpenDxp\Bundle\SeoBundle;
 
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
+use Override;
 
 class Installer extends SettingsStoreAwareInstaller
 {
@@ -28,6 +29,7 @@ class Installer extends SettingsStoreAwareInstaller
         'http_errors',
     ];
 
+    #[Override]
     public function install(): void
     {
         $this->installDatabaseTable();
@@ -35,6 +37,7 @@ class Installer extends SettingsStoreAwareInstaller
         parent::install();
     }
 
+    #[Override]
     public function uninstall(): void
     {
         $this->uninstallDatabaseTable();

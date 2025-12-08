@@ -28,14 +28,7 @@ final class Frontend
     {
         $siteRootDocument = $site?->getRootDocument();
 
-        if (
-            $siteRootDocument &&
-            !str_starts_with($document->getRealFullPath() . '/', $siteRootDocument->getRealFullPath() . '/')
-        ) {
-            return false;
-        }
-
-        return true;
+        return !($siteRootDocument && !str_starts_with($document->getRealFullPath() . '/', $siteRootDocument->getRealFullPath() . '/'));
     }
 
     public static function isDocumentInCurrentSite(Document $document): bool

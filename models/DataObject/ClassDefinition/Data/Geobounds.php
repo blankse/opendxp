@@ -21,6 +21,7 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data\Geo\AbstractGeo;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Element\ValidationException;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Geobounds extends AbstractGeo implements
     ResourcePersistenceAwareInterface,
@@ -30,7 +31,6 @@ class Geobounds extends AbstractGeo implements
     NormalizerInterface
 {
     /**
-     * @param null|DataObject\Concrete $object
      *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      *
@@ -54,6 +54,7 @@ class Geobounds extends AbstractGeo implements
         ];
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         $isEmpty = true;
@@ -130,10 +131,6 @@ class Geobounds extends AbstractGeo implements
         return null;
     }
 
-    /**
-     * @param DataObject\Concrete|null $object
-     *
-     */
     public function getDataForGrid(?DataObject\Data\Geobounds $data, ?Concrete $object = null, array $params = []): ?array
     {
         return $this->getDataForEditmode($data, $object, $params);
@@ -162,6 +159,7 @@ class Geobounds extends AbstractGeo implements
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof DataObject\Data\Geobounds) {
@@ -171,6 +169,7 @@ class Geobounds extends AbstractGeo implements
         return '';
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -181,11 +180,13 @@ class Geobounds extends AbstractGeo implements
         return '';
     }
 
+    #[Override]
     public function getDataForSearchIndex(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         return '';
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -198,7 +199,8 @@ class Geobounds extends AbstractGeo implements
                 'northEast' => ['latitude' => $value->getNorthEast()->getLatitude(), 'longitude' => $value->getNorthEast()->getLongitude()],
                 'southWest' => ['latitude' => $value->getSouthWest()->getLatitude(), 'longitude' => $value->getSouthWest()->getLongitude()],
             ];
-        } elseif (is_array($value)) {
+        }
+        if (is_array($value)) {
             //TODO kick this as soon as classification store is implemented
             return [
                 'northEast' => ['latitude' => $value[$this->getName() . '__NElatitude'], 'longitude' => $value[$this->getName() . '__NElongitude']],

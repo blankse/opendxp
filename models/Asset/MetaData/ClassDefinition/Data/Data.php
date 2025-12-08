@@ -18,14 +18,15 @@ namespace OpenDxp\Model\Asset\MetaData\ClassDefinition\Data;
 
 use OpenDxp\Model\DataObject\Traits\SimpleNormalizerTrait;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Stringable;
 
-abstract class Data implements DataDefinitionInterface, NormalizerInterface
+abstract class Data implements DataDefinitionInterface, NormalizerInterface, Stringable
 {
     use SimpleNormalizerTrait;
 
     public function __toString(): string
     {
-        return get_class($this);
+        return static::class;
     }
 
     public function transformGetterData(mixed $data, array $params = []): mixed

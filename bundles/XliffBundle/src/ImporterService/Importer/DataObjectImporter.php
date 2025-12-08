@@ -20,9 +20,11 @@ use OpenDxp\Bundle\XliffBundle\AttributeSet\Attribute;
 use OpenDxp\Bundle\XliffBundle\ExportDataExtractorService\DataExtractor\DataObjectDataExtractor;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\Element;
+use Override;
 
 class DataObjectImporter extends AbstractElementImporter
 {
+    #[Override]
     protected function importAttribute(Element\ElementInterface $element, string $targetLanguage, Attribute $attribute): void
     {
         parent::importAttribute($element, $targetLanguage, $attribute);
@@ -63,9 +65,9 @@ class DataObjectImporter extends AbstractElementImporter
 
             /** @var array $blockData */
             $blockData = $element->{'get' . $blockName}($targetLanguage);
-            $blockItem =  isset($blockData[$blockIndex]) ? $blockData[$blockIndex] : $originalBlockItem;
+            $blockItem =  $blockData[$blockIndex] ?? $originalBlockItem;
             /** @var DataObject\Data\BlockElement $blockItemData */
-            $blockItemData = !empty($blockData) ? clone $blockItem[$fieldname] : clone $originalBlockItemData;
+            $blockItemData = empty($blockData) ? clone $originalBlockItemData : clone $blockItem[$fieldname];
 
             $blockItemData->setLanguage($targetLanguage);
 
@@ -92,7 +94,6 @@ class DataObjectImporter extends AbstractElementImporter
 
             if ($fieldCollection) {
                 $item = $fieldCollection->get((int) $fieldCollectionItemIndex);
-                /** @var DataObject\Localizedfield $localizedFields */
                 if ($item) {
                     /** @var array $originalBlockData */
                     $originalBlockData = $item->{'get' . $blockName}($sourceLanguage);
@@ -101,10 +102,10 @@ class DataObjectImporter extends AbstractElementImporter
 
                     /** @var array $blockData */
                     $blockData = $item->{'get' . $blockName}($targetLanguage);
-                    $blockItem = isset($blockData[$blockIndex]) ? $blockData[$blockIndex] : $originalBlockItem;
+                    $blockItem = $blockData[$blockIndex] ?? $originalBlockItem;
 
                     /** @var DataObject\Data\BlockElement $blockItemData */
-                    $blockItemData = !empty($blockData) ? clone $blockItem[$fieldname] : clone $originalBlockItemData;
+                    $blockItemData = empty($blockData) ? clone $originalBlockItemData : clone $blockItem[$fieldname];
 
                     $blockItemData->setLanguage($targetLanguage);
 
@@ -164,6 +165,7 @@ class DataObjectImporter extends AbstractElementImporter
         }
     }
 
+    #[Override]
     protected function saveElement(Element\ElementInterface $element): void
     {
         if ($element instanceof DataObject\Concrete) {

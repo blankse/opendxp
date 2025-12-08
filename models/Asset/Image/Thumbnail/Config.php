@@ -21,6 +21,7 @@ use OpenDxp\Cache\RuntimeCache;
 use OpenDxp\Logger;
 use OpenDxp\Model;
 use OpenDxp\Tool\Serialize;
+use Override;
 
 /**
  * @method bool isWriteable()
@@ -35,7 +36,7 @@ final class Config extends Model\AbstractModel
     /**
      * @internal
      */
-    protected const PREVIEW_THUMBNAIL_NAME = 'opendxp-system-treepreview';
+    protected const string PREVIEW_THUMBNAIL_NAME = 'opendxp-system-treepreview';
 
     /**
      * format of array:
@@ -163,18 +164,14 @@ final class Config extends Model\AbstractModel
         if (is_string($config)) {
             try {
                 $thumbnail = self::getByName($config);
-            } catch (Exception $e) {
+            } catch (Exception) {
                 Logger::error('requested thumbnail ' . $config . ' is not defined');
 
                 return null;
             }
         } elseif (is_array($config)) {
             // check if it is a legacy config or a new one
-            if (array_key_exists('items', $config)) {
-                $thumbnail = self::getByArrayConfig($config);
-            } else {
-                $thumbnail = self::getByLegacyConfig($config);
-            }
+            $thumbnail = array_key_exists('items', $config) ? self::getByArrayConfig($config) : self::getByLegacyConfig($config);
         } elseif ($config instanceof self) {
             $thumbnail = $config;
         }
@@ -202,14 +199,14 @@ final class Config extends Model\AbstractModel
             }
 
             $thumbnail->setName($name);
-        } catch (Exception $e) {
+        } catch (Exception) {
             try {
                 $thumbnail = new self();
                 /** @var Model\Asset\Image\Thumbnail\Config\Dao $dao */
                 $dao = $thumbnail->getDao();
                 $dao->getByName($name);
                 RuntimeCache::set($cacheKey, $thumbnail);
-            } catch (Model\Exception\NotFoundException $e) {
+            } catch (Model\Exception\NotFoundException) {
                 return null;
             }
         }
@@ -294,7 +291,7 @@ final class Config extends Model\AbstractModel
         ];
 
         // default is added to $this->items for compatibility reasons
-        if (!$media || $media == 'default') {
+        if (!$media || $media === 'default') {
             $this->items[] = $item;
         } else {
             $this->createMediaIfNotExists($media);
@@ -311,7 +308,7 @@ final class Config extends Model\AbstractModel
      */
     public function addItemAt(int $position, string $name, array $parameters, ?string $media = null): bool
     {
-        if (!$media || $media == 'default') {
+        if (!$media || $media === 'default') {
             $itemContainer = &$this->items;
         } else {
             $this->createMediaIfNotExists($media);
@@ -337,11 +334,7 @@ final class Config extends Model\AbstractModel
 
     public function selectMedia(string $name): bool
     {
-        if (preg_match('/^[0-9a-f]{8}$/', $name)) {
-            $hash = $name;
-        } else {
-            $hash = hash('crc32b', $name);
-        }
+        $hash = preg_match('/^[0-9a-f]{8}$/', $name) ? $name : hash('crc32b', $name);
 
         foreach ($this->medias as $key => $value) {
             $currentHash = hash('crc32b', $key);
@@ -455,7 +448,7 @@ final class Config extends Model\AbstractModel
 
     public function hasMedias(): bool
     {
-        return !empty($this->medias);
+        return $this->medias !== [];
     }
 
     public function setFilenameSuffix(string $filenameSuffix): void
@@ -521,55 +514,53 @@ final class Config extends Model\AbstractModel
                 'width' => $config['width'],
                 'height' => $config['height'],
                 'positioning' => ((isset($config['positioning']) && !empty($config['positioning'])) ? (string)$config['positioning'] : 'center'),
-                'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
             ]);
         } elseif (isset($config['contain'])) {
             $pipe->addItem('contain', [
                 'width' => $config['width'],
                 'height' => $config['height'],
-                'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
             ]);
         } elseif (isset($config['frame'])) {
             $pipe->addItem('frame', [
                 'width' => $config['width'],
                 'height' => $config['height'],
-                'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
             ]);
         } elseif (isset($config['aspectratio']) && $config['aspectratio']) {
             if (isset($config['height']) && isset($config['width']) && $config['height'] > 0 && $config['width'] > 0) {
                 $pipe->addItem('contain', [
                     'width' => $config['width'],
                     'height' => $config['height'],
-                    'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                    'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
                 ]);
             } elseif (isset($config['height']) && $config['height'] > 0) {
                 $pipe->addItem('scaleByHeight', [
                     'height' => $config['height'],
-                    'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                    'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
                 ]);
             } else {
                 $pipe->addItem('scaleByWidth', [
                     'width' => $config['width'],
-                    'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
+                    'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
                 ]);
             }
-        } else {
-            if (!isset($config['width']) && isset($config['height'])) {
-                $pipe->addItem('scaleByHeight', [
-                    'height' => $config['height'],
-                    'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
-                ]);
-            } elseif (isset($config['width']) && !isset($config['height'])) {
-                $pipe->addItem('scaleByWidth', [
-                    'width' => $config['width'],
-                    'forceResize' => (isset($config['forceResize']) ? (bool)$config['forceResize'] : false),
-                ]);
-            } elseif (isset($config['width']) && isset($config['height'])) {
-                $pipe->addItem('resize', [
-                    'width' => $config['width'],
-                    'height' => $config['height'],
-                ]);
-            }
+        } elseif (!isset($config['width']) && isset($config['height'])) {
+            $pipe->addItem('scaleByHeight', [
+                'height' => $config['height'],
+                'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
+            ]);
+        } elseif (isset($config['width']) && !isset($config['height'])) {
+            $pipe->addItem('scaleByWidth', [
+                'width' => $config['width'],
+                'forceResize' => (isset($config['forceResize']) && (bool)$config['forceResize']),
+            ]);
+        } elseif (isset($config['width']) && isset($config['height'])) {
+            $pipe->addItem('resize', [
+                'width' => $config['width'],
+                'height' => $config['height'],
+            ]);
         }
 
         if (isset($config['highResolution'])) {
@@ -654,13 +645,18 @@ final class Config extends Model\AbstractModel
             // this doesn't necessarily return both with & height
             // and is only a very rough estimate, you should avoid falling back to this functionality
             foreach ($transformations as $transformation) {
-                if (!empty($transformation)) {
-                    if (is_array($transformation['arguments']) && in_array($transformation['method'], ['resize', 'scaleByWidth', 'scaleByHeight', 'cover', 'frame'])) {
-                        foreach ($transformation['arguments'] as $key => $value) {
-                            if ($key == 'width' || $key == 'height') {
-                                $dimensions[$key] = $value;
-                            }
-                        }
+                if (empty($transformation)) {
+                    continue;
+                }
+                if (!is_array($transformation['arguments'])) {
+                    continue;
+                }
+                if (!in_array($transformation['method'], ['resize', 'scaleByWidth', 'scaleByHeight', 'cover', 'frame'])) {
+                    continue;
+                }
+                foreach ($transformation['arguments'] as $key => $value) {
+                    if ($key == 'width' || $key == 'height') {
+                        $dimensions[$key] = $value;
                     }
                 }
             }
@@ -775,6 +771,7 @@ final class Config extends Model\AbstractModel
         $this->downloadable = $downloadable;
     }
 
+    #[Override]
     public function __clone(): void
     {
         if ($this->dao) {
@@ -784,13 +781,15 @@ final class Config extends Model\AbstractModel
 
         //rebuild asset path for overlays
         foreach ($this->items as &$item) {
-            if (in_array($item['method'], ['addOverlay', 'addOverlayFit'])) {
-                if (isset($item['arguments']['id'])) {
-                    $img = Model\Asset\Image::getById((int) $item['arguments']['id']);
-                    if ($img) {
-                        $item['arguments']['path'] = $img->getFullPath();
-                    }
-                }
+            if (!in_array($item['method'], ['addOverlay', 'addOverlayFit'])) {
+                continue;
+            }
+            if (!isset($item['arguments']['id'])) {
+                continue;
+            }
+            $img = Model\Asset\Image::getById((int) $item['arguments']['id']);
+            if ($img) {
+                $item['arguments']['path'] = $img->getFullPath();
             }
         }
     }
@@ -813,7 +812,7 @@ final class Config extends Model\AbstractModel
     {
         $autoFormatThumbnails = [];
 
-        foreach ($this->getAutoFormats() as $autoFormat => $autoFormatConfig) {
+        foreach (self::getAutoFormats() as $autoFormat => $autoFormatConfig) {
             if ($autoFormatConfig['enabled'] && Model\Asset\Image\Thumbnail::supportsFormat($autoFormat)) {
                 $autoFormatThumbnail = clone $this;
                 $autoFormatThumbnail->setFormat($autoFormat);

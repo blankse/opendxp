@@ -19,39 +19,32 @@ namespace OpenDxp\Model\Element\DeepCopy;
 use DeepCopy\TypeMatcher\TypeMatcher;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Element\Service;
+use Override;
 
 /**
  * @internal
  */
 class MarshalMatcher extends TypeMatcher
 {
-    private ?string $sourceType = null;
-
-    private ?int $sourceId = null;
-
     /**
      * MarshalMatcher constructor.
      *
      */
-    public function __construct(?string $sourceType, ?int $sourceId)
+    public function __construct(private readonly ?string $sourceType, private readonly ?int $sourceId)
     {
-        $this->sourceType = $sourceType;
-        $this->sourceId = $sourceId;
     }
 
     /**
      * @param mixed $element
      *
      */
+    #[Override]
     public function matches($element): bool
     {
         if ($element instanceof ElementInterface) {
             $elementType = Service::getElementType($element);
-            if ($elementType === $this->sourceType && $element->getId() === $this->sourceId) {
-                return false;
-            }
 
-            return true;
+            return !($elementType === $this->sourceType && $element->getId() === $this->sourceId);
         }
 
         return false;

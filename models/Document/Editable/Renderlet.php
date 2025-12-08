@@ -27,6 +27,7 @@ use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Element;
+use Override;
 
 /**
  * @method \OpenDxp\Model\Document\Editable\Dao getDao()
@@ -38,7 +39,7 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
      * These are passed to the controller as attributes.
      * Everything else is passed to the controller as query parameters.
      */
-    private const CONFIG_KEYS = [
+    private const array CONFIG_KEYS = [
         'controller' => true,
         'template' => true,
         'className' => true,
@@ -126,10 +127,8 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
         $this->load();
 
         if ($this->o instanceof Element\ElementInterface) {
-            if (method_exists($this->o, 'isPublished')) {
-                if (!$this->o->isPublished()) {
-                    return '';
-                }
+            if (method_exists($this->o, 'isPublished') && !$this->o->isPublished()) {
+                return '';
             }
 
             //Personalization & Targeting Specific
@@ -227,6 +226,7 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
         return $this;
     }
 
+    #[Override]
     public function resolveDependencies(): array
     {
         $this->load();
@@ -267,13 +267,10 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
     {
         $this->load();
 
-        if ($this->o instanceof Element\ElementInterface) {
-            return false;
-        }
-
-        return true;
+        return !$this->o instanceof Element\ElementInterface;
     }
 
+    #[Override]
     public function checkValidity(): bool
     {
         $sane = true;
@@ -292,6 +289,7 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
         return $sane;
     }
 
+    #[Override]
     public function __sleep(): array
     {
         $finalVars = [];

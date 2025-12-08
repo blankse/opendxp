@@ -27,6 +27,7 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data\PreSetDataInterface;
 use OpenDxp\Model\DataObject\Fieldcollection\Data\AbstractData;
 use OpenDxp\Model\Element\DirtyIndicatorInterface;
 use OpenDxp\Tool;
+use Override;
 
 /**
  * @method Localizedfield\Dao getDao()
@@ -50,12 +51,12 @@ final class Localizedfield extends Model\AbstractModel implements
     /**
      * @internal
      */
-    const STRICT_DISABLED = 0;
+    const int STRICT_DISABLED = 0;
 
     /**
      * @internal
      */
-    const STRICT_ENABLED = true;
+    const bool STRICT_ENABLED = true;
 
     private static bool $getFallbackValues = false;
 
@@ -189,7 +190,7 @@ final class Localizedfield extends Model\AbstractModel implements
     {
         $loadLazyFieldNames = $this->getLazyLoadedFieldNames();
 
-        if ($loadLazyFields && !empty($loadLazyFieldNames) && !$this->_loadedAllLazyData) {
+        if ($loadLazyFields && $loadLazyFieldNames !== [] && !$this->_loadedAllLazyData) {
             $isDirtyDetectionDisabled = DataObject::isDirtyDetectionDisabled();
             DataObject::disableDirtyDetection();
 
@@ -288,7 +289,7 @@ final class Localizedfield extends Model\AbstractModel implements
             }
 
             throw new Exception('Not supported language');
-        } catch (Exception $e) {
+        } catch (Exception) {
             return Tool::getDefaultLanguage();
         }
     }
@@ -406,19 +407,16 @@ final class Localizedfield extends Model\AbstractModel implements
         if ($fieldDefinition instanceof Model\DataObject\ClassDefinition\Data\CalculatedValue) {
             $valueData = new Model\DataObject\Data\CalculatedValue($fieldDefinition->getName());
             $valueData->setContextualData('localizedfield', 'localizedfields', null, $language, null, null, $fieldDefinition);
-            $data = Service::getCalculatedFieldValue($this->getObject(), $valueData);
 
-            return $data;
+            return Service::getCalculatedFieldValue($this->getObject(), $valueData);
         }
 
         if ($fieldDefinition instanceof LazyLoadingSupportInterface && $fieldDefinition->getLazyLoading() && !$this->_loadedAllLazyData) {
             $this->loadLazyField($fieldDefinition, $name, $language);
         }
 
-        if ($this->languageExists($language)) {
-            if (array_key_exists($name, $this->items[$language])) {
-                $data = $this->items[$language][$name];
-            }
+        if ($this->languageExists($language) && array_key_exists($name, $this->items[$language])) {
+            $data = $this->items[$language][$name];
         }
 
         // check for inherited value
@@ -434,38 +432,31 @@ final class Localizedfield extends Model\AbstractModel implements
             $class = $object->getClass();
             $allowInherit = $class->getAllowInherit();
 
-            if ($allowInherit) {
-                if ($object->getParent() instanceof AbstractObject) {
-                    $parent = $object->getParent();
-                    while ($parent && $parent->getType() == AbstractObject::OBJECT_TYPE_FOLDER) {
-                        $parent = $parent->getParent();
-                    }
+            if ($allowInherit && $object->getParent() instanceof AbstractObject) {
+                $parent = $object->getParent();
+                while ($parent && $parent->getType() === AbstractObject::OBJECT_TYPE_FOLDER) {
+                    $parent = $parent->getParent();
+                }
+                if ($parent && ($parent->getType() === AbstractObject::OBJECT_TYPE_OBJECT || $parent->getType() === AbstractObject::OBJECT_TYPE_VARIANT)) {
+                    /** @var Concrete $parent */
+                    if ($parent->getClassId() === $object->getClassId()) {
+                        $method = 'getLocalizedfields';
 
-                    if ($parent && ($parent->getType() == AbstractObject::OBJECT_TYPE_OBJECT || $parent->getType() == AbstractObject::OBJECT_TYPE_VARIANT)) {
-                        /** @var Concrete $parent */
-                        if ($parent->getClassId() == $object->getClassId()) {
-                            $method = 'getLocalizedfields';
+                        $parentContainer = $parent;
 
-                            $parentContainer = $parent;
+                        if (isset($context['containerType']) && $context['containerType'] === 'objectbrick' && !empty($context['fieldname'])) {
+                            $brickContainerGetter = 'get' . ucfirst($context['fieldname']);
+                            $brickContainer = $parent->$brickContainerGetter();
+                            $brickGetter = 'get' . $context['containerKey'];
+                            $brickData = $brickContainer->$brickGetter();
+                            $parentContainer = $brickData;
+                        }
 
-                            if (isset($context['containerType']) && $context['containerType'] === 'objectbrick') {
-                                if (!empty($context['fieldname'])) {
-                                    $brickContainerGetter = 'get' . ucfirst($context['fieldname']);
-                                    $brickContainer = $parent->$brickContainerGetter();
-                                    $brickGetter = 'get' . $context['containerKey'];
-                                    $brickData = $brickContainer->$brickGetter();
-                                    $parentContainer = $brickData;
-                                }
-                            }
-
-                            if ($parentContainer && method_exists($parentContainer, $method)) {
-                                $localizedFields = $parentContainer->getLocalizedFields();
-                                if ($localizedFields instanceof Localizedfield) {
-                                    if ($localizedFields->getObject()->getId() != $this->getObject()->getId()) {
-                                        $localizedFields->setContext($this->getContext());
-                                        $data = $localizedFields->getLocalizedValue($name, $language, true);
-                                    }
-                                }
+                        if ($parentContainer && method_exists($parentContainer, $method)) {
+                            $localizedFields = $parentContainer->getLocalizedFields();
+                            if ($localizedFields instanceof Localizedfield && $localizedFields->getObject()->getId() !== $this->getObject()->getId()) {
+                                $localizedFields->setContext($this->getContext());
+                                $data = $localizedFields->getLocalizedValue($name, $language, true);
                             }
                         }
                     }
@@ -488,7 +479,7 @@ final class Localizedfield extends Model\AbstractModel implements
         }
 
         if ($fieldDefinition instanceof PreGetDataInterface) {
-            $data = $fieldDefinition->preGetData(
+            return $fieldDefinition->preGetData(
                 $this,
                 [
                     'data' => $data,
@@ -513,10 +504,8 @@ final class Localizedfield extends Model\AbstractModel implements
             $this->markFieldDirty('_self');
         }
 
-        if (self::$strictMode) {
-            if (!$language || !in_array($language, Tool::getValidLanguages())) {
-                throw new Exception('Language '.$language.' not accepted in strict mode');
-            }
+        if (self::$strictMode && (!$language || !in_array($language, Tool::getValidLanguages()))) {
+            throw new Exception('Language '.$language.' not accepted in strict mode');
         }
 
         $language = $this->getLanguage($language);
@@ -556,10 +545,8 @@ final class Localizedfield extends Model\AbstractModel implements
         $isLazyLoadedField = $fieldDefinition instanceof LazyLoadingSupportInterface && $fieldDefinition->getLazyLoading();
         $lazyKey = $this->buildLazyKey($name, $language);
 
-        if ($isLazyLoadedField) {
-            if (!$this->isLazyKeyLoaded($lazyKey)) {
-                $forceLanguageDirty = true;
-            }
+        if ($isLazyLoadedField && !$this->isLazyKeyLoaded($lazyKey)) {
+            $forceLanguageDirty = true;
         }
 
         if ($fieldDefinition instanceof PreSetDataInterface) {
@@ -601,6 +588,7 @@ final class Localizedfield extends Model\AbstractModel implements
         return true;
     }
 
+    #[Override]
     public function __sleep(): array
     {
         if (!$this->isInDumpState()) {
@@ -657,7 +645,7 @@ final class Localizedfield extends Model\AbstractModel implements
         }
 
         if (is_array($this->dirtyLanguages)) {
-            if (count($this->dirtyLanguages) == 0) {
+            if (count($this->dirtyLanguages) === 0) {
                 return true;
             }
             if (isset($this->dirtyLanguages[$language])) {
@@ -731,7 +719,7 @@ final class Localizedfield extends Model\AbstractModel implements
 
     public function markLanguagesAsDirty(array $languages): void
     {
-        foreach ($languages as $language => $key) {
+        foreach (array_keys($languages) as $language) {
             $this->markLanguageAsDirty($language);
         }
     }

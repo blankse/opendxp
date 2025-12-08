@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace OpenDxp\Navigation\Page;
 
 use OpenDxp\Model;
+use Override;
 
 class Document extends Url
 {
@@ -46,6 +47,7 @@ class Document extends Url
         return $this->_tabindex;
     }
 
+    #[Override]
     public function setAccesskey(?string $character = null): static
     {
         $this->_accesskey = $character;
@@ -53,6 +55,7 @@ class Document extends Url
         return $this;
     }
 
+    #[Override]
     public function getAccesskey(): ?string
     {
         return $this->_accesskey;

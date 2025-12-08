@@ -18,6 +18,7 @@ namespace OpenDxp\Image\Adapter;
 
 use GdImage;
 use OpenDxp\Image\Adapter;
+use Override;
 
 class GD extends Adapter
 {
@@ -56,33 +57,32 @@ class GD extends Adapter
 
     public function getContentOptimizedFormat(): string
     {
-        $format = 'pjpeg';
         if ($this->hasAlphaChannel()) {
-            $format = 'png';
+            return 'png';
         }
 
-        return $format;
+        return 'pjpeg';
     }
 
     public function save(string $path, ?string $format = null, ?int $quality = null): static
     {
-        if (!$format || $format == 'png32') {
+        if (!$format || $format === 'png32') {
             $format = 'png';
         }
 
-        if ($format == 'original') {
+        if ($format === 'original') {
             $format = $this->sourceImageFormat;
         }
 
         $format = strtolower($format);
 
         // progressive jpeg
-        if ($format == 'pjpeg') {
+        if ($format === 'pjpeg') {
             imageinterlace($this->resource, true);
             $format = 'jpeg';
         }
 
-        if ($format == 'jpg') {
+        if ($format === 'jpg') {
             $format = 'jpeg';
         }
 
@@ -92,7 +92,7 @@ class GD extends Adapter
         }
 
         // always create a PNG24
-        if ($format == 'png') {
+        if ($format === 'png') {
             imagesavealpha($this->resource, true);
         }
 
@@ -145,6 +145,7 @@ class GD extends Adapter
         return $newImg;
     }
 
+    #[Override]
     public function resize(int $width, int $height): static
     {
         $this->preModify();
@@ -161,6 +162,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function crop(int $x, int $y, int $width, int $height): static
     {
         $this->preModify();
@@ -183,6 +185,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function frame(int $width, int $height, bool $forceResize = false): static
     {
         $this->preModify();
@@ -206,6 +209,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function setBackgroundColor(string $color): static
     {
         $this->preModify();
@@ -228,6 +232,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function setBackgroundImage(string $image, ?string $mode = null): static
     {
         $this->preModify();
@@ -262,6 +267,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function grayscale(): static
     {
         $this->preModify();
@@ -273,6 +279,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function sepia(): static
     {
         $this->preModify();
@@ -285,6 +292,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function addOverlay(mixed $image, int $x = 0, int $y = 0, int $alpha = 100, string $composite = 'COMPOSITE_DEFAULT', string $origin = 'top-left'): static
     {
         $this->preModify();
@@ -317,13 +325,14 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function mirror(string $mode): static
     {
         $this->preModify();
 
-        if ($mode == 'vertical') {
+        if ($mode === 'vertical') {
             imageflip($this->resource, IMG_FLIP_VERTICAL);
-        } elseif ($mode == 'horizontal') {
+        } elseif ($mode === 'horizontal') {
             imageflip($this->resource, IMG_FLIP_HORIZONTAL);
         }
 
@@ -332,6 +341,7 @@ class GD extends Adapter
         return $this;
     }
 
+    #[Override]
     public function rotate(int $angle): static
     {
         $this->preModify();

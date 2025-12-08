@@ -43,11 +43,7 @@ class SiteRootFilter implements FilterInterface
             $site = $context->getSite();
         }
 
-        if ($this->isExcludedSiteRoot($element, $site)) {
-            return false;
-        }
-
-        return true;
+        return !$this->isExcludedSiteRoot($element, $site);
     }
 
     public function handlesChildren(ElementInterface $element, GeneratorContextInterface $context): bool
@@ -60,9 +56,7 @@ class SiteRootFilter implements FilterInterface
         if (null === $this->siteRoots) {
             $sites = (new Site\Listing())->load();
 
-            $this->siteRoots = array_map(function (Site $site) {
-                return $site->getRootId();
-            }, $sites);
+            $this->siteRoots = array_map(fn (Site $site) => $site->getRootId(), $sites);
         }
 
         if (!in_array($document->getId(), $this->siteRoots, true)) {
@@ -70,7 +64,7 @@ class SiteRootFilter implements FilterInterface
         }
 
         // no site, but document is a site root -> exclude
-        if (null === $site) {
+        if (!$site instanceof \OpenDxp\Model\Site) {
             return true;
         }
 

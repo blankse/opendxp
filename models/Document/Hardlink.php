@@ -19,6 +19,7 @@ namespace OpenDxp\Model\Document;
 use OpenDxp;
 use OpenDxp\Model;
 use OpenDxp\Model\Document;
+use Override;
 
 /**
  * @method \OpenDxp\Model\Document\Hardlink\Dao getDao()
@@ -56,6 +57,7 @@ class Hardlink extends Document
         return null;
     }
 
+    #[Override]
     public function resolveDependencies(): array
     {
         $dependencies = parent::resolveDependencies();
@@ -73,14 +75,13 @@ class Hardlink extends Document
         return $dependencies;
     }
 
+    #[Override]
     public function getCacheTags(array $tags = []): array
     {
         $tags = parent::getCacheTags($tags);
 
-        if ($this->getSourceDocument()) {
-            if ($this->getSourceDocument()->getId() != $this->getId() && !array_key_exists($this->getSourceDocument()->getCacheTag(), $tags)) {
-                $tags = $this->getSourceDocument()->getCacheTags($tags);
-            }
+        if ($this->getSourceDocument() && ($this->getSourceDocument()->getId() !== $this->getId() && !array_key_exists($this->getSourceDocument()->getCacheTag(), $tags))) {
+            return $this->getSourceDocument()->getCacheTags($tags);
         }
 
         return $tags;
@@ -122,6 +123,7 @@ class Hardlink extends Document
         return $this->propertiesFromSource;
     }
 
+    #[Override]
     public function getProperties(): array
     {
         if ($this->properties === null) {
@@ -133,7 +135,7 @@ class Hardlink extends Document
                     $prop = clone $prop; // because of cache
                     $prop->setInherited(true);
                 }
-                $properties = array_merge($sourceProperties, $properties);
+                $properties = [...$sourceProperties, ...$properties];
             } elseif ($this->getSourceDocument()) {
                 $sourceProperties = $this->getSourceDocument()->getDao()->getProperties(false, true);
                 foreach ($sourceProperties as &$prop) {
@@ -143,7 +145,7 @@ class Hardlink extends Document
                     $prop = clone $prop; // because of cache
                     $prop->setInherited(true);
                 }
-                $properties = array_merge($sourceProperties, $properties);
+                $properties = [...$sourceProperties, ...$properties];
             }
 
             $this->setProperties($properties);
@@ -152,6 +154,7 @@ class Hardlink extends Document
         return $this->properties;
     }
 
+    #[Override]
     public function getChildren(bool $includingUnpublished = false): Listing
     {
         $cacheKey = $this->getListingCacheKey(func_get_args());
@@ -169,7 +172,7 @@ class Hardlink extends Document
                 }
             }
 
-            $children->setData(array_merge($wrappedSourceChildren, $children->load()));
+            $children->setData([...$wrappedSourceChildren, ...$children->load()]);
 
             $this->setChildren($children, $includingUnpublished);
         }
@@ -177,11 +180,13 @@ class Hardlink extends Document
         return $this->children[$cacheKey];
     }
 
+    #[Override]
     public function hasChildren(?bool $includingUnpublished = null): bool
     {
         return count($this->getChildren((bool)$includingUnpublished)) > 0;
     }
 
+    #[Override]
     protected function update(array $params = []): void
     {
         parent::update($params);

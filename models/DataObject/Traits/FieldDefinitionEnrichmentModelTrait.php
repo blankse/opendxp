@@ -44,7 +44,11 @@ trait FieldDefinitionEnrichmentModelTrait
 
     public function suppressEnrichment(array $context): bool
     {
-        return !OpenDxp::inAdmin() || (isset($context['suppressEnrichment']) && $context['suppressEnrichment']);
+        if (!OpenDxp::inAdmin()) {
+            return true;
+        }
+
+        return isset($context['suppressEnrichment']) && $context['suppressEnrichment'];
     }
 
     /**

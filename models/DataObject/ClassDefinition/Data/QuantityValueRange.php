@@ -22,6 +22,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\Element\ValidationException;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class QuantityValueRange extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface
 {
@@ -211,6 +212,7 @@ class QuantityValueRange extends Data implements ResourcePersistenceAwareInterfa
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         if ($data instanceof DataObject\Data\QuantityValueRange) {
@@ -225,6 +227,7 @@ class QuantityValueRange extends Data implements ResourcePersistenceAwareInterfa
      *
      * @throws Exception
      */
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params);
@@ -283,6 +286,7 @@ class QuantityValueRange extends Data implements ResourcePersistenceAwareInterfa
         return null;
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         $fieldName = $this->getName();
@@ -386,6 +390,7 @@ class QuantityValueRange extends Data implements ResourcePersistenceAwareInterfa
         return '\\' . DataObject\Data\QuantityValueRange::class . '|null';
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         if ($data instanceof DataObject\Data\QuantityValueRange) {

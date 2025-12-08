@@ -22,6 +22,7 @@ use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Model\Exception\NotFoundException;
+use Override;
 
 class QuantityValue extends AbstractQuantityValue
 {
@@ -82,11 +83,7 @@ class QuantityValue extends AbstractQuantityValue
 
     public function setDefaultValue(float|int|string|null $defaultValue): void
     {
-        if ((string)$defaultValue !== '') {
-            $this->defaultValue = $defaultValue;
-        } else {
-            $this->defaultValue = null;
-        }
+        $this->defaultValue = (string)$defaultValue !== '' ? $defaultValue : null;
     }
 
     public function setInteger(bool $integer): void
@@ -186,7 +183,11 @@ class QuantityValue extends AbstractQuantityValue
 
     private function isDecimalType(): bool
     {
-        return null !== $this->getDecimalSize() || null !== $this->getDecimalPrecision();
+        if (null !== $this->getDecimalSize()) {
+            return true;
+        }
+
+        return null !== $this->getDecimalPrecision();
     }
 
     private function buildDecimalColumnType(): string
@@ -204,11 +205,11 @@ class QuantityValue extends AbstractQuantityValue
         $scale = self::DECIMAL_PRECISION_DEFAULT;
 
         if (null !== $this->decimalSize) {
-            $precision = (int)$this->decimalSize;
+            $precision = $this->decimalSize;
         }
 
         if (null !== $this->decimalPrecision) {
-            $scale = (int)$this->decimalPrecision;
+            $scale = $this->decimalPrecision;
         }
 
         if ($precision < 1 || $precision > 65) {
@@ -235,11 +236,7 @@ class QuantityValue extends AbstractQuantityValue
         $dataUnit =  $data[$this->getName() . '__unit'];
 
         if ($dataValue !== null || $dataUnit) {
-            if ($dataValue !== null && !is_numeric($dataValue)) {
-                $value = $this->toNumeric($dataValue);
-            } else {
-                $value = $dataValue;
-            }
+            $value = $dataValue !== null && !is_numeric($dataValue) ? $this->toNumeric($dataValue) : $dataValue;
 
             try {
                 $quantityValue = new Model\DataObject\Data\QuantityValue($value === null ? null : (float)$value, $dataUnit);
@@ -266,9 +263,9 @@ class QuantityValue extends AbstractQuantityValue
 
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Model\DataObject\Data\QuantityValue
     {
-        if (strlen((string)$data['value']) > 0 || $data['unit']) {
+        if ((string)$data['value'] !== '' || $data['unit']) {
             if (empty($data['unit']) || $data['unit'] == -1) {
-                return new Model\DataObject\Data\QuantityValue($data['value'], null);
+                return new Model\DataObject\Data\QuantityValue($data['value']);
             }
 
             return new Model\DataObject\Data\QuantityValue($data['value'], $data['unit']);
@@ -277,6 +274,7 @@ class QuantityValue extends AbstractQuantityValue
         return null;
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (
@@ -399,6 +397,7 @@ class QuantityValue extends AbstractQuantityValue
         return 'quantityValue';
     }
 
+    #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
     {
         $db = \OpenDxp\Db::get();

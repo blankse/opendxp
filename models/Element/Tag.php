@@ -23,11 +23,12 @@ use OpenDxp\Event\TagEvents;
 use OpenDxp\Event\Traits\RecursionBlockingEventDispatchHelperTrait;
 use OpenDxp\Model;
 use OpenDxp\Model\Exception\NotFoundException;
+use Stringable;
 
 /**
  * @method \OpenDxp\Model\Element\Tag\Dao getDao()
  */
-final class Tag extends Model\AbstractModel
+final class Tag extends Model\AbstractModel implements Stringable
 {
     use RecursionBlockingEventDispatchHelperTrait;
 
@@ -69,12 +70,12 @@ final class Tag extends Model\AbstractModel
 
         try {
             $tag = RuntimeCache::get($cacheKey);
-        } catch (Exception $ex) {
+        } catch (Exception) {
             try {
                 $tag = new self();
                 $tag->getDao()->getById($id);
                 RuntimeCache::set($cacheKey, $tag);
-            } catch (NotFoundException $e) {
+            } catch (NotFoundException) {
                 return null;
             }
         }
@@ -170,7 +171,7 @@ final class Tag extends Model\AbstractModel
     {
         try {
             return (new self)->getDao()->getByPath($path);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return null;
         }
     }
@@ -244,7 +245,7 @@ final class Tag extends Model\AbstractModel
 
     public function getParent(): ?Tag
     {
-        if ($this->parent === null && $parentId = $this->getParentId()) {
+        if (!$this->parent instanceof \OpenDxp\Model\Element\Tag && $parentId = $this->getParentId()) {
             $this->parent = self::getById($parentId);
         }
 
@@ -331,11 +332,7 @@ final class Tag extends Model\AbstractModel
         }
 
         $parentIds = array_reverse($parentIds);
-        if ($parentIds) {
-            $this->idPath = '/' . implode('/', $parentIds) . '/';
-        } else {
-            $this->idPath = '/';
-        }
+        $this->idPath = $parentIds ? '/' . implode('/', $parentIds) . '/' : '/';
     }
 
     /**

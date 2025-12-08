@@ -18,6 +18,7 @@ namespace OpenDxp\Model\Asset\MetaData\ClassDefinition\Data;
 
 use OpenDxp\Model\DataObject\AbstractObject;
 use OpenDxp\Model\Element\Service;
+use Override;
 
 class DataObject extends Data
 {
@@ -36,14 +37,14 @@ class DataObject extends Data
 
     public function denormalize(mixed $value, array $params = []): mixed
     {
-        $element = null;
         if (is_numeric($value)) {
-            $element = Service::getElementById('object', (int) $value);
+            return Service::getElementById('object', (int) $value);
         }
 
-        return $element;
+        return null;
     }
 
+    #[Override]
     public function transformGetterData(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -53,6 +54,7 @@ class DataObject extends Data
         return $data;
     }
 
+    #[Override]
     public function transformSetterData(mixed $data, array $params = []): mixed
     {
         if ($data instanceof AbstractObject) {
@@ -62,6 +64,7 @@ class DataObject extends Data
         return $data;
     }
 
+    #[Override]
     public function getDataFromEditMode(mixed $data, array $params = []): int|string|null
     {
         $element = $data;
@@ -75,6 +78,7 @@ class DataObject extends Data
         return '';
     }
 
+    #[Override]
     public function getDataForResource(mixed $data, array $params = []): mixed
     {
         if ($data instanceof AbstractObject) {
@@ -84,6 +88,7 @@ class DataObject extends Data
         return $data;
     }
 
+    #[Override]
     public function getDataForEditMode(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -91,11 +96,12 @@ class DataObject extends Data
         }
         if ($data instanceof AbstractObject) {
             return $data->getRealFullPath();
-        } else {
-            return '';
         }
+
+        return '';
     }
 
+    #[Override]
     public function getDataForListfolderGrid(mixed $data, array $params = []): mixed
     {
         if (is_numeric($data)) {
@@ -109,6 +115,7 @@ class DataObject extends Data
         return $data;
     }
 
+    #[Override]
     public function resolveDependencies(mixed $data, array $params = []): array
     {
         if ($data instanceof AbstractObject && isset($params['type'])) {
@@ -127,6 +134,7 @@ class DataObject extends Data
         return [];
     }
 
+    #[Override]
     public function getDataFromListfolderGrid(mixed $data, array $params = []): ?int
     {
         $data = \OpenDxp\Model\DataObject::getByPath($data);

@@ -32,14 +32,6 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class ControllerDataProvider
 {
-    private ?KernelInterface $kernel = null;
-
-    /**
-     * id -> class mapping array of controllers defined as services
-     *
-     */
-    private array $serviceControllers;
-
     private ?array $bundles = null;
 
     private ?array $templates = null;
@@ -48,10 +40,13 @@ class ControllerDataProvider
         '*.twig',
     ];
 
-    public function __construct(KernelInterface $kernel, array $serviceControllers)
-    {
-        $this->kernel = $kernel;
-        $this->serviceControllers = $serviceControllers;
+    public function __construct(
+        private readonly ?KernelInterface $kernel,
+        /**
+         * id -> class mapping array of controllers defined as services
+         */
+        private readonly array $serviceControllers
+    ) {
     }
 
     /**
@@ -67,7 +62,7 @@ class ControllerDataProvider
 
         $this->bundles = [];
         foreach ($this->kernel->getBundles() as $bundle) {
-            if ($this->isValidNamespace(get_class($bundle))) {
+            if ($this->isValidNamespace($bundle::class)) {
                 $this->bundles[$bundle->getName()] = $bundle;
             }
         }
@@ -104,7 +99,7 @@ class ControllerDataProvider
                 continue;
             }
 
-            $bundleReflector = new ReflectionClass(get_class($bundle));
+            $bundleReflector = new ReflectionClass($bundle::class);
 
             $finder = new Finder();
             $finder
@@ -197,10 +192,6 @@ class ControllerDataProvider
      */
     protected function isValidNamespace(string $namespace): bool
     {
-        if (preg_match('/^(Symfony|Doctrine|OpenDxp|Sensio)/', $namespace)) {
-            return false;
-        }
-
-        return true;
+        return !preg_match('/^(Symfony|Doctrine|OpenDxp|Sensio)/', $namespace);
     }
 }

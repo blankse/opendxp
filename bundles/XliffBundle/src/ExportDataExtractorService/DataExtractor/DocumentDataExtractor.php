@@ -23,12 +23,13 @@ use OpenDxp\Bundle\XliffBundle\TranslationItemCollection\TranslationItem;
 use OpenDxp\Document\Editable\EditableUsageResolver;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Property;
+use Override;
 
 class DocumentDataExtractor extends AbstractElementDataExtractor
 {
     public const array EXPORTABLE_TAGS = ['wysiwyg', 'input', 'textarea', 'image', 'link'];
 
-    public function __construct(private EditableUsageResolver $EditableUsageResolver)
+    public function __construct(private readonly EditableUsageResolver $EditableUsageResolver)
     {
     }
 
@@ -37,6 +38,7 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
      *
      * @throws Exception
      */
+    #[Override]
     public function extract(TranslationItem $translationItem, string $sourceLanguage, array $targetLanguages): AttributeSet
     {
         $document = $translationItem->getElement();
@@ -89,7 +91,7 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
                             $targetTag = $targetDocument->getEditable($editable->getName());
                             if ($targetTag instanceof Document\Editable\Image || $targetTag instanceof Document\Editable\Link) {
                                 $targetContent[$targetLanguage] = $targetTag->getText();
-                            } elseif ($targetTag !== null) {
+                            } elseif ($targetTag instanceof \OpenDxp\Model\Document\Editable) {
                                 $targetContent[$targetLanguage] = $targetTag->getData();
                             }
                         }
@@ -143,6 +145,7 @@ class DocumentDataExtractor extends AbstractElementDataExtractor
         return $this;
     }
 
+    #[Override]
     protected function doExportProperty(Property $property): bool
     {
         return

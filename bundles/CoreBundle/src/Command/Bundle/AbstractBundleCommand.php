@@ -75,11 +75,10 @@ abstract class AbstractBundleCommand extends AbstractCommand
             $this->io->warning($message);
 
             return 0;
-        } else {
-            $this->io->error($message);
-
-            return 1;
         }
+        $this->io->error($message);
+
+        return 1;
     }
 
     protected function getBundle(): OpenDxpBundleInterface
@@ -113,12 +112,7 @@ abstract class AbstractBundleCommand extends AbstractCommand
 
     protected function setupInstaller(OpenDxpBundleInterface $bundle): ?\OpenDxp\Extension\Bundle\Installer\InstallerInterface
     {
-        $installer = $this->bundleManager->getInstaller($bundle);
-        if (null === $installer) {
-            return null;
-        }
-
-        return $installer;
+        return $this->bundleManager->getInstaller($bundle);
     }
 
     protected function normalizeBundleIdentifier(string $bundleIdentifier): string

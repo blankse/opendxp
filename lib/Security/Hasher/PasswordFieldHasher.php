@@ -18,6 +18,7 @@ namespace OpenDxp\Security\Hasher;
 
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Password;
 use OpenDxp\Model\DataObject\Concrete;
+use Override;
 use Symfony\Component\PasswordHasher\Hasher\CheckPasswordLengthTrait;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\RuntimeException;
@@ -31,17 +32,14 @@ class PasswordFieldHasher extends AbstractUserAwarePasswordHasher
 {
     use CheckPasswordLengthTrait;
 
-    protected string $fieldName;
-
     /**
      * If true, the user password hash will be updated if necessary.
      *
      */
     protected bool $updateHash = true;
 
-    public function __construct(string $fieldName = 'password')
+    public function __construct(protected string $fieldName = 'password')
     {
-        $this->fieldName = $fieldName;
     }
 
     public function getUpdateHash(): bool
@@ -84,7 +82,7 @@ class PasswordFieldHasher extends AbstractUserAwarePasswordHasher
             throw new RuntimeException(sprintf(
                 'Field %s for user type %s is expected to be of type %s, %s given',
                 $this->fieldName,
-                get_class($this->user),
+                $this->user instanceof \Symfony\Component\Security\Core\User\UserInterface ? $this->user::class : self::class,
                 Password::class,
                 get_debug_type($field)
             ));
@@ -93,6 +91,7 @@ class PasswordFieldHasher extends AbstractUserAwarePasswordHasher
         return $field;
     }
 
+    #[Override]
     public function verify(string $hashedPassword, string $plainPassword, ?string $salt = null): bool
     {
         return $this->getFieldDefinition()->verifyPassword($plainPassword, $this->getUser(), $this->updateHash);

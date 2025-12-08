@@ -42,7 +42,7 @@ final class ConfigurationHelper
 
     public static function addConfigLocationTargetNode(NodeBuilder $node, string $name, string $folder, array $additionalNodes = []): void
     {
-        //BC reasons: Remove this check in Pimcore 12
+        //BC reasons: Remove this check in OpenDXP 2
         if (!str_starts_with($folder, OPENDXP_PROJECT_ROOT)) {
             $folder = OPENDXP_PROJECT_ROOT . $folder;
         }
@@ -109,7 +109,7 @@ final class ConfigurationHelper
             $dirs[]= $configPath;
         }
 
-        if (empty($dirs)) {
+        if ($dirs === []) {
             return [];
         }
 

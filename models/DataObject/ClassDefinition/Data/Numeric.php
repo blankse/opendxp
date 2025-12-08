@@ -22,6 +22,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, TypeDeclarationSupportInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface, PreSetDataInterface
 {
@@ -199,6 +200,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
         return $this->decimalPrecision;
     }
 
+    #[Override]
     public function getUnique(): bool
     {
         return $this->unique;
@@ -229,7 +231,11 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     private function isDecimalType(): bool
     {
-        return null !== $this->getDecimalSize() || null !== $this->getDecimalPrecision();
+        if (null !== $this->getDecimalSize()) {
+            return true;
+        }
+
+        return null !== $this->getDecimalPrecision();
     }
 
     private function buildDecimalColumnType(): string
@@ -247,11 +253,11 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
         $scale = self::DECIMAL_PRECISION_DEFAULT;
 
         if (null !== $this->decimalSize) {
-            $precision = (int)$this->decimalSize;
+            $precision = $this->decimalSize;
         }
 
         if (null !== $this->decimalPrecision) {
-            $scale = (int)$this->decimalPrecision;
+            $scale = $this->decimalPrecision;
         }
 
         if ($precision < 1 || $precision > 65) {
@@ -273,8 +279,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): float|int|string|null
@@ -289,7 +293,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
      *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      *
@@ -304,7 +307,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
      *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      *
@@ -317,8 +319,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see Data::getDataForEditmode
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): float|int|string|null
@@ -337,15 +337,15 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see Data::getVersionPreview
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         return (string) $data;
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && $this->isEmpty($data)) {
@@ -381,6 +381,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
         }
     }
 
+    #[Override]
     public function getForCsvExport(DataObject\Localizedfield|DataObject\Fieldcollection\Data\AbstractData|DataObject\Objectbrick\Data\AbstractData|DataObject\Concrete $object, array $params = []): string
     {
         $data = $this->getDataFromObjectParam($object, $params) ?? '';
@@ -394,6 +395,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
      * @param array $params optional params used to change the behavior
      *
      */
+    #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
     {
         $db = \OpenDxp\Db::get();
@@ -424,11 +426,13 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
         return '';
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         return !is_numeric($data);
@@ -456,12 +460,13 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     public function preSetData(mixed $container, mixed $data, array $params = []): mixed
     {
         if (!is_null($data) && $this->getDecimalPrecision()) {
-            $data = round((float) $data, $this->getDecimalPrecision());
+            return round((float) $data, $this->getDecimalPrecision());
         }
 
         return $data;
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;
@@ -474,7 +479,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     public function isEqual(mixed $oldValue, mixed $newValue): bool
     {
-        return $this->toNumeric($oldValue) == $this->toNumeric($newValue);
+        return $this->toNumeric($oldValue) === $this->toNumeric($newValue);
     }
 
     public function getParameterTypeDeclaration(): ?string

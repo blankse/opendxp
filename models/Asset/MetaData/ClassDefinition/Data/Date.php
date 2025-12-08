@@ -18,9 +18,11 @@ namespace OpenDxp\Model\Asset\MetaData\ClassDefinition\Data;
 
 use Carbon\Carbon;
 use OpenDxp\Tool\UserTimezone;
+use Override;
 
 class Date extends Data
 {
+    #[Override]
     public function getDataFromEditMode(mixed $data, array $params = []): mixed
     {
         return $this->normalize($data, $params);
@@ -29,12 +31,13 @@ class Date extends Data
     public function normalize(mixed $value, array $params = []): mixed
     {
         if ($value && !is_numeric($value)) {
-            $value = strtotime($value);
+            return strtotime($value);
         }
 
         return $value;
     }
 
+    #[Override]
     public function getVersionPreview(mixed $value, array $params = []): string
     {
         if (!$value) {

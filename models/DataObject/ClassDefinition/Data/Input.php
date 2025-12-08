@@ -20,6 +20,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Input extends Data implements
     ResourcePersistenceAwareInterface,
@@ -68,20 +69,14 @@ class Input extends Data implements
     public bool $showCharCount = false;
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?Concrete $object = null, array $params = []): ?string
     {
-        $data = $this->handleDefaultValue($data, $object, $params);
-
-        return $data;
+        return $this->handleDefaultValue($data, $object, $params);
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -90,8 +85,6 @@ class Input extends Data implements
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -100,7 +93,6 @@ class Input extends Data implements
     }
 
     /**
-     * @param null|Model\DataObject\Concrete $object
      *
      * @see Data::getDataForEditmode
      *
@@ -122,10 +114,6 @@ class Input extends Data implements
         return $this->getDataFromResource($data, $object, $params);
     }
 
-    /**
-     * @param Model\DataObject\Concrete|null $object
-     *
-     */
     public function getDataFromGridEditor(string $data, ?Concrete $object = null, array $params = []): ?string
     {
         return $this->getDataFromEditmode($data, $object, $params);
@@ -168,6 +156,7 @@ class Input extends Data implements
         $this->regexFlags = $regexFlags;
     }
 
+    #[Override]
     public function getUnique(): bool
     {
         return $this->unique;
@@ -198,6 +187,7 @@ class Input extends Data implements
         return $this->getColumnType();
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (is_string($data)) {
@@ -208,10 +198,8 @@ class Input extends Data implements
                     if (!preg_match_all('#' . $this->getRegex() . '#' . $flags, $data)) {
                         $throwException = true;
                     }
-                } else {
-                    if (!preg_match('#'.$this->getRegex().'#'.implode('', $this->getRegexFlags()), $data)) {
-                        $throwException = true;
-                    }
+                } elseif (!preg_match('#'.$this->getRegex().'#'.implode('', $this->getRegexFlags()), $data)) {
+                    $throwException = true;
                 }
 
                 if ($throwException) {
@@ -230,11 +218,13 @@ class Input extends Data implements
     /**
      * @param Model\DataObject\ClassDefinition\Data\Input $mainDefinition
      */
+    #[Override]
     public function synchronizeWithMainDefinition(Model\DataObject\ClassDefinition\Data $mainDefinition): void
     {
         $this->columnLength = $mainDefinition->columnLength;
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;

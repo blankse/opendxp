@@ -73,13 +73,11 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
         $logName = sprintf('(%s) <comment>%s</comment>', $type, $name);
 
         $definition = $this->loadDefinition($name);
-        if (null !== $definition) {
+        if ($definition instanceof \OpenDxp\Model\ModelInterface) {
             if ($force) {
                 $this->output->writeln(sprintf('%s already exists', $logName));
-            } else {
-                if (!$this->askConfirmation($name)) {
-                    return 0;
-                }
+            } elseif (!$this->askConfirmation($name)) {
+                return 0;
             }
         } else {
             $this->output->writeln(sprintf('%s was not found', $logName));
@@ -105,11 +103,10 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
             $this->output->writeln(sprintf('Successfully imported %s', $logName));
 
             return 0;
-        } else {
-            $this->output->writeln(sprintf('<error>ERROR:</error> Failed to import %s', $logName));
-
-            return 1;
         }
+        $this->output->writeln(sprintf('<error>ERROR:</error> Failed to import %s', $logName));
+
+        return 1;
     }
 
     /**
@@ -155,11 +152,7 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
             false
         );
 
-        if ($helper->ask($this->input, $this->output, $question)) {
-            return true;
-        }
-
-        return false;
+        return (bool) $helper->ask($this->input, $this->output, $question);
     }
 
     /**

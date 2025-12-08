@@ -43,6 +43,7 @@ use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 use OpenDxp\Twig\Extension\Templating\Traits\HelperCharsetTrait;
+use Stringable;
 use Traversable;
 use Twig\Extension\RuntimeExtensionInterface;
 
@@ -60,11 +61,9 @@ use Twig\Extension\RuntimeExtensionInterface;
  * @method string|int getIndent()
  * @method string getWhitespace(string|int $indent)
  */
-abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayAccess, RuntimeExtensionInterface
+abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayAccess, RuntimeExtensionInterface, Stringable
 {
     use HelperCharsetTrait;
-
-    protected ContainerService $containerService;
 
     protected Container $_container;
 
@@ -81,9 +80,8 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      */
     protected bool $_autoEscape = true;
 
-    public function __construct(ContainerService $containerService)
+    public function __construct(protected ContainerService $containerService)
     {
-        $this->containerService = $containerService;
     }
 
     /**
@@ -95,7 +93,7 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      */
     public function setAutoEscape(bool $autoEscape = true): static
     {
-        $this->_autoEscape = ($autoEscape) ? true : false;
+        $this->_autoEscape = $autoEscape;
 
         return $this;
     }
@@ -160,11 +158,8 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
     public function __get(string $key)
     {
         $container = $this->getContainer();
-        if (isset($container[$key])) {
-            return $container[$key];
-        }
 
-        return null;
+        return $container[$key] ?? null;
     }
 
     /**

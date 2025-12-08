@@ -24,6 +24,7 @@ use OpenDxp\Messenger\AssetPreviewImageMessage;
 use OpenDxp\Model;
 use OpenDxp\Model\Asset;
 use OpenDxp\Tool\Storage;
+use Override;
 
 /**
  * @method \OpenDxp\Model\Asset\Dao getDao()
@@ -34,8 +35,6 @@ class Folder extends Model\Asset
 
     /**
      * @internal
-     *
-     * @var Asset\Listing|null
      */
     protected ?Listing $children = null;
 
@@ -52,9 +51,10 @@ class Folder extends Model\Asset
         return $this;
     }
 
+    #[Override]
     public function getChildren(): Listing
     {
-        if ($this->children === null) {
+        if (!$this->children instanceof \OpenDxp\Model\Asset\Listing) {
             if ($this->getId()) {
                 $list = new Asset\Listing();
                 $list->setCondition('parentId = ?', $this->getId());
@@ -72,6 +72,7 @@ class Folder extends Model\Asset
         return $this->children;
     }
 
+    #[Override]
     public function hasChildren(): bool
     {
         return $this->getDao()->hasChildren();

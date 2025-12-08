@@ -18,6 +18,7 @@ namespace OpenDxp\Model\DataObject\Classificationstore\KeyConfig\Listing;
 use Exception;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
+use Override;
 
 /**
  * @internal
@@ -57,11 +58,12 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         try {
             return (int) $this->db->fetchOne('SELECT COUNT(*) FROM ' . DataObject\Classificationstore\KeyConfig\Dao::TABLE_NAME_KEYS . ' '. $this->getCondition(), $this->model->getConditionVariables(), $this->model->getConditionVariableTypes());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return 0;
         }
     }
 
+    #[Override]
     protected function getCondition(): string
     {
         $condition = $this->model->getIncludeDisabled() ? '(enabled is null or enabled = 0)' : 'enabled = 1';

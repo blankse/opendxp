@@ -18,21 +18,12 @@ declare(strict_types=1);
 namespace OpenDxp\Twig\Extension;
 
 use OpenDxp\Config;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 /**
  * @internal
  */
-class WebsiteConfigExtension extends AbstractExtension
+class WebsiteConfigExtension
 {
-    public function getFunctions(): array
-    {
-        return [
-            new TwigFunction('opendxp_website_config', [$this, 'getWebsiteConfig']),
-        ];
-    }
-
     /**
      * Returns website config for the current site
      *
@@ -40,6 +31,7 @@ class WebsiteConfigExtension extends AbstractExtension
      * @param mixed $default    Default value to use if the key is not set
      *
      */
+    #[\Twig\Attribute\AsTwigFunction('opendxp_website_config')]
     public function getWebsiteConfig(?string $key = null, mixed $default = null, ?string $language = null): mixed
     {
         return Config::getWebsiteConfigValue($key, $default, $language);

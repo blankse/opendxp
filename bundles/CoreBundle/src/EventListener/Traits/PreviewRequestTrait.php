@@ -33,10 +33,6 @@ trait PreviewRequestTrait
             return true;
         }
 
-        if ($request->query->getBoolean('opendxp_preview')) {
-            return true;
-        }
-
-        return false;
+        return $request->query->getBoolean('opendxp_preview');
     }
 }

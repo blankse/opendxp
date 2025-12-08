@@ -19,8 +19,6 @@ namespace OpenDxp\Model\DataObject\Classificationstore;
 use Exception;
 use OpenDxp;
 use OpenDxp\Model\DataObject;
-use OpenDxp\Model\DataObject\ClassDefinition\Data;
-use OpenDxp\Model\DataObject\ClassDefinition\Data\EncryptedField;
 
 /**
  * @internal
@@ -42,7 +40,6 @@ class Service
 
     /**
      *
-     * @return EncryptedField|Data|null
      *
      * @throws Exception
      */
@@ -85,7 +82,7 @@ class Service
         $dataDefinition = $loader->build($type);
 
         $dataDefinition->setValues($definition);
-        $className = get_class($dataDefinition);
+        $className = $dataDefinition::class;
 
         $dataDefinition = $className::__set_state((array) $dataDefinition);
 

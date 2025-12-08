@@ -25,8 +25,9 @@ use OpenDxp\Model\DataObject\Traits\OwnerAwareFieldTrait;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Element\Service;
+use Stringable;
 
-class Link implements OwnerAwareFieldInterface
+class Link implements OwnerAwareFieldInterface, Stringable
 {
     use OwnerAwareFieldTrait;
     use ObjectVarTrait;
@@ -359,10 +360,10 @@ class Link implements OwnerAwareFieldInterface
             $path = $this->getDirect() ?? '';
         }
 
-        if (strlen($this->getParameters()) > 0) {
+        if ($this->getParameters() !== '') {
             $path .= '?' . str_replace('?', '', $this->getParameters());
         }
-        if (strlen($this->getAnchor()) > 0) {
+        if ($this->getAnchor() !== '') {
             $path .= '#' . str_replace('#', '', $this->getAnchor());
         }
 
@@ -460,8 +461,7 @@ class Link implements OwnerAwareFieldInterface
      * https://github.com/pimcore/pimcore/pull/15926
      * used for non-nullable properties stored with null
      *
-     * @TODO: Remove in Pimcore 12
-     *
+     * @TODO: Remove in OpenDXP 2
      */
     public function __unserialize(array $data): void
     {

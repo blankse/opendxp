@@ -37,6 +37,7 @@ use OpenDxp\Bundle\CoreBundle\DependencyInjection\Compiler\WorkflowPass;
 use OpenDxp\Bundle\CoreBundle\DependencyInjection\OpenDxpCoreExtension;
 use OpenDxp\HttpKernel\Bundle\DependentBundleInterface;
 use OpenDxp\HttpKernel\BundleCollection\BundleCollection;
+use Override;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -46,6 +47,7 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class OpenDxpCoreBundle extends Bundle implements DependentBundleInterface
 {
+    #[Override]
     public function getContainerExtension(): ExtensionInterface
     {
         if (null === $this->extension) {
@@ -76,6 +78,7 @@ class OpenDxpCoreBundle extends Bundle implements DependentBundleInterface
         $container->addCompilerPass(new ImageAdapterAliasPass());
     }
 
+    #[Override]
     public function getPath(): string
     {
         return dirname(__DIR__);

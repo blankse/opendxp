@@ -21,6 +21,7 @@ use OpenDxp\File;
 use OpenDxp\Helper\TemporaryFileHelperTrait;
 use OpenDxp\Model\User\Role;
 use OpenDxp\Tool;
+use Override;
 
 /**
  * @method User\Dao getDao()
@@ -264,8 +265,7 @@ final class User extends User\UserRole implements UserInterface
         if ($this->isAdmin()) {
             return true;
         }
-
-        if ($type == 'permission') {
+        if ($type === 'permission') {
             if (!$this->getPermission($key)) {
                 // check roles
                 foreach ($this->getRoles() as $roleId) {
@@ -278,33 +278,35 @@ final class User extends User\UserRole implements UserInterface
             }
 
             return $this->getPermission($key);
-        } elseif ($type == 'class') {
+        }
+        if ($type === 'class') {
             $classes = $this->getClasses();
             foreach ($this->getRoles() as $roleId) {
                 /** @var Role $role */
                 $role = User\Role::getById($roleId);
-                $classes = array_merge($classes, $role->getClasses());
+                $classes = [...$classes, ...$role->getClasses()];
+            }
+            if ($classes !== []) {
+                return in_array($key, $classes);
             }
 
-            if (!empty($classes)) {
-                return in_array($key, $classes);
-            } else {
-                return true;
-            }
-        } elseif ($type == 'docType') {
+            return true;
+        }
+        if ($type === 'docType') {
             $docTypes = $this->getDocTypes();
             foreach ($this->getRoles() as $roleId) {
                 /** @var Role $role */
                 $role = User\Role::getById($roleId);
-                $docTypes = array_merge($docTypes, $role->getDocTypes());
+                $docTypes = [...$docTypes, ...$role->getDocTypes()];
+            }
+            if ($docTypes !== []) {
+                return in_array($key, $docTypes);
             }
 
-            if (!empty($docTypes)) {
-                return in_array($key, $docTypes);
-            } else {
-                return true;
-            }
-        } elseif ($type == 'perspective') {
+            return true;
+        }
+
+        if ($type === 'perspective') {
             //returns true if required perspective is allowed to use by the user
             return in_array($key, $this->getMergedPerspectives());
         }
@@ -312,6 +314,7 @@ final class User extends User\UserRole implements UserInterface
         return false;
     }
 
+    #[Override]
     public function getPermission(string $permissionName): bool
     {
         if ($this->isAdmin()) {
@@ -329,9 +332,9 @@ final class User extends User\UserRole implements UserInterface
     public function setRoles(array|string $roles): static
     {
         if (is_string($roles) && $roles !== '') {
-            $this->roles = array_map('intval', explode(',', $roles));
+            $this->roles = array_map(intval(...), explode(',', $roles));
         } elseif (is_array($roles)) {
-            $this->roles = array_map('intval', $roles);
+            $this->roles = array_map(intval(...), $roles);
         } else {
             $this->roles = [];
         }
@@ -530,7 +533,7 @@ final class User extends User\UserRole implements UserInterface
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedPerspectives = array_merge($this->mergedPerspectives, $userRole->getPerspectives());
+                $this->mergedPerspectives = [...$this->mergedPerspectives, ...$userRole->getPerspectives()];
             }
             $this->mergedPerspectives = array_values($this->mergedPerspectives);
             if (!$this->mergedPerspectives) {
@@ -551,7 +554,7 @@ final class User extends User\UserRole implements UserInterface
     public function getFirstAllowedPerspective(): string
     {
         $perspectives = $this->getMergedPerspectives();
-        if (!empty($perspectives)) {
+        if ($perspectives !== []) {
             return $perspectives[0];
         }
 
@@ -573,7 +576,7 @@ final class User extends User\UserRole implements UserInterface
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedWebsiteTranslationLanguagesEdit = array_merge($this->mergedWebsiteTranslationLanguagesEdit, $userRole->getWebsiteTranslationLanguagesEdit());
+                $this->mergedWebsiteTranslationLanguagesEdit = [...$this->mergedWebsiteTranslationLanguagesEdit, ...$userRole->getWebsiteTranslationLanguagesEdit()];
             }
             $this->mergedWebsiteTranslationLanguagesEdit = array_values(array_unique($this->mergedWebsiteTranslationLanguagesEdit));
         }
@@ -614,7 +617,7 @@ final class User extends User\UserRole implements UserInterface
             foreach ($this->getRoles() as $role) {
                 /** @var User\UserRole $userRole */
                 $userRole = User\UserRole::getById($role);
-                $this->mergedWebsiteTranslationLanguagesView = array_merge($this->mergedWebsiteTranslationLanguagesView, $userRole->getWebsiteTranslationLanguagesView());
+                $this->mergedWebsiteTranslationLanguagesView = [...$this->mergedWebsiteTranslationLanguagesView, ...$userRole->getWebsiteTranslationLanguagesView()];
             }
 
             $this->mergedWebsiteTranslationLanguagesView = array_values(array_unique($this->mergedWebsiteTranslationLanguagesView));
@@ -633,7 +636,7 @@ final class User extends User\UserRole implements UserInterface
     public function getAllowedLanguagesForViewingWebsiteTranslations(): array
     {
         $mergedWebsiteTranslationLanguagesView = $this->getMergedWebsiteTranslationLanguagesView();
-        if (empty($mergedWebsiteTranslationLanguagesView) || $this->isAdmin()) {
+        if ($mergedWebsiteTranslationLanguagesView === [] || $this->isAdmin()) {
             return Tool::getValidLanguages();
         }
 

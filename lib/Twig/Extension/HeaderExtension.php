@@ -24,6 +24,7 @@ use OpenDxp\Twig\Extension\Templating\HeadStyle;
 use OpenDxp\Twig\Extension\Templating\HeadTitle;
 use OpenDxp\Twig\Extension\Templating\InlineScript;
 use OpenDxp\Twig\Extension\Templating\Placeholder;
+use Override;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -32,19 +33,19 @@ use Twig\TwigFunction;
  */
 class HeaderExtension extends AbstractExtension
 {
-    private HeadLink $headLink;
+    private readonly HeadLink $headLink;
 
-    private HeadMeta $headMeta;
+    private readonly HeadMeta $headMeta;
 
-    private HeadScript $headScript;
+    private readonly HeadScript $headScript;
 
-    private HeadStyle $headStyle;
+    private readonly HeadStyle $headStyle;
 
-    private HeadTitle $headTitle;
+    private readonly HeadTitle $headTitle;
 
-    private InlineScript $inlineScript;
+    private readonly InlineScript $inlineScript;
 
-    private Placeholder $placeholder;
+    private readonly Placeholder $placeholder;
 
     public function __construct(HeadLink $headLink, HeadMeta $headMeta, HeadScript $headScript, HeadStyle $headStyle, HeadTitle $headTitle, InlineScript $inlineScript, Placeholder $placeholder)
     {
@@ -57,6 +58,7 @@ class HeaderExtension extends AbstractExtension
         $this->placeholder = $placeholder;
     }
 
+    #[Override]
     public function getFunctions(): array
     {
         $options = [

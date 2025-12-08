@@ -16,21 +16,17 @@ declare(strict_types=1);
 
 namespace OpenDxp\Bundle\CoreBundle\EventListener;
 
-use Exception;
 use OpenDxp\Event\AssetEvents;
 use OpenDxp\Event\DataObjectEvents;
 use OpenDxp\Event\DocumentEvents;
 use OpenDxp\Event\Model\ElementEventInterface;
 use OpenDxp\Model\Asset;
-use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\Concrete as ConcreteObject;
 use OpenDxp\Model\Document;
-use OpenDxp\Model\Element\ElementInterface;
 use OpenDxp\Model\Element\Service;
 use OpenDxp\Model\Element\WorkflowState;
 use OpenDxp\Workflow\Manager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\GenericEvent;
 
 /**
  * @internal
@@ -40,7 +36,7 @@ class WorkflowManagementListener implements EventSubscriberInterface
     protected bool $enabled = true;
 
     public function __construct(
-        private Manager $workflowManager,
+        private readonly Manager $workflowManager,
     ) {
     }
 
@@ -97,38 +93,6 @@ class WorkflowManagementListener implements EventSubscriberInterface
         foreach ($list->load() as $item) {
             $item->delete();
         }
-    }
-
-    private function enrichNotes(DataObject\AbstractObject $object, array $notes): array
-    {
-        if (!empty($notes['commentGetterFn'])) {
-            $commentGetterFn = $notes['commentGetterFn'];
-            $notes['commentPrefill'] = $object->$commentGetterFn();
-        } elseif (!empty($notes)) {
-            $notes['commentPrefill'] = '';
-        }
-
-        return $notes;
-    }
-
-    /**
-     * @throws Exception
-     */
-    private static function extractElementFromEvent(GenericEvent $e): ElementInterface
-    {
-        $element = null;
-
-        foreach (['object', 'asset', 'document'] as $type) {
-            if ($e->hasArgument($type)) {
-                $element = $e->getArgument($type);
-            }
-        }
-
-        if (empty($element)) {
-            throw new Exception('No element found in event');
-        }
-
-        return $element;
     }
 
     public function enable(): void

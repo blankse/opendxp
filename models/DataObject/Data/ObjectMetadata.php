@@ -20,12 +20,13 @@ use Exception;
 use OpenDxp\Logger;
 use OpenDxp\Model;
 use OpenDxp\Model\DataObject;
-use OpenDxp\Model\DataObject\Concrete;
+use Override;
+use Stringable;
 
 /**
  * @method \OpenDxp\Model\DataObject\Data\ObjectMetadata\Dao getDao()
  */
-class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwareFieldInterface
+class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwareFieldInterface, Stringable
 {
     use DataObject\Traits\OwnerAwareFieldTrait;
 
@@ -33,19 +34,10 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
 
     protected ?int $objectId = null;
 
-    protected ?string $fieldname = null;
-
-    protected array $columns = [];
-
     protected array $data = [];
 
-    /**
-     * @param Concrete|null $object
-     */
-    public function __construct(?string $fieldname, array $columns = [], ?DataObject\Concrete $object = null)
+    public function __construct(protected ?string $fieldname, protected array $columns = [], ?DataObject\Concrete $object = null)
     {
-        $this->fieldname = $fieldname;
-        $this->columns = $columns;
         $this->setObject($object);
     }
 
@@ -73,6 +65,7 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
      *
      * @throws Exception
      */
+    #[Override]
     public function __call(string $method, array $args)
     {
         if (str_starts_with($method, 'get')) {
@@ -82,7 +75,7 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
             if ($idx !== false) {
                 $correctedKey = $this->columns[$idx];
 
-                return isset($this->data[$correctedKey]) ? $this->data[$correctedKey] : null;
+                return $this->data[$correctedKey] ?? null;
             }
 
             throw new Exception("Requested data $key not available");
@@ -189,7 +182,7 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
 
     public function __toString(): string
     {
-        return $this->getObject()->__toString();
+        return $this->getObject()?->__toString() ?? '';
     }
 
     public function getObjectId(): int
@@ -204,12 +197,16 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
 
     public function __unserialize(array $data): void
     {
+        $this->fieldname = $data["\0*\0fieldname"] ?? null;
+        $this->columns = $data["\0*\0columns"] ?? [];
+
         foreach (get_object_vars($this) as $property => $value) {
             if ($property === 'objectId') {
                 $this->$property = (int) ($data["\0*\0".$property] ?? $value);
 
                 continue;
             }
+
             $this->$property = $data["\0*\0".$property] ?? $value;
         }
 
@@ -218,6 +215,7 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
         }
     }
 
+    #[Override]
     public function __sleep(): array
     {
         $finalVars = [];

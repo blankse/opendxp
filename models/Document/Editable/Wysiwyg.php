@@ -21,6 +21,7 @@ use OpenDxp;
 use OpenDxp\Model;
 use OpenDxp\Tool\DomCrawler;
 use OpenDxp\Tool\Text;
+use Override;
 use Symfony\Component\HtmlSanitizer\HtmlSanitizer;
 
 /**
@@ -37,7 +38,7 @@ class Wysiwyg extends Model\Document\Editable implements IdRewriterInterface, Ed
      */
     protected ?string $text = null;
 
-    private static function getWysiwygSanitizer(): HtmlSanitizer
+    private function getWysiwygSanitizer(): HtmlSanitizer
     {
         return self::$openDxpWysiwygSanitizer ??= OpenDxp::getContainer()->get(Text::OPENDXP_WYSIWYG_SANITIZER_ID);
     }
@@ -96,11 +97,13 @@ class Wysiwyg extends Model\Document\Editable implements IdRewriterInterface, Ed
         return empty($this->text);
     }
 
+    #[Override]
     public function resolveDependencies(): array
     {
         return Text::getDependenciesOfWysiwygText($this->text);
     }
 
+    #[Override]
     public function getCacheTags(Model\Document\PageSnippet $ownerDocument, array $tags = []): array
     {
         return Text::getCacheTagsOfWysiwygText($this->text, $tags);
@@ -133,7 +136,7 @@ class Wysiwyg extends Model\Document\Editable implements IdRewriterInterface, Ed
     public function save(): void
     {
         if (is_string($this->text)) {
-            $helper = self::getWysiwygSanitizer();
+            $helper = $this->getWysiwygSanitizer();
             $this->text = $helper->sanitizeFor('body', $this->text);
         }
         $this->getDao()->save();

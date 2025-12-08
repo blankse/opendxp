@@ -21,6 +21,7 @@ use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Slider extends Data implements ResourcePersistenceAwareInterface, QueryResourcePersistenceAwareInterface, TypeDeclarationSupportInterface, EqualComparisonInterface, VarExporterInterface, NormalizerInterface
 {
@@ -141,7 +142,7 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?float
     {
         if ($data != null) {
-            $data = (float) $data;
+            return (float) $data;
         }
 
         return $data;
@@ -155,7 +156,7 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?float
     {
         if ($data != null) {
-            $data = (float) $data;
+            return (float) $data;
         }
 
         return $data;
@@ -193,10 +194,6 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
         return $this->getDataFromResource($data, $object, $params);
     }
 
-    /**
-     * @param Model\DataObject\Concrete|null $object
-     *
-     */
     public function getDataFromGridEditor(mixed $data, ?Concrete $object = null, array $params = []): ?float
     {
         return $this->getDataFromEditmode($data, $object, $params);
@@ -208,15 +205,17 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         return (string)$data;
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && $data === null) {
-            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ] '.(string)$data);
+            throw new Model\Element\ValidationException('Empty mandatory field [ '.$this->getName().' ] '.$data);
         }
 
         if (!empty($data) && !is_numeric($data)) {
@@ -224,6 +223,7 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
         }
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -232,6 +232,7 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
     /**
      * @param DataObject\ClassDefinition\Data\Slider $mainDefinition
      */
+    #[Override]
     public function synchronizeWithMainDefinition(DataObject\ClassDefinition\Data $mainDefinition): void
     {
         $this->minValue = $mainDefinition->minValue;
@@ -241,6 +242,7 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
         $this->decimalPrecision = $mainDefinition->decimalPrecision;
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;
@@ -250,13 +252,11 @@ class Slider extends Data implements ResourcePersistenceAwareInterface, QueryRes
     {
         $oldValue = (float) $oldValue;
         $newValue = (float) $newValue;
-        if (abs($oldValue - $newValue) < 0.00001) {
-            return true;
-        }
 
-        return false;
+        return abs($oldValue - $newValue) < 0.00001;
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         return !is_numeric($data);

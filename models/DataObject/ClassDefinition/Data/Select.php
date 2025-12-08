@@ -24,6 +24,7 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data;
 use OpenDxp\Model\DataObject\ClassDefinition\Service;
 use OpenDxp\Model\DataObject\Concrete;
 use OpenDxp\Normalizer\NormalizerInterface;
+use Override;
 
 class Select extends Data implements
     ResourcePersistenceAwareInterface,
@@ -126,14 +127,10 @@ class Select extends Data implements
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): null|string|int
     {
-        $data = $this->handleDefaultValue($data, $object, $params);
-
-        return $data;
+        return $this->handleDefaultValue($data, $object, $params);
     }
 
     /**
-     * @param null|DataObject\Concrete $object
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): null|string|int
@@ -179,11 +176,13 @@ class Select extends Data implements
      * @see Data::getVersionPreview
      *
      */
+    #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
         return htmlspecialchars((string) $data, ENT_QUOTES, 'UTF-8');
     }
 
+    #[Override]
     public function isDiffChangeAllowed(Concrete $object, array $params = []): bool
     {
         return true;
@@ -192,6 +191,7 @@ class Select extends Data implements
     /** See parent class.
      *
      */
+    #[Override]
     public function getDiffDataForEditMode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
         $result = [];
@@ -213,13 +213,14 @@ class Select extends Data implements
         }
 
         $diffdata['value'] = $value;
-        $diffdata['title'] = !empty($this->title) ? $this->title : $this->name;
+        $diffdata['title'] = empty($this->title) ? $this->name : $this->title;
 
         $result[] = $diffdata;
 
         return $result;
     }
 
+    #[Override]
     public function checkValidity(mixed $data, bool $omitMandatoryCheck = false, array $params = []): void
     {
         if (!$omitMandatoryCheck && $this->getMandatory() && $this->isEmpty($data)) {
@@ -227,6 +228,7 @@ class Select extends Data implements
         }
     }
 
+    #[Override]
     public function isEmpty(mixed $data): bool
     {
         if (is_array($data)) {
@@ -239,6 +241,7 @@ class Select extends Data implements
     /**
      * @param DataObject\ClassDefinition\Data\Select $mainDefinition
      */
+    #[Override]
     public function synchronizeWithMainDefinition(DataObject\ClassDefinition\Data $mainDefinition): void
     {
         $this->options = $mainDefinition->options;
@@ -275,10 +278,6 @@ class Select extends Data implements
         return $this;
     }
 
-    /**
-     * @param DataObject\Concrete|null $object
-     *
-     */
     public function getDataForGrid(mixed $data, ?Concrete $object = null, array $params = []): array|string|int|null
     {
         $optionsProvider = DataObject\ClassDefinition\Helper\OptionsProviderResolver::resolveProvider(
@@ -298,12 +297,10 @@ class Select extends Data implements
             $this->setOptions($options);
 
             if (isset($params['purpose']) && $params['purpose'] == 'editmode') {
-                $result = $data;
-            } else {
-                $result = ['value' => $data ?? null, 'options' => $this->getOptions()];
+                return $data;
             }
 
-            return $result;
+            return ['value' => $data ?? null, 'options' => $this->getOptions()];
         }
 
         return $data;
@@ -315,6 +312,7 @@ class Select extends Data implements
      * @param array $params optional params used to change the behavior
      *
      */
+    #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
     {
         $value = is_array($value) ? current($value) : $value;
@@ -340,6 +338,7 @@ class Select extends Data implements
         return '';
     }
 
+    #[Override]
     public function isFilterable(): bool
     {
         return true;
@@ -367,6 +366,7 @@ class Select extends Data implements
         return $this->getDefaultValue();
     }
 
+    #[Override]
     public function jsonSerialize(): mixed
     {
         if (!$this->useConfiguredOptions() && $this->getOptionsProviderClass() && Service::doRemoveDynamicOptions()) {

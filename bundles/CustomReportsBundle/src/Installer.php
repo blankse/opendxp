@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace OpenDxp\Bundle\CustomReportsBundle;
 
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
+use Override;
 
 class Installer extends SettingsStoreAwareInstaller
 {
@@ -27,12 +28,14 @@ class Installer extends SettingsStoreAwareInstaller
         'reports_config',
     ];
 
+    #[Override]
     public function install(): void
     {
         $this->addUserPermission();
         parent::install();
     }
 
+    #[Override]
     public function uninstall(): void
     {
         $this->removeUserPermission();

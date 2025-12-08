@@ -17,6 +17,7 @@ namespace OpenDxp\Model\Version\Listing;
 
 use Exception;
 use OpenDxp\Model;
+use Override;
 
 /**
  * @internal
@@ -25,6 +26,7 @@ use OpenDxp\Model;
  */
 class Dao extends Model\Listing\Dao\AbstractDao
 {
+    #[Override]
     public function getCondition(): string
     {
         $condition = parent::getCondition();
@@ -65,14 +67,14 @@ class Dao extends Model\Listing\Dao\AbstractDao
     {
         $versionIds = $this->db->fetchFirstColumn('SELECT id FROM versions' . $this->getCondition() . $this->getOrder() . $this->getOffsetLimit(), $this->model->getConditionVariables(), $this->model->getConditionVariableTypes());
 
-        return array_map('intval', $versionIds);
+        return array_map(intval(...), $versionIds);
     }
 
     public function getTotalCount(): int
     {
         try {
             return (int) $this->db->fetchOne('SELECT COUNT(*) FROM versions ' . $this->getCondition(), $this->model->getConditionVariables(), $this->model->getConditionVariableTypes());
-        } catch (Exception $e) {
+        } catch (Exception) {
             return 0;
         }
     }

@@ -25,6 +25,7 @@ use OpenDxp\Bundle\GenericExecutionEngineBundle\Entity\JobRun;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\PermissionConstants;
 use OpenDxp\Bundle\GenericExecutionEngineBundle\Utils\Constants\TableConstants;
 use OpenDxp\Extension\Bundle\Installer\SettingsStoreAwareInstaller;
+use Override;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
@@ -49,6 +50,7 @@ final class Installer extends SettingsStoreAwareInstaller
     /**
      * @throws SchemaException|Exception
      */
+    #[Override]
     public function install(): void
     {
         $this->installBundle();
@@ -58,6 +60,7 @@ final class Installer extends SettingsStoreAwareInstaller
     /**
      * @throws Exception
      */
+    #[Override]
     public function uninstall(): void
     {
         $this->uninstallBundle();

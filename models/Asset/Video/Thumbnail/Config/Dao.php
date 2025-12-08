@@ -19,6 +19,7 @@ use Exception;
 use OpenDxp;
 use OpenDxp\Messenger\CleanupThumbnailsMessage;
 use OpenDxp\Model;
+use Override;
 
 /**
  * @internal
@@ -27,8 +28,9 @@ use OpenDxp\Model;
  */
 class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
 {
-    private const CONFIG_KEY = 'video_thumbnails';
+    private const string CONFIG_KEY = 'video_thumbnails';
 
+    #[Override]
     public function configure(): void
     {
         $config = \OpenDxp\Config::getSystemConfiguration();
@@ -114,6 +116,7 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
         }
     }
 
+    #[Override]
     protected function prepareDataStructureForYaml(string $id, mixed $data): mixed
     {
         return [
