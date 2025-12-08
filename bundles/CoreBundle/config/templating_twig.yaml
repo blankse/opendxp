@@ -3,6 +3,10 @@ services:
         autowire: true
         autoconfigure: true
 
+    OpenDxp\Twig\TwigEnvironmentConfigurator:
+        decorates: 'twig.configurator.environment'
+        arguments: ['@.inner']
+
     OpenDxp\Twig\Extension\HelpersExtension: ~
 
     OpenDxp\Twig\Extension\DocumentEditableExtension: ~

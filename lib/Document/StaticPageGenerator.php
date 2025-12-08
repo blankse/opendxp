@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace OpenDxp\Document;
 
 use Exception;
+use OpenDxp;
 use OpenDxp\Document\Renderer\DocumentRendererInterface;
 use OpenDxp\Http\Request\Resolver\StaticPageResolver;
 use OpenDxp\Logger;
@@ -109,6 +110,7 @@ class StaticPageGenerator
 
         if ($params['is_cli'] ?? false) {
             $lock->release();
+            OpenDxp::getKernel()->getContainer()->get('services_resetter')->reset();
         }
 
         return true;
