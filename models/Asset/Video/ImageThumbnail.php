@@ -41,12 +41,12 @@ final class ImageThumbnail implements ImageThumbnailInterface
         ?Model\Asset\Video $asset,
         array|string|Image\Thumbnail\Config|null $config = null,
         /**
-     * @internal
-     */
+         * @internal
+         */
         protected ?int $timeOffset = null,
         /**
-     * @internal
-     */
+         * @internal
+         */
         protected ?Image $imageAsset = null,
         bool $deferred = true
     ) {

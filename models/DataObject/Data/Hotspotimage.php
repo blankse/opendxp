@@ -44,8 +44,8 @@ class Hotspotimage implements OwnerAwareFieldInterface, Stringable
         array $hotspots = [],
         array $marker = [],
         /**
-     * @var array[]|null
-     */
+         * @var array[]|null
+         */
         protected ?array $crop = []
     ) {
         if ($image instanceof Asset\Image) {
