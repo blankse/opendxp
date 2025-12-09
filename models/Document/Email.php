@@ -84,7 +84,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the email subject
-     *
      */
     public function getSubject(): string
     {
@@ -106,7 +105,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the "to" receivers
-     *
      */
     public function getTo(): string
     {
@@ -128,7 +126,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the "from" email address
-     *
      */
     public function getFrom(): string
     {
@@ -150,7 +147,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the "replyTo" email address
-     *
      */
     public function getReplyTo(): string
     {
@@ -172,7 +168,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the carbon copy receivers
-     *
      */
     public function getCc(): string
     {
@@ -194,7 +189,6 @@ class Email extends Model\Document\PageSnippet
 
     /**
      * Returns the blind carbon copy receivers
-     *
      */
     public function getBcc(): string
     {

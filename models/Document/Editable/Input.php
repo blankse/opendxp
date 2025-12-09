@@ -27,7 +27,6 @@ class Input extends Model\Document\Editable implements EditmodeDataInterface
      * Contains the text for this element
      *
      * @internal
-     *
      */
     protected string $text = '';
 

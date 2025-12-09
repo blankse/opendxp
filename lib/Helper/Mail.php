@@ -194,8 +194,6 @@ CSS;
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function setAbsolutePaths(string $string, ?Model\Document $document = null, ?string $hostUrl = null): string

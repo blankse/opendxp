@@ -34,7 +34,6 @@ class Listing extends AbstractModel implements CallableFilterListingInterface, C
 
     /**
      * @internal
-     *
      */
     protected ?array $docTypes = null;
 

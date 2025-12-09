@@ -37,7 +37,6 @@ class Block extends Model\Document\Editable implements BlockInterface
      * Contains an array of indices, which represent the order of the elements in the block
      *
      * @internal
-     *
      */
     protected array $indices = [];
 
@@ -45,7 +44,6 @@ class Block extends Model\Document\Editable implements BlockInterface
      * Current step of the block while iteration
      *
      * @internal
-     *
      */
     protected int $current = 0;
 
@@ -147,7 +145,6 @@ class Block extends Model\Document\Editable implements BlockInterface
 
     /**
      * @internal
-     *
      */
     public function loop(): bool
     {
@@ -333,7 +330,6 @@ EOT;
 
     /**
      * @internal
-     *
      */
     public function setCurrent(int $current): void
     {

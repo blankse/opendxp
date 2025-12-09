@@ -59,7 +59,6 @@ class QuantityValueCommand extends AbstractCommand
 
     /**
      * Validate and return path to JSON file
-     *
      */
     private function getPath(): string
     {

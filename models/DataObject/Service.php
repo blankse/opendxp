@@ -58,7 +58,6 @@ class Service extends Model\Element\Service
 
     /**
      * System fields used by filter conditions
-     *
      */
     protected static array $systemFields = ['path', 'key', 'id', 'published', 'creationDate', 'modificationDate', 'fullpath'];
 

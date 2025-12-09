@@ -21,7 +21,6 @@ use OpenDxp\Model\DataObject;
 
 /**
  * @internal
- *
  */
 class Dao extends Model\Dao\AbstractDao
 {

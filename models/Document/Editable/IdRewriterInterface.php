@@ -29,7 +29,6 @@ interface IdRewriterInterface
      *  "object" => array(...),
      *  "asset" => array(...)
      * )
-     *
      */
     public function rewriteIds(array $idMapping): void;
 }

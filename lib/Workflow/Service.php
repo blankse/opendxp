@@ -26,7 +26,6 @@ class Service
     /**
      * @param array $fc - The field configuration from the Workflow
      * @param mixed $value - The value
-     *
      */
     public static function createNoteData(array $fc, mixed $value): array
     {

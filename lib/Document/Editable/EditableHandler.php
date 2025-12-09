@@ -59,8 +59,19 @@ class EditableHandler implements LoggerAwareInterface
 
     public const ATTRIBUTE_AREABRICK_INFO = '_opendxp_areabrick_info';
 
-    public function __construct(protected AreabrickManagerInterface $brickManager, protected Environment $templating, protected BundleLocatorInterface $bundleLocator, protected WebPathResolver $webPathResolver, protected RequestHelper $requestHelper, protected TranslatorInterface $translator, protected ResponseStack $responseStack, protected EditmodeResolver $editmodeResolver, protected HttpKernelRuntime $httpKernelRuntime, protected FragmentRendererInterface $fragmentRenderer, protected RequestStack $requestStack)
-    {
+    public function __construct(
+        protected AreabrickManagerInterface $brickManager,
+        protected Environment $templating,
+        protected BundleLocatorInterface $bundleLocator,
+        protected WebPathResolver $webPathResolver,
+        protected RequestHelper $requestHelper,
+        protected TranslatorInterface $translator,
+        protected ResponseStack $responseStack,
+        protected EditmodeResolver $editmodeResolver,
+        protected HttpKernelRuntime $httpKernelRuntime,
+        protected FragmentRendererInterface $fragmentRenderer,
+        protected RequestStack $requestStack
+    ) {
     }
 
     public function getAvailableAreablockAreas(Editable\Areablock $editable, array $options): array
@@ -196,8 +207,6 @@ class EditableHandler implements LoggerAwareInterface
     /**
      * Try to get the brick template from getTemplate() method. If method returns null and brick implements
      * TemplateAreabrickInterface, fall back to auto-resolving the template reference. See interface for examples.
-     *
-     *
      */
     protected function resolveBrickTemplate(AreabrickInterface $brick): ?string
     {
@@ -227,8 +236,6 @@ class EditableHandler implements LoggerAwareInterface
 
     /**
      * Return either bundle or global (= app/Resources) template reference
-     *
-     *
      */
     protected function buildBrickTemplateReference(TemplateAreabrickInterface $brick): string
     {

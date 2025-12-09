@@ -31,7 +31,6 @@ trait OwnerAwareFieldTrait
     protected ?string $_language = null;
 
     /**
-     *
      * @return $this
      *
      * @internal

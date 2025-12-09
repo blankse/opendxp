@@ -39,13 +39,11 @@ class Objectbrick extends Model\AbstractModel implements DirtyIndicatorInterface
 
     /**
      * @internal
-     *
      */
     protected string $fieldname;
 
     /**
      * @internal
-     *
      */
     protected Concrete|Model\Element\ElementDescriptor|null $object = null;
 
@@ -268,7 +266,6 @@ class Objectbrick extends Model\AbstractModel implements DirtyIndicatorInterface
     }
 
     /**
-     *
      * @throws Exception
      *
      * @internal

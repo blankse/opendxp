@@ -36,8 +36,11 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
 
     protected array $data = [];
 
-    public function __construct(protected ?string $fieldname, protected array $columns = [], ?DataObject\Concrete $object = null)
-    {
+    public function __construct(
+        protected ?string $fieldname,
+        protected array $columns = [],
+        ?DataObject\Concrete $object = null
+    ) {
         $this->setObject($object);
     }
 
@@ -60,7 +63,6 @@ class ObjectMetadata extends Model\AbstractModel implements DataObject\OwnerAwar
     }
 
     /**
-     *
      * @return mixed|void
      *
      * @throws Exception

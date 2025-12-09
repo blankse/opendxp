@@ -28,7 +28,6 @@ abstract class AbstractAreabrick implements AreabrickInterface, TemplateAreabric
 
     /**
      * Called in AreabrickPass
-     *
      */
     public function setEditableRenderer(EditableRenderer $editableRenderer): void
     {

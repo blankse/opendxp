@@ -83,8 +83,6 @@ trait ManyToManyRelationTrait
 
     /**
      * Filter by relation feature
-     *
-     *
      */
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
     {

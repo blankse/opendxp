@@ -44,7 +44,6 @@ use RuntimeException;
 
 /**
  * Registry for placeholder containers
- *
  */
 class ContainerService
 {
@@ -52,7 +51,6 @@ class ContainerService
 
     /**
      * Placeholder containers
-     *
      */
     protected array $_items = [];
 
@@ -87,8 +85,6 @@ class ContainerService
 
     /**
      * createContainer
-     *
-     *
      */
     public function createContainer(string $key, array $value = []): Container
     {
@@ -97,8 +93,6 @@ class ContainerService
 
     /**
      * Retrieve a placeholder container
-     *
-     *
      */
     public function getContainer(string $key): Container
     {
@@ -107,8 +101,6 @@ class ContainerService
 
     /**
      * Does a particular container exist?
-     *
-     *
      */
     public function containerExists(string $key): bool
     {
@@ -130,8 +122,6 @@ class ContainerService
 
     /**
      * Delete a container
-     *
-     *
      */
     public function deleteContainer(string $key): bool
     {

@@ -47,13 +47,11 @@ use OpenDxp\Twig\Extension\Templating\Placeholder\Container;
  * Placeholder to make its typical usage obvious, but can be used just as easily
  * for non-Placeholder things. That said, the support for this is only
  * guaranteed to effect subsequently rendered templates, and of course Layouts.
- *
  */
 class Placeholder extends AbstractExtension
 {
     /**
      * Registry key under which container registers itself
-     *
      */
     protected string $_regKey = 'Placeholder';
 
@@ -64,8 +62,6 @@ class Placeholder extends AbstractExtension
 
     /**
      * Retrieve object instance; optionally add meta tag
-     *
-     *
      */
     public function __invoke(?string $containerName = null): Container
     {

@@ -38,7 +38,6 @@ interface DynamicRouteHandlerInterface
 
     /**
      * Add matching routes to the route collection
-     *
      */
     public function matchRequest(RouteCollection $collection, DynamicRequestContext $context): void;
 }

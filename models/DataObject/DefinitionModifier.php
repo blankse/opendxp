@@ -25,7 +25,6 @@ final class DefinitionModifier
      * appends valid $fieldsToAdd to a $layoutDefinition element with $nameToFind
      *
      * @param Data|Data[]|Layout|Layout[] $fieldsToAdd
-     *
      */
     public function appendFields(Layout $layoutDefinition, string $nameToFind, array|Data|Layout $fieldsToAdd): bool
     {
@@ -38,7 +37,6 @@ final class DefinitionModifier
      * prepends valid $fieldsToAdd to a $layoutDefinition element with $nameToFind
      *
      * @param Data|Data[]|Layout|Layout[] $fieldsToAdd
-     *
      */
     public function prependFields(Layout $layoutDefinition, string $nameToFind, array|Data|Layout $fieldsToAdd): bool
     {
@@ -51,7 +49,6 @@ final class DefinitionModifier
      * inserts valid $fieldsToAdd into a $layoutDefinition element of type Layout that is given by $nameToFind
      *
      * @param Data|Data[]|Layout|Layout[] $fieldsToInsert
-     *
      */
     public function insertFieldsFront(Layout $layoutDefinition, string $nameToFind, array|Data|Layout $fieldsToInsert): bool
     {
@@ -64,7 +61,6 @@ final class DefinitionModifier
      * inserts valid $fieldsToAdd into a $layoutDefinition element of type Layout that is given by $nameToFind
      *
      * @param Data|Data[]|Layout|Layout[] $fieldsToInsert
-     *
      */
     public function insertFieldsBack(Layout $layoutDefinition, string $nameToFind, array|Data|Layout $fieldsToInsert): bool
     {
@@ -77,7 +73,6 @@ final class DefinitionModifier
      * replaces a $layoutDefinition element, that is specified by $nameToFind, with $field
      *
      * @param Data|Data[]|Layout|Layout[] $fieldReplacements
-     *
      */
     public function replaceField(Layout $layoutDefinition, string $nameToFind, array|Data|Layout $fieldReplacements): bool
     {
@@ -97,8 +92,6 @@ final class DefinitionModifier
      * looks for a name in a $layoutDefinition. This may be a Panel or Data Attribute. If there is such a name a
      * callback is executed - passing the parent, its child which was found by name and the child-index it was found at
      * to edit upon.
-     *
-     *
      */
     public function findField(Data\Localizedfields|Layout $layoutDefinition, string $nameToFind, callable $callback): bool
     {

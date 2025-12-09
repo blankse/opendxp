@@ -67,50 +67,41 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * What text to prefix the placeholder with when rendering
-     *
      */
     protected string $_prefix = '';
 
     /**
      * What text to append the placeholder with when rendering
-     *
      */
     protected string $_postfix = '';
 
     /**
      * What string to use between individual items in the placeholder when rendering
-     *
      */
     protected string $_separator = '';
 
     /**
      * What string to use as the indentation of output, this will typically be spaces. Eg: '    '
-     *
      */
     protected string $_indent = '';
 
     /**
      * Whether or not we're already capturing for this given container
-     *
      */
     protected bool $_captureLock = false;
 
     /**
      * What type of capture (overwrite (set), append, prepend) to use
-     *
      */
     protected string $_captureType;
 
     /**
      * Key to which to capture content
-     *
      */
     protected ?string $_captureKey = null;
 
     /**
      * Set a single value
-     *
-     *
      */
     public function set(mixed $value): void
     {
@@ -119,8 +110,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Prepend a value to the top of the container
-     *
-     *
      */
     public function prepend(mixed $value): void
     {
@@ -134,7 +123,6 @@ class Container extends ArrayObject implements Stringable
      *
      * If single element registered, returns that element; otherwise,
      * serializes to array.
-     *
      */
     public function getValue(): mixed
     {
@@ -163,7 +151,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Retrieve prefix
-     *
      */
     public function getPrefix(): string
     {
@@ -185,7 +172,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Retrieve postfix
-     *
      */
     public function getPostfix(): string
     {
@@ -209,7 +195,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Retrieve separator
-     *
      */
     public function getSeparator(): string
     {
@@ -232,7 +217,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Retrieve indentation
-     *
      */
     public function getIndent(): string
     {
@@ -241,8 +225,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Retrieve whitespace representation of $indent
-     *
-     *
      */
     public function getWhitespace(int|string $indent): string
     {
@@ -255,7 +237,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Get keys
-     *
      */
     public function getKeys(): array
     {
@@ -268,7 +249,6 @@ class Container extends ArrayObject implements Stringable
      * Next Index
      *
      * as defined by the PHP manual
-     *
      */
     public function nextIndex(): int
     {
@@ -282,8 +262,6 @@ class Container extends ArrayObject implements Stringable
 
     /**
      * Render the placeholder
-     *
-     *
      */
     public function toString(int|string|null $indent = null): string
     {

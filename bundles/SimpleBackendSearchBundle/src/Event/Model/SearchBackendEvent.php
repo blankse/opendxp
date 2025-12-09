@@ -23,7 +23,6 @@ class SearchBackendEvent extends Event
 {
     /**
      * Data constructor.
-     *
      */
     public function __construct(protected Data $data)
     {

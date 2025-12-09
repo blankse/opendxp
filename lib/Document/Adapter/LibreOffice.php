@@ -56,7 +56,6 @@ class LibreOffice extends Ghostscript
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function getLibreOfficeCli(): string

@@ -28,8 +28,14 @@ use Symfony\Component\Workflow\WorkflowInterface;
 
 class ExpressionService
 {
-    public function __construct(private readonly ExpressionLanguage $expressionLanguage, private readonly TokenStorageInterface $tokenStorage, private readonly AuthorizationCheckerInterface $authenticationChecker, private readonly AuthenticationTrustResolverInterface $trustResolver, private readonly ?RoleHierarchyInterface $roleHierarchy = null, private readonly ?ValidatorInterface $validator = null)
-    {
+    public function __construct(
+        private readonly ExpressionLanguage $expressionLanguage,
+        private readonly TokenStorageInterface $tokenStorage,
+        private readonly AuthorizationCheckerInterface $authenticationChecker,
+        private readonly AuthenticationTrustResolverInterface $trustResolver,
+        private readonly ?RoleHierarchyInterface $roleHierarchy = null,
+        private readonly ?ValidatorInterface $validator = null
+    ) {
     }
 
     public function evaluateExpression(WorkflowInterface $workflow, object $subject, string $expression): mixed

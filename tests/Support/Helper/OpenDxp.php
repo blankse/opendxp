@@ -240,7 +240,6 @@ class OpenDxp extends Module\Symfony
 
     /**
      * Drop and re-create the DB
-     *
      */
     protected function dropAndCreateDb(Connection $connection): void
     {
@@ -268,7 +267,6 @@ class OpenDxp extends Module\Symfony
 
     /**
      * Try to connect to the DB and set constant if connection was successful.
-     *
      */
     protected function connectDb(Connection $connection): void
     {

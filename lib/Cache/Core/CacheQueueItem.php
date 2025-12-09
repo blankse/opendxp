@@ -28,11 +28,17 @@ class CacheQueueItem
     /**
      * @param string[] $tags
      */
-    public function __construct(protected string $key, protected mixed $data, protected array $tags = [], /**
+    public function __construct(
+        protected string $key,
+        protected mixed $data,
+        protected array $tags = [],
+        /**
      * @param int|DateInterval|null $lifetime
      */
-        protected int|null|DateInterval $lifetime = null, ?int $priority = 0, protected bool $force = false)
-    {
+        protected int|null|DateInterval $lifetime = null,
+        ?int $priority = 0,
+        protected bool $force = false
+    ) {
         $this->priority = (int)$priority;
     }
 

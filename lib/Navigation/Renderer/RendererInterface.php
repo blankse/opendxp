@@ -52,8 +52,6 @@ interface RendererInterface
     public function setRenderInvisible(bool $renderInvisible = true): static;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function render(Container $container): string;

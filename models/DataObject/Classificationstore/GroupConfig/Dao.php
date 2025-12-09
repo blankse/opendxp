@@ -49,7 +49,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function getByName(?string $name = null): void

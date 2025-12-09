@@ -49,8 +49,6 @@ class BundleConfigLocator
 
     /**
      * Find config files for the given name (e.g. config)
-     *
-     *
      */
     public function locate(string $name): array
     {

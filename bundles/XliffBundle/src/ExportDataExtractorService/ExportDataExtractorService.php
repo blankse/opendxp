@@ -29,8 +29,6 @@ class ExportDataExtractorService implements ExportDataExtractorServiceInterface
     private array $dataExtractors;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function extract(TranslationItem $translationItem, string $sourceLanguage, array $targetLanguages): AttributeSet
@@ -39,7 +37,6 @@ class ExportDataExtractorService implements ExportDataExtractorServiceInterface
     }
 
     /**
-     *
      * @return $this
      */
     public function registerDataExtractor(string $type, DataExtractorInterface $dataExtractor): ExportDataExtractorServiceInterface
@@ -50,8 +47,6 @@ class ExportDataExtractorService implements ExportDataExtractorServiceInterface
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getDataExtractor(string $type): DataExtractorInterface

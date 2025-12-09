@@ -52,7 +52,6 @@ final class Router implements RouterInterface, RequestMatcherInterface, Versatil
 
     /**
      * Params which are treated as _locale if no _locale attribute is set
-     *
      */
     protected array $localeParams = [];
 

@@ -23,7 +23,6 @@ interface DataDefinitionInterface
     public function isEmpty(mixed $data, array $params = []): bool;
 
     /**
-     *
      * @throws Exception
      */
     public function checkValidity(mixed $data, array $params = []): void;

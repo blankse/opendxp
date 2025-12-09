@@ -44,7 +44,6 @@ class NotesSubscriber implements EventSubscriberInterface
     }
 
     /**
-     *
      * @throws ValidationException
      */
     public function onWorkflowEnter(Event $event): void
@@ -76,7 +75,6 @@ class NotesSubscriber implements EventSubscriberInterface
     }
 
     /**
-     *
      * @throws ValidationException
      */
     public function onPreGlobalAction(GlobalActionEvent $event): void

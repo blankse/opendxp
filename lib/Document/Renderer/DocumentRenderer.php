@@ -35,8 +35,14 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class DocumentRenderer implements DocumentRendererInterface
 {
-    public function __construct(private readonly RequestHelper $requestHelper, private readonly ActionRenderer $actionRenderer, private readonly FragmentRendererInterface $fragmentRenderer, private readonly DocumentRouteHandler $documentRouteHandler, private readonly EventDispatcherInterface $eventDispatcher, private readonly LocaleServiceInterface $localeService)
-    {
+    public function __construct(
+        private readonly RequestHelper $requestHelper,
+        private readonly ActionRenderer $actionRenderer,
+        private readonly FragmentRendererInterface $fragmentRenderer,
+        private readonly DocumentRouteHandler $documentRouteHandler,
+        private readonly EventDispatcherInterface $eventDispatcher,
+        private readonly LocaleServiceInterface $localeService
+    ) {
     }
 
     #[Required]

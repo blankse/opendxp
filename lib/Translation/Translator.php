@@ -43,7 +43,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
      * If true, the translator will just return the translation key instead of actually translating
      * the message. Can be useful for debugging and to get an overview over used translation keys on
      * a page.
-     *
      */
     protected bool $disableTranslations = false;
 
@@ -131,7 +130,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * @internal
-     *
      */
     public function lazyInitialize(string $domain, string $locale): void
     {
@@ -192,8 +190,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * Resets the initialization of a specific catalogue
-     *
-     *
      */
     public function resetInitialization(string $domain, string $locale): void
     {
@@ -298,7 +294,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * @internal
-     *
      */
     public function getAdminPath(): string
     {
@@ -306,7 +301,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     }
 
     /**
-     *
      * @internal
      */
     public function setAdminPath(string $adminPath): void
@@ -316,7 +310,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * @internal
-     *
      */
     public function getAdminTranslationMapping(): array
     {
@@ -325,7 +318,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * @internal
-     *
      */
     public function setAdminTranslationMapping(array $adminTranslationMapping): void
     {
@@ -334,7 +326,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
 
     /**
      * @internal
-     *
      */
     public function getKernel(): Kernel
     {
@@ -342,7 +333,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     }
 
     /**
-     *
      * @internal
      */
     public function setKernel(Kernel $kernel): void
@@ -383,7 +373,6 @@ class Translator implements TranslatorInterface, TranslatorBagInterface, LocaleA
     }
 
     /**
-     *
      * @return string[]
      */
     public function warmUp(string $cacheDir, ?string $buildDir = null): array

@@ -24,8 +24,11 @@ class StatusInfo
 {
     private readonly string $userLanguage;
 
-    public function __construct(private readonly Manager $workflowManager, private readonly Environment $twig, private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly Manager $workflowManager,
+        private readonly Environment $twig,
+        private readonly TranslatorInterface $translator
+    ) {
         $user = \OpenDxp\Tool\Admin::getCurrentUser();
         $this->userLanguage = $user ? $user->getLanguage() : 'en';
     }

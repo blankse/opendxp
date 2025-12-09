@@ -80,7 +80,6 @@ class User implements UserInterface, EquatableInterface, GoogleTwoFactorInterfac
 
     /**
      * Return true if the user should do two-factor authentication.
-     *
      */
     public function isGoogleAuthenticatorEnabled(): bool
     {
@@ -89,7 +88,6 @@ class User implements UserInterface, EquatableInterface, GoogleTwoFactorInterfac
 
     /**
      * Return the user name.
-     *
      */
     public function getGoogleAuthenticatorUsername(): string
     {
@@ -99,7 +97,6 @@ class User implements UserInterface, EquatableInterface, GoogleTwoFactorInterfac
     /**
      * Return the Google Authenticator secret
      * When an empty string or null is returned, the Google authentication is disabled.
-     *
      */
     public function getGoogleAuthenticatorSecret(): ?string
     {

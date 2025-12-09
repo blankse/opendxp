@@ -63,19 +63,16 @@ interface BlockInterface
 
     /**
      * Return the amount of block elements
-     *
      */
     public function getCount(): int;
 
     /**
      * Return current iteration step
-     *
      */
     public function getCurrent(): int;
 
     /**
      * Return current index
-     *
      */
     public function getCurrentIndex(): int;
 

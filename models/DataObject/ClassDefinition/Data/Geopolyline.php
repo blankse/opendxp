@@ -32,10 +32,7 @@ class Geopolyline extends AbstractGeo implements
     NormalizerInterface
 {
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -43,8 +40,6 @@ class Geopolyline extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
@@ -53,8 +48,6 @@ class Geopolyline extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -95,10 +88,7 @@ class Geopolyline extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -118,7 +108,6 @@ class Geopolyline extends AbstractGeo implements
     }
 
     /**
-     *
      * @return DataObject\Data\GeoCoordinates[]|null
      *
      * @see Data::getDataFromEditmode
@@ -138,10 +127,7 @@ class Geopolyline extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -182,8 +168,6 @@ class Geopolyline extends AbstractGeo implements
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): string
     {

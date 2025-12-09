@@ -29,8 +29,6 @@ class ClassUtils
 {
     /**
      * Returns the base name for a class
-     *
-     *
      */
     public static function getBaseName(object|string $class): string
     {
@@ -44,7 +42,6 @@ class ClassUtils
      *
      * @throws InvalidArgumentException
      * @throws RuntimeException
-     *
      */
     public static function findClassName(\SplFileInfo $file): string
     {

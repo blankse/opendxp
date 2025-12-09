@@ -58,7 +58,6 @@ class Ghostscript extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function getGhostscriptCli(): string
@@ -67,7 +66,6 @@ class Ghostscript extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function getPdftotextCli(): string
@@ -131,7 +129,6 @@ class Ghostscript extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function buildPageCountCommand(): string

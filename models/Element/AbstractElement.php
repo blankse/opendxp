@@ -371,8 +371,6 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     }
 
     /**
-     *
-     *
      * @internal
      */
     protected static function getCacheKey(int|string $id): string
@@ -393,7 +391,6 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
      * Resolves the dependencies of the element and returns an array of them - Used by update()
      *
      * @internal
-     *
      */
     public function resolveDependencies(): array
     {
@@ -427,8 +424,6 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal
@@ -558,12 +553,9 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal
-     *
      */
     protected function doSaveVersion(?string $versionNote = null, bool $saveOnlyVersion = true, bool $saveStackTrace = true, bool $isAutoSave = false): Model\Version
     {
@@ -673,7 +665,6 @@ abstract class AbstractElement extends Model\AbstractModel implements ElementInt
     }
 
     /**
-     *
      * @internal
      */
     public function deleteAutoSaveVersions(?int $userId = null): void

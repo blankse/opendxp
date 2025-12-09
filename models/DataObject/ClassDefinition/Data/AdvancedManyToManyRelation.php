@@ -36,7 +36,6 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
 
     /**
      * @internal
-     *
      */
     public array $columns;
 
@@ -51,7 +50,6 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
      * Type for the generated phpdoc
      *
      * @internal
-     *
      */
     public string $phpdocType = '\\OpenDxp\\Model\\DataObject\\Data\\ElementMetadata[]';
 
@@ -397,10 +395,7 @@ class AdvancedManyToManyRelation extends ManyToManyRelation implements IdRewrite
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string

@@ -30,14 +30,16 @@ use OpenDxp\Tool\DomCrawler;
  */
 class Processor
 {
-    public function __construct(private readonly RequestHelper $requestHelper, private readonly EditmodeResolver $editmodeResolver, private readonly DocumentResolver $documentResolver, private readonly array $blockedTags = [])
-    {
+    public function __construct(
+        private readonly RequestHelper $requestHelper,
+        private readonly EditmodeResolver $editmodeResolver,
+        private readonly DocumentResolver $documentResolver,
+        private readonly array $blockedTags = []
+    ) {
     }
 
     /**
      * Process glossary entries in content string
-     *
-     *
      */
     public function process(string $content, array $options): string
     {

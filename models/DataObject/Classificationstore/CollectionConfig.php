@@ -35,7 +35,6 @@ final class CollectionConfig extends Model\AbstractModel
 
     /**
      * Store ID
-     *
      */
     protected int $storeId = 1;
 
@@ -43,7 +42,6 @@ final class CollectionConfig extends Model\AbstractModel
 
     /**
      * The collection description.
-     *
      */
     protected string $description = '';
 
@@ -78,8 +76,6 @@ final class CollectionConfig extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByName(string $name, int $storeId = 1, ?bool $force = false): ?CollectionConfig
@@ -145,7 +141,6 @@ final class CollectionConfig extends Model\AbstractModel
 
     /**
      * Returns the description.
-     *
      */
     public function getDescription(): string
     {
@@ -154,7 +149,6 @@ final class CollectionConfig extends Model\AbstractModel
 
     /**
      * Sets the description.
-     *
      */
     public function setDescription(string $description): static
     {

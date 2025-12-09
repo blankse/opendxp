@@ -29,13 +29,11 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Contains all valid columns in the database table
-     *
      */
     protected array $validColumns = [];
 
     /**
      * Get the valid columns from the database
-     *
      */
     public function init(): void
     {
@@ -43,7 +41,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByAbbreviation(string $abbreviation): void
@@ -56,7 +53,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByReference(string $reference): void

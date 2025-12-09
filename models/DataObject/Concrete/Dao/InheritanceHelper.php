@@ -64,8 +64,14 @@ class InheritanceHelper
 
     protected ?string $queryIdField = null;
 
-    public function __construct(protected string $classId, ?string $idField = null, ?string $storetable = null, ?string $querytable = null, ?string $relationtable = null, ?string $queryIdField = null)
-    {
+    public function __construct(
+        protected string $classId,
+        ?string $idField = null,
+        ?string $storetable = null,
+        ?string $querytable = null,
+        ?string $relationtable = null,
+        ?string $queryIdField = null
+    ) {
         $this->db = \OpenDxp\Db::get();
         $this->storetable = $storetable ?? self::STORE_TABLE . $this->classId;
         $this->querytable = $querytable ?? self::QUERY_TABLE . $this->classId;
@@ -76,7 +82,6 @@ class InheritanceHelper
 
     /**
      * Enable or disable the runtime cache. Default value is off.
-     *
      */
     public static function setUseRuntimeCache(bool $value): void
     {
@@ -117,7 +122,6 @@ class InheritanceHelper
     }
 
     /**
-     *
      * @throws Exception
      */
     public function doUpdate(int $oo_id, bool $createMissingChildrenRows = false, array $params = []): void
@@ -206,7 +210,6 @@ class InheritanceHelper
     /**
      * Currently solely used for object bricks. If a brick is removed, this info must be propagated to all
      * child elements.
-     *
      */
     public function doDelete(int $objectId, array $params = []): void
     {
@@ -520,7 +523,6 @@ class InheritanceHelper
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function updateQueryTable(int $oo_id, array $ids, string $fieldname): void

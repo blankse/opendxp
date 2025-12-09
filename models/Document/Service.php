@@ -214,8 +214,6 @@ class Service extends Model\Element\Service
     }
 
     /**
-     *
-     *
      * @throws ValidationException
      */
     public function copyContents(Document $target, Document $source): Link|Page|Document|PageSnippet

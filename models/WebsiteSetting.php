@@ -237,7 +237,6 @@ final class WebsiteSetting extends AbstractModel
 
     /**
      * enum('text','document','asset','object','bool')
-     *
      */
     public function getType(): ?string
     {

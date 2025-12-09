@@ -23,8 +23,6 @@ interface CustomReportAdapterFactoryInterface
 {
     /**
      * Create a CustomReport Adapter
-     *
-     *
      */
     public function create(stdClass $config, ?Config $fullConfig = null): CustomReportAdapterInterface;
 }

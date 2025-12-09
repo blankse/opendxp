@@ -40,8 +40,6 @@ class OpenDxpContextResolver extends AbstractRequestResolver
 
     /**
      * Get opendxp context from request
-     *
-     *
      */
     public function getOpenDxpContext(?Request $request = null): ?string
     {
@@ -61,7 +59,6 @@ class OpenDxpContextResolver extends AbstractRequestResolver
 
     /**
      * Sets the opendxp context on the request
-     *
      */
     public function setOpenDxpContext(Request $request, string $context): void
     {
@@ -71,8 +68,6 @@ class OpenDxpContextResolver extends AbstractRequestResolver
     /**
      * Tests if the request matches a given contect. $context can also be an array of contexts. If one
      * of the contexts matches, the method will return true.
-     *
-     *
      */
     public function matchesOpenDxpContext(Request $request, array|string $context): bool
     {

@@ -113,7 +113,6 @@ final class DocumentEvents
      * The EDITABLE_NAME event is triggered when a document editable name is built.
      *
      * @Event("OpenDxp\Event\Model\Document\EditableNameEvent")
-     *
      */
     const string EDITABLE_NAME = 'opendxp.document.editable.name';
 
@@ -148,13 +147,11 @@ final class DocumentEvents
     const string EDITABLE_RENDERLET_PRE_RENDER = 'opendxp.document.editable.renderlet.pre_render';
 
     /**
-     *
      * @Event("OpenDxp\Event\Model\DocumentEvent")
      */
     const string PAGE_POST_SAVE_ACTION = 'opendxp.document.page.post_save_action';
 
     /**
-     *
      * @Event("OpenDxp\Event\Model\DocumentEvent")
      */
     const string POST_MOVE_ACTION = 'opendxp.document.post_move_action';

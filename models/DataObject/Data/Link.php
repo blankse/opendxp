@@ -341,7 +341,6 @@ class Link implements OwnerAwareFieldInterface, Stringable
 
     /**
      * Returns the plain text path of the link
-     *
      */
     public function getHref(): string
     {

@@ -24,8 +24,6 @@ class HtmlUtils
 {
     /**
      * Builds an attribute string from an array of attributes
-     *
-     *
      */
     public static function assembleAttributeString(array $attributes, bool $omitNullValues = false): string
     {

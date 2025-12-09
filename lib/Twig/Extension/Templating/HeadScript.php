@@ -60,7 +60,6 @@ use Twig\Extension\RuntimeExtensionInterface;
  * @method $this prependScript($script, $type = 'text/javascript', array $attrs = array())
  * @method $this setFile($src, $type = 'text/javascript', array $attrs = array())
  * @method $this setScript($script, $type = 'text/javascript', array $attrs = array())
- *
  */
 class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 {
@@ -254,8 +253,6 @@ class HeadScript extends CacheBusterAware implements RuntimeExtensionInterface
 
     /**
      * Is the script provided valid?
-     *
-     *
      */
     protected function _isValid(mixed $value): bool
     {

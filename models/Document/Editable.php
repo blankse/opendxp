@@ -66,7 +66,6 @@ abstract class Editable extends Model\AbstractModel implements Model\Document\Ed
 
     /**
      * @internal
-     *
      */
     protected string $name = '';
 
@@ -80,7 +79,6 @@ abstract class Editable extends Model\AbstractModel implements Model\Document\Ed
 
     /**
      * Contains parent hierarchy names (used when building elements inside a block/areablock hierarchy)
-     *
      */
     private array $parentBlockNames = [];
 
@@ -389,7 +387,6 @@ abstract class Editable extends Model\AbstractModel implements Model\Document\Ed
 
     /**
      * Returns only the properties which should be serialized
-     *
      */
     #[Override]
     public function __sleep(): array

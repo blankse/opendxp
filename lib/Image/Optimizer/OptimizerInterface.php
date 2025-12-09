@@ -21,8 +21,6 @@ use OpenDxp\Exception\ImageOptimizationFailedException;
 interface OptimizerInterface
 {
     /**
-     *
-     *
      * @throws ImageOptimizationFailedException
      */
     public function optimizeImage(string $input, string $output): string;

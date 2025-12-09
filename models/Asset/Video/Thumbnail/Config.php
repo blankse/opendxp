@@ -45,67 +45,55 @@ final class Config extends Model\AbstractModel
      * )
      *
      * @internal
-     *
      */
     protected array $items = [];
 
     /**
      * @internal
-     *
      */
     public array $medias = [];
 
     /**
      * @internal
-     *
      */
     protected string $name = '';
 
     /**
      * @internal
-     *
      */
     protected string $description = '';
 
     /**
      * @internal
-     *
      */
     protected string $group = '';
 
     /**
      * @internal
-     *
      */
     protected ?int $videoBitrate = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $audioBitrate = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $modificationDate = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $creationDate = null;
 
     /**
      * @internal
-     *
      */
     public ?string $filenameSuffix = null;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByName(string $name): ?Config
@@ -134,7 +122,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     public static function getPreviewConfig(): Config
     {
@@ -164,8 +151,6 @@ final class Config extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function addItem(string $name, array $parameters, ?string $media = null): bool
@@ -187,7 +172,6 @@ final class Config extends Model\AbstractModel
     }
 
     /**
-     *
      * @internal
      */
     public function addItemAt(int $position, string $name, array $parameters, ?string $media = null): bool
@@ -320,7 +304,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     public function getEstimatedDimensions(): array
     {

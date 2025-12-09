@@ -33,7 +33,6 @@ class Cache
      * Get the cache handler implementation
      *
      * @internal
-     *
      */
     public static function getHandler(): CoreCacheHandler
     {
@@ -64,8 +63,6 @@ class Cache
 
     /**
      * Returns the content of the requested cache entry
-     *
-     *
      */
     public static function load(string $key): mixed
     {
@@ -74,8 +71,6 @@ class Cache
 
     /**
      * Save an item to the cache (deferred to shutdown if force is false and forceImmediateWrite is not set)
-     *
-     *
      */
     public static function save(mixed $data, string $key, array $tags = [], DateInterval|int|null $lifetime = null, int $priority = 0, bool $force = false): bool
     {
@@ -84,8 +79,6 @@ class Cache
 
     /**
      * Remove an item from the cache
-     *
-     *
      */
     public static function remove(string $key): bool
     {
@@ -94,7 +87,6 @@ class Cache
 
     /**
      * Empty the cache
-     *
      */
     public static function clearAll(): bool
     {
@@ -103,8 +95,6 @@ class Cache
 
     /**
      * Removes entries from the cache matching the given tag
-     *
-     *
      */
     public static function clearTag(string $tag): bool
     {
@@ -113,8 +103,6 @@ class Cache
 
     /**
      * Removes entries from the cache matching the given tags
-     *
-     *
      */
     public static function clearTags(array $tags = []): bool
     {
@@ -123,7 +111,6 @@ class Cache
 
     /**
      * Adds a tag to the shutdown queue
-     *
      */
     public static function addClearTagOnShutdown(string $tag): void
     {
@@ -132,7 +119,6 @@ class Cache
 
     /**
      * Add tag to the list ignored on save. Items with this tag won't be saved to cache.
-     *
      */
     public static function addIgnoredTagOnSave(string $tag): void
     {
@@ -141,7 +127,6 @@ class Cache
 
     /**
      * Remove tag from the list ignored on save
-     *
      */
     public static function removeIgnoredTagOnSave(string $tag): void
     {
@@ -150,7 +135,6 @@ class Cache
 
     /**
      * Add tag to the list ignored on clear. Tags in this list won't be cleared via clearTags()
-     *
      */
     public static function addIgnoredTagOnClear(string $tag): void
     {
@@ -159,7 +143,6 @@ class Cache
 
     /**
      * Remove tag from the list ignored on clear
-     *
      */
     public static function removeIgnoredTagOnClear(string $tag): void
     {

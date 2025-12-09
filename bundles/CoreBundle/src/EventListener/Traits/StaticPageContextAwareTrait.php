@@ -35,8 +35,6 @@ trait StaticPageContextAwareTrait
 
     /**
      * Check if the request has static page context
-     *
-     *
      */
     protected function matchesStaticPageContext(Request $request): bool
     {

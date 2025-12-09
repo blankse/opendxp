@@ -68,7 +68,6 @@ abstract class AbstractCoreHandlerTest extends Unit
 
     /**
      * Set up a logger with a buffer and a test handler (can be printed to STDOUT on demand)
-     *
      */
     protected static function setupLogger(string $name): void
     {
@@ -104,7 +103,6 @@ abstract class AbstractCoreHandlerTest extends Unit
 
     /**
      * Initializes item pool
-     *
      */
     abstract protected function createCachePool(): TagAwareAdapterInterface;
 
@@ -178,7 +176,6 @@ abstract class AbstractCoreHandlerTest extends Unit
 
     /**
      * Add sample entries to cache
-     *
      */
     protected function buildSampleEntries(bool $write = true, bool $assertExisting = true): void
     {
@@ -206,7 +203,6 @@ abstract class AbstractCoreHandlerTest extends Unit
      * Invalid keys is defined on abstract CachePool test
      *
      * @dataProvider invalidKeys
-     *
      */
     public function testExceptionOnInvalidItemKeySave(string $key): void
     {
@@ -218,7 +214,6 @@ abstract class AbstractCoreHandlerTest extends Unit
      * Invalid keys is defined on abstract CachePool test
      *
      * @dataProvider invalidKeys
-     *
      */
     public function testExceptionOnInvalidItemKeyRemove(string $key): void
     {
@@ -554,7 +549,6 @@ abstract class AbstractCoreHandlerTest extends Unit
 
     /**
      * @dataProvider tagEntriesProvider
-     *
      */
     public function testClearTag(string $tag, array $expectedRemoveEntries): void
     {
@@ -568,7 +562,6 @@ abstract class AbstractCoreHandlerTest extends Unit
      * @dataProvider tagsEntriesProvider
      *
      * @skipped
-     *
      */
     public function testClearTags(array $tags, array $expectedRemoveEntries): void
     {
@@ -703,7 +696,6 @@ abstract class AbstractCoreHandlerTest extends Unit
 
     /**
      * Data provider for invalid keys.
-     *
      */
     public static function invalidKeys(): array
     {

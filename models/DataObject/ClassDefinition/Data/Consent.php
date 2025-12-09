@@ -30,14 +30,11 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     /**
      * @internal
-     *
      */
     public int $defaultValue = 0;
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?Concrete $object = null, array $params = []): array
     {
@@ -55,8 +52,6 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Data\Consent
@@ -77,8 +72,6 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): bool
@@ -91,10 +84,7 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -111,8 +101,6 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Data\Consent
@@ -201,10 +189,7 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -250,9 +235,6 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     /**
      * returns sql query statement to filter according to this data types value(s)
-     *
-     *
-     *
      */
     #[Override]
     public function getFilterCondition(mixed $value, string $operator, array $params = []): string
@@ -270,7 +252,6 @@ class Consent extends Data implements ResourcePersistenceAwareInterface, QueryRe
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

@@ -66,25 +66,21 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
     /**
      * @internal
-     *
      */
     public string $styleElement = '';
 
     /**
      * @internal
-     *
      */
     public array $children = [];
 
     /**
      * @internal
-     *
      */
     public ?array $layout = null;
 
@@ -92,14 +88,11 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
      * contains further child field definitions if there are more than one localized fields in on class
      *
      * @internal
-     *
      */
     protected array $referencedFields = [];
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
     {
@@ -157,8 +150,6 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -243,8 +234,6 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
 
     /**
      * @see Data::getDataForEditmode
-     *
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -287,8 +276,6 @@ class Block extends Data implements CustomResourcePersistingInterface, ResourceP
 
     /**
      * @see Data::getDataFromEditmode
-     *
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {

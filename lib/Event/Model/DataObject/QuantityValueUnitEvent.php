@@ -23,7 +23,6 @@ class QuantityValueUnitEvent extends Event
 {
     /**
      * QuantityValueUnitEvent constructor.
-     *
      */
     public function __construct(protected Unit $unit)
     {

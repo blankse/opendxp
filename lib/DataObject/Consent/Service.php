@@ -31,7 +31,6 @@ class Service
      * @param string $fieldname - fieldname of consent field
      * @param string $consentContent - message that should be stored into the notes description
      * @param array $metaData - array of key/values that should be attached as details to the note
-     *
      */
     public function insertConsentNote(AbstractObject $object, string $fieldname, string $consentContent, array $metaData = []): Note
     {
@@ -56,7 +55,6 @@ class Service
      *
      * @param AbstractObject $object - object to attach the note to
      * @param string $fieldname - fieldname of consent field
-     *
      */
     public function insertRevokeNote(AbstractObject $object, string $fieldname): Note
     {

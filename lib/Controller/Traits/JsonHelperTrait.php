@@ -40,7 +40,6 @@ trait JsonHelperTrait
      * @param int $status    The status code to use for the Response
      * @param array $headers Array of extra headers to add
      * @param array $context Context to pass to serializer when using serializer component
-     *
      */
     public function jsonResponse(mixed $data, int $status = 200, array $headers = [], array $context = [], bool $useOpenDxpSerializer = true): JsonResponse
     {

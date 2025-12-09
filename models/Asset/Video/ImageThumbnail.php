@@ -37,14 +37,19 @@ final class ImageThumbnail implements ImageThumbnailInterface
 {
     use Model\Asset\Thumbnail\ImageThumbnailTrait;
 
-    public function __construct(?Model\Asset\Video $asset, array|string|Image\Thumbnail\Config|null $config = null, /**
+    public function __construct(
+        ?Model\Asset\Video $asset,
+        array|string|Image\Thumbnail\Config|null $config = null,
+        /**
      * @internal
      */
-        protected ?int $timeOffset = null, /**
+        protected ?int $timeOffset = null,
+        /**
      * @internal
      */
-        protected ?Image $imageAsset = null, bool $deferred = true)
-    {
+        protected ?Image $imageAsset = null,
+        bool $deferred = true
+    ) {
         $this->asset = $asset;
         $this->config = $this->createConfig($config ?? []);
         $this->deferred = $deferred;
@@ -205,8 +210,6 @@ final class ImageThumbnail implements ImageThumbnailInterface
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getMedia(string $name, int $highRes = 1): ?Image\ThumbnailInterface

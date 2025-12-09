@@ -32,7 +32,6 @@ class RuntimeCache extends ArrayObject
 
     /**
      * Retrieves the default registry instance.
-     *
      */
     public static function getInstance(): self
     {
@@ -129,7 +128,6 @@ class RuntimeCache extends ArrayObject
      * @param string $index The location in the ArrayObject in which to store
      *   the value.
      * @param mixed $value The object to store in the ArrayObject.
-     *
      */
     public static function set(string $index, mixed $value): void
     {
@@ -140,8 +138,6 @@ class RuntimeCache extends ArrayObject
     /**
      * Returns TRUE if the $index is a named value in the registry,
      * or FALSE if $index was not found in the registry.
-     *
-     *
      */
     public static function isRegistered(string $index): bool
     {
@@ -174,7 +170,6 @@ class RuntimeCache extends ArrayObject
 
     /**
      * Alias of self::set() to be compatible with OpenDxp\Cache
-     *
      */
     public static function save(mixed $data, string $id): void
     {
@@ -183,8 +178,6 @@ class RuntimeCache extends ArrayObject
 
     /**
      * Alias of self::get() to be compatible with OpenDxp\Cache
-     *
-     *
      */
     public static function load(string $id): mixed
     {

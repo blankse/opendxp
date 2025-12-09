@@ -51,25 +51,21 @@ use Twig\Extension\RuntimeExtensionInterface;
  * @method $this offsetSetStyle($index, $content, array $attributes = array())
  * @method $this prependStyle($content, array $attributes = array())
  * @method $this setStyle($content, array $attributes = array())
- *
  */
 class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 {
     /**
      * Registry key for placeholder
-     *
      */
     protected string $_regKey = 'HeadStyle';
 
     /**
      * Allowed optional attributes
-     *
      */
     protected array $_optionalAttributes = ['lang', 'title', 'media', 'dir'];
 
     /**
      * Allowed media types
-     *
      */
     protected array $_mediaTypes = [
         'all', 'aural', 'braille', 'handheld', 'print',
@@ -78,19 +74,16 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Capture type and/or attributes (used for hinting during capture)
-     *
      */
     protected ?array $_captureAttrs = null;
 
     /**
      * Capture lock
-     *
      */
     protected bool $_captureLock = false;
 
     /**
      * Capture type (append, prepend, set)
-     *
      */
     protected string $_captureType;
 
@@ -98,7 +91,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
      * HeadStyle constructor.
      *
      * Set separator to PHP_EOL.
-     *
      */
     public function __construct(ContainerService $containerService)
     {
@@ -183,8 +175,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Determine if a value is a valid style tag
-     *
-     *
      */
     protected function _isValid(mixed $value): bool
     {
@@ -193,8 +183,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Override append to enforce style creation
-     *
-     *
      */
     public function append(mixed $value): void
     {
@@ -209,7 +197,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
      * Override offsetSet to enforce style creation
      *
      * @param  string|int $offset
-     *
      */
     #[Override]
     public function offsetSet($offset, mixed $value): void
@@ -223,8 +210,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Override prepend to enforce style creation
-     *
-     *
      */
     public function prepend(mixed $value): void
     {
@@ -237,8 +222,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Override set to enforce style creation
-     *
-     *
      */
     public function set(mixed $value): void
     {
@@ -254,7 +237,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
      *
      * @param  stdClass $item Item to render
      * @param string|null $indent Indentation to use
-     *
      */
     public function itemToString(stdClass $item, ?string $indent): string
     {
@@ -312,8 +294,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Create string representation of placeholder
-     *
-     *
      */
     #[Override]
     public function toString(int|string|null $indent = null): string
@@ -338,8 +318,6 @@ class HeadStyle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Create data item for use in stack
-     *
-     *
      */
     public function createData(string $content, array $attributes): stdClass
     {

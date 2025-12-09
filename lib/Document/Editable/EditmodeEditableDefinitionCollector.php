@@ -33,7 +33,6 @@ final class EditmodeEditableDefinitionCollector
     private array $stash = [];
 
     /**
-     *
      * @throws Exception
      */
     public function add(Editable $editable): void
@@ -106,7 +105,6 @@ final class EditmodeEditableDefinitionCollector
     }
 
     /**
-     *
      * @throws JsonException
      */
     public function getHtml(): string

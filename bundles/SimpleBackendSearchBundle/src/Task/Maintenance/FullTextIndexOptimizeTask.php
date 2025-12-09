@@ -35,8 +35,6 @@ class FullTextIndexOptimizeTask implements TaskInterface
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function execute(): void

@@ -31,7 +31,6 @@ use Symfony\Component\HttpFoundation\Request;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws NotFoundException
      */
     public function getById(?int $id = null): void
@@ -49,7 +48,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws NotFoundException
      */
     public function getByExactMatch(Request $request, ?Site $site = null, bool $override = false): void

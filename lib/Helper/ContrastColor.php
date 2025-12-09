@@ -23,8 +23,6 @@ class ContrastColor
 {
     /**
      * returns either hex code of black or white depending on the contrast to the given color
-     *
-     *
      */
     public static function getContrastColor(string $hexColor): string
     {

@@ -32,13 +32,11 @@ final class StoreConfig extends Model\AbstractModel
 
     /**
      * The store name.
-     *
      */
     protected ?string $name = null;
 
     /**
      * The store description.
-     *
      */
     protected ?string $description = null;
 
@@ -88,7 +86,6 @@ final class StoreConfig extends Model\AbstractModel
 
     /**
      * Returns the description.
-     *
      */
     public function getDescription(): ?string
     {
@@ -97,7 +94,6 @@ final class StoreConfig extends Model\AbstractModel
 
     /**
      * Sets the description.
-     *
      */
     public function setDescription(string $description): static
     {

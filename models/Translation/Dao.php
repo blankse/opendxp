@@ -41,7 +41,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws NotFoundResourceException
      * @throws \Doctrine\DBAL\Exception
      */
@@ -128,7 +127,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Returns a array containing all available languages
-     *
      */
     public function getAvailableLanguages(): array
     {
@@ -144,7 +142,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Returns a array containing all available (registered) domains
-     *
      */
     public function getAvailableDomains(): array
     {
@@ -163,8 +160,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Returns boolean, if the domain table exists & domain registered in config
-     *
-     *
      */
     public function isAValidDomain(string $domain): bool
     {

@@ -176,7 +176,6 @@ class ListingTest extends ModelTestCase
 
     /**
      * Verifies that cached list is flushed on changing the condition and filters
-     *
      */
     public function testCacheObjects(): void
     {

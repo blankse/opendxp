@@ -25,10 +25,12 @@ class ResolveElementEvent extends Event
 
     /**
      * ElementEvent constructor.
-     *
      */
-    public function __construct(protected string $type, protected string $id, array $arguments = [])
-    {
+    public function __construct(
+        protected string $type,
+        protected string $id,
+        array $arguments = []
+    ) {
         $this->arguments = $arguments;
     }
 

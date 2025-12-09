@@ -155,7 +155,6 @@ final readonly class JobRunRepository implements JobRunRepositoryInterface
      * Get all job runs by user id. If user has permission to see all job runs, all job runs will be returned.
      *
      * @return JobRun[]
-     *
      */
     public function getJobRunsByUserId(
         ?int $ownerId = null,

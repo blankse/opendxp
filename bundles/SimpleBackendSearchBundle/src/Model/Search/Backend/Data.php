@@ -54,49 +54,41 @@ class Data extends AbstractModel
 
     /**
      * document | object | asset
-     *
      */
     protected string $maintype;
 
     /**
      * webresource type (e.g. page, snippet ...)
-     *
      */
     protected string $type;
 
     /**
      * currently only relevant for objects where it portrays the class name
-     *
      */
     protected string $subtype;
 
     /**
      * published or not
-     *
      */
     protected bool $published = false;
 
     /**
      * timestamp of creation date
-     *
      */
     protected ?int $creationDate = null;
 
     /**
      * timestamp of modification date
-     *
      */
     protected ?int $modificationDate = null;
 
     /**
      * User-ID of the owner
-     *
      */
     protected ?int $userOwner = null;
 
     /**
      * User-ID of the user last modified the element
-     *
      */
     protected ?int $userModification = null;
 

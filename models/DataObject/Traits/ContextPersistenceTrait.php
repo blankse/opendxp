@@ -87,7 +87,6 @@ trait ContextPersistenceTrait
 
     /**
      * Enrich relation / slug with type-specific data.
-     *
      */
     protected function enrichDataRow(Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete $object, array $params, ?string &$classId, array &$row = [], string $srcCol = 'src_id'): void
     {

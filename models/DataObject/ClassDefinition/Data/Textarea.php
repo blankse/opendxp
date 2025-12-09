@@ -32,7 +32,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
 
     /**
      * @internal
-     *
      */
     public ?int $maxLength = null;
 
@@ -98,8 +97,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -108,9 +105,7 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -119,7 +114,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
 
     /**
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -133,8 +127,6 @@ class Textarea extends Data implements ResourcePersistenceAwareInterface, QueryR
     /**
      * Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?string $data, ?Model\DataObject\Concrete $object = null, array $params = []): array|string
     {

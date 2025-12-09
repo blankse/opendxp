@@ -74,7 +74,6 @@ class Composer
     }
 
     /**
-     *
      * @internal
      */
     public static function parametersYmlCheck(string $rootPath): void
@@ -223,7 +222,6 @@ class Composer
     }
 
     /**
-     *
      * The following is copied from \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
      *
      * Installs the assets under the web root directory.
@@ -234,7 +232,6 @@ class Composer
      * but then, only when running the console with admin rights or when disabling the
      * strict user permission checks (which can be done on Windows 7 but not on Windows
      * Vista).
-     *
      */
     public static function installAssets(Event $event): void
     {
@@ -270,7 +267,6 @@ class Composer
      * The following is copied from \Sensio\Bundle\DistributionBundle\Composer\ScriptHandler
      *
      * Clears the Symfony cache.
-     *
      */
     public static function clearCache(Event $event): void
     {

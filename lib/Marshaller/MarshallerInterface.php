@@ -21,15 +21,11 @@ use Exception;
 interface MarshallerInterface
 {
     /**
-     *
-     *
      * @throws Exception
      */
     public function marshal(mixed $value, array $params = []): mixed;
 
     /**
-     *
-     *
      * @throws  Exception
      */
     public function unmarshal(mixed $value, array $params = []): mixed;

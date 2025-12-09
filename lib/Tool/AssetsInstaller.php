@@ -35,8 +35,6 @@ class AssetsInstaller
 
     /**
      * Runs this assets:install command
-     *
-     *
      */
     public function install(array $options = []): Process
     {
@@ -53,8 +51,6 @@ class AssetsInstaller
 
     /**
      * Builds the process instance
-     *
-     *
      */
     protected function buildProcess(array $options = []): Process
     {
@@ -88,8 +84,6 @@ class AssetsInstaller
     /**
      * Takes a set of options as defined in configureOptions and validates and merges them
      * with values from composer.json
-     *
-     *
      */
     public function resolveOptions(array $options = []): array
     {

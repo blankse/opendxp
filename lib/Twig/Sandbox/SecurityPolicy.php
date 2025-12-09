@@ -31,8 +31,11 @@ use Twig\Sandbox\SecurityPolicyInterface;
  */
 final class SecurityPolicy implements SecurityPolicyInterface
 {
-    public function __construct(private array $allowedTags = [], private array $allowedFilters = [], private array $allowedFunctions = [])
-    {
+    public function __construct(
+        private array $allowedTags = [],
+        private array $allowedFilters = [],
+        private array $allowedFunctions = []
+    ) {
     }
 
     public function setAllowedTags(array $tags): void

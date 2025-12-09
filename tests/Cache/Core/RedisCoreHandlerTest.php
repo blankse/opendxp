@@ -26,7 +26,6 @@ class RedisCoreHandlerTest extends AbstractCoreHandlerTest
 {
     /**
      * Initializes item pool
-     *
      */
     protected function createCachePool(): RedisTagAwareAdapter
     {

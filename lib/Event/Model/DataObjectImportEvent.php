@@ -36,7 +36,6 @@ class DataObjectImportEvent extends Event
 
     /**
      * DataObjectImportEvent constructor.
-     *
      */
     public function __construct(protected mixed $config, protected string $originalFile)
     {

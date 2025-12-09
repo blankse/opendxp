@@ -114,7 +114,6 @@ abstract class AbstractAutomationActionHandler
     /**
      * Logs a translation key to the job run which can be viewed in the job run overview
      * Translation key then can be translated check opendxp_job_execution.en.yaml
-     *
      */
     protected function logMessageToJobRun(
         JobRun $jobRun,

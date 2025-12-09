@@ -31,7 +31,6 @@ class Dao extends AbstractDao
     public const TABLE_NAME_RELATIONS = 'classificationstore_relations';
 
     /**
-     *
      * @throws NotFoundException
      */
     public function getById(int $keyId, int $groupId): void

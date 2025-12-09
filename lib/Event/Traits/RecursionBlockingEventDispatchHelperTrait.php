@@ -27,8 +27,6 @@ trait RecursionBlockingEventDispatchHelperTrait
 
     /**
      * Dispatches an event, avoids recursion by checking if the active dispatch event is the same
-     *
-     *
      */
     protected function dispatchEvent(object $event, ?string $eventName = null): void
     {

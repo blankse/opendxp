@@ -29,7 +29,6 @@ class Page extends PageSnippet
      * Contains the title of the page (meta-title)
      *
      * @internal
-     *
      */
     protected string $title = '';
 
@@ -37,7 +36,6 @@ class Page extends PageSnippet
      * Contains the description of the page (meta-description)
      *
      * @internal
-     *
      */
     protected string $description = '';
 
@@ -45,7 +43,6 @@ class Page extends PageSnippet
 
     /**
      * @internal
-     *
      */
     protected ?string $prettyUrl = null;
 

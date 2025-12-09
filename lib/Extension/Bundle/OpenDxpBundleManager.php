@@ -47,8 +47,12 @@ class OpenDxpBundleManager
      */
     protected ?array $manuallyRegisteredBundles = null;
 
-    public function __construct(protected OpenDxpBundleLocator $bundleLocator, protected Kernel $kernel, protected EventDispatcherInterface $dispatcher, protected RouterInterface $router)
-    {
+    public function __construct(
+        protected OpenDxpBundleLocator $bundleLocator,
+        protected Kernel $kernel,
+        protected EventDispatcherInterface $dispatcher,
+        protected RouterInterface $router
+    ) {
     }
 
     /**
@@ -214,8 +218,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if a bundle exists
-     *
-     *
      */
     public function exists(string|OpenDxpBundleInterface $bundle): bool
     {
@@ -242,7 +244,6 @@ class OpenDxpBundleManager
 
     /**
      * Validates bundle name against list if available and active bundles
-     *
      */
     protected function validateBundleIdentifier(string $identifier): void
     {
@@ -253,8 +254,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if the bundle was programatically registered (not via extension manager)
-     *
-     *
      */
     public function isManuallyRegistered(string|OpenDxpBundleInterface $bundle): bool
     {
@@ -280,8 +279,6 @@ class OpenDxpBundleManager
 
     /**
      * Returns the bundle installer if configured
-     *
-     *
      */
     public function getInstaller(OpenDxpBundleInterface $bundle, bool $throwException = false): ?Installer\InstallerInterface
     {
@@ -324,8 +321,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if a bundle can be installed
-     *
-     *
      */
     public function canBeInstalled(OpenDxpBundleInterface $bundle): bool
     {
@@ -338,8 +333,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if a bundle can be uninstalled
-     *
-     *
      */
     public function canBeUninstalled(OpenDxpBundleInterface $bundle): bool
     {
@@ -352,8 +345,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if a bundle is installed
-     *
-     *
      */
     public function isInstalled(OpenDxpBundleInterface $bundle): bool
     {
@@ -367,8 +358,6 @@ class OpenDxpBundleManager
 
     /**
      * Determines if a reload is needed after installation
-     *
-     *
      */
     public function needsReloadAfterInstall(OpenDxpBundleInterface $bundle): bool
     {

@@ -54,7 +54,6 @@ class Dao extends Model\DataObject\Listing\Dao
     }
 
     /**
-     *
      * @return int[]
      *
      * @throws Exception
@@ -79,7 +78,6 @@ class Dao extends Model\DataObject\Listing\Dao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function getLocalizedBrickLanguage(): ?string
@@ -107,7 +105,6 @@ class Dao extends Model\DataObject\Listing\Dao
     }
 
     /**
-     *
      * @throws Exception
      */
     #[Override]
@@ -153,7 +150,6 @@ class Dao extends Model\DataObject\Listing\Dao
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception

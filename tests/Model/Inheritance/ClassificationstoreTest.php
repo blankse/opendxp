@@ -125,7 +125,6 @@ class ClassificationstoreTest extends ModelTestCase
      * add store to two(child) and change value of 1 field in the store,
      * create three(child) with empty store to inherit values from two & one
      * asserts inherited and non-inherited values on child & parent.
-     *
      */
     public function testInheritance(): void
     {

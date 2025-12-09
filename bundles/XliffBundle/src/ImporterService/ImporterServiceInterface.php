@@ -23,8 +23,6 @@ use OpenDxp\Bundle\XliffBundle\ImporterService\Importer\ImporterInterface;
 interface ImporterServiceInterface
 {
     /**
-     *
-     *
      * @throws Exception
      */
     public function import(AttributeSet $attributeSet, bool $saveElement = true): void;
@@ -32,8 +30,6 @@ interface ImporterServiceInterface
     public function registerImporter(string $type, ImporterInterface $importer): ImporterServiceInterface;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getImporter(string $type): ImporterInterface;

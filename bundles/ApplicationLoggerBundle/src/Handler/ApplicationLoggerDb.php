@@ -29,8 +29,11 @@ class ApplicationLoggerDb extends AbstractProcessingHandler
 
     const TABLE_ARCHIVE_PREFIX = 'application_logs_archive';
 
-    public function __construct(private readonly Connection $db, int|string|Level $level = Level::Debug, bool $bubble = true)
-    {
+    public function __construct(
+        private readonly Connection $db,
+        int|string|Level $level = Level::Debug,
+        bool $bubble = true
+    ) {
         parent::__construct($level, $bubble);
     }
 

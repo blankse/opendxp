@@ -74,8 +74,6 @@ abstract class Dao extends Model\Dao\AbstractDao
     abstract public function getVersionCountForUpdate(): int;
 
     /**
-     *
-     *
      * @throws \Doctrine\DBAL\Exception
      */
     public function InheritingPermission(string $type, array $userIds, string $tableSuffix): int

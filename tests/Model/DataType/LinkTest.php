@@ -78,7 +78,6 @@ class LinkTest extends ModelTestCase
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function createLinkObject(): unittestLink
@@ -113,7 +112,6 @@ class LinkTest extends ModelTestCase
 
     /**
      * Verifies that checkValidity method throws correct exception if invalid data is provided
-     *
      */
     public function testInternalCheckValidity(): void
     {
@@ -127,7 +125,6 @@ class LinkTest extends ModelTestCase
 
     /**
      * Verifies that checkValidity method sanitize the link data if invalid data is provided
-     *
      */
     public function testInternalCheckValidityParam(): void
     {

@@ -28,73 +28,61 @@ abstract class AbstractWorkspace extends Model\AbstractModel
 {
     /**
      * @internal
-     *
      */
     protected int $userId;
 
     /**
      * @internal
-     *
      */
     protected int $cid;
 
     /**
      * @internal
-     *
      */
     protected string $cpath;
 
     /**
      * @internal
-     *
      */
     protected bool $list = false;
 
     /**
      * @internal
-     *
      */
     protected bool $view = false;
 
     /**
      * @internal
-     *
      */
     protected bool $publish = false;
 
     /**
      * @internal
-     *
      */
     protected bool $delete = false;
 
     /**
      * @internal
-     *
      */
     protected bool $rename = false;
 
     /**
      * @internal
-     *
      */
     protected bool $create = false;
 
     /**
      * @internal
-     *
      */
     protected bool $settings = false;
 
     /**
      * @internal
-     *
      */
     protected bool $versions = false;
 
     /**
      * @internal
-     *
      */
     protected bool $properties = false;
 

@@ -446,7 +446,6 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
 
     /**
      * This method is called in DataObject\ClassDefinition::save() and is used to create the database table for the localized data
-     *
      */
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {
@@ -616,7 +615,6 @@ class Localizedfields extends Data implements CustomResourcePersistingInterface,
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception

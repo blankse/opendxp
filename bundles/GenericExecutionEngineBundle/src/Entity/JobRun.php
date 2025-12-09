@@ -36,15 +36,15 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 #[Entity]
-#[Table(name: 'generic_execution_engine_job_run')]
 #[HasLifecycleCallbacks]
+#[Table(name: 'generic_execution_engine_job_run')]
 class JobRun
 {
     public const DEFAULT_EXECUTION_CONTEXT = 'default';
 
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ORM\GeneratedValue]
+    #[ORM\Id]
     private int $id;
 
     #[ORM\Column(type: 'string', length: 10, enumType: JobRunStates::class)]

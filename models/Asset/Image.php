@@ -62,8 +62,6 @@ class Image extends Model\Asset
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal
@@ -174,7 +172,6 @@ EOT;
      * @internal
      *
      * @throws Exception
-     *
      */
     public static function getImageTransformInstance(): ?\OpenDxp\Image\Adapter
     {
@@ -326,7 +323,6 @@ EOT;
 
     /**
      * Checks if this file represents an animated image (png or gif)
-     *
      */
     public function isAnimated(): bool
     {

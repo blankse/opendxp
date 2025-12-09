@@ -86,8 +86,6 @@ class Video extends Model\Asset
 
     /**
      * Returns a path to a given thumbnail or an thumbnail configuration
-     *
-     *
      */
     public function getThumbnail(string|Video\Thumbnail\Config $thumbnailName, array $onlyFormats = []): ?array
     {
@@ -154,8 +152,6 @@ class Video extends Model\Asset
 
     /**
      * @internal
-     *
-     *
      */
     public function getDurationFromBackend(?string $filePath = null): ?float
     {
@@ -175,7 +171,6 @@ class Video extends Model\Asset
 
     /**
      * @internal
-     *
      */
     public function getDimensionsFromBackend(): ?array
     {
@@ -190,7 +185,6 @@ class Video extends Model\Asset
     }
 
     /**
-     *
      * @throws Exception
      */
     public function getDuration(): float|int|null
@@ -260,7 +254,6 @@ class Video extends Model\Asset
 
     /**
      * @internal
-     *
      */
     public function getSphericalMetaData(): array
     {
@@ -269,7 +262,6 @@ class Video extends Model\Asset
 
     /**
      * @internal
-     *
      */
     public function getSphericalMetaDataFromBackend(): array
     {

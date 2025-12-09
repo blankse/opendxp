@@ -963,7 +963,6 @@ class Model extends AbstractDefinitionHelper
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function createFieldcollection(string $name, ClassDefinition\Layout $layout, string $filename): Definition

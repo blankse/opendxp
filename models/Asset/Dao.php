@@ -197,8 +197,6 @@ class Dao extends Model\Element\Dao
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function updateChildPaths(string $oldPath): array
@@ -323,8 +321,6 @@ class Dao extends Model\Element\Dao
 
     /**
      * quick test if there are children
-     *
-     *
      */
     public function hasChildren(?User $user = null): bool
     {
@@ -356,7 +352,6 @@ class Dao extends Model\Element\Dao
 
     /**
      * Quick test if there are siblings
-     *
      */
     public function hasSiblings(): bool
     {
@@ -381,8 +376,6 @@ class Dao extends Model\Element\Dao
 
     /**
      * returns the amount of directly children (not recursivly)
-     *
-     *
      */
     public function getChildAmount(?User $user = null): int
     {
@@ -433,8 +426,6 @@ class Dao extends Model\Element\Dao
     }
 
     /**
-     *
-     *
      * @throws \Doctrine\DBAL\Exception
      */
     public function isInheritingPermission(string $type, array $userIds): int

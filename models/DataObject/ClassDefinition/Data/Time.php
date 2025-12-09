@@ -27,25 +27,21 @@ class Time extends Model\DataObject\ClassDefinition\Data\Input
      * Column length
      *
      * @internal
-     *
      */
     public int $columnLength = 5;
 
     /**
      * @internal
-     *
      */
     public ?string $minValue = null;
 
     /**
      * @internal
-     *
      */
     public ?string $maxValue = null;
 
     /**
      * @internal
-     *
      */
     public int $increment = 15 ;
 
@@ -111,8 +107,6 @@ class Time extends Model\DataObject\ClassDefinition\Data\Input
 
     /**
      * Returns a 5 digit time string of a given time
-     *
-     *
      */
     private function toTime(string $timestamp): ?string
     {
@@ -126,8 +120,6 @@ class Time extends Model\DataObject\ClassDefinition\Data\Input
 
     /**
      * Returns a timestamp representation of a given time
-     *
-     *
      */
     private function toTimestamp(string $string, ?int $baseTimestamp = null): int
     {
@@ -140,8 +132,6 @@ class Time extends Model\DataObject\ClassDefinition\Data\Input
 
     /**
      * Returns whether or not a time is earlier than the subject
-     *
-     *
      */
     private function isEarlier(string $subject, string $comparison): bool
     {
@@ -152,8 +142,6 @@ class Time extends Model\DataObject\ClassDefinition\Data\Input
 
     /**
      * Returns whether or not a time is later than the subject
-     *
-     *
      */
     private function isLater(string $subject, string $comparison): bool
     {

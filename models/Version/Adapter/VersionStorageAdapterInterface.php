@@ -25,7 +25,6 @@ interface VersionStorageAdapterInterface
 
     /**
      * @param resource|null $binaryDataStream
-     *
      */
     public function save(Version $version, string $metaData, mixed $binaryDataStream): void;
 

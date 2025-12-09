@@ -37,9 +37,7 @@ class RgbaColor extends Data implements
     use DataObject\Traits\DataWidthTrait;
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -60,9 +58,7 @@ class RgbaColor extends Data implements
     }
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Model\DataObject\Data\RgbaColor
     {
@@ -94,9 +90,7 @@ class RgbaColor extends Data implements
     }
 
     /**
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -108,8 +102,6 @@ class RgbaColor extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Model\DataObject\Data\RgbaColor
@@ -227,9 +219,6 @@ class RgbaColor extends Data implements
 
     /**
      * returns sql query statement to filter according to this data types value(s)
-     *
-     *
-     *
      */
     #[Override]
     public function getFilterCondition(mixed $value, string $operator, array $params = []): string
@@ -247,7 +236,6 @@ class RgbaColor extends Data implements
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

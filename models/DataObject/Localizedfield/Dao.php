@@ -80,7 +80,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function save(array $params = []): void
@@ -445,7 +444,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @return bool force update
      */
     public function delete(bool $deleteQuery = true, bool $isUpdate = true): bool
@@ -791,7 +789,6 @@ QUERY;
     }
 
     /**
-     *
      * @throws Exception
      */
     public function createUpdateTable(array $params = []): void

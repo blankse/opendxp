@@ -44,8 +44,13 @@ class NotificationSubscriber implements EventSubscriberInterface
 
     protected bool $enabled = true;
 
-    public function __construct(protected NotificationEmailService $mailService, protected Workflow\Notification\OpenDxpNotificationService $OpenDxpNotificationService, protected TranslatorInterface $translator, protected Workflow\ExpressionService $expressionService, protected Workflow\Manager $workflowManager)
-    {
+    public function __construct(
+        protected NotificationEmailService $mailService,
+        protected Workflow\Notification\OpenDxpNotificationService $OpenDxpNotificationService,
+        protected TranslatorInterface $translator,
+        protected Workflow\ExpressionService $expressionService,
+        protected Workflow\Manager $workflowManager
+    ) {
     }
 
     public function onWorkflowCompleted(Event $event): void

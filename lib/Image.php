@@ -23,7 +23,6 @@ use OpenDxp\Image\AdapterInterface;
 final class Image
 {
     /**
-     *
      * @throws Exception
      */
     public static function getInstance(): AdapterInterface

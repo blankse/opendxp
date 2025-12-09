@@ -20,20 +20,17 @@ interface EditableInterface
 {
     /**
      * Renders the editable, calls either frontend() or admin() depending on the context
-     *
      */
     public function render(): mixed;
 
     /**
      * Get the current data stored for the element
      * this is used as general fallback for the methods getDataForResource(), admin(), getValue()
-     *
      */
     public function getData(): mixed;
 
     /**
      * Return the type of the element
-     *
      */
     public function getType(): string;
 

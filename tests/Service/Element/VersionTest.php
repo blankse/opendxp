@@ -31,7 +31,6 @@ use OpenDxp\Tests\Support\Util\TestHelper;
  * Class VersionTest
  *
  * @package OpenDxp\Tests\Service\Element
- *
  */
 class VersionTest extends TestCase
 {

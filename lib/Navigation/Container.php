@@ -59,13 +59,11 @@ class Container implements RecursiveIterator, Countable
 
     /**
      * An index that contains the order in which to iterate pages
-     *
      */
     protected array $_index = [];
 
     /**
      * Whether index is dirty and needs to be re-arranged
-     *
      */
     protected bool $_dirtyIndex = false;
 
@@ -476,7 +474,6 @@ class Container implements RecursiveIterator, Countable
 
     /**
      * Returns an array representation of all pages in container
-     *
      */
     public function toArray(): array
     {

@@ -49,13 +49,11 @@ class Select extends Data implements
      * Available options to select
      *
      * @internal
-     *
      */
     public ?array $options = null;
 
     /**
      * @internal
-     *
      */
     public ?string $defaultValue = null;
 
@@ -63,7 +61,6 @@ class Select extends Data implements
      * Column length
      *
      * @internal
-     *
      */
     public int $columnLength = 190;
 
@@ -121,8 +118,6 @@ class Select extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): null|string|int
@@ -139,8 +134,6 @@ class Select extends Data implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -149,10 +142,7 @@ class Select extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): null|string|int
     {
@@ -160,10 +150,7 @@ class Select extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): null|string|int
     {
@@ -171,10 +158,7 @@ class Select extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -310,7 +294,6 @@ class Select extends Data implements
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

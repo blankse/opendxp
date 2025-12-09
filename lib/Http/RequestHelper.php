@@ -111,8 +111,6 @@ class RequestHelper
 
     /**
      * Can be used to check if a user is trying to access the object preview and is allowed to do so.
-     *
-     *
      */
     public function isObjectPreviewRequestByAdmin(?Request $request = null): bool
     {
@@ -124,8 +122,6 @@ class RequestHelper
 
     /**
      * E.g. editmode, preview, version preview, always when it is a "frontend-request", but called out of the admin
-     *
-     *
      */
     public function isFrontendRequestByAdmin(?Request $request = null): bool
     {
@@ -152,8 +148,6 @@ class RequestHelper
      * Get an anonymized client IP from the request
      *
      * @internal
-     *
-     *
      */
     public function getAnonymizedClientIp(?Request $request = null): string
     {
@@ -173,8 +167,6 @@ class RequestHelper
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function createRequestWithContext(string $uri = '/', ?string $host = null): Request

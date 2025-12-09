@@ -48,7 +48,6 @@ class ObjectbrickTest extends ModelTestCase
      *
      * add brick field value to one(parent), then add another field value to two(first level child), then add another field
      * value to three(second level child). asserts inherited and non-inherited values on children
-     *
      */
     public function testInheritance(): void
     {

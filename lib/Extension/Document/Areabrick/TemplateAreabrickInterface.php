@@ -37,13 +37,11 @@ interface TemplateAreabrickInterface extends AreabrickInterface
 
     /**
      * Determines if template should be auto-located in bundle or in project
-     *
      */
     public function getTemplateLocation(): string;
 
     /**
      * Returns view suffix used to auto-build view names
-     *
      */
     public function getTemplateSuffix(): string;
 }

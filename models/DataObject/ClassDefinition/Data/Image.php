@@ -31,9 +31,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     use Data\Extension\RelationFilterConditionParser;
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?int
     {
@@ -69,8 +67,6 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
      */
     public function getDataForEditmode(mixed $data, ?Concrete $object = null, array $params = []): ?array
@@ -100,7 +96,6 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
      * @throws Element\ValidationException
      */
     #[Override]
@@ -120,9 +115,7 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -184,8 +177,6 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?Asset\Image $data, ?Concrete $object = null, array $params = []): array|string
     {
@@ -280,8 +271,6 @@ class Image extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /**
      * Filter by relation feature
-     *
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

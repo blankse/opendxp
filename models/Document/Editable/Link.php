@@ -32,7 +32,6 @@ class Link extends Model\Document\Editable implements IdRewriterInterface, Editm
      * Contains the data for the link
      *
      * @internal
-     *
      */
     protected ?array $data = null;
 

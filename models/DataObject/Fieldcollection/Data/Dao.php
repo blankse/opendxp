@@ -29,7 +29,6 @@ use OpenDxp\Model\DataObject\ClassDefinition\Data\ResourcePersistenceAwareInterf
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws Exception
      */
     public function save(Model\DataObject\Concrete $object, array $params = [], bool|array $saveRelationalData = true): void

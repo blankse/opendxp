@@ -30,31 +30,26 @@ class Text extends Model\DataObject\ClassDefinition\Layout implements Model\Data
      * Static type of this element
      *
      * @internal
-     *
      */
     public string $fieldtype = 'text';
 
     /**
      * @internal
-     *
      */
     public string $html = '';
 
     /**
      * @internal
-     *
      */
     public string $renderingClass = '';
 
     /**
      * @internal
-     *
      */
     public string $renderingData;
 
     /**
      * @internal
-     *
      */
     public bool $border = false;
 

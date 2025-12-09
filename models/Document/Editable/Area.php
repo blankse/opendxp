@@ -36,7 +36,6 @@ class Area extends Model\Document\Editable
      * The Type configured for the area
      *
      * @internal
-     *
      */
     protected ?string $type = null;
 
@@ -235,8 +234,6 @@ class Area extends Model\Document\Editable
      * Gets an element from the referenced brick. E.g. if you have an area "myArea" which defines "gallery-single-images"
      * as used areabrick and this areabrick defines a block "gallery", you can use $area->getElement('gallery') to get
      * an instance of the block element.
-     *
-     *
      */
     public function getElement(string $name): ?Model\Document\Editable
     {

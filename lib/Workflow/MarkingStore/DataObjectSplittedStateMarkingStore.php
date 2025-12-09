@@ -29,8 +29,13 @@ class DataObjectSplittedStateMarkingStore implements MarkingStoreInterface
 
     private array $stateMapping;
 
-    public function __construct(private readonly string $workflowName, array $places, array $stateMapping, private readonly PropertyAccessorInterface $propertyAccessor, private readonly Manager $workflowManager)
-    {
+    public function __construct(
+        private readonly string $workflowName,
+        array $places,
+        array $stateMapping,
+        private readonly PropertyAccessorInterface $propertyAccessor,
+        private readonly Manager $workflowManager
+    ) {
         $this->validateStateMapping($places, $stateMapping);
 
         $this->stateMapping = $stateMapping;
@@ -87,7 +92,6 @@ class DataObjectSplittedStateMarkingStore implements MarkingStoreInterface
     }
 
     /**
-     *
      * @return string[]
      */
     public function getMappedPlaces(string $fieldName): array

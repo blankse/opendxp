@@ -75,7 +75,6 @@ final class Requirements
     }
 
     /**
-     *
      * @return Check[]
      */
     public static function checkMysql(Connection $db): array
@@ -694,8 +693,6 @@ final class Requirements
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     protected static function rscandir(string $base = '', array &$data = []): array

@@ -32,7 +32,6 @@ class Service
 
     /**
      * @internal
-     *
      */
     public static function doRemoveDynamicOptions(): bool
     {
@@ -41,7 +40,6 @@ class Service
 
     /**
      * @internal
-     *
      */
     public static function setDoRemoveDynamicOptions(bool $doRemoveDynamicOptions): void
     {
@@ -288,8 +286,6 @@ class Service
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal
@@ -371,7 +367,6 @@ class Service
     }
 
     /**
-     *
      * @internal
      */
     public static function updateTableDefinitions(array &$tableDefinitions, array $tableNames): void
@@ -396,8 +391,6 @@ class Service
     }
 
     /**
-     *
-     *
      * @internal
      */
     public static function skipColumn(array $tableDefinitions, string $table, string $colName, string $type, string $default, string $null): bool
@@ -450,8 +443,6 @@ class Service
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal

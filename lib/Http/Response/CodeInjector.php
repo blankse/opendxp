@@ -67,8 +67,6 @@ class CodeInjector
 
     /**
      * @internal
-     *
-     *
      */
     public function injectIntoHtml(string $html, string $code, string $selector, string $position, string $charset = 'UTF-8'): string
     {

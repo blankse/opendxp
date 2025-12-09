@@ -57,7 +57,6 @@ class RecyclebinTest extends ModelTestCase
 
     /**
      * Verifies that an object can be moved to recycle bin and restored
-     *
      */
     public function testSimpleObjectRecycleAndRestore(): void
     {
@@ -87,7 +86,6 @@ class RecyclebinTest extends ModelTestCase
 
     /**
      * Verifies that object with children can be moved to recyclebin and restored
-     *
      */
     public function testRecursiveObjectRecycleAndRestore(): void
     {
@@ -131,7 +129,6 @@ class RecyclebinTest extends ModelTestCase
 
     /**
      * Verifies that an object data is restored properly
-     *
      */
     public function testObjectDataRecycleAndRestore(): void
     {

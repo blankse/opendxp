@@ -76,7 +76,6 @@ class OpenDxpContextListener implements EventSubscriberInterface, LoggerAwareInt
 
     /**
      * Do context specific initialization
-     *
      */
     protected function initializeContext(string $context, Request $request): void
     {

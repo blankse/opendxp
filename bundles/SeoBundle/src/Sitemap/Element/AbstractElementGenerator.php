@@ -63,8 +63,6 @@ abstract class AbstractElementGenerator implements GeneratorInterface
 
     /**
      * Determines if the element can be added.
-     *
-     *
      */
     protected function canBeAdded(ElementInterface $element, GeneratorContextInterface $context): bool
     {
@@ -80,8 +78,6 @@ abstract class AbstractElementGenerator implements GeneratorInterface
     /**
      * Determines if the element handles children (only used from generators
      * supporting tree structures).
-     *
-     *
      */
     protected function handlesChildren(ElementInterface $element, GeneratorContextInterface $context): bool
     {
@@ -97,8 +93,6 @@ abstract class AbstractElementGenerator implements GeneratorInterface
     /**
      * Processes a URL about to be added to the sitemap. Can either return an Url instance
      * or null to exclude the Url.
-     *
-     *
      */
     protected function process(Url $url, ElementInterface $element, GeneratorContextInterface $context): ?Url
     {

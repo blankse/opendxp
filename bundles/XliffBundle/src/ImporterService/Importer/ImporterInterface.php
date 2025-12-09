@@ -22,8 +22,6 @@ use OpenDxp\Bundle\XliffBundle\AttributeSet\AttributeSet;
 interface ImporterInterface
 {
     /**
-     *
-     *
      * @throws Exception
      */
     public function import(AttributeSet $attributeSet, bool $saveElement = true): void;

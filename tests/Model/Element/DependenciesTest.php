@@ -85,7 +85,6 @@ class DependenciesTest extends ModelTestCase
 
     /**
      * Verifies that an object requires and requiredBy dependencies are stored and fetched
-     *
      */
     public function testObjectDependencies(): void
     {
@@ -112,7 +111,6 @@ class DependenciesTest extends ModelTestCase
 
     /**
      * Verifies that a document requires and requiredBy dependencies are stored and fetched
-     *
      */
     public function testDocumentDependencies(): void
     {
@@ -138,7 +136,6 @@ class DependenciesTest extends ModelTestCase
 
     /**
      * Verifies that an asset requires and requiredBy dependencies are stored and fetched
-     *
      */
     public function testAssetDependencies(): void
     {

@@ -41,7 +41,6 @@ class TokenStorageUserResolver
      * Taken and adapted from framework base controller.
      *
      * The proxy is the wrapping OpenDxp\Security\User\User object implementing UserInterface.
-     *
      */
     public function getUserProxy(): ?\OpenDxp\Security\User\User
     {

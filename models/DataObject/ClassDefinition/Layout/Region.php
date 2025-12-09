@@ -27,7 +27,6 @@ class Region extends Model\DataObject\ClassDefinition\Layout
      * Static type of this element
      *
      * @internal
-     *
      */
     public string $fieldtype = 'region';
 }

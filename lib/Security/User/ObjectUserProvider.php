@@ -43,7 +43,6 @@ class ObjectUserProvider implements UserProviderInterface
      * The opendxp class name to be used. Needs to be a fully qualified class
      * name (e.g. OpenDxp\Model\DataObject\User or your custom user class extending
      * the generated one.
-     *
      */
     protected string $className;
 

@@ -33,7 +33,6 @@ use Twig\Extension\RuntimeExtensionInterface;
 /**
  * @method MenuRenderer menu()
  * @method Breadcrumbs breadcrumbs()
- *
  */
 class Navigation implements RuntimeExtensionInterface
 {
@@ -58,8 +57,6 @@ class Navigation implements RuntimeExtensionInterface
 
     /**
      * Get a named renderer
-     *
-     *
      */
     public function getRenderer(string $alias): RendererInterface
     {
@@ -81,7 +78,6 @@ class Navigation implements RuntimeExtensionInterface
      *
      * @param string $renderMethod     Optional render method to use (e.g. menu -> renderMenu)
      * @param array<int, mixed> $rendererArguments      Option arguments to pass to the render method after the container
-     *
      */
     public function render(
         Container $container,
@@ -102,8 +98,6 @@ class Navigation implements RuntimeExtensionInterface
 
     /**
      * Magic overload is an alias to getRenderer()
-     *
-     *
      */
     public function __call(string $method, array $arguments = []): RendererInterface
     {

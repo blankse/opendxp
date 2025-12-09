@@ -25,37 +25,31 @@ class Info
 {
     /**
      * @internal
-     *
      */
     protected ?string $id = null;
 
     /**
      * @internal
-     *
      */
     protected ?Editable $editable = null;
 
     /**
      * @internal
-     *
      */
     protected array $params = [];
 
     /**
      * @internal
-     *
      */
     protected ?Request $request = null;
 
     /**
      * @internal
-     *
      */
     protected ?string $type = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $index = null;
 

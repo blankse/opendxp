@@ -20,8 +20,6 @@ interface EqualComparisonInterface
 {
     /**
      * Returns if old data and new data is equal
-     *
-     *
      */
     public function isEqual(mixed $oldValue, mixed $newValue): bool;
 }

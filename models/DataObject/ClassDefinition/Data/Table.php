@@ -36,7 +36,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /**
      * @internal
-     *
      */
     public ?int $cols = null;
 
@@ -47,7 +46,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /**
      * @internal
-     *
      */
     public ?int $rows = null;
 
@@ -60,7 +58,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
      * Default data
      *
      * @internal
-     *
      */
     public string $data = '';
 
@@ -71,13 +68,11 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /**
      * @internal
-     *
      */
     public array $columnConfig = [];
 
     /**
      * @internal
-     *
      */
     public function setWidth(int|string|null $width): static
     {
@@ -190,8 +185,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -210,10 +203,7 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -250,8 +240,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -273,10 +261,7 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -294,10 +279,7 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -325,10 +307,7 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -393,8 +372,6 @@ class Table extends Data implements ResourcePersistenceAwareInterface, QueryReso
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): array|string
     {

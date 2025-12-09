@@ -59,7 +59,6 @@ class EncryptedField implements OwnerAwareFieldInterface
     }
 
     /**
-     *
      * @throws Exception
      */
     public function __sleep(): array

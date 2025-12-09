@@ -27,7 +27,6 @@ class OpenDxpClassDefinitionMatcher implements Matcher
 {
     /**
      * OpenDxpClassDefinitionMatcher constructor.
-     *
      */
     public function __construct(private readonly string $matchType)
     {
@@ -36,7 +35,6 @@ class OpenDxpClassDefinitionMatcher implements Matcher
     /**
      * @param object $object
      * @param string $property
-     *
      */
     public function matches($object, $property): bool
     {

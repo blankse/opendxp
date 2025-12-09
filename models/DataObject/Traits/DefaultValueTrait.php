@@ -34,7 +34,6 @@ trait DefaultValueTrait
     abstract protected function doGetDefaultValue(Concrete $object, array $context = []): mixed;
 
     /**
-     *
      * @return mixed $data
      */
     protected function handleDefaultValue(mixed $data, ?Concrete $object = null, array $params = []): mixed

@@ -36,25 +36,21 @@ final class GroupConfig extends Model\AbstractModel
 
     /**
      * Store ID
-     *
      */
     protected int $storeId = 1;
 
     /**
      * Parent id
-     *
      */
     protected ?int $parentId = null;
 
     /**
      * The group name.
-     *
      */
     protected string $name;
 
     /**
      * The group description.
-     *
      */
     protected ?string $description = null;
 
@@ -89,8 +85,6 @@ final class GroupConfig extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByName(string $name, int $storeId = 1, ?bool $force = false): ?GroupConfig
@@ -165,7 +159,6 @@ final class GroupConfig extends Model\AbstractModel
 
     /**
      * Returns the description.
-     *
      */
     public function getDescription(): ?string
     {

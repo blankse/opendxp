@@ -27,19 +27,16 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
 {
     /**
      * @internal
-     *
      */
     public ?int $previewWidth = null;
 
     /**
      * @internal
-     *
      */
     public ?int $inputWidth = null;
 
     /**
      * @internal
-     *
      */
     public ?int $previewHeight = null;
 
@@ -74,8 +71,6 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -88,10 +83,7 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Data\ExternalImage
     {
@@ -107,8 +99,6 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -117,10 +107,7 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -137,8 +124,6 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Data\ExternalImage
@@ -152,10 +137,7 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -186,8 +168,6 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(string $data, ?Concrete $object = null, array $params = []): string
     {
@@ -210,7 +190,6 @@ class ExternalImage extends Data implements ResourcePersistenceAwareInterface, Q
     }
 
     /**
-     *
      * @throws Model\Element\ValidationException
      */
     #[Override]

@@ -54,19 +54,16 @@ class Multiselect extends Data implements
      * Available options to select
      *
      * @internal
-     *
      */
     public ?array $options = null;
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
     /**
      * @internal
-     *
      */
     public ?string $renderType = null;
 
@@ -145,8 +142,6 @@ class Multiselect extends Data implements
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -165,8 +160,6 @@ class Multiselect extends Data implements
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -179,8 +172,6 @@ class Multiselect extends Data implements
 
     /**
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
-     *
-     *
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -194,8 +185,6 @@ class Multiselect extends Data implements
 
     /**
      * @see Data::getDataForEditmode
-     *
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -231,10 +220,7 @@ class Multiselect extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): mixed
     {
@@ -253,10 +239,7 @@ class Multiselect extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -304,8 +287,6 @@ class Multiselect extends Data implements
 
     /**
      * returns sql query statement to filter according to this data types value(s)
-     *
-     *
      */
     #[Override]
     public function getFilterCondition(mixed $value, string $operator, array $params = []): string
@@ -323,7 +304,6 @@ class Multiselect extends Data implements
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
@@ -361,8 +341,6 @@ class Multiselect extends Data implements
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): array|string
     {
@@ -477,7 +455,6 @@ class Multiselect extends Data implements
 
     /**
      * Perform sanity checks, see #5010.
-     *
      */
     public function preSave(mixed $containerDefinition, array $params = []): void
     {

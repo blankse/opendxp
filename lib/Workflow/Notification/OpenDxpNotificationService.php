@@ -26,7 +26,6 @@ class OpenDxpNotificationService extends AbstractNotificationService
 {
     /**
      * OpenDxpNotificationService constructor.
-     *
      */
     public function __construct(protected NotificationService $notificationService, protected TranslatorInterface $translator)
     {

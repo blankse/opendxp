@@ -43,7 +43,6 @@ abstract class Concrete extends Model\DataObject\Listing
     /**
      * do not use the localized views for this list (in the case the class contains localized fields),
      * conditions on localized fields are not possible
-     *
      */
     protected bool $ignoreLocalizedFields = false;
 
@@ -118,12 +117,10 @@ abstract class Concrete extends Model\DataObject\Listing
 
     /**
      * field collection queries
-     *
      */
     private array $fieldCollectionConfigs = [];
 
     /**
-     *
      * @throws Exception
      */
     public function addFieldCollection(string $type, ?string $fieldname = null): void
@@ -139,7 +136,6 @@ abstract class Concrete extends Model\DataObject\Listing
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -162,12 +158,10 @@ abstract class Concrete extends Model\DataObject\Listing
 
     /**
      * object brick queries
-     *
      */
     private array $objectBrickConfigs = [];
 
     /**
-     *
      * @throws Exception
      */
     public function addObjectbrick(string $type): void
@@ -185,7 +179,6 @@ abstract class Concrete extends Model\DataObject\Listing
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -210,7 +203,6 @@ abstract class Concrete extends Model\DataObject\Listing
 
     /**
      * @internal
-     *
      */
     #[Override]
     public function addDistinct(): bool

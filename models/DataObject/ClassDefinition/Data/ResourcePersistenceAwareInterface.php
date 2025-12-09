@@ -22,15 +22,11 @@ interface ResourcePersistenceAwareInterface
 {
     /**
      * Returns the the data that should be stored in the resource
-     *
-     *
      */
     public function getDataForResource(mixed $data, ?Concrete $object = null, array $params = []): mixed;
 
     /**
      * Convert the saved data in the resource to the internal eg. Image-Id to Asset\Image object, this is the inverted getDataForResource()
-     *
-     *
      */
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): mixed;
 

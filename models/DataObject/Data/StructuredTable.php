@@ -49,7 +49,6 @@ class StructuredTable implements OwnerAwareFieldInterface, Stringable
     }
 
     /**
-     *
      * @return mixed|void
      *
      * @throws Exception

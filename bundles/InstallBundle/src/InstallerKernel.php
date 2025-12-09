@@ -33,8 +33,11 @@ class InstallerKernel extends Kernel
 {
     use MicroKernelTrait;
 
-    public function __construct(private string $projectRoot, string $environment, bool $debug)
-    {
+    public function __construct(
+        private string $projectRoot,
+        string $environment,
+        bool $debug
+    ) {
         parent::__construct($environment, $debug);
     }
 

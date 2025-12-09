@@ -22,8 +22,6 @@ use OpenDxp\Bundle\XliffBundle\AttributeSet\AttributeSet;
 interface ImportDataExtractorInterface
 {
     /**
-     *
-     *
      * @throws Exception
      */
     public function extractElement(string $importId, int $stepId): ?AttributeSet;
@@ -31,8 +29,6 @@ interface ImportDataExtractorInterface
     public function getImportFilePath(string $importId): string;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function countSteps(string $importId): int;

@@ -54,12 +54,15 @@ class Manager
      */
     private array $workflows = [];
 
-    public function __construct(private readonly Registry $workflowRegistry, private readonly NotesSubscriber $notesSubscriber, private readonly ExpressionService $expressionService, private readonly EventDispatcherInterface $eventDispatcher)
-    {
+    public function __construct(
+        private readonly Registry $workflowRegistry,
+        private readonly NotesSubscriber $notesSubscriber,
+        private readonly ExpressionService $expressionService,
+        private readonly EventDispatcherInterface $eventDispatcher
+    ) {
     }
 
     /**
-     *
      * @return $this
      */
     public function addPlaceConfig(string $workflowName, string $place, array $placeConfig): static
@@ -71,7 +74,6 @@ class Manager
     }
 
     /**
-     *
      * @return $this
      */
     public function addGlobalAction(string $workflowName, string $action, array $actionConfig, ?CustomHtmlServiceInterface $customHtmlService = null): static
@@ -156,7 +158,6 @@ class Manager
     }
 
     /**
-     *
      * @return WorkflowInterface[]
      */
     public function getAllWorkflowsForSubject(object $subject): array
@@ -201,8 +202,6 @@ class Manager
     }
 
     /**
-     *
-     *
      * @throws ValidationException
      * @throws Exception
      */
@@ -234,8 +233,6 @@ class Manager
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function applyGlobalAction(
@@ -280,8 +277,6 @@ class Manager
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getTransitionByName(string $workflowName, string $transitionName): ?\Symfony\Component\Workflow\Transition

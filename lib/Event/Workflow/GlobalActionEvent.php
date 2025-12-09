@@ -27,14 +27,13 @@ class GlobalActionEvent extends Event
 
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(
         protected WorkflowInterface $workflow,
         protected mixed $subject,
         protected GlobalAction $globalAction,
-        array $arguments = [])
-    {
+        array $arguments = []
+    ) {
         $this->arguments = $arguments;
     }
 

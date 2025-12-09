@@ -156,7 +156,6 @@ class GeneralTest extends AbstractClassificationStoreTest
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function createCsObject(): \OpenDxp\Model\DataObject\Csstore

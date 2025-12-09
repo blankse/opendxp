@@ -169,8 +169,6 @@ class DateRange extends Data implements
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     #[Override]

@@ -159,7 +159,6 @@ class Dao extends Model\Listing\Dao\AbstractDao
 
     /**
      * @param string|string[]|null $columns
-     *
      */
     public function getQueryBuilder(...$columns): DoctrineQueryBuilder
     {

@@ -54,7 +54,6 @@ class BlockTest extends ModelTestCase
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function createBlockObject(): unittestBlock

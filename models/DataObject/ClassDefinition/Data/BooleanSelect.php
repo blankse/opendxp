@@ -69,19 +69,16 @@ class BooleanSelect extends Data implements
 
     /**
      * @internal
-     *
      */
     public string $yesLabel;
 
     /**
      * @internal
-     *
      */
     public string $noLabel;
 
     /**
      * @internal
-     *
      */
     public string $emptyLabel;
 
@@ -107,10 +104,7 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?bool
     {
@@ -129,8 +123,6 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?int
@@ -139,10 +131,7 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?int
     {
@@ -160,10 +149,7 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -307,10 +293,7 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): int
     {
@@ -330,10 +313,7 @@ class BooleanSelect extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?bool
     {

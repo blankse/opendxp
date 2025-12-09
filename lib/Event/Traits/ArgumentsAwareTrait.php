@@ -22,7 +22,6 @@ trait ArgumentsAwareTrait
 {
     /**
      * Array of arguments.
-     *
      */
     protected array $arguments = [];
 
@@ -61,7 +60,6 @@ trait ArgumentsAwareTrait
 
     /**
      * Getter for all arguments.
-     *
      */
     public function getArguments(): array
     {
@@ -86,7 +84,6 @@ trait ArgumentsAwareTrait
      * Has argument.
      *
      * @param string $key Key of arguments array
-     *
      */
     public function hasArgument(string $key): bool
     {

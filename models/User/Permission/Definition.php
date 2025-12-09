@@ -66,8 +66,6 @@ class Definition extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByKey(string $permission): ?Definition
@@ -88,8 +86,6 @@ class Definition extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function create(string $permission): self|static

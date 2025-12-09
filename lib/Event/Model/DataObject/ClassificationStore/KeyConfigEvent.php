@@ -23,7 +23,6 @@ class KeyConfigEvent extends Event
 {
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(protected KeyConfig $keyConfig)
     {

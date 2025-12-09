@@ -23,7 +23,6 @@ class ConsoleEvent extends Event
 {
     /**
      * ConsoleEvent constructor.
-     *
      */
     public function __construct(protected Application $application)
     {

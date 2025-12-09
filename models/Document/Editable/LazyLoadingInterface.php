@@ -21,7 +21,6 @@ interface LazyLoadingInterface
 {
     /**
      * this method is called by Document\Service::loadAllDocumentFields() to load all lazy loading fields
-     *
      */
     public function load(): void;
 }

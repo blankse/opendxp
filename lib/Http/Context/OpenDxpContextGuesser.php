@@ -35,7 +35,6 @@ class OpenDxpContextGuesser
 
     /**
      * Add context specific routes
-     *
      */
     public function addContextRoutes(string $context, array $routes): void
     {
@@ -44,7 +43,6 @@ class OpenDxpContextGuesser
 
     /**
      * Guess the opendxp context
-     *
      */
     public function guess(Request $request, string $default): string
     {
@@ -63,7 +61,6 @@ class OpenDxpContextGuesser
 
     /**
      * Get request matchers to query admin opendxp context from
-     *
      */
     private function getMatchers(): array
     {

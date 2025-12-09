@@ -30,7 +30,6 @@ class RedirectUrlPartResolver
 
     /**
      * RedirectUrlPartResolver constructor.
-     *
      */
     public function __construct(private readonly Request $request)
     {

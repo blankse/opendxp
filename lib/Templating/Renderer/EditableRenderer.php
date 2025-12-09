@@ -36,8 +36,8 @@ class EditableRenderer implements LoggerAwareInterface
     public function __construct(
         protected EditableLoaderInterface $editableLoader,
         protected EditmodeResolver $editmodeResolver,
-        protected EditmodeEditableDefinitionCollector $configCollector)
-    {
+        protected EditmodeEditableDefinitionCollector $configCollector
+    ) {
     }
 
     public function editableExists(string $type): bool

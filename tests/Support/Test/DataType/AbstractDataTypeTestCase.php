@@ -51,7 +51,6 @@ abstract class AbstractDataTypeTestCase extends TestCase
 
     /**
      * Calls fill* methods on the object as needed in test
-     *
      */
     protected function fillObject(Concrete $object, array|string $fields = [], ?array &$returnData = []): void
     {

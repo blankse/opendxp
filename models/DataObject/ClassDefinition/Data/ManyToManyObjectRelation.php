@@ -39,7 +39,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
@@ -77,7 +76,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
 
     /**
      * @internal
-     *
      */
     public array $visibleFieldDefinitions = [];
 
@@ -131,12 +129,9 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
-     *
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {
@@ -161,10 +156,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -187,10 +179,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -214,9 +203,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /**
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromGridEditor(array $data, ?Concrete $object = null, array $params = []): ?array
     {
@@ -229,10 +216,7 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -377,7 +361,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
      * a image URL.
      *
      * @param Element\ElementInterface[]|null $data
-     *
      */
     public function getDiffVersionPreview(?array $data, ?Concrete $object = null, array $params = []): array
     {
@@ -540,7 +523,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
      *
      *
      * @internal
-     *
      */
     protected function buildUniqueKeyForDiffEditor(array $item): string
     {
@@ -613,7 +595,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
     }
 
     /** See parent class.
-     *
      *
      */
     #[Override]
@@ -720,8 +701,6 @@ class ManyToManyObjectRelation extends AbstractRelations implements QueryResourc
 
     /**
      * Filter by relation feature
-     *
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

@@ -53,7 +53,6 @@ class InlineScript extends HeadScript implements RuntimeExtensionInterface
 {
     /**
      * Registry key for placeholder
-     *
      */
     protected string $_regKey = 'InlineScript';
 }

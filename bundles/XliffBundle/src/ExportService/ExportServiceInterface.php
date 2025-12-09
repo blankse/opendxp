@@ -23,8 +23,6 @@ use OpenDxp\Bundle\XliffBundle\TranslationItemCollection\TranslationItemCollecti
 interface ExportServiceInterface
 {
     /**
-     *
-     *
      * @throws Exception
      */
     public function exportTranslationItems(TranslationItemCollection $translationItems, string $sourceLanguage, array $targetLanguages, ?string $exportId = null): string;

@@ -27,7 +27,6 @@ class Dao extends Model\Listing\Dao\AbstractDao
 {
     /**
      * Loads a list of static routes for the specicifies parameters, returns an array of Staticroute elements
-     *
      */
     public function load(): array
     {
@@ -44,7 +43,6 @@ class Dao extends Model\Listing\Dao\AbstractDao
     }
 
     /**
-     *
      * @todo: $amount could not be defined, so this could cause an issue
      */
     public function getTotalCount(): int

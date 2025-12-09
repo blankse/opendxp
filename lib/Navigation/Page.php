@@ -97,7 +97,6 @@ abstract class Page extends Container implements Stringable
      * Forward links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
-     *
      */
     protected array $_rel = [];
 
@@ -105,7 +104,6 @@ abstract class Page extends Container implements Stringable
      * Reverse links to other pages
      *
      * @link http://www.w3.org/TR/html4/struct/links.html#h-12.3.1
-     *
      */
     protected array $_rev = [];
 
@@ -213,7 +211,6 @@ abstract class Page extends Container implements Stringable
 
     /**
      * Initializes page (used by subclasses)
-     *
      */
     protected function _init(): void
     {

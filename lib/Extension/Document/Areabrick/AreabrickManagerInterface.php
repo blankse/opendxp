@@ -21,20 +21,16 @@ interface AreabrickManagerInterface
 {
     /**
      * Registers an areabrick on the manager
-     *
      */
     public function register(string $id, AreabrickInterface $brick): void;
 
     /**
      * Registers a lazy loaded area brick service on the manager
-     *
      */
     public function registerService(string $id, string $serviceId): void;
 
     /**
      * Fetches a brick by ID
-     *
-     *
      */
     public function getBrick(string $id): AreabrickInterface;
 
@@ -47,7 +43,6 @@ interface AreabrickManagerInterface
 
     /**
      * Lists all registered areabrick IDs
-     *
      */
     public function getBrickIds(): array;
 }

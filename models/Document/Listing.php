@@ -37,13 +37,11 @@ class Listing extends Model\Listing\AbstractListing implements PaginateListingIn
      * Return all documents as Type Document, e.g. for trees and so on there isn't the whole data required
      *
      * @internal
-     *
      */
     protected bool $objectTypeDocument = false;
 
     /**
      * @internal
-     *
      */
     protected bool $unpublished = false;
 
@@ -62,7 +60,6 @@ class Listing extends Model\Listing\AbstractListing implements PaginateListingIn
 
     /**
      * Checks if the document is unpublished.
-     *
      */
     public function getUnpublished(): bool
     {

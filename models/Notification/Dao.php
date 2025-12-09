@@ -34,7 +34,6 @@ class Dao extends AbstractDao
     public const DB_TABLE_NAME = 'notifications';
 
     /**
-     *
      * @throws NotFoundException
      * @throws Exception
      */

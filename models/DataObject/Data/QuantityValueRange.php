@@ -26,8 +26,11 @@ class QuantityValueRange extends AbstractQuantityValue
 {
     use ObjectVarTrait;
 
-    public function __construct(protected int|float|null $minimum, protected int|float|null $maximum, Unit|string|null $unit)
-    {
+    public function __construct(
+        protected int|float|null $minimum,
+        protected int|float|null $maximum,
+        Unit|string|null $unit
+    ) {
         parent::__construct($unit);
 
         $this->markMeDirty();

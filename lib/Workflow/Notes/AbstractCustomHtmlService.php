@@ -26,8 +26,11 @@ abstract class AbstractCustomHtmlService implements CustomHtmlServiceInterface
 
     protected bool $isGlobalAction = false;
 
-    public function __construct(string $actionOrTransitionName, bool $isGlobalAction, protected string $position = '')
-    {
+    public function __construct(
+        string $actionOrTransitionName,
+        bool $isGlobalAction,
+        protected string $position = ''
+    ) {
         $this->actionName = $isGlobalAction ? $actionOrTransitionName : '';
         $this->transitionName = $isGlobalAction ? '' : $actionOrTransitionName;
         $this->isGlobalAction = $isGlobalAction;

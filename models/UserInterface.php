@@ -30,7 +30,6 @@ interface UserInterface extends UserRoleInterface
 
     /**
      * Alias for getName()
-     *
      */
     public function getUsername(): ?string;
 
@@ -71,7 +70,6 @@ interface UserInterface extends UserRoleInterface
 
     /**
      * @see getAdmin()
-     *
      */
     public function isAdmin(): bool;
 
@@ -136,7 +134,6 @@ interface UserInterface extends UserRoleInterface
     public function setImage(?string $path): void;
 
     /**
-     *
      * @return resource
      */
     public function getImage(?int $width = null, ?int $height = null);
@@ -169,7 +166,6 @@ interface UserInterface extends UserRoleInterface
      * @return string[]|null
      *
      * @internal
-     *
      */
     public function getAllowedLanguagesForEditingWebsiteTranslations(): ?array;
 
@@ -179,7 +175,6 @@ interface UserInterface extends UserRoleInterface
      * @return string[]|null
      *
      * @internal
-     *
      */
     public function getAllowedLanguagesForViewingWebsiteTranslations(): ?array;
 

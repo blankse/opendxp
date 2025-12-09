@@ -37,11 +37,13 @@ class ElementMetadata extends Model\AbstractModel implements DataObject\OwnerAwa
     protected array $data = [];
 
     /**
-     *
      * @throws Exception
      */
-    public function __construct(protected ?string $fieldname = null, protected array $columns = [], ?Model\Element\ElementInterface $element = null)
-    {
+    public function __construct(
+        protected ?string $fieldname = null,
+        protected array $columns = [],
+        ?Model\Element\ElementInterface $element = null
+    ) {
         $this->setElement($element);
     }
 
@@ -53,7 +55,6 @@ class ElementMetadata extends Model\AbstractModel implements DataObject\OwnerAwa
     }
 
     /**
-     *
      * @return mixed|void
      *
      * @throws Exception

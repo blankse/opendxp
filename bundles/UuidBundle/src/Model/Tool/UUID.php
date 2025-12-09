@@ -31,31 +31,26 @@ final class UUID extends Model\AbstractModel
 {
     /**
      * @internal
-     *
      */
     protected int|string $itemId;
 
     /**
      * @internal
-     *
      */
     protected string $type;
 
     /**
      * @internal
-     *
      */
     protected string $uuid;
 
     /**
      * @internal
-     *
      */
     protected string $instanceIdentifier;
 
     /**
      * @internal
-     *
      */
     protected mixed $item = null;
 
@@ -174,8 +169,6 @@ final class UUID extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByItem(mixed $item): UUID
@@ -195,8 +188,6 @@ final class UUID extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function create(mixed $item): static

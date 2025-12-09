@@ -41,7 +41,6 @@ class Dao extends \OpenDxp\Bundle\CustomReportsBundle\Tool\Config\Dao
     }
 
     /**
-     *
      * @return Config[]
      */
     public function loadForGivenUser(Model\User $user): array

@@ -36,13 +36,11 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * @internal
-     *
      */
     public array $allowedTypes = [];
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
@@ -78,8 +76,6 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * @see Data::getDataForEditmode
-     *
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -241,8 +237,6 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * @see Data::getDataFromEditmode
-     *
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): Objectbrick
     {
@@ -298,8 +292,6 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * @see Data::getVersionPreview
-     *
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -662,8 +654,6 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * See parent class.
-     *
-     *
      */
     #[Override]
     public function getDiffDataFromEditmode(array $data, ?DataObject\Concrete $object = null, array $params = []): mixed
@@ -754,7 +744,6 @@ class Objectbricks extends Data implements CustomResourcePersistingInterface, Ty
 
     /**
      * This method is called in DataObject\ClassDefinition::save() and is used to create the database table for the localized data
-     *
      */
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {

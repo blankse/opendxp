@@ -31,8 +31,11 @@ class EditmodeResolver extends AbstractRequestResolver implements LoggerAwareInt
 
     private bool $forceEditmode = false;
 
-    public function __construct(RequestStack $requestStack, protected UserLoader $userLoader, protected RequestHelper $requestHelper)
-    {
+    public function __construct(
+        RequestStack $requestStack,
+        protected UserLoader $userLoader,
+        protected RequestHelper $requestHelper
+    ) {
         parent::__construct($requestStack);
     }
 

@@ -25,7 +25,6 @@ interface PaginateListingInterface extends Countable, \Iterator
      *
      * @param int $offset Page offset
      * @param int $itemCountPerPage Number of items per page
-     *
      */
     public function getItems(int $offset, int $itemCountPerPage): array;
 }

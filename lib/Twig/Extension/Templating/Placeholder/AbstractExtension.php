@@ -69,14 +69,12 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * Registry key under which container registers itself
-     *
      */
     protected string $_regKey;
 
     /**
      * Flag whether to automatically escape output, must also be
      * enforced in the child class if __toString/toString is overwritten
-     *
      */
     protected bool $_autoEscape = true;
 
@@ -110,8 +108,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * Escape a string
-     *
-     *
      */
     protected function _escape(string $string): string
     {
@@ -133,7 +129,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * Retrieve placeholder container
-     *
      */
     public function getContainer(): Container
     {
@@ -212,7 +207,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * String representation
-     *
      */
     public function toString(): string
     {
@@ -229,7 +223,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * Countable
-     *
      */
     public function count(): int
     {
@@ -242,7 +235,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      * ArrayAccess: offsetExists
      *
      * @param  string|int $offset
-     *
      */
     public function offsetExists($offset): bool
     {
@@ -253,7 +245,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      * ArrayAccess: offsetGet
      *
      * @param  string|int $offset
-     *
      */
     public function offsetGet($offset): mixed
     {
@@ -264,7 +255,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      * ArrayAccess: offsetSet
      *
      * @param  string|int $offset
-     *
      */
     public function offsetSet($offset, mixed $value): void
     {
@@ -275,7 +265,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
      * ArrayAccess: offsetUnset
      *
      * @param  string|int $offset
-     *
      */
     public function offsetUnset($offset): void
     {
@@ -284,7 +273,6 @@ abstract class AbstractExtension implements IteratorAggregate, Countable, ArrayA
 
     /**
      * IteratorAggregate: get Iterator
-     *
      */
     public function getIterator(): Traversable
     {

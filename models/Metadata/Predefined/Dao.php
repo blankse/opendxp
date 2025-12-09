@@ -45,7 +45,6 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getById(?string $id = null): void
@@ -68,7 +67,6 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function getByNameAndLanguage(?string $name = null, ?string $language = null): void

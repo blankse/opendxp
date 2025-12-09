@@ -124,7 +124,6 @@ abstract class UserRole extends AbstractUser implements UserRoleInterface
     }
 
     /**
-     *
      * @return $this
      */
     public function setPermission(string $permissionName, ?bool $value = null): static

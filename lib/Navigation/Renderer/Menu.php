@@ -49,67 +49,56 @@ class Menu extends AbstractRenderer
 {
     /**
      * CSS class to use for the ul element
-     *
      */
     protected string $_ulClass = 'navigation';
 
     /**
      * Unique identifier (id) for the ul element
-     *
      */
     protected ?string $_ulId = null;
 
     /**
      * CSS class to use for the active elements
-     *
      */
     protected string $_activeClass = 'active';
 
     /**
      * CSS class to use for the parent li element
-     *
      */
     protected string $_parentClass = 'menu-parent';
 
     /**
      * Whether parent li elements should be rendered with parent class
-     *
      */
     protected bool $_renderParentClass = false;
 
     /**
      * Whether only active branch should be rendered
-     *
      */
     protected bool $_onlyActiveBranch = false;
 
     /**
      * Whether parents should be rendered when only rendering active branch
-     *
      */
     protected bool $_renderParents = true;
 
     /**
      * Partial view script to use for rendering menu
-     *
      */
     protected string|array|null $_template = null;
 
     /**
      * Expand all sibling nodes of active branch nodes
-     *
      */
     protected bool $_expandSiblingNodesOfActiveBranch = false;
 
     /**
      * Adds CSS class from page to li element
-     *
      */
     protected bool $_addPageClassToLi = false;
 
     /**
      * Inner indentation string
-     *
      */
     protected string $_innerIndent = '    ';
 
@@ -353,7 +342,6 @@ class Menu extends AbstractRenderer
 
     /**
      * Alias of getTemplate()
-     *
      */
     public function getPartial(): array|string|null
     {
@@ -392,7 +380,6 @@ class Menu extends AbstractRenderer
     /**
      * Returns a flag indicating whether the CSS class from page to be added to
      * li element
-     *
      */
     public function getAddPageClassToLi(): bool
     {
@@ -989,8 +976,6 @@ class Menu extends AbstractRenderer
 
     /**
      * Alias of renderTemplate()
-     *
-     *
      */
     public function renderPartial(Container $container, array|string|null $partial = null): string
     {

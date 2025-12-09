@@ -40,13 +40,11 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * @internal
-     *
      */
     protected ?string $controller = null;
 
     /**
      * @internal
-     *
      */
     protected ?string $template = null;
 
@@ -54,8 +52,6 @@ abstract class PageSnippet extends Model\Document
      * Contains all content-editables of the document
      *
      * @internal
-     *
-     *
      */
     protected ?array $editables = null;
 
@@ -63,13 +59,11 @@ abstract class PageSnippet extends Model\Document
      * Contains all versions of the document
      *
      * @internal
-     *
      */
     protected ?array $versions = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $contentMainDocumentId = null;
 
@@ -87,7 +81,6 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * @internal
-     *
      */
     protected ?bool $missingRequiredEditable = null;
 
@@ -98,13 +91,11 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * @internal
-     *
      */
     protected ?int $staticGeneratorLifetime = null;
 
     /**
      * @internal
-     *
      */
     protected array $inheritedEditables = [];
 
@@ -161,8 +152,6 @@ abstract class PageSnippet extends Model\Document
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function saveVersion(bool $setModificationDate = true, bool $saveOnlyVersion = true, ?string $versionNote = null, bool $isAutoSave = false): ?Model\Version
@@ -360,8 +349,6 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * Get an editable with the given key/name
-     *
-     *
      */
     public function getEditable(string $name): ?Editable
     {
@@ -519,7 +506,6 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * @see Document::getFullPath
-     *
      */
     public function getHref(): string
     {
@@ -544,8 +530,6 @@ abstract class PageSnippet extends Model\Document
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getUrl(?string $hostname = null, ?string $scheme = null): string
@@ -584,7 +568,6 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * checks if the document is missing values for required editables
-     *
      */
     public function getMissingRequiredEditable(): ?bool
     {
@@ -603,7 +586,6 @@ abstract class PageSnippet extends Model\Document
 
     /**
      * @internal
-     *
      */
     public function supportsContentMain(): bool
     {

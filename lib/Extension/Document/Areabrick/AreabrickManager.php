@@ -111,8 +111,6 @@ class AreabrickManager implements AreabrickManagerInterface
 
     /**
      * Loads brick from container
-     *
-     *
      */
     protected function loadServiceBrick(string $id): ?AreabrickInterface
     {

@@ -193,7 +193,6 @@ class DocumentTest extends ModelTestCase
 
     /**
      * Verifies that a document can be saved with custom modification date.
-     *
      */
     public function testCustomModificationDate(): void
     {
@@ -216,7 +215,6 @@ class DocumentTest extends ModelTestCase
 
     /**
      * Verifies that a document can be saved with custom user modification id.
-     *
      */
     public function testCustomUserModification(): void
     {

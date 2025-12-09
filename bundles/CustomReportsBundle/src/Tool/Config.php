@@ -81,8 +81,6 @@ class Config extends Model\AbstractModel implements JsonSerializable
     protected array $sharedRoleNames = [];
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByName(string $name): ?Config

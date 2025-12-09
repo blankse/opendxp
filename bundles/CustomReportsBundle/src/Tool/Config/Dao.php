@@ -46,7 +46,6 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByName(?string $id = null): void

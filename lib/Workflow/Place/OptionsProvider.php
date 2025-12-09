@@ -34,8 +34,6 @@ class OptionsProvider implements SelectOptionsProviderInterface
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getOptions(array $context, Data $fieldDefinition): array

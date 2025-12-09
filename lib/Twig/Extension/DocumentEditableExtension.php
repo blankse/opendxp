@@ -92,8 +92,6 @@ class DocumentEditableExtension extends AbstractExtension
      * Returns an iterator which can be used instead of while($block->loop())
      *
      * @internal
-     *
-     *
      */
     public function getBlockIterator(BlockInterface $block): Generator
     {

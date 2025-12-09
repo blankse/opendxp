@@ -44,7 +44,6 @@ class Fieldcollection extends Model\AbstractModel implements Iterator, DirtyIndi
 
     /**
      * @internal
-     *
      */
     protected string $fieldname;
 
@@ -225,7 +224,6 @@ class Fieldcollection extends Model\AbstractModel implements Iterator, DirtyIndi
     }
 
     /**
-     *
      * @throws Exception
      *
      * @internal

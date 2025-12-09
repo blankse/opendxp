@@ -77,7 +77,6 @@ interface ImageThumbnailInterface
 
     /**
      * Returns path for thumbnail image in a given file format
-     *
      */
     public function getAsFormat(string $format): static;
 }

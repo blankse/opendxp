@@ -86,7 +86,6 @@ final class Redirect extends AbstractModel
 
     /**
      * ID of the user who make the latest changes
-     *
      */
     protected ?int $userModification = null;
 
@@ -104,8 +103,6 @@ final class Redirect extends AbstractModel
 
     /**
      * @internal
-     *
-     *
      */
     public static function getByExactMatch(Request $request, ?Site $site = null, bool $override = false): ?self
     {
@@ -181,7 +178,6 @@ final class Redirect extends AbstractModel
 
     /**
      * enum('entire_uri','path_query','path','auto_create')
-     *
      */
     public function getType(): string
     {
@@ -190,7 +186,6 @@ final class Redirect extends AbstractModel
 
     /**
      * enum('entire_uri','path_query','path','auto_create')
-     *
      */
     public function setType(string $type): void
     {

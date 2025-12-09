@@ -32,7 +32,6 @@ final class TranslationServicesPass implements CompilerPassInterface
     /**
      * Registers each service with tag opendxp.translation.data-extractor as data extractor for the translations export data extractor service.
      * Registers each service with tag opendxp.translation.importer as importer for the translations importer service.
-     *
      */
     public function process(ContainerBuilder $container): void
     {

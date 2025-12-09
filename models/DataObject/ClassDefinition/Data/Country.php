@@ -29,7 +29,6 @@ class Country extends Model\DataObject\ClassDefinition\Data\Select
      * Restrict selection to comma-separated list of countries.
      *
      * @internal
-     *
      */
     public ?string $restrictTo = null;
 

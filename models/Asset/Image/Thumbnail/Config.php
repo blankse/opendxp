@@ -52,109 +52,90 @@ final class Config extends Model\AbstractModel
      * )
      *
      * @internal
-     *
      */
     protected array $items = [];
 
     /**
      * @internal
-     *
      */
     protected array $medias = [];
 
     /**
      * @internal
-     *
      */
     protected string $name = '';
 
     /**
      * @internal
-     *
      */
     protected string $description = '';
 
     /**
      * @internal
-     *
      */
     protected string $group = '';
 
     /**
      * @internal
-     *
      */
     protected string $format = 'SOURCE';
 
     /**
      * @internal
-     *
      */
     protected int $quality = 85;
 
     /**
      * @internal
-     *
      */
     protected ?float $highResolution = null;
 
     /**
      * @internal
-     *
      */
     protected bool $preserveColor = false;
 
     /**
      * @internal
-     *
      */
     protected bool $forceProcessICCProfiles = false;
 
     /**
      * @internal
-     *
      */
     protected bool $preserveMetaData = false;
 
     /**
      * @internal
-     *
      */
     protected bool $rasterizeSVG = false;
 
     /**
      * @internal
-     *
      */
     protected bool $downloadable = false;
 
     /**
      * @internal
-     *
      */
     protected ?int $modificationDate = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $creationDate = null;
 
     /**
      * @internal
-     *
      */
     protected ?string $filenameSuffix = null;
 
     /**
      * @internal
-     *
      */
     protected bool $preserveAnimation = false;
 
     /**
-     *
-     *
      * @internal
      */
     public static function getByAutoDetect(array|string|Config $config): ?Config
@@ -180,8 +161,6 @@ final class Config extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByName(string $name): ?Config
@@ -241,7 +220,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     public static function getPreviewConfig(): Config
     {
@@ -280,8 +258,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
-     *
      */
     public function addItem(string $name, array $parameters, ?string $media = null): bool
     {
@@ -303,8 +279,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
-     *
      */
     public function addItemAt(int $position, string $name, array $parameters, ?string $media = null): bool
     {
@@ -462,8 +436,6 @@ final class Config extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @internal
      */
     public static function getByArrayConfig(array $config): Config
@@ -573,8 +545,6 @@ final class Config extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function getEstimatedDimensions(Model\Asset\Image $asset): array
@@ -796,7 +766,6 @@ final class Config extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     public static function getAutoFormats(): array
     {

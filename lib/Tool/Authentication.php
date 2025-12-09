@@ -183,8 +183,6 @@ class Authentication
     }
 
     /**
-     *
-     *
      * @throws Exception
      *
      * @internal

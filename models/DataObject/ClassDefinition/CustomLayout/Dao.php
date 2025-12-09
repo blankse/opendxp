@@ -49,7 +49,6 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getById(?string $id = null): void
@@ -131,8 +130,6 @@ class Dao extends Model\Dao\OpenDxpLocationAwareConfigDao
 
     /**
      * Get latest identifier
-     *
-     *
      */
     public function getLatestIdentifier(string $classId): UuidV4
     {

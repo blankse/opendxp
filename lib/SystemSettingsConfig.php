@@ -90,7 +90,6 @@ class SystemSettingsConfig
     }
 
     /**
-     *
      * @internal ONLY FOR TESTING PURPOSES IF NEEDED FOR SPECIFIC TEST CASES
      */
     public function testSave(array $values): void
@@ -103,7 +102,6 @@ class SystemSettingsConfig
     }
 
     /**
-     *
      * @internal
      */
     public function getSystemSettingsConfig(): array
@@ -119,7 +117,6 @@ class SystemSettingsConfig
     }
 
     /**
-     *
      * @internal
      */
     public function setSystemSettingsConfig(array $config): void

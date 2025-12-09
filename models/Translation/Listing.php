@@ -28,7 +28,6 @@ use Override;
  * @method int getTotalCount()
  * @method void onCreateQueryBuilder(?callable $callback)
  * @method void cleanup()
- *
  */
 class Listing extends Model\Listing\AbstractListing
 {
@@ -41,7 +40,6 @@ class Listing extends Model\Listing\AbstractListing
 
     /**
      * @internal
-     *
      */
     protected string $domain = Model\Translation::DOMAIN_DEFAULT;
 

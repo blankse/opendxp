@@ -23,7 +23,6 @@ class CustomLayoutEvent extends Event
 {
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(protected ClassDefinition\CustomLayout $customLayout)
     {

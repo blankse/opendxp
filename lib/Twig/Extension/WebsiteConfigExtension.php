@@ -29,7 +29,6 @@ class WebsiteConfigExtension
      *
      * @param string|null $key  Config key to directly load. If null, the whole config will be returned
      * @param mixed $default    Default value to use if the key is not set
-     *
      */
     #[\Twig\Attribute\AsTwigFunction('opendxp_website_config')]
     public function getWebsiteConfig(?string $key = null, mixed $default = null, ?string $language = null): mixed

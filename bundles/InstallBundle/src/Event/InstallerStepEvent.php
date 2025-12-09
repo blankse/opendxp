@@ -24,8 +24,12 @@ use Symfony\Contracts\EventDispatcher\Event;
  */
 class InstallerStepEvent extends Event
 {
-    public function __construct(private readonly string $type, private readonly string $message, private readonly int $step, private readonly int $totalSteps)
-    {
+    public function __construct(
+        private readonly string $type,
+        private readonly string $message,
+        private readonly int $step,
+        private readonly int $totalSteps
+    ) {
     }
 
     public function getType(): string

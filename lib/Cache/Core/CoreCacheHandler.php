@@ -50,13 +50,11 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Actually write/load to/from cache?
-     *
      */
     protected bool $enabled = true;
 
     /**
      * Is the cache handled in CLI mode?
-     *
      */
     protected bool $handleCli = false;
 
@@ -69,51 +67,43 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Tags which were already cleared
-     *
      */
     protected array $clearedTags = [];
 
     /**
      * Items having one of the tags in this list are not saved
-     *
      */
     protected array $tagsIgnoredOnSave = [];
 
     /**
      * Items having one of the tags in this list are not cleared when calling clearTags
-     *
      */
     protected array $tagsIgnoredOnClear = [];
 
     /**
      * Items having tags which are in this array are cleared on shutdown. This is especially for the output-cache.
-     *
      */
     protected array $tagsClearedOnShutdown = [];
 
     /**
      * State variable which is set to true after the cache was cleared - prevent new items being
      * written to cache after a clear.
-     *
      */
     protected bool $cacheCleared = false;
 
     /**
      * Tags in this list are shifted to the clearTagsOnShutdown list when scheduled via clearTags. See comment on normalizeClearTags
      * method why this exists.
-     *
      */
     protected array $shutdownTags = ['output'];
 
     /**
      * If set to true items are directly written into the cache, and do not get into the queue
-     *
      */
     protected bool $forceImmediateWrite = false;
 
     /**
      * How many items should stored to the cache within one process
-     *
      */
     protected int $maxWriteToCacheItems = 50;
 
@@ -121,13 +111,15 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     protected Closure $emptyCacheItemClosure;
 
-    public function __construct(protected TagAwareAdapterInterface $pool, protected WriteLock $writeLock, protected EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        protected TagAwareAdapterInterface $pool,
+        protected WriteLock $writeLock,
+        protected EventDispatcherInterface $dispatcher
+    ) {
     }
 
     /**
      * @internal
-     *
      */
     public function setPool(TagAwareAdapterInterface $pool): void
     {
@@ -141,7 +133,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * @codeCoverageIgnore
-     *
      */
     public function getLogger(): LoggerInterface
     {
@@ -180,7 +171,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * @codeCoverageIgnore
-     *
      */
     public function getHandleCli(): bool
     {
@@ -201,7 +191,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * @codeCoverageIgnore
-     *
      */
     public function getForceImmediateWrite(): bool
     {
@@ -229,8 +218,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Load data from cache (retrieves data from cache item)
-     *
-     *
      */
     public function load(string $key): mixed
     {
@@ -251,8 +238,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Get PSR-6 cache item
-     *
-     *
      */
     public function getItem(string $key): CacheItem
     {
@@ -268,8 +253,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Save data to cache
-     *
-     *
      */
     public function save(string $key, mixed $data, array $tags = [], DateInterval|int|null $lifetime = null, ?int $priority = 0, bool $force = false): bool
     {
@@ -316,8 +299,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Add item to save queue, respecting maxWriteToCacheItems setting
-     *
-     *
      */
     protected function addToSaveQueue(CacheQueueItem $item): bool
     {
@@ -349,8 +330,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Prepare data for cache item and handle items we don't want to save (e.g. hardlinks)
-     *
-     *
      */
     protected function prepareCacheData(mixed $data): mixed
     {
@@ -529,8 +508,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Remove a cache item
-     *
-     *
      */
     public function remove(string $key): bool
     {
@@ -543,7 +520,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Empty the cache
-     *
      */
     public function clearAll(): bool
     {
@@ -569,7 +545,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * @param string[] $tags
-     *
      */
     public function clearTags(array $tags): bool
     {
@@ -603,7 +578,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * Clears all tags stored in tagsClearedOnShutdown, this function is executed during OpenDxp shutdown
-     *
      */
     public function clearTagsOnShutdown(): bool
     {
@@ -690,7 +664,6 @@ class CoreCacheHandler implements LoggerAwareInterface
     }
 
     /**
-     *
      * @return $this
      *
      * @internal
@@ -704,7 +677,6 @@ class CoreCacheHandler implements LoggerAwareInterface
     }
 
     /**
-     *
      * @return $this
      *
      * @internal
@@ -717,7 +689,6 @@ class CoreCacheHandler implements LoggerAwareInterface
     }
 
     /**
-     *
      * @return $this
      *
      * @internal
@@ -731,7 +702,6 @@ class CoreCacheHandler implements LoggerAwareInterface
     }
 
     /**
-     *
      * @return $this
      *
      * @internal
@@ -761,7 +731,6 @@ class CoreCacheHandler implements LoggerAwareInterface
      * Writes save queue to the cache
      *
      * @internal
-     *
      */
     public function writeSaveQueue(): bool
     {
@@ -851,7 +820,6 @@ class CoreCacheHandler implements LoggerAwareInterface
 
     /**
      * @codeCoverageIgnore
-     *
      */
     protected function isCli(): bool
     {

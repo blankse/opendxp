@@ -35,7 +35,6 @@ abstract class Adapter
 
     /**
      * length in seconds
-     *
      */
     public int $length;
 

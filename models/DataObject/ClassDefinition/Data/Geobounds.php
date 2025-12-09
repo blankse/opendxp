@@ -31,9 +31,7 @@ class Geobounds extends AbstractGeo implements
     NormalizerInterface
 {
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?Concrete $object = null, array $params = []): array
     {
@@ -72,10 +70,7 @@ class Geobounds extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?DataObject\Data\Geobounds
     {
@@ -102,8 +97,6 @@ class Geobounds extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
@@ -112,10 +105,7 @@ class Geobounds extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -137,8 +127,6 @@ class Geobounds extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?DataObject\Data\Geobounds
@@ -154,10 +142,7 @@ class Geobounds extends AbstractGeo implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string

@@ -29,7 +29,6 @@ use OpenDxp\Model\Exception\NotFoundException;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws NotFoundException
      */
     public function getById(int $id): void

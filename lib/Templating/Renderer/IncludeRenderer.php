@@ -42,8 +42,6 @@ class IncludeRenderer
 
     /**
      * Renders a document include
-     *
-     *
      */
     public function render(mixed $include, array $params = [], bool $editmode = false, bool $cacheEnabled = true): string
     {
@@ -133,8 +131,6 @@ class IncludeRenderer
      * in editmode, we need to parse the returned html from the document include
      * add a class and the opendxp id / type so that it can be opened in editmode using the context menu
      * if there's no first level HTML container => add one (wrapper)
-     *
-     *
      */
     protected function modifyEditmodeContent(PageSnippet $include, string $content): string
     {

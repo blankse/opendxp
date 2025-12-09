@@ -30,7 +30,6 @@ class Relation extends Model\Document\Editable implements IdRewriterInterface, E
      * ID of the source object
      *
      * @internal
-     *
      */
     protected ?int $id = null;
 
@@ -38,7 +37,6 @@ class Relation extends Model\Document\Editable implements IdRewriterInterface, E
      * Type of the source object (document, asset, object)
      *
      * @internal
-     *
      */
     protected ?string $type = null;
 
@@ -46,7 +44,6 @@ class Relation extends Model\Document\Editable implements IdRewriterInterface, E
      * Subtype of the source object (eg. page, link, video, news, ...)
      *
      * @internal
-     *
      */
     protected ?string $subtype = null;
 
@@ -54,7 +51,6 @@ class Relation extends Model\Document\Editable implements IdRewriterInterface, E
      * Contains the source object
      *
      * @internal
-     *
      */
     protected mixed $element = null;
 

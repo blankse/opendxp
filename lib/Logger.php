@@ -21,7 +21,6 @@ use OpenDxp;
 class Logger
 {
     /**
-     *
      * @internal
      */
     public static function log(string $message, string $level = 'info', array $context = []): void

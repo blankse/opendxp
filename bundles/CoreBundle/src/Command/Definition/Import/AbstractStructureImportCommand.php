@@ -111,7 +111,6 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
 
     /**
      * Validate and return path to JSON file
-     *
      */
     protected function getPath(): string
     {
@@ -140,8 +139,6 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
 
     /**
      * Ask for confirmation before overwriting
-     *
-     *
      */
     protected function askConfirmation(string $name): bool
     {
@@ -157,35 +154,26 @@ abstract class AbstractStructureImportCommand extends AbstractCommand
 
     /**
      * Get type
-     *
      */
     abstract protected function getType(): string;
 
     /**
      * Get definition name from filename (e.g. class_Customer_export.json -> Customer)
-     *
-     *
      */
     abstract protected function getDefinitionName(string $filename): ?string;
 
     /**
      * Try to load definition by name
-     *
-     *
      */
     abstract protected function loadDefinition(string $name): ?ModelInterface;
 
     /**
      * Create a new definition
-     *
-     *
      */
     abstract protected function createDefinition(string $name): ?ModelInterface;
 
     /**
      * Process import
-     *
-     *
      */
     abstract protected function import(ModelInterface $definition, string $json): bool;
 }

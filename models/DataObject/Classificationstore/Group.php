@@ -65,7 +65,6 @@ final class Group
     }
 
     /**
-     *
      * @return Key[]
      */
     protected function getKeysByKeyGroupRelations(KeyGroupRelation ...$keyGroupRelations): array

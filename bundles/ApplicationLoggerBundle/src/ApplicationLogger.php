@@ -131,7 +131,6 @@ class ApplicationLogger implements LoggerInterface
 
     /**
      * Resolve logging source
-     *
      */
     protected function resolveLoggingSource(): string
     {

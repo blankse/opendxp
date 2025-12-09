@@ -169,7 +169,6 @@ class EditableTest extends ModelTestCase
 
     /**
      * Calls fill* methods on the object as needed in test
-     *
      */
     protected function fillPage(Page $document, array|string $fields = [], array &$returnData = []): void
     {

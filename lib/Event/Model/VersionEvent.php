@@ -23,7 +23,6 @@ class VersionEvent extends Event
 {
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(protected Version $version)
     {

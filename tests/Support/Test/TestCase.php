@@ -27,7 +27,6 @@ abstract class TestCase extends Unit
 
     /**
      * Determine if the test needs a DB connection (will be skipped if no DB is present)
-     *
      */
     protected function needsDb(): bool
     {

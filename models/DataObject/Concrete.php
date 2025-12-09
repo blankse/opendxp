@@ -46,7 +46,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
      * @internal
      *
      * Necessary for assigning object reference to corresponding fields while wakeup
-     *
      */
     public array $__objectAwareFields = [];
 
@@ -59,7 +58,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * @internal
-     *
      */
     protected bool $published = false;
 
@@ -77,25 +75,21 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * @internal
-     *
      */
     protected ?array $versions = null;
 
     /**
      * @internal
-     *
      */
     protected ?bool $omitMandatoryCheck = null;
 
     /**
      * @internal
-     *
      */
     protected bool $allLazyKeysMarkedAsLoaded = false;
 
     /**
      * returns the class ID of the current object class
-     *
      */
     public static function classId(): string
     {
@@ -236,7 +230,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
      * it is false when the method is called by $this->update()
      *
      * @param string|null $versionNote version note
-     *
      */
     public function saveVersion(bool $setModificationDate = true, bool $saveOnlyVersion = true, ?string $versionNote = null, bool $isAutoSave = false): ?Model\Version
     {
@@ -446,7 +439,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
     }
 
     /**
-     *
      * @throws InheritanceParentNotFoundException
      */
     public function getValueFromParent(string $key, mixed $params = null): mixed
@@ -466,7 +458,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * @internal
-     *
      */
     public function getNextParentForInheritance(): ?Concrete
     {
@@ -494,8 +485,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * get object relation data as array for a specific field
-     *
-     *
      */
     public function getRelationData(string $fieldName, bool $forOwner, ?string $remoteClassId = null): array
     {
@@ -503,7 +492,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
     }
 
     /**
-     *
      * @return Model\Listing\AbstractListing|Concrete|null
      *
      * @throws Exception
@@ -650,7 +638,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * @internal
-     *
      */
     public function getLazyLoadedFieldNames(): array
     {
@@ -748,8 +735,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
 
     /**
      * @internal
-     *
-     *
      */
     protected function doRetrieveData(array $descriptor, string $table): array
     {
@@ -762,8 +747,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function retrieveSlugData(array $descriptor): array
@@ -774,8 +757,6 @@ class Concrete extends DataObject implements LazyLoadedFieldsInterface
     }
 
     /**
-     *
-     *
      * @internal
      */
     public function retrieveRelationData(array $descriptor): array

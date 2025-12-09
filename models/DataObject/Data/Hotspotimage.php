@@ -39,11 +39,15 @@ class Hotspotimage implements OwnerAwareFieldInterface, Stringable
      */
     protected ?array $marker = null;
 
-    public function __construct(Asset\Image|int|null $image = null, array $hotspots = [], array $marker = [], /**
+    public function __construct(
+        Asset\Image|int|null $image = null,
+        array $hotspots = [],
+        array $marker = [],
+        /**
      * @var array[]|null
      */
-        protected ?array $crop = [])
-    {
+        protected ?array $crop = []
+    ) {
         if ($image instanceof Asset\Image) {
             $this->image = $image;
         } elseif (is_numeric($image)) {

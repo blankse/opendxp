@@ -41,8 +41,6 @@ class OpenDxpUrl implements RuntimeExtensionInterface
 
     /**
      * Generate URL with support to only pass parameters ZF1 style (defaults to current route).
-     *
-     *
      */
     protected function generateUrl(array|string|null $name = null, ?array $parameters = [], int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH, bool $encode = true): string
     {
@@ -97,7 +95,6 @@ class OpenDxpUrl implements RuntimeExtensionInterface
 
     /**
      * Tries to get the current route name from current or main request
-     *
      */
     protected function getCurrentRoute(): ?string
     {

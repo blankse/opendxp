@@ -49,18 +49,15 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
 {
     /**
      * Registry key for placeholder
-     *
      */
     protected string $_regKey = 'HeadTitle';
 
     /**
      * Default title rendering order (i.e. order in which each title attached)
-     *
      */
     protected ?string $_defaultAttachOrder = null;
 
     /**
-     *
      * @return $this
      */
     public function __invoke(?string $title = null, ?string $setType = null): static
@@ -107,7 +104,6 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Get the default attach order, if any.
-     *
      */
     public function getDefaultAttachOrder(): ?string
     {
@@ -116,8 +112,6 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Turn helper into string
-     *
-     *
      */
     #[Override]
     public function toString(?string $indent = null, ?string $locale = null): string
@@ -144,7 +138,6 @@ class HeadTitle extends AbstractExtension implements RuntimeExtensionInterface
 
     /**
      * Get container content without indentation, prefix or postfix
-     *
      */
     public function getRawContent(): string
     {

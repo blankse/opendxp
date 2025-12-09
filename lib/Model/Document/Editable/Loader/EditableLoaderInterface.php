@@ -24,8 +24,6 @@ interface EditableLoaderInterface extends LoaderInterface
 {
     /**
      * Builds a tag instance
-     *
-     *
      */
     public function build(string $name, array $params = []): Editable;
 }

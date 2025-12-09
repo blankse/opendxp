@@ -30,7 +30,6 @@ class Dao extends Model\Dao\AbstractDao
 {
     /**
      * Name of the db table
-     *
      */
     protected static string $dbTable = 'email_log';
 
@@ -129,8 +128,6 @@ class Dao extends Model\Dao\AbstractDao
     /**
      * Creates the basic logging for the treeGrid in the backend
      * Data will be enhanced with live-data in the backend
-     *
-     *
      */
     protected function prepareLoggingData(string $key, mixed $value): stdClass
     {

@@ -27,7 +27,6 @@ class Dao extends Model\Listing\Dao\AbstractDao
 {
     /**
      * Loads a list of tags for the specified parameters, returns an array of Element\Tag elements
-     *
      */
     public function load(): array
     {

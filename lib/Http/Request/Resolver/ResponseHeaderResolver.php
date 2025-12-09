@@ -46,7 +46,6 @@ class ResponseHeaderResolver extends AbstractRequestResolver
     /**
      * We don't have a response object at this point, but we can add headers here which will be
      * set by the ResponseHeaderListener which reads and adds this headers in the kernel.response event.
-     *
      */
     public function addResponseHeader(Request $request, string $key, array|string $values, bool $replace = false): void
     {

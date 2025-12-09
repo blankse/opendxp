@@ -43,7 +43,6 @@ trait Wrapper
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function update(array $params = []): void

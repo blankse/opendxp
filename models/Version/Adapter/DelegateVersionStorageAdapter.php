@@ -29,7 +29,8 @@ class DelegateVersionStorageAdapter implements VersionStorageAdapterInterface
      */
     private array $adapters = [];
 
-    public function __construct(protected int $byteThreshold,
+    public function __construct(
+        protected int $byteThreshold,
         protected VersionStorageAdapterInterface $defaultAdapter,
         protected VersionStorageAdapterInterface $fallbackAdapter
     ) {

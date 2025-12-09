@@ -81,7 +81,6 @@ class DocumentFallbackListener implements EventSubscriberInterface
 
     /**
      * Finds the nearest document for the current request if the routing/document router didn't find one (e.g. static routes)
-     *
      */
     public function onKernelRequest(RequestEvent $event): void
     {

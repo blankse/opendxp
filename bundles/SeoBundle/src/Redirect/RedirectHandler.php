@@ -51,14 +51,18 @@ final class RedirectHandler
 
     private ?LockInterface $lock = null;
 
-    public function __construct(private RequestHelper $requestHelper, private SiteResolver $siteResolver, private Config $config, LockFactory $lockFactory, private LoggerInterface $logger, private LoggerInterface $redirectLogger)
-    {
+    public function __construct(
+        private RequestHelper $requestHelper,
+        private SiteResolver $siteResolver,
+        private Config $config,
+        LockFactory $lockFactory,
+        private LoggerInterface $logger,
+        private LoggerInterface $redirectLogger
+    ) {
         $this->lock = $lockFactory->createLock(self::class);
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function checkForRedirect(Request $request, bool $override = false, ?Site $sourceSite = null): ?Response
@@ -124,8 +128,6 @@ final class RedirectHandler
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     protected function buildRedirectResponse(Redirect $redirect, Request $request, array $matches = []): ?Response

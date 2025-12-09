@@ -61,7 +61,6 @@ use Twig\Extension\RuntimeExtensionInterface;
  * @method $this setHttpEquiv($keyValue, $content, $modifiers=[])
  * @method $this setName($keyValue, $content, $modifiers=[])
  * @method $this setProperty($property, $content, $modifiers=[])
- *
  */
 class HeadMeta extends AbstractExtension implements RuntimeExtensionInterface
 {

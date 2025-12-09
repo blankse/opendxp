@@ -49,7 +49,6 @@ class TestHelper
     /**
      * Constant will be defined upon suite initialization and will result to true
      * if we have a valid DB configuration.
-     *
      */
     public static function supportsDbTests(): bool
     {
@@ -891,7 +890,6 @@ class TestHelper
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function createThumbnailConfigurationScaleByWidth(int $width = 256, bool $forceResize = false): Asset\Image\Thumbnail\Config

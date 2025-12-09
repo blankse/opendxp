@@ -26,7 +26,6 @@ class ElementEvent extends Event implements ElementEventInterface
 
     /**
      * ElementEvent constructor.
-     *
      */
     public function __construct(protected ElementInterface $element, array $arguments = [])
     {

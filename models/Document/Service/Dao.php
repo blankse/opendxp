@@ -48,7 +48,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @return int[]
      */
     public function getTranslations(Document $document, string $task = 'open'): array

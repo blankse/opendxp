@@ -27,12 +27,10 @@ interface UserRoleInterface extends AbstractUserInterface
      * @return $this
      *
      * @internal
-     *
      */
     public function setAllAclToFalse(): static;
 
     /**
-     *
      * @return $this
      */
     public function setPermission(string $permissionName, ?bool $value = null): static;

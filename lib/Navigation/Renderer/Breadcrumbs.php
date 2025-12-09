@@ -47,25 +47,21 @@ class Breadcrumbs extends AbstractRenderer
 {
     /**
      * Breadcrumbs separator string
-     *
      */
     protected string $_separator = ' &gt; ';
 
     /**
      * The minimum depth a page must have to be included when rendering
-     *
      */
     protected ?int $_minDepth = 1;
 
     /**
      * Whether last page in breadcrumb should be hyperlinked
-     *
      */
     protected bool $_linkLast = false;
 
     /**
      * Partial view script to use for rendering menu
-     *
      */
     protected string|array|null $_template = null;
 
@@ -125,7 +121,6 @@ class Breadcrumbs extends AbstractRenderer
 
     /**
      * Alias of getTemplate()
-     *
      */
     public function getPartial(): array|string|null
     {
@@ -149,8 +144,6 @@ class Breadcrumbs extends AbstractRenderer
 
     /**
      * Get all pages between the currently active page and the container's root page.
-     *
-     *
      */
     public function getPages(Container $container): array
     {
@@ -184,8 +177,6 @@ class Breadcrumbs extends AbstractRenderer
     /**
      * Renders breadcrumbs by chaining 'a' elements with the separator
      * registered in the helper
-     *
-     *
      */
     public function renderStraight(Container $container): string
     {
@@ -226,8 +217,6 @@ class Breadcrumbs extends AbstractRenderer
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function renderTemplate(Container $container, ?string $partial = null): string
@@ -247,8 +236,6 @@ class Breadcrumbs extends AbstractRenderer
 
     /**
      * Alias of renderTemplate() for ZF1 backward compatibility
-     *
-     *
      */
     public function renderPartial(Container $container, ?string $partial = null): string
     {

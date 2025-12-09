@@ -35,7 +35,6 @@ final class KeyConfig extends Model\AbstractModel
 
     /**
      * Store ID
-     *
      */
     protected int $storeId = 1;
 
@@ -54,7 +53,6 @@ final class KeyConfig extends Model\AbstractModel
 
     /**
      * The key type ("text", "number", etc...)
-     *
      */
     protected string $type;
 
@@ -93,7 +91,6 @@ final class KeyConfig extends Model\AbstractModel
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function getByName(string $name, int $storeId = 1, ?bool $force = false): ?KeyConfig

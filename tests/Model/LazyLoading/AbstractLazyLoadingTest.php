@@ -80,8 +80,6 @@ class AbstractLazyLoadingTest extends ModelTestCase
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     protected function createChildDataObject(AbstractObject $parent): LazyLoading
@@ -96,7 +94,6 @@ class AbstractLazyLoadingTest extends ModelTestCase
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function loadRelations(): RelationTest\Listing

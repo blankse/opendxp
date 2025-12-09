@@ -23,7 +23,6 @@ class GroupConfigEvent extends Event
 {
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(protected GroupConfig $groupConfig)
     {

@@ -22,8 +22,11 @@ abstract class AbstractItem implements ItemInterface
     /**
      * @param string[] $environments
      */
-    public function __construct(private readonly int $priority = 0, private readonly array $environments = [], private readonly string $source = self::SOURCE_PROGRAMATICALLY)
-    {
+    public function __construct(
+        private readonly int $priority = 0,
+        private readonly array $environments = [],
+        private readonly string $source = self::SOURCE_PROGRAMATICALLY
+    ) {
     }
 
     public function getPriority(): int

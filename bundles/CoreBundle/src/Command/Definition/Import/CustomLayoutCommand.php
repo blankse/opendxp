@@ -44,7 +44,6 @@ class CustomLayoutCommand extends AbstractStructureImportCommand
 
     /**
      * Get type.
-     *
      */
     protected function getType(): string
     {
@@ -53,8 +52,6 @@ class CustomLayoutCommand extends AbstractStructureImportCommand
 
     /**
      * Get definition name from filename (e.g. custom_definition_Customer_export.json -> Customer).
-     *
-     *
      */
     protected function getDefinitionName(string $filename): ?string
     {

@@ -34,14 +34,12 @@ class NotificationService
 {
     /**
      * NotificationService constructor.
-     *
      */
     public function __construct(private readonly UserService $userService)
     {
     }
 
     /**
-     *
      * @throws UnexpectedValueException
      * @throws Exception
      */
@@ -142,8 +140,6 @@ class NotificationService
     }
 
     /**
-     *
-     *
      * @throws UnexpectedValueException
      * @throws Exception
      */

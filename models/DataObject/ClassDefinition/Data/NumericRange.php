@@ -216,10 +216,7 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -237,10 +234,7 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?DataObject\Data\NumericRange
     {
@@ -279,10 +273,7 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -297,8 +288,6 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?DataObject\Data\NumericRange
@@ -316,10 +305,7 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -332,8 +318,6 @@ class NumericRange extends Data implements
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     #[Override]

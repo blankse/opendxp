@@ -35,13 +35,11 @@ class ReverseObjectRelation extends ManyToManyObjectRelation
 
     /**
      * @internal
-     *
      */
     public ?string $ownerClassId = null;
 
     /**
      * @internal
-     *
      */
     public string $ownerFieldName;
 

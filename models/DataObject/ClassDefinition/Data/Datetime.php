@@ -33,7 +33,6 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
 
     /**
      * @internal
-     *
      */
     public ?int $defaultValue = null;
 
@@ -53,9 +52,7 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
     public string $columnType = 'bigint(20)';
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): int|string|null
     {
@@ -101,9 +98,7 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?int
     {
@@ -123,9 +118,7 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Carbon
     {
@@ -159,10 +152,7 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -243,7 +233,6 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
 
     /** See parent class.
      *
-     *
      */
     #[Override]
     public function getDiffDataFromEditmode(array $data, ?DataObject\Concrete $object = null, array $params = []): ?Carbon
@@ -286,7 +275,6 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
@@ -384,7 +372,6 @@ class Datetime extends Data implements ResourcePersistenceAwareInterface, QueryR
 
     /**
      * overwrite default implementation to consider columnType & queryColumnType from class config
-     *
      */
     public function resolveBlockedVars(): array
     {

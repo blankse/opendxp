@@ -29,7 +29,6 @@ class RequestMatcherFactory
     /**
      * Builds a set of request matchers from a config definition as configured in opendxp.admin.routes (see OpenDxpCoreBundle
      * configuration).
-     *
      */
     public function buildRequestMatchers(array $entries): array
     {
@@ -43,7 +42,6 @@ class RequestMatcherFactory
 
     /**
      * Builds a request matchers from a route configuration
-     *
      */
     public function buildRequestMatcher(array $entry): array
     {

@@ -49,7 +49,6 @@ final class LongRunningHelper
 
     /**
      * LongRunningHelper constructor.
-     *
      */
     public function __construct(protected ConnectionRegistry $connectionRegistry)
     {
@@ -125,7 +124,6 @@ final class LongRunningHelper
 
     /**
      * @internal
-     *
      */
     public function addMonologHandler(HandlerInterface $handler): void
     {

@@ -93,9 +93,7 @@ class Input extends Data implements
     }
 
     /**
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
     {

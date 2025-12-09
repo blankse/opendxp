@@ -27,7 +27,6 @@ class Dao extends Model\Listing\Dao\AbstractDao
 {
     /**
      * Loads a list of workflow states for the specified parameters, returns an array of Element\WorkflowState elements
-     *
      */
     public function load(): array
     {

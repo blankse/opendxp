@@ -28,7 +28,6 @@ use OpenDxp\Model\Element\Tag;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getById(int $id): void
@@ -121,7 +120,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @return Model\Element\Tag[]
      */
     public function getTagsForElement(string $cType, int $cId): array
@@ -164,7 +162,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function setTagsForElement(string $cType, int $cId, array $tags): void
@@ -211,7 +208,6 @@ class Dao extends Model\Dao\AbstractDao
      * @param array  $subtypes          Filter by subtypes, eg. page, object, email, folder etc.
      * @param array  $classNames        For objects only: filter by classnames
      * @param bool $considerChildTags Look for elements having one of $tag's children assigned
-     *
      */
     public function getElementsForTag(
         Tag $tag,
@@ -274,7 +270,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * @param string $tagPath separated by "/"
-     *
      */
     public function getByPath(string $tagPath): ?Tag
     {

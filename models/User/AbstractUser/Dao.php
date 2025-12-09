@@ -28,7 +28,6 @@ use OpenDxp\Model;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getById(int $id): void
@@ -48,7 +47,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByName(string $name): void
@@ -64,7 +62,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByPasswordRecoveryToken(string $token): void
@@ -103,7 +100,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Quick test if there are children
-     *
      */
     public function hasChildren(): bool
     {

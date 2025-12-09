@@ -86,7 +86,6 @@ function foldersize(string $path): int
 
 /**
  * @param string[] $values
- *
  */
 function replace_pcre_backreferences(string $string, array $values): string
 {
@@ -124,7 +123,6 @@ function in_arrayi(string $needle, array $haystack): bool
 }
 
 /**
- *
  * @return false|int|string the key for needle if it is found in the array, false otherwise.
  */
 function array_searchi(string $needle, array $haystack): false|int|string
@@ -162,7 +160,6 @@ function array_toquerystring(array $args): string
 
 /**
  * @param array $array with attribute names as keys, and values as values
- *
  */
 function array_to_html_attribute_string(array $array): string
 {
@@ -359,8 +356,6 @@ function wrapArrayElements(array $array, string $prefix = "'", string $suffix = 
 
 /**
  * Checks if an array is associative
- *
- *
  */
 function isAssocArray(array $arr): bool
 {
@@ -369,8 +364,6 @@ function isAssocArray(array $arr): bool
 
 /**
  * this is an alternative for realpath() which isn't able to handle symlinks correctly
- *
- *
  */
 function resolvePath(string $filename): string
 {
@@ -417,8 +410,6 @@ function closureHash(Closure $closure): string
 
 /**
  * Checks if the given directory is empty
- *
- *
  */
 function is_dir_empty(string $dir): ?bool
 {

@@ -117,7 +117,6 @@ class StaticPageGenerator
     }
 
     /**
-     *
      * @throws \League\Flysystem\FilesystemException
      */
     public function remove(Document\PageSnippet $document): void

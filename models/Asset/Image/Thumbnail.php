@@ -208,7 +208,6 @@ final class Thumbnail implements ThumbnailInterface
      * Get generated HTML for displaying the thumbnail image in a HTML document.
      *
      * @param array $options Custom configuration
-     *
      */
     public function getHtml(array $options = []): string
     {
@@ -393,8 +392,6 @@ final class Thumbnail implements ThumbnailInterface
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getMedia(string $name, int $highRes = 1): ?ThumbnailInterface

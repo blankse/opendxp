@@ -30,8 +30,11 @@ class OpenDxpBundleLocator
 {
     private array $paths = [];
 
-    public function __construct(private readonly Composer\PackageInfo $composerPackageInfo, array $paths = [], private readonly bool $handleComposer = true)
-    {
+    public function __construct(
+        private readonly Composer\PackageInfo $composerPackageInfo,
+        array $paths = [],
+        private readonly bool $handleComposer = true
+    ) {
         $this->setPaths($paths);
     }
 

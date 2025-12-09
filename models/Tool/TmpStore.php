@@ -26,7 +26,6 @@ final class TmpStore extends Model\AbstractModel
 {
     /**
      * @internal
-     *
      */
     protected string $id;
 
@@ -37,31 +36,26 @@ final class TmpStore extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     protected mixed $data = null;
 
     /**
      * @internal
-     *
      */
     protected int $date;
 
     /**
      * @internal
-     *
      */
     protected int $expiryDate;
 
     /**
      * @internal
-     *
      */
     protected bool $serialized = false;
 
     /**
      * @internal
-     *
      */
     protected static ?self $instance = null;
 

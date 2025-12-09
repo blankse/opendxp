@@ -27,7 +27,6 @@ class ClassCommand extends AbstractStructureImportCommand
 {
     /**
      * Get type
-     *
      */
     protected function getType(): string
     {
@@ -36,8 +35,6 @@ class ClassCommand extends AbstractStructureImportCommand
 
     /**
      * Get definition name from filename (e.g. class_Customer_export.json -> Customer)
-     *
-     *
      */
     protected function getDefinitionName(string $filename): ?string
     {
@@ -51,8 +48,6 @@ class ClassCommand extends AbstractStructureImportCommand
 
     /**
      * Try to load definition by name
-     *
-     *
      */
     protected function loadDefinition(string $name): ?ModelInterface
     {
@@ -61,8 +56,6 @@ class ClassCommand extends AbstractStructureImportCommand
 
     /**
      * Create a new definition
-     *
-     *
      */
     protected function createDefinition(string $name): ClassDefinition
     {
@@ -74,8 +67,6 @@ class ClassCommand extends AbstractStructureImportCommand
 
     /**
      * Process import
-     *
-     *
      */
     protected function import(ModelInterface $definition, string $json): bool
     {

@@ -73,7 +73,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function save(bool $isUpdate = true): void
@@ -219,7 +218,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Create a new record for the object in database
-     *
      */
     public function create(): void
     {
@@ -293,7 +291,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Update the class name in all object
-     *
      */
     public function updateClassNameInObjects(string $newName): void
     {

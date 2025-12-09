@@ -209,7 +209,6 @@ final class Property extends AbstractModel
 
     /**
      * Alias for getInherited()
-     *
      */
     public function isInherited(): bool
     {
@@ -253,7 +252,6 @@ final class Property extends AbstractModel
 
     /**
      * @internal
-     *
      */
     public function resolveDependencies(): array
     {
@@ -294,7 +292,6 @@ final class Property extends AbstractModel
 
     /**
      * @internal
-     *
      */
     public function serialize(): array
     {

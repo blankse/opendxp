@@ -78,7 +78,6 @@ class WorkflowManagementListener implements EventSubscriberInterface
 
     /**
      * Cleanup status information on element delete
-     *
      */
     public function onElementPostDelete(ElementEventInterface $e): void
     {

@@ -32,19 +32,16 @@ class Hardlink extends Document
 
     /**
      * @internal
-     *
      */
     protected ?int $sourceId = null;
 
     /**
      * @internal
-     *
      */
     protected bool $propertiesFromSource = false;
 
     /**
      * @internal
-     *
      */
     protected bool $childrenFromSource = false;
 

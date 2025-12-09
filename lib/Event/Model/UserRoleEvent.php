@@ -23,7 +23,6 @@ class UserRoleEvent extends Event
 {
     /**
      * DocumentEvent constructor.
-     *
      */
     public function __construct(protected AbstractUser $userRole)
     {

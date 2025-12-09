@@ -23,7 +23,6 @@ trait IconTrait
 {
     /**
      * @internal
-     *
      */
     public ?string $icon = null;
 

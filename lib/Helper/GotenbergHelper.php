@@ -29,7 +29,6 @@ class GotenbergHelper
     private static bool $validPing = false;
 
     /**
-     *
      * @throws Exception
      */
     public static function isAvailable(): bool

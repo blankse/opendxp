@@ -57,7 +57,6 @@ class ModelAssetPermissionsTest extends ModelTestCase
      * ...
      * /manyElements/manyelement 100
      * /manyElements/manyelement X --> allowed
-     *
      */
     protected Asset\Folder $permissionfoo;
 

@@ -35,43 +35,36 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
 
     /**
      * @internal
-     *
      */
     public array $children = [];
 
     /**
      * @internal
-     *
      */
     public ?string $name = null;
 
     /**
      * @internal
-     *
      */
     public string $region;
 
     /**
      * @internal
-     *
      */
     public string $layout;
 
     /**
      * @internal
-     *
      */
     public ?string $title = null;
 
     /**
      * @internal
-     *
      */
     public int $maxTabs;
 
     /**
      * @internal
-     *
      */
     public int $labelWidth = 0;
 
@@ -82,7 +75,6 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
 
     /**
      * @internal
-     *
      */
     public int $storeId;
 
@@ -100,48 +92,40 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
      * contains further localized field definitions if there are more than one localized fields in on class
      *
      * @internal
-     *
      */
     protected array $referencedFields = [];
 
     /**
      * @internal
-     *
      */
     public ?array $fieldDefinitionsCache = null;
 
     /**
      * @internal
-     *
      */
     public array $allowedGroupIds;
 
     /**
      * @internal
-     *
      */
     public array $activeGroupDefinitions = [];
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
     /**
      * @internal
-     *
      */
     public array $permissionView;
 
     /**
      * @internal
-     *
      */
     public array $permissionEdit;
 
     /**
-     *
      * @throws Exception
      *
      * @see Data::getDataForEditmode
@@ -287,8 +271,6 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(
@@ -356,10 +338,7 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -502,7 +481,6 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
 
     /**
      * This method is called in DataObject\ClassDefinition::save() and is used to create the database table for the classification data
-     *
      */
     public function classSaved(DataObject\ClassDefinition $class, array $params = []): void
     {
@@ -671,7 +649,6 @@ class Classificationstore extends Data implements CustomResourcePersistingInterf
     }
 
     /**
-     *
      * @throws Exception
      */
     #[Override]

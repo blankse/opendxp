@@ -28,7 +28,6 @@ class MarshalMatcher extends TypeMatcher
 {
     /**
      * MarshalMatcher constructor.
-     *
      */
     public function __construct(private readonly ?string $sourceType, private readonly ?int $sourceId)
     {
@@ -36,7 +35,6 @@ class MarshalMatcher extends TypeMatcher
 
     /**
      * @param mixed $element
-     *
      */
     #[Override]
     public function matches($element): bool

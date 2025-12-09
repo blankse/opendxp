@@ -45,7 +45,6 @@ abstract class AbstractRelations extends Data implements
      * Set of allowed classes
      *
      * @internal
-     *
      */
     public array $classes = [];
 
@@ -60,7 +59,6 @@ abstract class AbstractRelations extends Data implements
      * Optional path formatter class
      *
      * @internal
-     *
      */
     public ?string $pathFormatterClass = null;
 
@@ -103,9 +101,7 @@ abstract class AbstractRelations extends Data implements
     }
 
     /**
-     *
      * @internal
-     *
      */
     public function calculateDelta(Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete $object, array $params = []): ?array
     {
@@ -332,14 +328,11 @@ abstract class AbstractRelations extends Data implements
     }
 
     /**
-     *
-     *
      * @internal
      */
     abstract protected function loadData(array $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed;
 
     /**
-     *
      * @internal
      */
     abstract protected function prepareDataForPersistence(array|Element\ElementInterface $data, Localizedfield|AbstractData|\OpenDxp\Model\DataObject\Objectbrick\Data\AbstractData|Concrete|null $object = null, array $params = []): mixed;
@@ -612,7 +605,6 @@ abstract class AbstractRelations extends Data implements
 
     /**
      * @internal
-     *
      */
     abstract protected function getPhpdocType(): string;
 }

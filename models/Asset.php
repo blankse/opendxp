@@ -78,19 +78,16 @@ class Asset extends Element\AbstractElement
 
     /**
      * @internal
-     *
      */
     protected string $type = '';
 
     /**
      * @internal
-     *
      */
     protected ?string $filename = null;
 
     /**
      * @internal
-     *
      */
     protected ?string $mimetype = null;
 
@@ -103,13 +100,11 @@ class Asset extends Element\AbstractElement
 
     /**
      * @internal
-     *
      */
     protected ?array $versions = null;
 
     /**
      * @internal
-     *
      */
     protected array $metadata = [];
 
@@ -118,7 +113,6 @@ class Asset extends Element\AbstractElement
      * Here there can be stored some data, eg. the video thumbnail files, ...  of the asset, ...
      *
      * @internal
-     *
      */
     protected array $customSettings = [];
 
@@ -136,19 +130,16 @@ class Asset extends Element\AbstractElement
 
     /**
      * @internal
-     *
      */
     protected bool $hasMetaData = false;
 
     /**
      * @internal
-     *
      */
     protected ?Listing $siblings = null;
 
     /**
      * @internal
-     *
      */
     protected bool $dataChanged = false;
 
@@ -212,8 +203,6 @@ class Asset extends Element\AbstractElement
 
     /**
      * Static helper to get an asset by the passed path
-     *
-     *
      */
     public static function getByPath(string $path, array $params = []): static|null
     {
@@ -238,8 +227,6 @@ class Asset extends Element\AbstractElement
 
     /**
      * @internal
-     *
-     *
      */
     protected static function typeMatch(Asset $asset): bool
     {
@@ -430,8 +417,6 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getList(array $config = []): Listing
@@ -446,8 +431,6 @@ class Asset extends Element\AbstractElement
     }
 
     /**
-     *
-     *
      * @internal
      */
     public static function getTypeFromMimeMapping(string $mimeType, string $filename): string
@@ -1365,7 +1348,6 @@ class Asset extends Element\AbstractElement
      * @return $this
      *
      * @internal
-     *
      */
     public function setMetadataRaw(array $metadata): static
     {

@@ -129,7 +129,6 @@ abstract class AbstractObject extends Model\Element\AbstractElement
 
     /**
      * @internal
-     *
      */
     protected ?array $__rawRelationData = null;
 
@@ -991,7 +990,6 @@ abstract class AbstractObject extends Model\Element\AbstractElement
 
     /**
      * @internal
-     *
      */
     public function __getRawRelationData(): array
     {

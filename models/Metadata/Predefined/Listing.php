@@ -64,7 +64,6 @@ class Listing extends AbstractModel implements CallableFilterListingInterface, C
     }
 
     /**
-     *
      * @return \OpenDxp\Model\Metadata\Predefined[]|null
      *
      * @throws Exception

@@ -24,8 +24,6 @@ interface LayoutLoaderInterface extends LoaderInterface
 {
     /**
      * Builds a classdefinition layout instance
-     *
-     *
      */
     public function build(string $name, array $params = []): Layout;
 }

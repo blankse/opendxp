@@ -49,7 +49,6 @@ class Video extends Model\Document\Editable implements IdRewriterInterface
      * contains depending on the type of the video the unique identifier eg. "http://www.youtube.com", "789", ...
      *
      * @internal
-     *
      */
     protected string|int|null $id = null;
 
@@ -57,7 +56,6 @@ class Video extends Model\Document\Editable implements IdRewriterInterface
      * one of self::ALLOWED_TYPES
      *
      * @internal
-     *
      */
     protected ?string $type = null;
 
@@ -65,25 +63,21 @@ class Video extends Model\Document\Editable implements IdRewriterInterface
      * asset ID of poster image
      *
      * @internal
-     *
      */
     protected ?int $poster = null;
 
     /**
      * @internal
-     *
      */
     protected string $title = '';
 
     /**
      * @internal
-     *
      */
     protected string $description = '';
 
     /**
      * @internal
-     *
      */
     protected ?array $allowedTypes = null;
 

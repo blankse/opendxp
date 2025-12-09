@@ -27,7 +27,6 @@ use OpenDxp\Model;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws Exception
      */
     public function getById(int $id): void

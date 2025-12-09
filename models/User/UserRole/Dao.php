@@ -28,7 +28,6 @@ use Override;
 class Dao extends Model\User\AbstractUser\Dao
 {
     /**
-     *
      * @throws Exception
      */
     #[Override]
@@ -42,7 +41,6 @@ class Dao extends Model\User\AbstractUser\Dao
     }
 
     /**
-     *
      * @throws Exception
      */
     #[Override]

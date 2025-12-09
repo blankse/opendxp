@@ -67,7 +67,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
      */
     protected Concrete|Model\Element\ElementDescriptor|null $object = null;
 
@@ -171,7 +170,6 @@ final class Localizedfield extends Model\AbstractModel implements
     }
 
     /**
-     *
      * @internal
      */
     public function setLoadedAllLazyData(bool $mark = true): void
@@ -183,8 +181,6 @@ final class Localizedfield extends Model\AbstractModel implements
      * Note: this is for open-dxp/opendxp use only.
      *
      * @internal
-     *
-     *
      */
     public function getInternalData(bool $loadLazyFields = false): array
     {
@@ -217,7 +213,6 @@ final class Localizedfield extends Model\AbstractModel implements
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -263,8 +258,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @throws Exception
-     *
-     *
      */
     public function getLanguage(?string $language = null): string
     {
@@ -328,7 +321,6 @@ final class Localizedfield extends Model\AbstractModel implements
     }
 
     /**
-     *
      * @return ClassDefinition\Data[]
      *
      * @throws Exception
@@ -387,8 +379,6 @@ final class Localizedfield extends Model\AbstractModel implements
     }
 
     /**
-     *
-     *
      * @throws Exception
      * @throws Model\Exception\NotFoundException
      */
@@ -493,7 +483,6 @@ final class Localizedfield extends Model\AbstractModel implements
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -622,7 +611,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
      */
     public function hasDirtyLanguages(): bool
     {
@@ -635,8 +623,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
-     *
      */
     public function isLanguageDirty(string $language): bool
     {
@@ -666,7 +652,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
      */
     public function getDirtyLanguages(): ?array
     {
@@ -683,7 +668,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
      */
     public function allLanguagesAreDirty(): bool
     {
@@ -696,7 +680,6 @@ final class Localizedfield extends Model\AbstractModel implements
 
     /**
      * @internal
-     *
      */
     public function markLanguageAsDirty(string $language, bool $dirty = true): void
     {

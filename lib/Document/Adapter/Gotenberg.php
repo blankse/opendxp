@@ -56,7 +56,6 @@ class Gotenberg extends Ghostscript
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function checkGotenberg(): bool

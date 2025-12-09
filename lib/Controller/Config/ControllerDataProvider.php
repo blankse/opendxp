@@ -71,7 +71,6 @@ class ControllerDataProvider
     }
 
     /**
-     *
      * @throws ReflectionException
      */
     public function getControllerReferences(): array
@@ -132,7 +131,6 @@ class ControllerDataProvider
 
     /**
      * Builds a list of all available templates in bundles, in app/Resources/views, and Symfony locations
-     *
      */
     public function getTemplates(): array
     {
@@ -187,8 +185,6 @@ class ControllerDataProvider
 
     /**
      * Checks if bundle/controller namespace is not excluded (all core bundles should be excluded here)
-     *
-     *
      */
     protected function isValidNamespace(string $namespace): bool
     {

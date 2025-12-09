@@ -35,7 +35,6 @@ class Link extends Model\Document
      * Contains the ID of the internal ID
      *
      * @internal
-     *
      */
     protected ?int $internal = null;
 
@@ -43,7 +42,6 @@ class Link extends Model\Document
      * Contains the type of the internal ID
      *
      * @internal
-     *
      */
     protected ?string $internalType = null;
 
@@ -51,7 +49,6 @@ class Link extends Model\Document
      * Contains object of linked Document|Asset|DataObject
      *
      * @internal
-     *
      */
     protected Model\Element\ElementInterface|Model\Element\ElementDescriptor|null $object = null;
 
@@ -116,7 +113,6 @@ class Link extends Model\Document
 
     /**
      * Returns the plain text path of the link
-     *
      */
     public function getHref(): string
     {
@@ -147,7 +143,6 @@ class Link extends Model\Document
 
     /**
      * Returns the plain text path of the link needed for the editmode
-     *
      */
     public function getRawHref(): string
     {
@@ -170,7 +165,6 @@ class Link extends Model\Document
 
     /**
      * Returns the path of the link including the anchor and parameters
-     *
      */
     public function getLink(): string
     {
@@ -191,7 +185,6 @@ class Link extends Model\Document
 
     /**
      * Returns the id of the internal document|asset which is linked
-     *
      */
     public function getInternal(): ?int
     {
@@ -200,7 +193,6 @@ class Link extends Model\Document
 
     /**
      * Returns the direct link (eg. http://www.opendxp.ch/test)
-     *
      */
     public function getDirect(): string
     {
@@ -209,7 +201,6 @@ class Link extends Model\Document
 
     /**
      * Returns the type of the link (internal/direct)
-     *
      */
     public function getLinktype(): string
     {
@@ -303,7 +294,6 @@ class Link extends Model\Document
 
     /**
      * returns the ready-use html for this link
-     *
      */
     public function getHtml(): string
     {

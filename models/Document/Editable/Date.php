@@ -30,7 +30,6 @@ class Date extends Model\Document\Editable implements EditmodeDataInterface
      * Contains the date
      *
      * @internal
-     *
      */
     protected ?\Carbon\Carbon $date = null;
 

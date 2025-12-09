@@ -235,8 +235,6 @@ final class Translation extends AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getByKey(string $id, string $domain = self::DOMAIN_DEFAULT, bool $create = false, bool $returnIdIfEmpty = false, ?array $languages = null): ?static

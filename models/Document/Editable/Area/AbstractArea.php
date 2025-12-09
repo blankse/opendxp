@@ -20,19 +20,16 @@ abstract class AbstractArea
 {
     /**
      * @internal
-     *
      */
     protected array $config;
 
     /**
      * @internal
-     *
      */
     protected Info $brick;
 
     /**
      * @internal
-     *
      */
     protected array $params = [];
 

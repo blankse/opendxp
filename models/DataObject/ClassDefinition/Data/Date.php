@@ -32,7 +32,6 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
 
     /**
      * @internal
-     *
      */
     public ?int $defaultValue = null;
 
@@ -47,10 +46,7 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
     public string $columnType = 'bigint(20)';
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): int|string|null
     {
@@ -69,8 +65,6 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Carbon
@@ -98,10 +92,7 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?int
     {
@@ -121,8 +112,6 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?Carbon
@@ -157,10 +146,7 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -272,7 +258,6 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string
@@ -368,7 +353,6 @@ class Date extends Data implements ResourcePersistenceAwareInterface, QueryResou
 
     /**
      * overwrite default implementation to consider columnType & queryColumnType from class config
-     *
      */
     public function resolveBlockedVars(): array
     {

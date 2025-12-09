@@ -34,7 +34,6 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
 
     /**
      * @internal
-     *
      */
     public array $allowedTypes = [];
 
@@ -45,7 +44,6 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
 
     /**
      * @internal
-     *
      */
     public ?int $maxItems = null;
 
@@ -90,10 +88,7 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -139,8 +134,6 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Fieldcollection
@@ -211,10 +204,7 @@ class Fieldcollections extends Data implements CustomResourcePersistingInterface
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string

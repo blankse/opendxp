@@ -60,8 +60,6 @@ class Csv
     private ?OptionsResolver $importResolver = null;
 
     /**
-     *
-     *
      * @throws \League\Csv\CannotInsertRecord
      * @throws \League\Csv\Exception
      */
@@ -115,8 +113,6 @@ class Csv
     }
 
     /**
-     *
-     *
      * @throws \League\Csv\Exception
      */
     public function import(string $filename): array

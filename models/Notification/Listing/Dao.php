@@ -47,7 +47,6 @@ class Dao extends AbstractDao
     }
 
     /**
-     *
      * @throws Exception
      */
     public function load(): array

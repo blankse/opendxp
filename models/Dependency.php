@@ -26,26 +26,21 @@ class Dependency extends AbstractModel
 {
     /**
      * The ID of the object to get dependencies for
-     *
      */
     protected int $sourceId;
 
     /**
      * The type of the object to get dependencies for
-     *
      */
     protected string $sourceType;
 
     /**
      * Contains the ID/type of objects which are required for the given source object (sourceId/sourceType)
-     *
      */
     protected array $requires = [];
 
     /**
      * Static helper to get the dependencies for the given sourceId & type
-     *
-     *
      */
     public static function getBySourceId(int $id, string $type): Dependency
     {
@@ -57,7 +52,6 @@ class Dependency extends AbstractModel
 
     /**
      * Add a requirement to the source object
-     *
      */
     public function addRequirement(int $id, string $type): void
     {
@@ -70,7 +64,6 @@ class Dependency extends AbstractModel
     /**
      * Used when element gets deleted. Removes entries (by source = element) and
      * schedules a sanity check for the affected targets.
-     *
      */
     public function cleanAllForElement(Element\ElementInterface $element): void
     {
@@ -167,7 +160,6 @@ class Dependency extends AbstractModel
 
     /**
      * Check if the source object is required by an other object (an other object depends on this object)
-     *
      */
     public function isRequired(): bool
     {

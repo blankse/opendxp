@@ -33,25 +33,21 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
 
     /**
      * @internal
-     *
      */
     public int $labelWidth = 0;
 
     /**
      * v
-     *
      */
     public string $labelFirstCell;
 
     /**
      * @internal
-     *
      */
     public array $cols = [];
 
     /**
      * @internal
-     *
      */
     public array $rows = [];
 
@@ -137,10 +133,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
-     *
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -160,9 +153,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): DataObject\Data\StructuredTable
     {
@@ -186,8 +177,6 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
@@ -196,10 +185,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
     {
@@ -225,8 +211,6 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): DataObject\Data\StructuredTable
@@ -256,10 +240,7 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -357,7 +338,6 @@ class StructuredTable extends Data implements ResourcePersistenceAwareInterface,
     /**
      * @param string $type text|number|bool
      * @param int|null $length The length of the column, default is 255 for text
-     *
      */
     protected function typeMapper(string $type, ?int $length = null): ?string
     {

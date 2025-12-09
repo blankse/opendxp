@@ -54,7 +54,6 @@ class Ffmpeg extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     public static function getFfmpegCli(): false|string
@@ -71,7 +70,6 @@ class Ffmpeg extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     public function save(): bool
@@ -255,7 +253,6 @@ class Ffmpeg extends Adapter
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function getVideoInfo(): string

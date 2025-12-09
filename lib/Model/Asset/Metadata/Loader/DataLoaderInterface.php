@@ -24,8 +24,6 @@ interface DataLoaderInterface extends LoaderInterface
 {
     /**
      * Builds a asset metadata data instance
-     *
-     *
      */
     public function build(string $name, array $params = []): DataDefinitionInterface;
 }

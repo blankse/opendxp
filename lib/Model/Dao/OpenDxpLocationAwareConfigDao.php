@@ -85,7 +85,6 @@ abstract class OpenDxpLocationAwareConfigDao implements DaoInterface
     /**
      * Removes config with corresponding id from the cache.
      * A new cache entry will be generated upon requesting the config again.
-     *
      */
     protected function invalidateCache(string $id): void
     {
@@ -93,7 +92,6 @@ abstract class OpenDxpLocationAwareConfigDao implements DaoInterface
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function saveData(string $id, array $data): void
@@ -105,8 +103,6 @@ abstract class OpenDxpLocationAwareConfigDao implements DaoInterface
 
     /**
      * Hook to prepare config data structure for yaml
-     *
-     *
      */
     protected function prepareDataStructureForYaml(string $id, mixed $data): mixed
     {
@@ -129,7 +125,6 @@ abstract class OpenDxpLocationAwareConfigDao implements DaoInterface
     }
 
     /**
-     *
      * @throws Exception
      */
     protected function deleteData(string $id): void

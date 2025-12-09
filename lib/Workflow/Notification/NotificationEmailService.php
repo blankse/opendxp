@@ -32,13 +32,15 @@ class NotificationEmailService extends AbstractNotificationService
 {
     const MAIL_PATH_LANGUAGE_PLACEHOLDER = '%_locale%';
 
-    public function __construct(private readonly Environment $template, private readonly RouterInterface $router, protected TranslatorInterface $translator)
-    {
+    public function __construct(
+        private readonly Environment $template,
+        private readonly RouterInterface $router,
+        protected TranslatorInterface $translator
+    ) {
     }
 
     /**
      * Sends an Mail
-     *
      */
     public function sendWorkflowEmailNotification(array $users, array $roles, WorkflowInterface $workflow, string $subjectType, ElementInterface $subject, string $action, string $mailType, string $mailPath): void
     {

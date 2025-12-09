@@ -49,7 +49,6 @@ class Dao extends Model\Dao\AbstractDao
     }
 
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByName(?string $name = null): void

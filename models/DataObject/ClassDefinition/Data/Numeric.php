@@ -48,7 +48,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     /**
      * @internal
-     *
      */
     public string|int|null|float $defaultValue = null;
 
@@ -64,13 +63,11 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
 
     /**
      * @internal
-     *
      */
     public ?float $minValue = null;
 
     /**
      * @internal
-     *
      */
     public ?float $maxValue = null;
 
@@ -85,7 +82,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
      * number field), decimalSize was chosen instead.
      *
      * @internal
-     *
      */
     public ?int $decimalSize = null;
 
@@ -94,7 +90,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
      * comment on decimalSize.
      *
      * @internal
-     *
      */
     public ?int $decimalPrecision = null;
 
@@ -293,9 +288,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): float|int|string|null
     {
@@ -307,9 +300,7 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
-     *
      */
     public function getDataForQueryResource(mixed $data, ?Concrete $object = null, array $params = []): float|int|string|null
     {
@@ -327,8 +318,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): float|int|string|null
@@ -393,7 +382,6 @@ class Numeric extends Data implements ResourcePersistenceAwareInterface, QueryRe
      * returns sql query statement to filter according to this data types value(s)
      *
      * @param array $params optional params used to change the behavior
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

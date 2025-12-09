@@ -99,8 +99,6 @@ class IntlFormatter
     }
 
     /**
-     *
-     *
      * @throws RuntimeException
      */
     protected function buildDateTimeFormatters(string $format): IntlDateFormatter
@@ -181,8 +179,6 @@ class IntlFormatter
 
     /**
      * formats given value as currency string with given currency based on current locale
-     *
-     *
      */
     public function formatCurrency(float $value, string $currency, string $pattern = 'default'): string
     {

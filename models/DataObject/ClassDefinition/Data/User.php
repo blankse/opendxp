@@ -49,8 +49,6 @@ class User extends Model\DataObject\ClassDefinition\Data\Select
 
     /**
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
-     *
      */
     #[Override]
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): ?string

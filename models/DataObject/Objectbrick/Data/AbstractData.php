@@ -39,7 +39,6 @@ abstract class AbstractData extends Model\AbstractModel implements Model\DataObj
 
     /**
      * Will be overriden by the actual ObjectBrick
-     *
      */
     protected string $type = '';
 
@@ -121,8 +120,6 @@ abstract class AbstractData extends Model\AbstractModel implements Model\DataObj
     }
 
     /**
-     *
-     *
      * @throws InheritanceParentNotFoundException
      */
     public function getValueFromParent(string $key): mixed
@@ -192,7 +189,6 @@ abstract class AbstractData extends Model\AbstractModel implements Model\DataObj
 
     /**
      * @internal
-     *
      */
     protected function getLazyLoadedFieldNames(): array
     {

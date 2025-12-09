@@ -56,8 +56,6 @@ class Processor
     protected int $status;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function process(Model\Asset\Video $asset, Config $config, array $onlyFormats = []): ?Processor

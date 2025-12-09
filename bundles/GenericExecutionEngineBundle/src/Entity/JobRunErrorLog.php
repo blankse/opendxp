@@ -25,13 +25,13 @@ use Doctrine\ORM\Mapping\Table;
  * @internal
  */
 #[Entity]
-#[Table(name: 'generic_execution_engine_error_log')]
 #[HasLifecycleCallbacks]
+#[Table(name: 'generic_execution_engine_error_log')]
 class JobRunErrorLog
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[ORM\GeneratedValue]
+    #[ORM\Id]
     private int $id;
 
     public function __construct(

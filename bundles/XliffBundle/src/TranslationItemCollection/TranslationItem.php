@@ -22,10 +22,12 @@ class TranslationItem
 {
     /**
      * TranslationItem constructor.
-     *
      */
-    public function __construct(private readonly string $type, private readonly string $id, private readonly ElementInterface $element)
-    {
+    public function __construct(
+        private readonly string $type,
+        private readonly string $id,
+        private readonly ElementInterface $element
+    ) {
     }
 
     public function getType(): string

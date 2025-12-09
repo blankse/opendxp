@@ -35,13 +35,11 @@ class Classificationstore extends Model\AbstractModel implements DirtyIndicatorI
 
     /**
      * @internal
-     *
      */
     protected array $items = [];
 
     /**
      * @internal
-     *
      */
     protected Concrete|Model\Element\ElementDescriptor|null $object = null;
 
@@ -52,7 +50,6 @@ class Classificationstore extends Model\AbstractModel implements DirtyIndicatorI
 
     /**
      * @internal
-     *
      */
     protected string $fieldname;
 
@@ -148,7 +145,6 @@ class Classificationstore extends Model\AbstractModel implements DirtyIndicatorI
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -225,7 +221,6 @@ class Classificationstore extends Model\AbstractModel implements DirtyIndicatorI
 
     /**
      * Removes the group with the given id
-     *
      */
     public function removeGroupData(int $groupId): void
     {
@@ -315,8 +310,6 @@ class Classificationstore extends Model\AbstractModel implements DirtyIndicatorI
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getLocalizedKeyValue(

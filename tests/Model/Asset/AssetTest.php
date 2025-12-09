@@ -251,7 +251,6 @@ class AssetTest extends ModelTestCase
 
     /**
      * Verifies that an asset can be saved with custom user modification id.
-     *
      */
     public function testCustomUserModification(): void
     {
@@ -271,7 +270,6 @@ class AssetTest extends ModelTestCase
 
     /**
      * Verifies that an asset can be saved with custom modification date.
-     *
      */
     public function testCustomModificationDate(): void
     {

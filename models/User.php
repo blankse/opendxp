@@ -132,7 +132,6 @@ final class User extends User\UserRole implements UserInterface
 
     /**
      * Alias for getName()
-     *
      */
     public function getUsername(): ?string
     {
@@ -218,7 +217,6 @@ final class User extends User\UserRole implements UserInterface
 
     /**
      * @see getAdmin()
-     *
      */
     public function isAdmin(): bool
     {
@@ -448,7 +446,6 @@ final class User extends User\UserRole implements UserInterface
     }
 
     /**
-     *
      * @return resource
      */
     public function getImage(?int $width = null, ?int $height = null)

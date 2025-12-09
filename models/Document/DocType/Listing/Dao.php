@@ -53,8 +53,6 @@ class Dao extends Model\Document\DocType\Dao
 
     /**
      * Sorts DocTypes by priority and falls back to group and name in case they are equal
-     *
-     *
      */
     public static function sortByPriority(DocType $a, DocType $b): int
     {

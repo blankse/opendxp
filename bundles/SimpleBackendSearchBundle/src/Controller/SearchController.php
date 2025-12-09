@@ -365,8 +365,6 @@ class SearchController extends UserAwareController
     }
 
     /**
-     *
-     *
      * @internal
      */
     protected function getPermittedPaths(array $types = ['asset', 'document', 'object']): string

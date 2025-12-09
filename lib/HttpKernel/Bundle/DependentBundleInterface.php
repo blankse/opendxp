@@ -31,7 +31,6 @@ interface DependentBundleInterface
      * WARNING: this method will be called as soon as this bundle is added to the collection, independent if
      * it will finally be included due to environment restrictions. If you need to load your dependencies conditionally,
      * specify the environments to use on the collection item.
-     *
      */
     public static function registerDependentBundles(BundleCollection $collection): void;
 }

@@ -35,7 +35,6 @@ class RgbaColor implements OwnerAwareFieldInterface, Stringable
 
     /**
      * RgbaColor constructor.
-     *
      */
     public function __construct(?int $r = null, ?int $g = null, ?int $b = null, ?int $a = null)
     {
@@ -97,7 +96,6 @@ class RgbaColor implements OwnerAwareFieldInterface, Stringable
 
     /**
      *  Return R 0-255, G 0-255, B 0-255, A 0-255
-     *
      */
     public function getRgba(): array
     {
@@ -106,7 +104,6 @@ class RgbaColor implements OwnerAwareFieldInterface, Stringable
 
     /**
      *  Return R 0-255, G 0-255, B 0-255, A 0-1 (1 == full opacity)
-     *
      */
     public function getCssRgba(): array
     {
@@ -128,7 +125,6 @@ class RgbaColor implements OwnerAwareFieldInterface, Stringable
     }
 
     /**
-     *
      * @throws Exception
      */
     public function setHex(string $hexValue): void

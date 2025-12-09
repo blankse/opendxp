@@ -127,8 +127,6 @@ class Document extends Element\AbstractElement
 
     /**
      * @internal
-     *
-     *
      */
     protected static function getPathCacheKey(string $path): string
     {
@@ -167,8 +165,6 @@ class Document extends Element\AbstractElement
 
     /**
      * @internal
-     *
-     *
      */
     protected static function typeMatch(Document $document): bool
     {
@@ -256,8 +252,6 @@ class Document extends Element\AbstractElement
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function getList(array $config = []): Listing
@@ -488,7 +482,6 @@ class Document extends Element\AbstractElement
     }
 
     /**
-     *
      * @internal
      */
     public function saveIndex(int $index): void
@@ -835,7 +828,6 @@ class Document extends Element\AbstractElement
 
     /**
      * Returns the document index.
-     *
      */
     public function getIndex(): ?int
     {

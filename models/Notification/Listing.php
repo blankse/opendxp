@@ -34,7 +34,6 @@ class Listing extends AbstractListing
     }
 
     /**
-     *
      * @return Model\Notification[]
      */
     public function getItems(int $offset, ?int $limit): array

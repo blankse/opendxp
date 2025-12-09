@@ -26,13 +26,11 @@ trait ResponseAwareTrait
 {
     /**
      * The response object.
-     *
      */
     protected Response $response;
 
     /**
      * Returns the response object.
-     *
      */
     public function getResponse(): Response
     {
@@ -41,7 +39,6 @@ trait ResponseAwareTrait
 
     /**
      * Sets a response and stops event propagation.
-     *
      */
     public function setResponse(Response $response): void
     {

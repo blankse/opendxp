@@ -36,7 +36,6 @@ class Notification extends AbstractModel
 
     /**
      * @internal
-     *
      */
     protected ?int $id = null;
 
@@ -266,7 +265,6 @@ class Notification extends AbstractModel
 
     /**
      * enum('document','asset', 'object) nullable
-     *
      */
     public function getLinkedElementType(): ?string
     {

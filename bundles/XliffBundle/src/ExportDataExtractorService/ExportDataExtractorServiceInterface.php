@@ -33,8 +33,6 @@ interface ExportDataExtractorServiceInterface
     public function registerDataExtractor(string $type, DataExtractorInterface $dataExtractor): ExportDataExtractorServiceInterface;
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getDataExtractor(string $type): DataExtractorInterface;

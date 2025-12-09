@@ -38,7 +38,6 @@ class WriteLock implements LoggerAwareInterface
      *
      * This is to recheck when removing the write lock (if the value is different -> higher) do not remove the lock
      * because then another process has acquired a lock.
-     *
      */
     protected ?int $timestamp = null;
 
@@ -86,8 +85,6 @@ class WriteLock implements LoggerAwareInterface
 
     /**
      * Set a write lock (prevents items being written to cache)
-     *
-     *
      */
     public function lock(bool $force = false): bool
     {
@@ -117,7 +114,6 @@ class WriteLock implements LoggerAwareInterface
 
     /**
      * Check if a write lock is active
-     *
      */
     public function hasLock(): bool
     {
@@ -153,7 +149,6 @@ class WriteLock implements LoggerAwareInterface
 
     /**
      * Remove write lock from instance and from cache
-     *
      */
     public function removeLock(): bool
     {

@@ -31,7 +31,6 @@ class Scheduledblock extends Block implements BlockInterface
 {
     /**
      * @internal
-     *
      */
     protected ?array $cachedCurrentElement = null;
 

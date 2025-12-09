@@ -41,7 +41,6 @@ final class Serialize
      * @internal
      *
      * Shortcut to access the admin serializer
-     *
      */
     public static function getAdminSerializer(): \Symfony\Component\Serializer\Serializer
     {
@@ -53,8 +52,6 @@ final class Serialize
      *
      * this is a special json encoder that avoids recursion errors
      * especially for opendxp models that contain massive self referencing objects
-     *
-     *
      */
     public static function removeReferenceLoops(mixed $data): mixed
     {

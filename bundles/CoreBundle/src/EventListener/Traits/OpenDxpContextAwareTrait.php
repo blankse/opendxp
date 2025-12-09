@@ -36,8 +36,6 @@ trait OpenDxpContextAwareTrait
 
     /**
      * Check if the request matches the given opendxp context (e.g. admin)
-     *
-     *
      */
     protected function matchesOpenDxpContext(Request $request, array|string $context): bool
     {

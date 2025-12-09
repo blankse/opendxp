@@ -66,7 +66,6 @@ trait NotesAwareTrait
 
     /**
      * Inject service via compiler pass.
-     *
      */
     public function setCustomHtmlService(CustomHtmlServiceInterface $customHtmlService): void
     {

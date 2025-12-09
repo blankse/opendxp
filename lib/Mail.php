@@ -42,13 +42,11 @@ class Mail extends Email
 
     /**
      * If true - emails are logged in the database and on the file-system
-     *
      */
     private bool $loggingEnable = true;
 
     /**
      * Contains the email document
-     *
      */
     private Model\Document\Email|null $document = null;
 
@@ -75,13 +73,11 @@ class Mail extends Email
 
     /**
      * Prevent adding debug information
-     *
      */
     private bool $preventDebugInformationAppending = false;
 
     /**
      * if true - the OpenDxp debug mode is ignored
-     *
      */
     private bool $ignoreDebugMode = false;
 
@@ -90,19 +86,16 @@ class Mail extends Email
      * otherwise it is determined automatically
      *
      * @see MailHelper::setAbsolutePaths()
-     *
      */
     private ?string $hostUrl = null;
 
     /**
      * if true: prevent setting the recipients from the Document - set in $this->clearRecipients()
-     *
      */
     private bool $recipientsCleared = false;
 
     /**
      * place to store original data before modifying message when sending in debug mode
-     *
      */
     private ?array $originalData = null;
 
@@ -192,7 +185,6 @@ class Mail extends Email
 
     /**
      * Checks if the Debug mode is ignored
-     *
      */
     public function getIgnoreDebugMode(): bool
     {
@@ -203,7 +195,6 @@ class Mail extends Email
      * returns if redirecting to debug mail addresses should take place when sending the mail
      *
      * @internal
-     *
      */
     public function doRedirectMailsToDebugMailAddresses(): bool
     {
@@ -280,7 +271,6 @@ class Mail extends Email
 
     /**
      * returns the logging status
-     *
      */
     public function loggingIsEnabled(): bool
     {
@@ -327,8 +317,6 @@ class Mail extends Email
 
     /**
      * Returns a parameter which was set with "setParams" or "setParam"
-     *
-     *
      */
     public function getParam(int|string $key): mixed
     {
@@ -337,7 +325,6 @@ class Mail extends Email
 
     /**
      * Forces the debug mode - useful for cli-script which should not send emails to recipients
-     *
      */
     public static function setForceDebugMode(bool $value): void
     {
@@ -631,7 +618,6 @@ class Mail extends Email
      * Renders the content (Twig) and returns the rendered subject
      *
      * @internal
-     *
      */
     public function getSubjectRendered(): string
     {
@@ -652,7 +638,6 @@ class Mail extends Email
      * Renders the content (Twig) and returns the rendered HTML
      *
      * @internal
-     *
      */
     public function getBodyHtmlRendered(): ?string
     {
@@ -683,7 +668,6 @@ class Mail extends Email
      * the rendered text if a text was set with "$mail->text()"
      *
      * @internal
-     *
      */
     public function getBodyTextRendered(): string
     {
@@ -721,7 +705,6 @@ class Mail extends Email
     }
 
     /**
-     *
      * @return $this
      *
      * @throws Exception
@@ -749,7 +732,6 @@ class Mail extends Email
 
     /**
      * Returns the Document
-     *
      */
     public function getDocument(): Model\Document\Email|null
     {
@@ -784,7 +766,6 @@ class Mail extends Email
      * Returns, if debug information is not added
      *
      * @internal
-     *
      */
     public function isPreventingDebugInformationAppending(): bool
     {
@@ -810,7 +791,6 @@ class Mail extends Email
 
     /**
      * @internal
-     *
      */
     public function getOriginalData(): ?array
     {
@@ -818,7 +798,6 @@ class Mail extends Email
     }
 
     /**
-     *
      * @internal
      */
     public function setOriginalData(?array $originalData): void
@@ -860,8 +839,6 @@ class Mail extends Email
     }
 
     /**
-     *
-     *
      * @return $this
      */
     #[Override]
@@ -873,8 +850,6 @@ class Mail extends Email
     }
 
     /**
-     *
-     *
      * @return $this
      */
     #[Override]
@@ -886,8 +861,6 @@ class Mail extends Email
     }
 
     /**
-     *
-     *
      * @return $this
      */
     #[Override]
@@ -899,8 +872,6 @@ class Mail extends Email
     }
 
     /**
-     *
-     *
      * @return $this
      */
     #[Override]
@@ -912,8 +883,6 @@ class Mail extends Email
     }
 
     /**
-     *
-     *
      * @return $this
      */
     #[Override]

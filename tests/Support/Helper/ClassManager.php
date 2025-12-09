@@ -101,7 +101,6 @@ class ClassManager extends Module
     }
 
     /**
-     *
      * @throws Exception
      */
     public function hasFieldCollection(string $name): bool
@@ -150,7 +149,6 @@ class ClassManager extends Module
     /**
      * Create or load a fieldcollection. Needs an array of class IDs which are mapped to the classDefinitions
      * field in the export file.
-     *
      */
     public function setupObjectbrick(string $name, string $filename): ObjectbrickDefinition
     {

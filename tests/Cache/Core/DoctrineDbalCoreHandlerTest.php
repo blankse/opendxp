@@ -28,7 +28,6 @@ class DoctrineDbalCoreHandlerTest extends AbstractCoreHandlerTest
 {
     /**
      * Initializes item pool
-     *
      */
     protected function createCachePool(): TagAwareAdapter
     {

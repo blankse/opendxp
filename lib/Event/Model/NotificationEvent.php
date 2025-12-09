@@ -26,7 +26,6 @@ class NotificationEvent extends Event
 
     /**
      * DataObjectEvent constructor.
-     *
      */
     public function __construct(protected Notification $notification, array $arguments = [])
     {

@@ -49,8 +49,11 @@ class LocationAwareConfigRepository
 
     public const DIRECTORY = 'directory';
 
-    public function __construct(protected array $containerConfig, protected ?string $settingsStoreScope, protected ?array $storageConfig)
-    {
+    public function __construct(
+        protected array $containerConfig,
+        protected ?string $settingsStoreScope,
+        protected ?array $storageConfig
+    ) {
     }
 
     public function loadConfigByKey(string $key): array
@@ -100,8 +103,6 @@ class LocationAwareConfigRepository
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function isWriteable(?string $key = null, ?string $dataSource = null): bool
@@ -157,7 +158,6 @@ class LocationAwareConfigRepository
     }
 
     /**
-     *
      * @throws Exception
      */
     public function saveConfig(string $key, mixed $data, ?callable $yamlStructureCallback = null): void
@@ -227,7 +227,6 @@ class LocationAwareConfigRepository
     }
 
     /**
-     *
      * @throws Exception
      */
     public function deleteData(string $key, ?string $dataSource): void

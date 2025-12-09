@@ -38,7 +38,6 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
     /**
      * @internal
-     *
      */
     public ?string $allowedClassId = null;
 
@@ -51,7 +50,6 @@ class AdvancedManyToManyObjectRelation extends ManyToManyObjectRelation implemen
 
     /**
      * @internal
-     *
      */
     public array $columns = [];
 

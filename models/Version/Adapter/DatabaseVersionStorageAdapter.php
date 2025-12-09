@@ -55,8 +55,6 @@ class DatabaseVersionStorageAdapter implements VersionStorageAdapterInterface
     }
 
     /**
-     *
-     *
      * @throws \Doctrine\DBAL\Exception
      */
     protected function loadData(int $id,

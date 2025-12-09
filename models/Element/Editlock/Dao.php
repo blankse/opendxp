@@ -26,7 +26,6 @@ use OpenDxp\Model;
 class Dao extends Model\Dao\AbstractDao
 {
     /**
-     *
      * @throws Model\Exception\NotFoundException
      */
     public function getByElement(int $cid, string $ctype): void

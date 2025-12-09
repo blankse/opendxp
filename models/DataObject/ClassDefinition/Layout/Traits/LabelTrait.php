@@ -25,13 +25,11 @@ trait LabelTrait
      * Width of input field labels
      *
      * @internal
-     *
      */
     public int $labelWidth = 100;
 
     /**
      * @internal
-     *
      */
     public string $labelAlign = 'left';
 

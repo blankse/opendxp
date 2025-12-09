@@ -43,8 +43,13 @@ class Attribute
      *
      * @param string[] $targetContent
      */
-    public function __construct(private readonly string $type, private readonly string $name, private readonly string $content, private readonly bool $isReadonly = false, private readonly array $targetContent = [])
-    {
+    public function __construct(
+        private readonly string $type,
+        private readonly string $name,
+        private readonly string $content,
+        private readonly bool $isReadonly = false,
+        private readonly array $targetContent = []
+    ) {
     }
 
     public function getType(): string
@@ -72,7 +77,6 @@ class Attribute
 
     /**
      * Readonly attributes should not be translated - relevant for information purposes only.
-     *
      */
     public function isReadonly(): bool
     {

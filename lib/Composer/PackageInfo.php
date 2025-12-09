@@ -29,8 +29,6 @@ class PackageInfo
 
     /**
      * Gets installed packages, optionally filtered by type
-     *
-     *
      */
     public function getInstalledPackages(array|string|null $type = null): array
     {

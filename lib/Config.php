@@ -58,8 +58,6 @@ final class Config implements ArrayAccess
     }
 
     /**
-     *
-     *
      * @return array<string, mixed>|null
      */
     public function offsetGet($offset): ?array
@@ -71,7 +69,6 @@ final class Config implements ArrayAccess
      * @internal
      *
      * @param string $name - name of configuration file. slash is allowed for subdirectories.
-     *
      */
     public static function locateConfigFile(string $name): string
     {
@@ -164,8 +161,6 @@ final class Config implements ArrayAccess
     }
 
     /**
-     *
-     *
      * @internal
      */
     public static function getWebsiteConfigRuntimeCacheKey(?string $languange = null): string
@@ -288,7 +283,6 @@ final class Config implements ArrayAccess
      *
      * @param string|null $key  Config key to directly load. If null, the whole config will be returned
      * @param mixed $default    Default value to use if the key is not set
-     *
      */
     public static function getWebsiteConfigValue(?string $key = null, mixed $default = null, ?string $language = null): mixed
     {

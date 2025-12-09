@@ -49,7 +49,6 @@ class Listing extends Model\Listing\AbstractListing implements PaginateListingIn
     }
 
     /**
-     *
      * @return Model\Asset[]
      */
     public function getItems(int $offset, int $itemCountPerPage): array

@@ -26,19 +26,16 @@ class Folder extends Model\User\AbstractUser
 {
     /**
      * @internal
-     *
      */
     protected ?array $children = null;
 
     /**
      * @internal
-     *
      */
     protected ?bool $hasChildren = null;
 
     /**
      * Returns true if the document has at least one child
-     *
      */
     public function hasChildren(): bool
     {

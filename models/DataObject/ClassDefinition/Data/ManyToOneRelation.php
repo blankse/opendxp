@@ -46,7 +46,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
 
     /**
      * @internal
-     *
      */
     public string $assetUploadPath;
 
@@ -74,7 +73,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
      * Allowed asset types
      *
      * @internal
-     *
      */
     public array $assetTypes = [];
 
@@ -87,7 +85,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
      * Allowed document types
      *
      * @internal
-     *
      */
     public array $documentTypes = [];
 
@@ -205,8 +202,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): array
@@ -229,10 +224,7 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -250,8 +242,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): Asset|Document|DataObject\AbstractObject|null
@@ -274,10 +264,7 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -548,8 +535,6 @@ class ManyToOneRelation extends AbstractRelations implements QueryResourcePersis
 
     /**
      * Filter by relation feature
-     *
-     *
      */
     #[Override]
     public function getFilterConditionExt(mixed $value, string $operator, array $params = []): string

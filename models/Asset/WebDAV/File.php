@@ -142,7 +142,6 @@ class File extends DAV\File
 
     /**
      * Get a hash of the file for an unique identifier
-     *
      */
     public function getETag(): string
     {
@@ -151,7 +150,6 @@ class File extends DAV\File
 
     /**
      * Returns the mimetype of the asset
-     *
      */
     public function getContentType(): string
     {
@@ -160,7 +158,6 @@ class File extends DAV\File
 
     /**
      * Get size of file in bytes
-     *
      */
     #[Override]
     public function getSize(): int

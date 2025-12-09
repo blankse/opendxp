@@ -105,7 +105,6 @@ class ObjectTest extends ModelTestCase
 
     /**
      * Verifies that children result should be cached based on parameters provided.
-     *
      */
     public function testCacheUnpublishedChildren(): void
     {
@@ -134,7 +133,6 @@ class ObjectTest extends ModelTestCase
 
     /**
      * Verifies that siblings result should be cached based on parameters provided.
-     *
      */
     public function testCacheUnpublishedSiblings(): void
     {
@@ -168,7 +166,6 @@ class ObjectTest extends ModelTestCase
 
     /**
      * Verifies that an object can be saved with custom user modification id.
-     *
      */
     public function testCustomUserModification(): void
     {
@@ -188,7 +185,6 @@ class ObjectTest extends ModelTestCase
 
     /**
      * Verifies that an object can be saved with custom modification date.
-     *
      */
     public function testCustomModificationDate(): void
     {

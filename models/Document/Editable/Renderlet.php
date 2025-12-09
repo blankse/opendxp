@@ -55,7 +55,6 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
      * Contains the ID of the linked object
      *
      * @internal
-     *
      */
     protected ?int $id = null;
 
@@ -70,7 +69,6 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
      * Contains the type
      *
      * @internal
-     *
      */
     protected ?string $type = null;
 
@@ -78,7 +76,6 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
      * Contains the subtype
      *
      * @internal
-     *
      */
     protected ?string $subtype = null;
 
@@ -171,8 +168,6 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
     }
 
     /**
-     *
-     *
      * @return $this
      */
     public function setDataFromResource(mixed $data): static
@@ -195,8 +190,6 @@ class Renderlet extends Model\Document\Editable implements IdRewriterInterface, 
     }
 
     /**
-     *
-     *
      * @return $this
      */
     public function setDataFromEditmode(mixed $data): static

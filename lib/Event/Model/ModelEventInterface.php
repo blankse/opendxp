@@ -46,7 +46,6 @@ interface ModelEventInterface
 
     /**
      * Getter for all arguments.
-     *
      */
     public function getArguments(): array;
 
@@ -63,7 +62,6 @@ interface ModelEventInterface
      * Has argument.
      *
      * @param string $key Key of arguments array
-     *
      */
     public function hasArgument(string $key): bool;
 }

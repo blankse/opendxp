@@ -64,7 +64,6 @@ use Symfony\Component\EventDispatcher\GenericEvent;
  * @method $this prependStylesheet($href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
  * @method $this setAlternate($href, $type, $title, $extras)
  * @method $this setStylesheet($href, $media = 'screen', $conditionalStylesheet = false, array $extras = array())
- *
  */
 class HeadLink extends CacheBusterAware
 {
@@ -72,7 +71,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * $_validAttributes
-     *
      */
     protected array $_itemKeys = [
         'charset',
@@ -104,7 +102,6 @@ class HeadLink extends CacheBusterAware
      * HeadLink constructor.
      *
      * Use PHP_EOL as separator
-     *
      */
     public function __construct(
         ContainerService $containerService,
@@ -193,8 +190,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Check if value is valid
-     *
-     *
      */
     protected function _isValid(mixed $value): bool
     {
@@ -213,7 +208,6 @@ class HeadLink extends CacheBusterAware
      * append()
      *
      * @param  stdClass $value
-     *
      */
     public function append($value): void
     {
@@ -228,7 +222,6 @@ class HeadLink extends CacheBusterAware
      * offsetSet()
      *
      * @param  string|int $offset
-     *
      */
     #[Override]
     public function offsetSet($offset, mixed $value): void
@@ -270,8 +263,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Create HTML link element from data item
-     *
-     *
      */
     public function itemToString(stdClass $item): string
     {
@@ -310,8 +301,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Render link elements as string
-     *
-     *
      */
     #[Override]
     public function toString(int|string|null $indent = null): string
@@ -365,8 +354,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Create data item for stack
-     *
-     *
      */
     public function createData(array $attributes): stdClass
     {
@@ -414,8 +401,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Is the linked stylesheet a duplicate?
-     *
-     *
      */
     protected function _isDuplicateStylesheet(string $uri): bool
     {
@@ -430,8 +415,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Create item for alternate link item
-     *
-     *
      */
     public function createDataAlternate(array $args): stdClass
     {
@@ -465,8 +448,6 @@ class HeadLink extends CacheBusterAware
 
     /**
      * Apply any overrides specified in the 'extras' array
-     *
-     *
      */
     protected function _applyExtras(array $attributes): array
     {

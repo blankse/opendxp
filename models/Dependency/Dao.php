@@ -34,8 +34,6 @@ class Dao extends Model\Dao\AbstractDao
 {
     /**
      * Loads the relations for the given sourceId and type
-     *
-     *
      */
     public function getBySourceId(?int $id = null, ?string $type = null): void
     {
@@ -177,8 +175,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Clear all relations in the database
-     *
-     *
      */
     public function cleanAllForElement(Element\ElementInterface $element): void
     {
@@ -202,7 +198,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Clear all relations in the database for current source id
-     *
      */
     public function clear(): void
     {
@@ -215,7 +210,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Save to database
-     *
      */
     public function save(): void
     {
@@ -280,8 +274,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * Loads the relations that need the given source element
-     *
-     *
      */
     public function getRequiredBy(?int $offset = null, ?int $limit = null): array
     {
@@ -359,7 +351,6 @@ class Dao extends Model\Dao\AbstractDao
 
     /**
      * get total count of required by records
-     *
      */
     public function getRequiredByTotalCount(): int
     {

@@ -56,7 +56,6 @@ class Layout implements Model\DataObject\ClassDefinition\Data\VarExporterInterfa
 
     /**
      * @internal
-     *
      */
     public bool $collapsible = false;
 
@@ -72,7 +71,6 @@ class Layout implements Model\DataObject\ClassDefinition\Data\VarExporterInterfa
 
     /**
      * @internal
-     *
      */
     public string $datatype = 'layout';
 

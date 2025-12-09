@@ -32,25 +32,21 @@ abstract class AbstractGeo extends Data implements TypeDeclarationSupportInterfa
 
     /**
      * @internal
-     *
      */
     public float $lat = 0.0;
 
     /**
      * @internal
-     *
      */
     public float $lng = 0.0;
 
     /**
      * @internal
-     *
      */
     public int $zoom = 1;
 
     /**
      * @internal
-     *
      */
     public string $mapType = 'roadmap';
 

@@ -24,15 +24,11 @@ interface LoaderInterface
 {
     /**
      * Checks if implementation is supported
-     *
-     *
      */
     public function supports(string $name): bool;
 
     /**
      * Builds an implementation instance
-     *
-     *
      */
     public function build(string $name, array $params = []): mixed;
 }

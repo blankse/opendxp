@@ -42,31 +42,26 @@ final class SettingsStore extends Model\AbstractModel
 
     /**
      * @internal
-     *
      */
     protected string $id;
 
     /**
      * @internal
-     *
      */
     protected ?string $scope = null;
 
     /**
      * @internal
-     *
      */
     protected string $type = '';
 
     /**
      * @internal
-     *
      */
     protected mixed $data = null;
 
     /**
      * @internal
-     *
      */
     protected static ?self $instance = null;
 
@@ -92,8 +87,6 @@ final class SettingsStore extends Model\AbstractModel
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public static function set(string $id, float|bool|int|string $data, string $type = 'string', ?string $scope = null): bool
@@ -124,7 +117,6 @@ final class SettingsStore extends Model\AbstractModel
     }
 
     /**
-     *
      * @return string[]
      */
     public static function getIdsByScope(string $scope): array
@@ -160,7 +152,6 @@ final class SettingsStore extends Model\AbstractModel
     }
 
     /**
-     *
      * @throws Exception
      */
     public function setType(string $type): void

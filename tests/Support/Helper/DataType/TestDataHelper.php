@@ -680,7 +680,6 @@ class TestDataHelper extends AbstractTestDataHelper
     }
 
     /**
-     *
      * @return DataObject\Data\ObjectMetadata[]
      */
     public function getObjectsWithMetadataFixture(string $field, int $seed): array

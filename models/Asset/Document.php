@@ -47,7 +47,6 @@ class Document extends Model\Asset
     }
 
     /**
-     *
      * @internal
      */
     public function processPageCount(?string $path = null): bool
@@ -86,7 +85,6 @@ class Document extends Model\Asset
 
     /**
      * returns null when page count wasn't processed yet (done asynchronously)
-     *
      */
     public function getPageCount(): ?int
     {

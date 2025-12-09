@@ -22,7 +22,6 @@ interface ElementDumpStateInterface
 
     /**
      * Set to true to indicate that we are about to serialize the version data.
-     *
      */
     public function setInDumpState(bool $dumpState): void;
 

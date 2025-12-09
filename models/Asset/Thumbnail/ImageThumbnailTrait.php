@@ -32,55 +32,46 @@ trait ImageThumbnailTrait
 
     /**
      * @internal
-     *
      */
     protected ?Asset $asset = null;
 
     /**
      * @internal
-     *
      */
     protected ?Config $config = null;
 
     /**
      * @internal
-     *
      */
     protected array $pathReference = [];
 
     /**
      * @internal
-     *
      */
     protected ?int $width = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $height = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $realWidth = null;
 
     /**
      * @internal
-     *
      */
     protected ?int $realHeight = null;
 
     /**
      * @internal
-     *
      */
     protected ?string $mimetype = null;
 
     /**
      * @internal
-     *
      */
     protected bool $deferred = true;
 
@@ -417,8 +408,6 @@ trait ImageThumbnailTrait
 
     /**
      * Returns path for thumbnail image in a given file format
-     *
-     *
      */
     public function getAsFormat(string $format): static
     {

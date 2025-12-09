@@ -32,7 +32,6 @@ class LazyLoadedItem extends AbstractItem
 
     /**
      * LazyLoadedItem constructor.
-     *
      */
     public function __construct(
         string $className,

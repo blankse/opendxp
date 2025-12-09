@@ -82,8 +82,6 @@ class HelpersExtension extends AbstractExtension
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     public function getImageVersionPreview(string $file): string
@@ -113,7 +111,6 @@ class HelpersExtension extends AbstractExtension
     }
 
     /**
-     *
      * @throws Exception
      */
     public function breachAttackRandomContent(): string

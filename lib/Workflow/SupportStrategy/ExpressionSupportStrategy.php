@@ -30,8 +30,11 @@ class ExpressionSupportStrategy implements WorkflowSupportStrategyInterface
      *
      * @param string|string[] $className a FQCN
      */
-    public function __construct(private readonly ExpressionService $expressionService, private readonly string|array $className, private readonly string $expression)
-    {
+    public function __construct(
+        private readonly ExpressionService $expressionService,
+        private readonly string|array $className,
+        private readonly string $expression
+    ) {
     }
 
     public function supports(WorkflowInterface $workflow, object $subject): bool

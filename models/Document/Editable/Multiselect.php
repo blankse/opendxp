@@ -27,7 +27,6 @@ class Multiselect extends Model\Document\Editable implements EditmodeDataInterfa
      * Contains the current selected values
      *
      * @internal
-     *
      */
     protected array $values = [];
 

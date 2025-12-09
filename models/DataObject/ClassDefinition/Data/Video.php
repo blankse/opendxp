@@ -54,13 +54,11 @@ class Video extends Data implements
 
     /**
      * @internal
-     *
      */
     public ?array $allowedTypes = null;
 
     /**
      * @internal
-     *
      */
     public array $supportedTypes = [
         self::TYPE_ASSET,
@@ -105,8 +103,6 @@ class Video extends Data implements
     }
 
     /**
-     *
-     *
      * @see ResourcePersistenceAwareInterface::getDataForResource
      */
     public function getDataForResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -131,9 +127,7 @@ class Video extends Data implements
     }
 
     /**
-     *
      * @see ResourcePersistenceAwareInterface::getDataFromResource
-     *
      */
     public function getDataFromResource(mixed $data, ?Concrete $object = null, array $params = []): ?DataObject\Data\Video
     {
@@ -169,8 +163,6 @@ class Video extends Data implements
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -179,10 +171,7 @@ class Video extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataForEditmode
-     *
      */
     public function getDataForEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?array
     {
@@ -202,8 +191,6 @@ class Video extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?DataObject\Data\Video
@@ -250,10 +237,7 @@ class Video extends Data implements
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
@@ -350,8 +334,6 @@ class Video extends Data implements
 
     /** Generates a pretty version preview (similar to getVersionPreview) can be either html or
      * a image URL.
-     *
-     *
      */
     public function getDiffVersionPreview(?DataObject\Data\Video $data, ?Concrete $object = null, array $params = []): array|string
     {

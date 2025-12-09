@@ -20,7 +20,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @internal
- *
  */
 class StaticPageResolver extends AbstractRequestResolver
 {

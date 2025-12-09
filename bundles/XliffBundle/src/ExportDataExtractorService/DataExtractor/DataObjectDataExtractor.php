@@ -309,8 +309,6 @@ class DataObjectDataExtractor extends AbstractElementDataExtractor
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     protected function addBlocks(
@@ -398,8 +396,6 @@ class DataObjectDataExtractor extends AbstractElementDataExtractor
     }
 
     /**
-     *
-     *
      * @throws Exception
      */
     protected function addLocalizedFieldsInBricks(

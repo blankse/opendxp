@@ -41,7 +41,6 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
 
     /**
      * @internal
-     *
      */
     public string $elementType = 'input';
 
@@ -57,7 +56,6 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
 
     /**
      * @internal
-     *
      */
     public string $calculatorClass;
 
@@ -65,7 +63,6 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
      * Column length
      *
      * @internal
-     *
      */
     public int $columnLength = 190;
 
@@ -134,8 +131,6 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
     }
 
     /**
-     *
-     *
      * @see QueryResourcePersistenceAwareInterface::getDataForQueryResource
      */
     public function getDataForQueryResource(mixed $data, ?DataObject\Concrete $object = null, array $params = []): ?string
@@ -160,10 +155,7 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
     }
 
     /**
-     *
-     *
      * @see Data::getDataFromEditmode
-     *
      */
     public function getDataFromEditmode(mixed $data, ?DataObject\Concrete $object = null, array $params = []): mixed
     {
@@ -171,10 +163,7 @@ class CalculatedValue extends Data implements QueryResourcePersistenceAwareInter
     }
 
     /**
-     *
-     *
      * @see Data::getVersionPreview
-     *
      */
     #[Override]
     public function getVersionPreview(mixed $data, ?DataObject\Concrete $object = null, array $params = []): string
