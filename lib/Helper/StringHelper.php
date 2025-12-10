@@ -16,6 +16,10 @@ declare(strict_types=1);
 
 namespace OpenDxp\Helper;
 
+use Closure;
+use ReflectionFunction;
+use SplFileObject;
+
 class StringHelper
 {
     public static function isValidJson(mixed $string): bool
@@ -28,10 +32,7 @@ class StringHelper
     }
 
     /**
-     * @param string   $string
      * @param string[] $values
-     *
-     * @return string
      */
     public static function replacePcreBackreferences(string $string, array $values): string
     {
@@ -66,10 +67,10 @@ class StringHelper
         return preg_replace("/%40([\d]+)x\./", '@$1x.', $var);
     }
 
-    public static function closureHash(\Closure $closure): string
+    public static function closureHash(Closure $closure): string
     {
-        $ref = new \ReflectionFunction($closure);
-        $file = new \SplFileObject($ref->getFileName());
+        $ref = new ReflectionFunction($closure);
+        $file = new SplFileObject($ref->getFileName());
         $file->seek($ref->getStartLine() - 1);
 
         $content = '';

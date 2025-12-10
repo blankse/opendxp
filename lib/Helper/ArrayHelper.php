@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace OpenDxp\Helper;
 
+use InvalidArgumentException;
+
 class ArrayHelper
 {
     public static function inArrayCaseInsensitive(string $needle, array $haystack): bool
@@ -57,7 +59,7 @@ class ArrayHelper
         $paj = json_encode($node);
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new \InvalidArgumentException(json_last_error_msg());
+            throw new InvalidArgumentException(json_last_error_msg());
         }
 
         return @json_decode($paj, true);
