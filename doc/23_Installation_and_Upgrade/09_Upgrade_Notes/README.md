@@ -1,5 +1,18 @@
 # Upgrade Notes
 
+## OpenDXP 1.2.0
+
+### [Core]
+- Improvement: Symfony 7.4 compatibility (bumped minimum required version to `^7.4`)
+- Improvement: Code cleanup, performance improvements & modernized code style.
+- Deprecated `lib/helper-functions.php`. Use static helpers from `OpenDxp\Helper\*` instead.
+
+### [AdminBundle]
+- Improvement: Various UI refinements like colors, icons and some general styling
+- Improvement: Symfony 7.4 compatibility
+- Improvement: Code cleanup, performance improvements & modernized code style.
+- Feature: Added poster image, title and description for every video type (video overlay)
+
 ## OpenDXP 1.1.3
 
 ### [Core]
