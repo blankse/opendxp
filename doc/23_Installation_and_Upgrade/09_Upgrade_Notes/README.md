@@ -3,7 +3,7 @@
 ## OpenDXP 1.2.0
 
 ### [Core]
-- Improvement: Symfony 7.4 compatibility
+- Improvement: Symfony 7.4 compatibility (bumped minimum required version to `^7.4`)
 - Improvement: Code cleanup, performance improvements & modernized code style.
 - Deprecated `lib/helper-functions.php`. Use static helpers from `OpenDxp\Helper\*` instead.
 
