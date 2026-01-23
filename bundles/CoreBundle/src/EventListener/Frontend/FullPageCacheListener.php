@@ -130,6 +130,8 @@ class FullPageCacheListener
         }
 
         if (!\OpenDxp\Tool::useFrontendOutputFilters()) {
+            $this->disable('use frontend output filters');
+
             return;
         }
 
