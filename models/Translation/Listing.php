@@ -53,7 +53,7 @@ class Listing extends Model\Listing\AbstractListing
     #[Override]
     public function isValidOrderKey(string $key): bool
     {
-        return in_array($key, ['key', 'type']) || in_array($key, $this->getLanguages());
+        return in_array($key, ['key', 'type', 'creationDate', 'modificationDate']) || in_array($key, $this->getLanguages());
     }
 
     public function getDomain(): string
