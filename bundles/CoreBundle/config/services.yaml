@@ -4,8 +4,7 @@ services:
         autoconfigure: true
 
     #
-    # SECURITY
-    #
+    # Security
 
     # Only use with Symfony ver 5.3 or higher
     # Decorate the symfony encoder factory with our own. Encoders operating on opendxp admin users and opendxp objects using
@@ -21,7 +20,7 @@ services:
         arguments: ['@.inner', '@?']
 
     #
-    # INFRASTRUCTURE
+    # Infrastructure
 
     # creates needed opendxp directories
     OpenDxp\HttpKernel\CacheWarmer\MkdirCacheWarmer:
@@ -43,7 +42,7 @@ services:
             - { name: monolog.logger, channel: opendxp }
 
     #
-    # CONFIG
+    # Config
 
     OpenDxp\Config:
         public: true
@@ -51,9 +50,8 @@ services:
     OpenDxp\Config\ReportConfigWriter: ~
 
     #
-    # CONTROLLERS
+    # Controllers
 
-    # auto-register all controllers as services
     OpenDxp\Bundle\CoreBundle\Controller\:
         resource: '../src/Controller'
         public: true
@@ -173,7 +171,6 @@ services:
 
     OpenDxp\SystemSettingsConfig:
         public: true
-
 
     #
     # Notification Services
