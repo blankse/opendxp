@@ -22,7 +22,6 @@ services:
 
     #
     # INFRASTRUCTURE
-    #
 
     # creates needed opendxp directories
     OpenDxp\HttpKernel\CacheWarmer\MkdirCacheWarmer:
@@ -45,7 +44,7 @@ services:
 
     #
     # CONFIG
-    #
+
     OpenDxp\Config:
         public: true
 
@@ -53,7 +52,6 @@ services:
 
     #
     # CONTROLLERS
-    #
 
     # auto-register all controllers as services
     OpenDxp\Bundle\CoreBundle\Controller\:
@@ -68,7 +66,6 @@ services:
 
     #
     # HTTP/REST clients
-    #
 
     OpenDxp\Http\ClientFactory:
         # keep this public until static method was removed
@@ -152,9 +149,9 @@ services:
         alias: OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter
 
     OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter: ~
+
     #
-    # SECURITY
-    #
+    # Security
 
     # standard user provider returning admin users wrapped in a OpenDxp\Security\User\User proxy object.
     # using this user provider allows implementations to authenticate against opendxp users on every desired firewall
@@ -173,14 +170,13 @@ services:
 
     #
     # System Settings Services
-    #
+
     OpenDxp\SystemSettingsConfig:
         public: true
 
 
     #
     # Notification Services
-    #
 
     OpenDxp\Model\Notification\Service\NotificationService:
         public: true
