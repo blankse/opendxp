@@ -40,53 +40,54 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Table(name: 'generic_execution_engine_job_run')]
 class JobRun
 {
-    public const DEFAULT_EXECUTION_CONTEXT = 'default';
+    public const string DEFAULT_EXECUTION_CONTEXT = 'default';
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['unsigned' => true])]
     #[ORM\GeneratedValue]
     #[ORM\Id]
     private int $id;
 
-    #[ORM\Column(type: 'string', length: 10, enumType: JobRunStates::class)]
+    #[ORM\Column(type: 'string', length: 100, enumType: JobRunStates::class)]
     private JobRunStates $state = JobRunStates::NOT_STARTED;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'integer', nullable: true, options: ['unsigned' => true])]
     private ?int $currentStep = null;
 
-    #[ORM\Column(length: 300, nullable: true)]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     private ?string $currentMessage = null;
 
-    #[ORM\Column(type: 'text', nullable: true)]
+    #[ORM\Column(type: 'text', length: 65535, nullable: true)]
     private ?string $log = null;
 
     private ?SerializerInterface $serializer = null;
 
     private ?Job $job = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', length: 4294967295, nullable: true)]
     private ?string $serializedJob = null;
 
-    #[ORM\Column(type: 'json')]
+    #[ORM\Column(type: 'text', length: 4294967295, nullable: true)]
     private ?array $context = null;
 
-    #[ORM\Column(nullable: false)]
+    #[ORM\Column(nullable: true)]
     private int $creationDate;
 
-    #[ORM\Column(nullable: false)]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private int $modificationDate;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true, options: ['default' => JobRun::DEFAULT_EXECUTION_CONTEXT])]
     private string $executionContext = self::DEFAULT_EXECUTION_CONTEXT;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', options: ['unsigned' => true])]
     private int $totalElements = 0;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', options: ['unsigned' => true])]
     private int $processedElementsForStep = 0;
 
-    public function __construct(#[ORM\Column(nullable: true)]
-        private ?int $ownerId = null)
-    {
+    public function __construct(
+        #[ORM\Column(nullable: true, options: ['unsigned' => true])]
+        private ?int $ownerId = null
+    ) {
         $this->creationDate = time();
         $this->modificationDate = time();
     }
