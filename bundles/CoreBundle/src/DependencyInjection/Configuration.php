@@ -99,7 +99,7 @@ final class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('tile_layer_url_template')
-                            ->defaultValue('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png')
+                            ->defaultValue('https://tile.openstreetmap.org/{z}/{x}/{y}.png')
                         ->end()
                         ->scalarNode('geocoding_url_template')
                             ->defaultValue('https://nominatim.openstreetmap.org/search?q={q}&addressdetails=1&format=json&limit=1')
