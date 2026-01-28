@@ -4,8 +4,7 @@ services:
         autoconfigure: true
 
     #
-    # SECURITY
-    #
+    # Security
 
     # Only use with Symfony ver 5.3 or higher
     # Decorate the symfony encoder factory with our own. Encoders operating on opendxp admin users and opendxp objects using
@@ -21,8 +20,7 @@ services:
         arguments: ['@.inner', '@?']
 
     #
-    # INFRASTRUCTURE
-    #
+    # Infrastructure
 
     # creates needed opendxp directories
     OpenDxp\HttpKernel\CacheWarmer\MkdirCacheWarmer:
@@ -44,18 +42,16 @@ services:
             - { name: monolog.logger, channel: opendxp }
 
     #
-    # CONFIG
-    #
+    # Config
+
     OpenDxp\Config:
         public: true
 
     OpenDxp\Config\ReportConfigWriter: ~
 
     #
-    # CONTROLLERS
-    #
+    # Controllers
 
-    # auto-register all controllers as services
     OpenDxp\Bundle\CoreBundle\Controller\:
         resource: '../src/Controller'
         public: true
@@ -68,7 +64,6 @@ services:
 
     #
     # HTTP/REST clients
-    #
 
     OpenDxp\Http\ClientFactory:
         # keep this public until static method was removed
@@ -152,9 +147,9 @@ services:
         alias: OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter
 
     OpenDxp\Model\Version\Adapter\FileSystemVersionStorageAdapter: ~
+
     #
-    # SECURITY
-    #
+    # Security
 
     # standard user provider returning admin users wrapped in a OpenDxp\Security\User\User proxy object.
     # using this user provider allows implementations to authenticate against opendxp users on every desired firewall
@@ -173,14 +168,12 @@ services:
 
     #
     # System Settings Services
-    #
+
     OpenDxp\SystemSettingsConfig:
         public: true
 
-
     #
     # Notification Services
-    #
 
     OpenDxp\Model\Notification\Service\NotificationService:
         public: true

@@ -4,8 +4,7 @@ services:
         autoconfigure: true
 
     #
-    # REQUEST + ROUTING
-    #
+    # Request / Routing
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\RoutingListener:
         calls:
@@ -22,8 +21,7 @@ services:
     OpenDxp\Bundle\CoreBundle\EventListener\OpenDxpHeaderListener: ~
 
     #
-    # TRANSLATIONS/LOCALE
-    #
+    # Translations / Locale
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\LocaleListener: ~
 
@@ -32,8 +30,7 @@ services:
     OpenDxp\Bundle\CoreBundle\EventListener\DumpTranslationEntriesListener: ~
 
     #
-    # OPENDXP OBJECTS/PARAMS LOGIC
-    #
+    # OpenDxp Objects/Params Logic
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\ElementListener:
         calls:
@@ -48,8 +45,7 @@ services:
             - { name: kernel.event_subscriber }
 
     #
-    # STATE HANDLING/INITIALIZING
-    #
+    # States
 
     # handles block state (current block, current index) for sub-requests
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\BlockStateListener:
@@ -61,16 +57,14 @@ services:
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\StaticPageGeneratorListener: ~
 
     #
-    # CONTROLLER HANDLING
-    #
+    # Controller
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\ContentTemplateListener: ~
 
     OpenDxp\Bundle\CoreBundle\EventListener\EventedControllerListener: ~
 
     #
-    # VARIOUS MODEL SPECIFIC LISTENERS
-    #
+    # Various Model specific Listeners
 
     OpenDxp\Bundle\CoreBundle\EventListener\WorkflowManagementListener:
         public: true # can be disabled
@@ -78,17 +72,14 @@ services:
     OpenDxp\Bundle\CoreBundle\EventListener\ElementTagsListener: ~
 
     #
-    # EXCEPTION HANDLING
-    #
+    # Exception Handling
 
     OpenDxp\Bundle\CoreBundle\EventListener\ResponseExceptionListener:
         calls:
             - [setLogger, ['@logger']]
 
-
     #
-    # RESPONSE TRANSFORMING
-    #
+    # Response Transforming
 
     OpenDxp\Bundle\CoreBundle\EventListener\ResponseHeaderListener: ~
 
@@ -100,10 +91,13 @@ services:
         arguments:
             $responseStack: '@OpenDxp\Http\ResponseStack'
 
+    #
+    # Doctrine Listeners
+
+    OpenDxp\Bundle\CoreBundle\EventListener\Doctrine\IgnoreCoreTablesFilterListener: ~
 
     #
-    # FRONTEND LISTENERS
-    #
+    # Frontend Listeners
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\InternalWysiwygHtmlAttributeFilterListener: ~
 
