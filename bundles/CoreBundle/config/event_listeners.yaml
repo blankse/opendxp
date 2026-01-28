@@ -4,7 +4,7 @@ services:
         autoconfigure: true
 
     #
-    # Request / ROuting
+    # Request / Routing
 
     OpenDxp\Bundle\CoreBundle\EventListener\Frontend\RoutingListener:
         calls:
