@@ -29,19 +29,19 @@ use Doctrine\ORM\Mapping\Table;
 #[Table(name: 'generic_execution_engine_error_log')]
 class JobRunErrorLog
 {
-    #[ORM\Column]
+    #[ORM\Column(options: ['unsigned' => true])]
     #[ORM\GeneratedValue]
     #[ORM\Id]
     private int $id;
 
     public function __construct(
-        #[ORM\Column(type: 'integer')]
+        #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true])]
         private int $jobRunId,
-        #[ORM\Column(type: 'integer')]
+        #[ORM\Column(type: 'integer', nullable: false, options: ['unsigned' => true])]
         private int $stepNumber,
-        #[ORM\Column(type: 'integer', nullable: true)]
+        #[ORM\Column(type: 'integer', nullable: true, options: ['unsigned' => true])]
         private ?int $elementId = null,
-        #[ORM\Column(type: 'text', nullable: true)]
+        #[ORM\Column(type: 'text', length: 65535, nullable: true)]
         private ?string $errorMessage = null
     ) {
     }
