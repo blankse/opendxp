@@ -875,42 +875,49 @@ class Service extends Model\AbstractModel
     /**
      * Changes the query according to the custom view config
      *
-     *
      * @internal
      */
     public static function addTreeFilterJoins(array $cv, Asset\Listing|DataObject\Listing|Document\Listing $childrenList): void
     {
-        if ($cv) {
-            $childrenList->onCreateQueryBuilder(static function (DoctrineQueryBuilder $select) use ($cv): void {
-                $where = $cv['where'] ?? null;
-                if ($where) {
-                    $select->andWhere($where);
-                }
-
-                $fromAlias = $select->getQueryPart('from')[0]['alias'] ?? $select->getQueryPart('from')[0]['table'] ;
-
-                $customViewJoins = $cv['joins'] ?? null;
-                if ($customViewJoins) {
-                    foreach ($customViewJoins as $joinConfig) {
-                        $type = $joinConfig['type'];
-                        $method = $type == 'left' || $type == 'right' ? $type . 'Join' : 'join';
-
-                        $joinAlias = array_keys($joinConfig['name']);
-                        $joinAlias = reset($joinAlias);
-                        $joinTable = $joinConfig['name'][$joinAlias];
-
-                        $condition = $joinConfig['condition'];
-                        $columns = $joinConfig['columns'];
-                        $select->add('select', $columns, true);
-                        $select->$method($fromAlias, $joinTable, $joinAlias, $condition);
-                    }
-                }
-
-                if (!empty($cv['having'])) {
-                    $select->having($cv['having']);
-                }
-            });
+        if (count($cv) === 0) {
+            return;
         }
+
+        $fromAlias = match (true) {
+            $childrenList instanceof Asset\Listing => 'assets',
+            $childrenList instanceof Document\Listing => 'documents',
+            $childrenList instanceof DataObject\Listing => 'objects',
+            default => null,
+        };
+
+        $childrenList->onCreateQueryBuilder(static function (DoctrineQueryBuilder $select) use ($cv, $fromAlias): void {
+            $where = $cv['where'] ?? null;
+            if ($where) {
+                $select->andWhere($where);
+            }
+
+            $customViewJoins = $cv['joins'] ?? null;
+            if ($customViewJoins) {
+                foreach ($customViewJoins as $joinConfig) {
+                    $type = $joinConfig['type'];
+                    $method = $type === 'left' || $type === 'right' ? $type . 'Join' : 'join';
+
+                    $joinAlias = array_keys($joinConfig['name']);
+                    $joinAlias = reset($joinAlias);
+                    $joinTable = $joinConfig['name'][$joinAlias];
+
+                    $condition = $joinConfig['condition'];
+                    $columns = $joinConfig['columns'];
+                    $select->addSelect($columns);
+                    $select->$method($fromAlias, $joinTable, $joinAlias, $condition);
+                }
+            }
+
+            if (!empty($cv['having'])) {
+                $select->having($cv['having']);
+            }
+        });
+
     }
 
     public static function getValidKey(string $key, string $type): string

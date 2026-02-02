@@ -422,8 +422,6 @@ class Dao extends Listing\Dao\AbstractDao
     }
 
     /**
-     * Get Count.
-     *
      * @throws \Exception
      */
     public function getCount(): int
@@ -438,18 +436,13 @@ class Dao extends Listing\Dao\AbstractDao
     }
 
     /**
-     * Get Total Count.
-     *
      * @throws \Exception
      */
     public function getTotalCount(): int
     {
         $queryBuilder = $this->getQueryBuilder();
-        $this->prepareQueryBuilderForTotalCount($queryBuilder, $this->getTableName() . '.id');
 
-        $totalCount = $this->db->fetchOne($queryBuilder->getSql(), $queryBuilder->getParameters(), $queryBuilder->getParameterTypes());
-
-        return (int) $totalCount;
+        return $this->getTotalCountFromQueryBuilder($queryBuilder, $this->getTableName() . '.id');
     }
 }
 ```

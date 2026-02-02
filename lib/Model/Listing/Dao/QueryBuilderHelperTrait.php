@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace OpenDxp\Model\Listing\Dao;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Exception;
 use OpenDxp\Model\DataObject;
 
 trait QueryBuilderHelperTrait
@@ -126,8 +125,38 @@ trait QueryBuilderHelperTrait
         $queryBuilder->setMaxResults($this->model->getLimit());
     }
 
+    protected function getTotalCountFromQueryBuilder(QueryBuilder $queryBuilder, string $identifierColumn): int
+    {
+        $queryBuilder->select($identifierColumn);
+        $queryBuilder->resetOrderBy();
+        $queryBuilder->setMaxResults(null);
+        $queryBuilder->setFirstResult(0);
+
+        if (method_exists($this->model, 'addDistinct') && $this->model->addDistinct()) {
+            $queryBuilder->distinct();
+        }
+
+        $countSql = 'SELECT COUNT(*) FROM (' . $queryBuilder->getSQL() . ') count_subquery';
+
+        return (int) $this->db->fetchOne(
+            $countSql,
+            $queryBuilder->getParameters(),
+            $queryBuilder->getParameterTypes()
+        );
+    }
+
+    /**
+     * @deprecated Use getTotalCountFromQueryBuilder() instead. Will be removed in OpenDXP 2.0.
+     */
     protected function prepareQueryBuilderForTotalCount(QueryBuilder $queryBuilder, string $identifierColumn): void
     {
+        trigger_deprecation(
+            'opendxp/opendxp',
+            '1.2',
+            'Method "%s::prepareQueryBuilderForTotalCount()" is deprecated, use "getTotalCountFromQueryBuilder()" instead.',
+            static::class,
+        );
+
         $originalSelect = $queryBuilder->getQueryPart('select');
         $queryBuilder->select('COUNT(*)');
         $queryBuilder->resetOrderBy();
@@ -141,7 +170,6 @@ trait QueryBuilderHelperTrait
         if ($this->isQueryBuilderPartInUse($queryBuilder, 'groupBy') || $this->isQueryBuilderPartInUse($queryBuilder, 'having')) {
             $queryBuilder->select(empty($originalSelect) ? $identifierColumn : $originalSelect);
 
-            // Rewrite to 'SELECT COUNT(*) FROM (' . $queryBuilder . ') XYZ'
             $innerQuery = (string)$queryBuilder;
             $queryBuilder
                 ->resetQueryParts()
@@ -154,14 +182,16 @@ trait QueryBuilderHelperTrait
         }
     }
 
+    /**
+     * @deprecated Will be removed in OpenDXP 2.0.
+     */
     protected function isQueryBuilderPartInUse(QueryBuilder $query, string $part): bool
     {
         try {
             if ($query->getQueryPart($part)) {
                 return true;
             }
-        } catch (Exception) {
-            // do nothing
+        } catch (\Exception) {
         }
 
         return false;
