@@ -34,6 +34,7 @@ use OpenDxp\Db\Helper;
 use OpenDxp\Model\Asset;
 use OpenDxp\Model\DataObject;
 use OpenDxp\Model\DataObject\ClassDefinition\Data\Localizedfields;
+use OpenDxp\Model\DataObject\Objectbrick\Definition;
 use OpenDxp\Model\Document;
 use OpenDxp\Model\Element;
 use OpenDxp\Model\Element\AdminStyle;
@@ -164,6 +165,11 @@ class SearchController extends UserAwareController
             $join = '';
             $localizedJoin = '';
             foreach ($bricks as $ob) {
+                $objectBrickDefinition = Definition::getByKey($ob);
+                if (!$objectBrickDefinition) {
+                    throw new InvalidArgumentException('Check your object brick filter arguments.');
+                }
+
                 $join .= ' LEFT JOIN object_brick_query_' . $ob . '_' . $class->getId();
                 $join .= ' `' . $ob . '`';
 
