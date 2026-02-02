@@ -887,7 +887,6 @@ class Service extends Model\AbstractModel
             $childrenList instanceof Asset\Listing => 'assets',
             $childrenList instanceof Document\Listing => 'documents',
             $childrenList instanceof DataObject\Listing => 'objects',
-            default => null,
         };
 
         $childrenList->onCreateQueryBuilder(static function (DoctrineQueryBuilder $select) use ($cv, $fromAlias): void {
