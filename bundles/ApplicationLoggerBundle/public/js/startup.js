@@ -1,4 +1,4 @@
-opendxp.registerNS("opendxp.bundle.applicationlogger.startup");
+opendxp.registerNS('opendxp.bundle.applicationlogger.startup');
 
 opendxp.bundle.applicationlogger.startup = Class.create({
 
@@ -20,13 +20,13 @@ opendxp.bundle.applicationlogger.startup = Class.create({
 
     preMenuBuild: function (e) {
         const user = opendxp.globalmanager.get('user');
-        const perspectiveCfg = opendxp.globalmanager.get("perspective");
+        const perspectiveCfg = opendxp.globalmanager.get('perspective');
         let menu = e.detail.menu;
 
-        if (user.isAllowed("application_logging")&& perspectiveCfg.inToolbar("extras.applicationlog")) {
+        if (user.isAllowed('application_logging') && perspectiveCfg.inToolbar('extras.applicationlog')) {
             menu.extras.items.push({
-                text: t("log_applicationlog"),
-                iconCls: "opendxp_nav_icon_log_admin",
+                text: t('log_applicationlog'),
+                iconCls: 'opendxp_nav_icon_log_admin',
                 itemId: 'opendxp_menu_extras_application_log',
                 handler: this.logAdmin
             });
@@ -35,17 +35,16 @@ opendxp.bundle.applicationlogger.startup = Class.create({
 
     logAdmin: function () {
         try {
-            opendxp.globalmanager.get("opendxp_applicationlog_admin").activate();
-        }
-        catch (e) {
-            opendxp.globalmanager.add("opendxp_applicationlog_admin", new opendxp.bundle.applicationlogger.log.admin());
+            opendxp.globalmanager.get('opendxp_applicationlog_admin').activate();
+        } catch (e) {
+            opendxp.globalmanager.add('opendxp_applicationlog_admin', new opendxp.bundle.applicationlogger.log.admin());
         }
     },
 
-    registerKeyBinding: function(e) {
+    registerKeyBinding: function (e) {
         const user = opendxp.globalmanager.get('user');
-        if (user.isAllowed("application_logging")) {
-            opendxp.helpers.keyBindingMapping.applicationLogger = function() {
+        if (user.isAllowed('application_logging')) {
+            opendxp.helpers.keyBindingMapping.applicationLogger = function () {
                 applicationLogger.logAdmin();
             }
         }

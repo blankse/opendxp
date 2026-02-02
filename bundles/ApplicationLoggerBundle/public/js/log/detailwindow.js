@@ -11,79 +11,86 @@
  * @license    https://www.gnu.org/licenses/gpl-3.0.html  GNU General Public License version 3 (GPLv3)
  */
 
-opendxp.registerNS("opendxp.bundle.applicationlogger.log.detailwindow");
+opendxp.registerNS('opendxp.bundle.applicationlogger.log.detailwindow');
 opendxp.bundle.applicationlogger.log.detailwindow = Class.create({
-    getClassName: function (){
-        return "opendxp.plugin.eventscheduler.detailwindow";
+    getClassName: function () {
+        return 'opendxp.plugin.eventscheduler.detailwindow';
     },
 
-	initialize: function (data) {
-		this.data = data;
-		this.getInputWindow();
+    initialize: function (data) {
+        this.data = data;
+        this.getInputWindow();
         this.detailWindow.show();
-	},
+    },
 
 
     getInputWindow: function () {
 
-        if(!this.detailWindow) {
-            this.detailWindow = new Ext.Window({
-				width: 600,
-				height: 420,
-                iconCls: "opendxp_icon_log",
-                title: t('log_detailinformation'),
-				closeAction:'close',
-				plain: true,
-				maximized: false,
-				autoScroll: true,
-				modal: true,
-				buttons: [
-                    {
-                        text: t('close'),
-                        handler: function(){
-                            this.detailWindow.hide();
-                            this.detailWindow.destroy();
-                        }.bind(this)
-                    }
-                ]
-			});
-
-			this.createPanel();
+        if (this.detailWindow) {
+            return;
         }
+
+        this.detailWindow = new Ext.Window({
+            width: 600,
+            height: 420,
+            iconCls: 'opendxp_icon_log',
+            title: t('log_detailinformation'),
+            closeAction: 'close',
+            plain: true,
+            maximized: false,
+            autoScroll: true,
+            modal: true,
+            buttons: [
+                {
+                    text: t('close'),
+                    handler: function () {
+                        this.detailWindow.hide();
+                        this.detailWindow.destroy();
+                    }.bind(this)
+                }
+            ]
+        });
+
+        this.createPanel();
+
         return this.detailWindow;
     },
 
-	createPanel: function() {
-		var items = [];
-		items.push({
-			xtype: "textfield",
-			fieldLabel: t('log_timestamp'),
-			name: "timestamp",
-            readOnly: true,
-			value: Ext.Date.format(new Date(this.data.timestamp * 1000), "Y-m-d H:i:s"),
-			width: 540
-		});
-		items.push({
-			xtype: "textarea",
-			fieldLabel: t('log_message'),
-			name: "message",
-            readOnly: true,
-			value: this.data.message,
-			width: 540,
-            height: 200
-		});
-		items.push({
-			xtype: "textfield",
-			fieldLabel: t('log_type'),
-			name: "type",
-            readOnly: true,
-			value: this.data.priority,
-			width: 540
-		});
+    createPanel: function () {
+        var items = [];
+
         items.push({
-            xtype: "textfield",
+            xtype: 'textfield',
+            fieldLabel: t('log_timestamp'),
+            name: 'timestamp',
+            readOnly: true,
+            value: Ext.Date.format(new Date(this.data.timestamp * 1000), 'Y-m-d H:i:s'),
+            width: 540
+        });
+
+        items.push({
+            xtype: 'textarea',
+            fieldLabel: t('log_message'),
+            name: 'message',
+            readOnly: true,
+            value: this.data.message,
+            width: 540,
+            height: 200
+        });
+
+        items.push({
+            xtype: 'textfield',
+            fieldLabel: t('log_type'),
+            name: 'type',
+            readOnly: true,
+            value: this.data.priority,
+            width: 540
+        });
+
+        items.push({
+            xtype: 'textfield',
             fieldLabel: t('log_component'),
-            name: "component",
+            name: 'component',
             readOnly: true,
             value: this.data.component,
             width: 540
@@ -93,15 +100,15 @@ opendxp.bundle.applicationlogger.log.detailwindow = Class.create({
             items.push(new Ext.form.FieldContainer({
                 layout: 'hbox',
                 items: [{
-                    xtype: "textfield",
+                    xtype: 'textfield',
                     fieldLabel: t('log_relatedobject'),
-                    name: "relatedobject",
+                    name: 'relatedobject',
                     readOnly: true,
                     value: this.data.relatedobject,
                     width: 370
                 }, {
-                    xtype: "button",
-                    iconCls: "opendxp_icon_edit",
+                    xtype: 'button',
+                    iconCls: 'opendxp_icon_edit',
                     handler: function () {
                         opendxp.helpers.openElement(this.data.relatedobject, this.data.relatedobjecttype);
                         this.detailWindow.destroy();
@@ -111,33 +118,32 @@ opendxp.bundle.applicationlogger.log.detailwindow = Class.create({
         }
 
         if (this.data.fileobject) {
-            var fileObjectText = this.data.fileobject;
-            if (fileObjectText.length > 60) {
-                fileObjectText = fileObjectText.substr(0, 60) + "...";
-            }
-            var url = Routing.generate('opendxp_admin_bundle_applicationlogger_log_showfileobject', {filePath: this.data.fileobject});
 
-            var html = Ext.String.format('<a href="{0}" target="_blank">{1}</a>', url, fileObjectText);
+            var fileObjectText = this.data.fileobject,
+                url = Routing.generate('opendxp_admin_bundle_applicationlogger_log_showfileobject', {filePath: this.data.fileobject});
+
+            if (fileObjectText.length > 60) {
+                fileObjectText = fileObjectText.substr(0, 60) + '...';
+            }
+
             items.push({
-                xtype: "displayfield",
+                xtype: 'displayfield',
                 fieldLabel: t('log_fileobject'),
-                name: "fileobject",
+                name: 'fileobject',
                 readOnly: true,
-                value: html,
+                value: Ext.String.format('<a href="{0}" target="_blank">{1}</a>', url, fileObjectText),
                 width: 540
             });
         }
 
-        var panel = new Ext.form.FormPanel({
+        this.detailWindow.add(new Ext.form.FormPanel({
             border: false,
-			frame:false,
-		    bodyStyle: 'padding:10px',
+            frame: false,
+            bodyStyle: 'padding:10px',
             items: items,
-			labelWidth: 130,
-			collapsible: false,
+            labelWidth: 130,
+            collapsible: false,
             autoScroll: true
-        });
-
-		this.detailWindow.add(panel);
-	}
+        }));
+    }
 });
