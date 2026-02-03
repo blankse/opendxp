@@ -9,13 +9,13 @@ The items in the loop as well as their order can be defined by the editor with t
 
 ## Configuration
 
-| Name        | Type      | Description                                                                                                                                                                                                          |
-|-------------|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `limit`     | integer   | Max. amount of iterations.                                                                                                                                                                                           |
-| `reload`    | bool      | Reload editmode on add, move or remove (default=false)                                                                                                                                                               |
-| `default`   | integer   | If block is empty, this specifies the iterations at startup.                                                                                                                                                         |
-| `manual`    | bool      | Forces the manual mode, which enables a complete custom HTML implementation for blocks, for example using `<table>` elements <br/> <b>Deprecated</b> Will be removed in OpenDXP 12 use `opendxpmanualblock` instead. |
-| `class`     | string    | A CSS class that is added to the surrounding container of this element in editmode                                                                                                                                   |
+| Name      | Type    | Description                                                                                                                                                                                                           |
+|-----------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `limit`   | integer | Max. amount of iterations.                                                                                                                                                                                            |
+| `reload`  | bool    | Reload editmode on add, move or remove (default=false)                                                                                                                                                                |
+| `default` | integer | If block is empty, this specifies the iterations at startup.                                                                                                                                                          |
+| `manual`  | bool    | Forces the manual mode, which enables a complete custom HTML implementation for blocks, for example using `<table>` elements <br/> <b>Deprecated</b> Will be removed in OpenDXP 2.0 use `opendxpmanualblock` instead. |
+| `class`   | string  | A CSS class that is added to the surrounding container of this element in editmode                                                                                                                                    |
 
 ## Methods
 
@@ -43,7 +43,7 @@ The items in the loop as well as their order can be defined by the editor with t
 ```
 
 ```twig
-<!-- Deprecated! Will be removed in OpenDXP 12 -->
+<!-- Deprecated! Will be removed in OpenDXP 2.0 -->
 {% for i in opendxp_block("contentblock").iterator %}
     <h2>{{ opendxp_input("subline") }}</h2>
     {{ opendxp_wysiwyg("content") }}
@@ -72,7 +72,7 @@ And in the frontend of the application:
 ```
 
 ```twig
-<!-- Deprecated! Will be removed in OpenDXP 12 -->
+<!-- Deprecated! Will be removed in OpenDXP 2.0 -->
 {% set myBlock = opendxp_block("contentblock", {"reload": true}) %}
 {% for i in myBlock.iterator %}
     {% if myBlock.current > 0 %}
@@ -113,7 +113,7 @@ The manual block offers you the possibility to deal with block the way you like,
 ```
 
 ```twig
-<!-- Deprecated! Will be removed in OpenDXP 12 -->
+<!-- Deprecated! Will be removed in OpenDXP 2.0 -->
 {% set block = opendxp_block("gridblock", {"manual": true, "limit": 6}).start() %}
 <table>
     <tr>
@@ -159,7 +159,7 @@ If you want to wrap buttons in a div or change the Position.
 ```
 
 ```twig
-<!-- Deprecated! Will be removed in OpenDXP 12 -->
+<!-- Deprecated! Will be removed in OpenDXP 2.0 -->
 {% set block = opendxp_block("gridblock", {"manual": true}).start() %}
 <table>
     <tr>
@@ -197,7 +197,7 @@ If you want to wrap buttons in a div or change the Position.
 ```
 
 ```twig
-<!-- Deprecated! Will be removed in OpenDXP 12 -->
+<!-- Deprecated! Will be removed in OpenDXP 2.0 -->
 {% set block = opendxp_block("gridblock", {"manual": true}).start() %}
 <div>
     {% for b in block.iterator %}

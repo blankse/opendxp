@@ -569,7 +569,7 @@ class Service extends Model\AbstractModel
     }
 
     /**
-     * @todo remove in open-dxp/opendxp 12.0
+     * @todo remove in open-dxp/opendxp 2.0
      *
      * @internal
      */

@@ -1141,7 +1141,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     }
 
     /**
-     * TODO Change return type to array in OpenDxp 12
+     * TODO Change return type to array in OpenDxp 2.0
      */
     public function appendData(?array $existingData, array $additionalData): ?array
     {
@@ -1149,7 +1149,7 @@ abstract class Data implements DataObject\ClassDefinition\Data\TypeDeclarationSu
     }
 
     /**
-     * TODO Change return type to array in OpenDxp 12
+     * TODO Change return type to array in OpenDxp 2.0
      */
     public function removeData(?array $existingData, array $removeData): mixed
     {
