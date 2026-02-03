@@ -111,7 +111,7 @@ pass it as the second argument to `captureStart()`.
 If you wish to specify any additional attributes for the `<script>` tag, pass them in an array as the third 
 argument to `captureStart()`.
 
-**Note:** The `captureStart()` and `captureEnd()` methods are deprecated as of OpenDXP 11.4.0. Use a combination of `set` and `opendxp_head_script` to achieve the same result.
+**Note:** The `captureStart()` and `captureEnd()` methods are deprecated as of OpenDXP 1.0. Use a combination of `set` and `opendxp_head_script` to achieve the same result.
 
 ```twig
 {% set inlineScript %}

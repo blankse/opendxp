@@ -127,7 +127,7 @@ class Bootstrap
     }
 
     /**
-     * @deprecated only for compatibility reasons, will be removed in OpenDxp 12
+     * @deprecated only for compatibility reasons, will be removed in OpenDxp 2.0
      */
     private static function bootDotEnvVariables(): void
     {

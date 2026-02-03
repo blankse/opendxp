@@ -92,7 +92,7 @@ list of current content in the placeholder. If `SET`, captured content is used a
 {{ opendxp_placeholder('foo').data | raw }}
 ```
 
-**Note:** The `captureStart()` and `captureEnd()` methods are deprecated as of OpenDXP 11.4.0. Use a combination of `set` and `opendxp_placeholder` to achieve the same result.
+**Note:** The `captureStart()` and `captureEnd()` methods are deprecated as of OpenDXP 1.0. Use a combination of `set` and `opendxp_placeholder` to achieve the same result.
 
 ```twig
 {% set placeholderData %}
