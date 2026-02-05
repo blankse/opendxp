@@ -72,6 +72,10 @@ Upgrade to the latest Pimcore `11.5.x` first!
 - `OpenDxp\Model\Element\ElementInterface::getById()` changed signature. Check your code for implementations.
 - `OpenDxp\Workflow\Manager::getWorkflowByName()` changed return type to `null|Symfony\Component\Workflow\WorkflowInterface`.
 
+##### ⚠️ Migrations
+- Removed all migrations from `Pimcore\Bundle\CoreBundle\Migrations` namespace.
+  - Delete corresponding entries from `migration_versions` table in your database.
+
 ### Wysiwyg
 The suggested Quill editor lacks the capabilities expected in a professional CMS.
 As a result, we’ve reintroduced the TinyMCE bundle. (TinyMCE has changed its open-source license to GPL, which is acceptable for our use.)
