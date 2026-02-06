@@ -20,6 +20,7 @@ use Doctrine\DBAL\Schema\AbstractAsset;
 use Doctrine\Migrations\Tools\Console\Command\DoctrineCommand;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\Persistence\ManagerRegistry;
+use OpenDxp\Bundle\CoreBundle\Command\Bundle\InstallCommand;
 use Override;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
@@ -75,6 +76,8 @@ class IgnoreCoreTablesFilterListener implements EventSubscriberInterface
     public function onConsoleCommand(ConsoleCommandEvent $event): void
     {
         if ($event->getCommand() instanceof DoctrineCommand) {
+            $this->enabled = false;
+        } elseif ($event->getCommand() instanceof InstallCommand) {
             $this->enabled = false;
         }
     }
