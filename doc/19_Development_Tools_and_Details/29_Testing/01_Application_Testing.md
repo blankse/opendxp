@@ -467,7 +467,7 @@ class IndexPageCest
         $I->canSeeResponseCodeIs(200);
         $I->amOnRoute('document_1');
 
-        $I->seeElement('#site #logo a', ['href' => 'http://www.opendxp.ch/']);
+        $I->seeElement('#site #logo a', ['href' => 'http://www.opendxp.io/']);
         $I->seeElement('#site #logo img', ['src' => '/bundles/opendxpadmin/img/logo-claim-gray.svg']);
     }
 }

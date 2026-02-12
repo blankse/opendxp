@@ -173,7 +173,7 @@ Then we can also put some HTML and template code into it:
 <body>
     <div id="site">
         <div id="logo">
-            <a href="https://www.opendxp.ch/"><img src="/bundles/opendxpadmin/img/logo-claim-gray.svg" style="width: 400px;"/></a>
+            <a href="https://www.opendxp.io/"><img src="/bundles/opendxpadmin/img/logo-claim-gray.svg" style="width: 400px;"/></a>
             <hr/>
         </div>
         {{ block('content') }}

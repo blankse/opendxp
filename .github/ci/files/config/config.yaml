@@ -21,10 +21,10 @@ opendxp:
     email:
         sender:
             name: opendxp
-            email: contact@opendxp.ch
+            email: contact@opendxp.io
         return:
             name: opendxp
-            email: contact@opendxp.ch
+            email: contact@opendxp.io
     config_location:
         image_thumbnails:
             write_target:

@@ -45,7 +45,7 @@ If configured, OpenDXP will set the domain configured as main domain in system s
 will be overridden from the current request in the web context when using the on-the-fly method by adding the route. When
 using the `presta:sitemaps:dump` command, you can override those parameters by passing the `--base-url` option:
 
-    $ bin/console presta:sitemaps:dump --base-url=https://opendxp.ch/
+    $ bin/console presta:sitemaps:dump --base-url=https://opendxp.io/
 
 For details see:
 

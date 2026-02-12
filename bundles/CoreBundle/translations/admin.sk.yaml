@@ -303,7 +303,7 @@ email_cc: "K\xF3pia (CC)"
 email_bcc: "Skryt\xE1 k\xF3pia (BCC)"
 email_settings: Nastavenie e-mailu
 email_settings_receiver_description: "Viacer\xFDch pr\xEDjemcov m\xF4\u017Eete zada\u0165
-  oddelen\xFDch bodko\u010Diarkou.<br/>Pr\xEDklad: prijemca1@opendxp.ch; prijemca2@opendxp.ch"
+  oddelen\xFDch bodko\u010Diarkou.<br/>Pr\xEDklad: prijemca1@opendxp.io; prijemca2@opendxp.io"
 email_logs: "Odoslan\xE9 e-maily"
 email_log_sent_Date: "D\xE1tum odoslania"
 predefined_document_type: "Preddefinovan\xFD typ dokumentov"

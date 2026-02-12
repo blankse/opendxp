@@ -73,7 +73,7 @@ integrated with OpenDXP's cache clearing functionality.
 $lifetime = 99999;
 $cacheKey = md5($uri);
 if(!$data = \OpenDxp\Cache::load($cacheKey)) {
-    $data = \OpenDxp\Tool::getHttpData('http://www.opendxp.ch/...');
+    $data = \OpenDxp\Tool::getHttpData('http://www.opendxp.io/...');
     \OpenDxp\Cache::save(
         $data,
         $cacheKey,
@@ -107,7 +107,7 @@ if(!$data = \OpenDxp\Cache::load($cacheKey)) {
 Sometimes it's useful to deactivate the cache for testing purposes for a single request. You 
 can do this by passing the URL parameter `opendxp_nocache=true`. Note: This is only possible if you are in [DEBUG MODE](../13_Debugging.md#debug-mode)
 
-For example: `http://opendxp.ch/download?opendxp_nocache=true` 
+For example: `http://opendxp.io/download?opendxp_nocache=true` 
 
 This will disable the entire cache, not only the output-cache. To disable only the output-cache 
 you can add this URL parameter: `?opendxp_outputfilters_disabled=true`

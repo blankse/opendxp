@@ -31,7 +31,7 @@ $params = ['firstName' => 'Pim', 'lastName' => 'Core', 'product' => 73613];
 
 //sending an email document (opendxp document)
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
+$mail->to('example@opendxp.io');
 $mail->setDocument('/email/myemaildocument');
 $mail->setParams($params);
 $mail->send();
@@ -40,14 +40,14 @@ $mail->send();
 // sending a text-mail
 
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
+$mail->to('example@opendxp.io');
 $mail->text("This is just plain text");
 $mail->send();
 
 // Sending a rich text (HTML) email with Twig expressions
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
-$mail->bcc("bcc@opendxp.ch");
+$mail->to('example@opendxp.io');
+$mail->bcc("bcc@opendxp.io");
 $mail->setParams([
     'myParam' => 'Just a simple text'
 ]);
@@ -61,7 +61,7 @@ if($asset instanceof Asset) {
 
 //Embedding Images
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
+$mail->to('example@opendxp.io');
 
 $mail->embed($asset->getData(), 'logo', $asset->getMimeType());
 //or
