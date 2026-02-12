@@ -99,7 +99,7 @@ class LinkTest extends ModelTestCase
     {
         $linkObject = $this->createLinkObject();
         $link = new Link();
-        $link->setDirect('https://www.opendxp.ch/');
+        $link->setDirect('https://www.opendxp.io/');
         $linkObject->setTestlink($link);
         $linkObject->setLtestlink($link);
         $linkObject->save();
@@ -147,8 +147,8 @@ class LinkTest extends ModelTestCase
     {
         try {
             $linkObject = $this->createLinkObject();
-            $linkObject->setTestlink('https://www.opendxp.ch/');
-            $linkObject->setLtestlink('https://www.opendxp.ch/');
+            $linkObject->setTestlink('https://www.opendxp.io/');
+            $linkObject->setLtestlink('https://www.opendxp.io/');
             $this->fail('Expected a TypeError');
         } catch (Throwable $e) {
             $this->assertInstanceOf(TypeError::class, $e);

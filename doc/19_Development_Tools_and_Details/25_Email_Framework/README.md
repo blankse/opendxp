@@ -17,7 +17,7 @@ opendxp:
     email:
         sender:
             name: 'OpenDXP Demo'
-            email: contact@opendxp.ch
+            email: contact@opendxp.io
         return:
             name: ''
             email: ''
@@ -68,7 +68,7 @@ $params = array('firstName' => 'Pim',
  
 //sending the email
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
+$mail->to('example@opendxp.io');
 $mail->setDocument('/email/myemaildocument');
 $mail->setParams($params);
 $mail->send();
@@ -83,7 +83,7 @@ Regarding the product {{ product.getName() }} ....
 #### Sending a Plain Text Email:
 ```php
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
+$mail->to('example@opendxp.io');
 $mail->text("This is just plain text");
 $mail->send();
 ```
@@ -91,8 +91,8 @@ $mail->send();
 #### Sending a Rich Text (HTML) Email: 
 ```php
 $mail = new \OpenDxp\Mail();
-$mail->to('example@opendxp.ch');
-$mail->bcc("bcc@opendxp.ch");
+$mail->to('example@opendxp.io');
+$mail->bcc("bcc@opendxp.io");
 $mail->html("<b>some</b> rich text");
 $mail->send();
 ```

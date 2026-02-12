@@ -8,7 +8,7 @@ The Document path and pretty URLs come third in the route processing priority.
  
 ## Document Path
  Every document has a path (in the document tree) that directly represents the address in the browser 
-  (e.g. https://demo.opendxp.ch/en/basic-examples). 
+  (e.g. https://demo.opendxp.io/en/basic-examples). 
   
   If there is a document path matching the requested path info, the route then uses the controller, action and view defined in the 
   document's settings, passing them to the dispatcher along with the document itself.

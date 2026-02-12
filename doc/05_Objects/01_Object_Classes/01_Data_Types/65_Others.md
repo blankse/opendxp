@@ -39,9 +39,9 @@ programmatically an `OpenDxp\Model\DataObject\Data\Link` object needs to be inst
 
 ```php
 $l = new DataObject\Data\Link();               
-$l->setPath("http://www.opendxp.ch");    
-$l->setText("opendxp.ch");            
-$l->setTitle("Visit opendxp.ch");               
+$l->setPath("http://www.opendxp.io");    
+$l->setText("opendxp.io");            
+$l->setTitle("Visit opendxp.io");               
 $object->setLink($l);
 ```
 
@@ -121,7 +121,7 @@ OpenDxp\Model\DataObject\ClassDefinition\Data\EncryptedField::setStrictMode(fals
 
 A slug is the part of a URL which identifies a particular page on a website in an easy 
 to read form. In other words, it’s the part of the URL that explains the page’s content.
-For example, if the URL is `https://opendxp.ch/slug`, then the slug simply is `/slug`.
+For example, if the URL is `https://opendxp.io/slug`, then the slug simply is `/slug`.
 
 ![URL Slug](../../../img/classes-datatypes-urlslug.png)
 
