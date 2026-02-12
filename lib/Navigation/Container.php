@@ -46,7 +46,6 @@ use RecursiveIteratorIterator;
 
 /**
  * NOTICE: Native types for `Page` are explicitly not used in this class to avoid OPCache issues
- * See this issue for details: https://github.com/pimcore/pimcore/issues/15970
  */
 class Container implements RecursiveIterator, Countable
 {

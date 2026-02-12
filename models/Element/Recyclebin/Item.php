@@ -103,8 +103,8 @@ class Item extends Model\AbstractModel
                 $element->setKey($element->getKey().'_restore');
             }
 
-            // create an empty object first and clone it
-            // see https://github.com/pimcore/pimcore/issues/4219
+            // create an empty object first and clone it to prevent that unique key constraint is being ignored
+            // when restoring from recycle bin
             Model\Version::disable();
             $className = $element::class;
             /** @var Document|Asset|AbstractObject $dummy */

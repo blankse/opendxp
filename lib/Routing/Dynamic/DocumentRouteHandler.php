@@ -211,7 +211,6 @@ final class DocumentRouteHandler implements DynamicRouteHandlerInterface
 
         // Use latest version, if available, when the request is admin request
         // so then route should be built based on latest Document settings
-        // https://github.com/pimcore/pimcore/issues/9644
         if ($isAdminRequest) {
             $latestVersion = $document->getLatestVersion();
             if ($latestVersion) {
