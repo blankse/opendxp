@@ -366,7 +366,7 @@ EOT;
     {
         $document = $this->getDocument();
 
-        // https://github.com/pimcore/pimcore/issues/6629
+        // prevent exception if block has a default value
         if (!$document instanceof Model\Document\PageSnippet) {
             return [];
         }

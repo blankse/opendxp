@@ -108,9 +108,6 @@ class VersionTest extends TestCase
         $this->assertEquals(3, $countAfterSave, "seems that Version::enable doesn't work");
     }
 
-    /**
-     * Test for https://github.com/pimcore/pimcore/issues/4667
-     */
     public function testCondense(): void
     {
         $this->setStorageAdapter($this->mockFileSystemStorageAdapter());

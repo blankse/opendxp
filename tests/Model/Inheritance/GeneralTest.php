@@ -143,7 +143,6 @@ class GeneralTest extends ModelTestCase
     }
 
     /**
-     * Tests https://github.com/pimcore/pimcore/pull/6269
      * [Data objects] Override inherited value with same value (break inheritance)
      *
      * @throws Exception

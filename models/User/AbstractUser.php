@@ -241,8 +241,6 @@ abstract class AbstractUser extends Model\AbstractModel implements AbstractUserI
     }
 
     /**
-     * https://github.com/pimcore/pimcore/issues/7085
-     *
      * @throws Exception
      */
     private function cleanupUserRoleRelations(): void

@@ -295,7 +295,6 @@ abstract class Kernel extends SymfonyKernel
         mb_internal_encoding('UTF-8');
 
         // zlib.output_compression conflicts with while (@ob_end_flush()) ;
-        // see also: https://github.com/pimcore/pimcore/issues/291
         if (ini_get('zlib.output_compression')) {
             @ini_set('zlib.output_compression', 'Off');
         }

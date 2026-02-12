@@ -221,7 +221,7 @@ class Text
             return RuntimeCache::get($hash);
         }
 
-        //$text = Pimcore_Tool_Text::removeLineBreaks($text);
+        //$text = \OpenDxp\Tool\Text::removeLineBreaks($text);
 
         $matches = self::extractOpenDxpAttributes($text);
 
