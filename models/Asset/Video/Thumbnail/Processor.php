@@ -68,7 +68,7 @@ class Processor
 
         $instance = new self();
         $formats = $onlyFormats === [] ? ['mp4'] : $onlyFormats;
-        $instance->setProcessId(uniqid());
+        $instance->setProcessId(uniqid('', false));
         $instance->setAssetId($asset->getId());
         $instance->setConfig($config);
 
@@ -82,11 +82,11 @@ class Processor
         $customSetting = $asset->getCustomSetting('thumbnails');
         $existingFormats = [];
         if (is_array($customSetting) && array_key_exists($config->getName(), $customSetting)) {
-            if ($customSetting[$config->getName()]['status'] == 'inprogress') {
+            if ($customSetting[$config->getName()]['status'] === 'inprogress') {
                 if (TmpStore::get($instance->getJobStoreId($customSetting[$config->getName()]['processId']))) {
                     return null;
                 }
-            } elseif ($customSetting[$config->getName()]['status'] == 'finished') {
+            } elseif ($customSetting[$config->getName()]['status'] === 'finished') {
                 // check if the files are there
                 $formatsToConvert = [];
                 foreach ($formats as $f) {
@@ -103,7 +103,7 @@ class Processor
                 } else {
                     return null;
                 }
-            } elseif ($customSetting[$config->getName()]['status'] == 'error') {
+            } elseif ($customSetting[$config->getName()]['status'] === 'error') {
                 throw new Exception('Unable to convert video, see logs for details.');
             }
         }
@@ -122,7 +122,7 @@ class Processor
                 $converter->setStorageFile($storagePath);
 
                 //add media queries for mpd file generation
-                if ($format == 'mpd') {
+                if ($format === 'mpd') {
                     $medias = $config->getMedias();
                     foreach ($medias as $media => $transformations) {
                         //used just to generate arguments for medias
@@ -148,11 +148,10 @@ class Processor
             'formats' => $existingFormats,
             'processId' => $instance->getProcessId(),
         ];
+
         $asset->setCustomSetting('thumbnails', $customSetting);
 
-        Model\Version::disable();
-        $asset->save();
-        Model\Version::enable();
+        self::saveWithoutVersion($asset);
 
         $instance->save();
 
@@ -197,19 +196,25 @@ class Processor
 
         $instanceItem = TmpStore::get($instance->getJobStoreId($processId));
 
-        if (!$instanceItem) {
+        if (!$instanceItem instanceof TmpStore) {
             Logger::error('Video conversion job with processId "' . $processId . '" not found in TmpStore.');
             if ($assetId) {
                 $asset = Model\Asset::getById($assetId);
+                if (!$asset instanceof Model\Asset\Video) {
+                    return;
+                }
                 $customSetting = $asset->getCustomSetting('thumbnails');
                 $customSetting = is_array($customSetting) ? $customSetting : [];
-                if (array_key_exists($instance->getConfig()->getName(), $customSetting)) {
-                    $customSetting[$instance->getConfig()->getName()]['status'] = 'error';
+                $changed = false;
+                foreach ($customSetting as $configName => $setting) {
+                    if (($setting['processId'] ?? null) === $processId && $setting['status'] === 'inprogress') {
+                        $customSetting[$configName]['status'] = 'error';
+                        $changed = true;
+                    }
+                }
+                if ($changed) {
                     $asset->setCustomSetting('thumbnails', $customSetting);
-
-                    Model\Version::disable();
-                    $asset->save();
-                    Model\Version::enable();
+                    self::saveWithoutVersion($asset);
                 }
             }
 
@@ -248,6 +253,7 @@ class Processor
 
                         continue;
                     }
+
                     Storage::get('thumbnail')->writeStream($converter->getStorageFile(), $source);
 
                     fclose($source);
@@ -302,11 +308,9 @@ class Processor
                 'status' => $conversionStatus,
                 'formats' => $formats,
             ];
-            $asset->setCustomSetting('thumbnails', $customSetting);
 
-            Model\Version::disable();
-            $asset->save();
-            Model\Version::enable();
+            $asset->setCustomSetting('thumbnails', $customSetting);
+            self::saveWithoutVersion($asset);
         }
 
         @unlink($workerSourceFile);
@@ -319,6 +323,20 @@ class Processor
         TmpStore::add($this->getJobStoreId(), $this, 'video-job');
 
         return true;
+    }
+
+    private static function saveWithoutVersion(Model\Asset $asset): void
+    {
+        $versioningEnabled = Model\Version::isEnabled();
+        if ($versioningEnabled) {
+            Model\Version::disable();
+        }
+
+        $asset->save();
+
+        if ($versioningEnabled) {
+            Model\Version::enable();
+        }
     }
 
     protected function getJobStoreId(?string $processId = null): string
